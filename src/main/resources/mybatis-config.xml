@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<!-- MyBatis환경설정 -->
+
+
+
+	<!-- 따로따로 맴퍼를 등록해야한다면, 여기에 아래와 같이 등록!! -->
+	<!--
+	<mappers>
+		<mapper resource="testMapper.xml"/>
+		<mapper resource="memberMapper.xml"/>
+	</mappers>
+	-->
+</configuration>
