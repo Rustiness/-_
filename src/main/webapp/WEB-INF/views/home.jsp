@@ -12,6 +12,8 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
-<P>¼±À¯¶õ</P>
+<BR>
+<h2>ì„ ìœ ëž€ í…ŒìŠ¤íŠ¸</h2>
+<h2>Ryoongyung Test</h2>
 </body>
 </html>
