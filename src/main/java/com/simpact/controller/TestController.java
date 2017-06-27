@@ -72,6 +72,26 @@ public class TestController {
 	}
 	
 	
+		
+	@RequestMapping("/test_SYL/talIntro/talentInfo_upload_first")
+	public void talentInfo_upload_first(){
+		
+	}
 	
-
+	@RequestMapping("/test_SYL/talIntro/talentInfo_upload_second")
+	public void talentInfo_upload_second(){
+		
+	}
+	
+	@RequestMapping("/test_SYL/talIntro/talentInfo_upload_third")
+	public void talentInfo_upload_second_third(){
+		
+	}
+	
+	
+	@RequestMapping("/test_SYL/talentintro")
+	public void talentintro(){
+		
+	}
+	
 }
