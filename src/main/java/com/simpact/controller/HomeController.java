@@ -35,5 +35,19 @@ public class HomeController {
 		
 		return "home";
 	}
-	
+
+	/* 클라이언트 메인 */
+	@RequestMapping("/lte")
+	public String client() {
+
+		return "/client/index";
+	}
+
+	/* 어드민 메인 */
+	@RequestMapping("/ad")
+	public String admin() {
+
+		return "/admin/index";
+	}
+
 }

@@ -3,31 +3,28 @@ package com.simpact.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * Created
+ * User: simpact
+ * Date: 2017-06-30
+ * Time: 오후 4:38
+ */
 @Controller
-@RequestMapping("/")
+@RequestMapping("/l")
 public class LoginController {
-	@RequestMapping("/login")
-	public String login() {
-		return "/test_LRG/login";
-	}
 
+	/* 로그인 */
 	@RequestMapping("/confirm")
-	public String memCheck() {
-		return "/test_LRG/confirm";
+	public String confirm() {
+
+		return "/client/login/confirm";
 	}
 
-	@RequestMapping("/agree")
-	public String agree() {
-		return "/test_LRG/agree";
+	/* 비밀번호 찾기 */
+	@RequestMapping("/findPass")
+	public String findPass() {
+
+		return "/client/login/findPass";
 	}
-	
-	@RequestMapping("/login_findinfo")
-	public String login_findinfo() {
-		return "/test_LRG/login_findinfo";
-	}
-	
-	@RequestMapping("/mem_modify")
-	public String mem_modify() {
-		return "/test_LRG/mem_modify";
-	}
+
 }
