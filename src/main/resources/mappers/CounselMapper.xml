@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="csboard2">
+   
+	<insert id="create">
+     insert into counboard(csNO,memNO,questDF,title,content,writeDate,state)
+            values ('CB_A'||LPAD(CounBoard_seq.nextval,5,0),'MEM_A00001','#{code}', #{title}, #{content},sysdate, '2')
+ 	</insert>
+ 	 	
+ 	<update id="update">
+     update counboard
+         set title=#{title}, content=#{content}
+     where csNO=#{csNO}
+  	</update>
+  	
+  	
+  	<delete id="delete">
+     delete from counboard
+     where csNO=#{csNO}
+  	</delete>
+  
+  	<select id="read" resultType="csboard2">
+     select  csNO,memNO,questDF,title,content,writeDate,state
+     from counboard 
+     where csNO=#{csNO}
+  	</select>
+  
+    <select id="listAll" resultType="csboard2">
+      select csNO,memNO,questDF,title,content,state
+      from (select csNO,memNO,questDF,title,content,writeDate,state , rownum rn
+             from (select csNO,memNO,questDF,title,content,writeDate,state 
+                   from counboard   
+                   order by csNO desc)
+            )
+      where rn between  1 and 10             
+  	</select>
+  	
+  	
+  <select id="listPage" resultType="csboard2">
+     select csNO,memNO,questDF,title,content,writeDate,state
+                   from counboard   
+                   order by csNO desc            
+  </select>
+  
+  <select id="countPaging" resultType="int">
+     select count(*) from counboard
+  </select>
+  
+  <!-- 검색어 조회 -->
+  <sql id="search">
+     <if test="searchType != null">                
+	     <if test="searchType == 't'.toString()"> 
+	       where title like '%'||#{keyword}||'%'
+	     </if>           
+	     <if test="searchType == 'c'.toString()">  
+	       where content like '%'||#{keyword}||'%'
+	     </if>           
+	     <if test="searchType == 'w'.toString()">
+	       where writer like '%'||#{keyword}||'%'
+	     </if>           
+     </if>  
+  </sql>
+  
+  
+  
+  <select id="listSearch" resultType="csboard2">
+     select csNO,memNO,questDF,title,content,writeDate,state 
+     from counboard        
+      <include refid="search"></include>     
+           
+      order by csNO desc
+  </select>
+  
+  
+  <select id="listSearchCount" resultType="int">
+     select count(*) from counboard  
+     <include refid="search"></include>             
+  </select>  	
+  	
+</mapper>
