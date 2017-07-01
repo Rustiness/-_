@@ -36,14 +36,14 @@ public class HomeController {
 		return "home";
 	}
 
-	/* Å¬¶óÀÌ¾ğÆ® ¸ŞÀÎ */
+	/* í´ë¼ì´ì–¸íŠ¸ ë©”ì¸ */
 	@RequestMapping("/lte")
 	public String client() {
 
 		return "/client/index";
 	}
 
-	/* ¾îµå¹Î ¸ŞÀÎ */
+	/* ì–´ë“œë¯¼ ë©”ì¸ */
 	@RequestMapping("/ad")
 	public String admin() {
 
