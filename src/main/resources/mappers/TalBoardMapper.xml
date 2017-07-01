@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="talentBoard">
+	<insert id="create">
+	insert into TalentBoard (talDocNO,memNO,title,contentHave,contentWant,excCalls,views,STATE) values('TB_A'||LPAD(TalentBoard_seq.nextval,5,0),'MEM_A00001',#{title},#{contentHave},#{contentWant},0,0,2)
+	</insert>
+	<update id="update">
+		update TalentBoard set title=#{title},
+		contentHave=#{contentHave}, contentWant=#{contentWant}, repairDate=sysdate
+		where talDocNO=#{talDocNO}
+	</update>
+	<delete id="delete">
+		delete from talentlist where writeNO=#{writeNO}
+	</delete>
+
+
+	<!-- 특정게시물 읽기 -->
+	<select id="read" resultType="talentlist">
+		select nickName,writeDate,contentHave,excCalls,contentWant,title from TalentBoard,Member where
+		TalentBoard.memNO = Member.memNO 
+	    AND talDocNO=#{talDocNO}
+	</select>
+	<!-- 리스트 -->
+
+	<select id="listAll" resultType="talentlist">
+		<!-- select bno,title,content,writer,redate,viewcnt from tbl_board order 
+			by bno desc -->
+<![CDATA[select talDocNO,title,contentHave,contentWant,writeDate,memNO from TalentBoard order by talDocNO desc]]>
+	</select>
+
+	<select id="listPage" resultType="talentlist">
+		select talDocNO,title,contentHave,contentWant,writeDate,memNO from TalentBoard order by talDocNO desc
+	</select>
+	<select id="countPaging" resultType="int">
+		select count(*) from
+		TalentBoard
+	</select>
+	<!-- 검색어 조회1 -->
+	<sql id="search">
+		<if test="searchType == 'all'.toString()">
+			AND ((title like '%'||#{keyword}||'%')  
+			or (contentHave like '%'||#{keyword}||'%') 
+			or (contentWant like '%'||#{keyword}||'%') 
+			or (nickName like '%'||#{keyword}||'%' ))
+		</if>
+		<if test="searchType == 't'.toString()">
+			AND title like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'c'.toString()">
+			AND (contentHave like '%'||#{keyword}||'%' OR contentWant like
+			'%'||#{keyword}||'%')	
+		</if>
+		<if test="searchType == 'w'.toString()">
+			AND nickName like '%'||#{keyword}||'%'
+		</if>
+	</sql>
+	
+
+
+
+    
+	<select id="listSearch" resultType="talentlist">
+		select talDocNO,title,contentHave,contentWant,writeDate,nickName,TalentBoard.memNO
+		from
+		TalentBoard,Member
+	    where TalentBoard.memNO = Member.memNO 
+	    <include refid="search"></include>
+	    order by talDocNO desc
+	</select>
+	<select id="listSearchCount" resultType="int">
+		select count(*) from TalentBoard, Member
+		where TalentBoard.memNO = Member.memNO
+		<include refid="search"></include>
+	</select>
+	<!-- 카테고리 조회 -->
+	<select id="categoryList" resultType="talCategory">
+	    select * from DF_TALCATEGORY
+	</select>
+	
+	
+	<select id="divList" resultType="taldiv">
+	    select * from DF_TalDiv  
+	</select>
+</mapper>

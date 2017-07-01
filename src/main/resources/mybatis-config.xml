@@ -5,7 +5,9 @@
 <typeAliases>
 <typeAlias type="com.simpact.domain.TalExchangeVO" alias="rboard"/>
 <typeAlias type="com.simpact.domain.CounselVO" alias="csboard2"/>
-  
+   <typeAlias type="com.simpact.domain.TalBoardVO" alias="talentlist"/>
+   <typeAlias type="com.simpact.domain.TalCategoryVO" alias="talCategory"/>
+   <typeAlias type="com.simpact.domain.TalDivVO" alias="taldiv"/>
 </typeAliases>
 	<!-- 따로따로 맴퍼를 등록해야한다면, 여기에 아래와 같이 등록!! -->
 	<!--
