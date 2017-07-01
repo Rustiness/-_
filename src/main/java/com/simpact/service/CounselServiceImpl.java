@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.simpact.domain.Criteria;
 import com.simpact.persistence.CounselDAO;
-import com.simpact.domain.CSSearchCriteria;
+import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.CounselVO;
 
 
@@ -57,12 +57,12 @@ public class CounselServiceImpl implements CounselService{
 	}
 
 	@Override
-	public List<CounselVO> listSearchCriteria(CSSearchCriteria cri) throws Exception {
+	public List<CounselVO> listSearchCriteria(SearchCriteria cri) throws Exception {
 		return dao.listSearch(cri);
 	}
 
 	@Override
-	public int listSearchCount(CSSearchCriteria cri) throws Exception {
+	public int listSearchCount(SearchCriteria cri) throws Exception {
 		return dao.listSearchCount(cri);
 	}
 	

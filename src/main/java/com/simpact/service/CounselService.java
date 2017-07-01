@@ -5,7 +5,7 @@ import java.util.List;
 
 
 import com.simpact.domain.Criteria;
-import com.simpact.domain.CSSearchCriteria;
+import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.CounselVO;
 
 public interface CounselService {
@@ -25,7 +25,7 @@ public interface CounselService {
 	
 	public int listCountCriteria() throws Exception;
 	
-	public List<CounselVO> listSearchCriteria(CSSearchCriteria cri)throws Exception;
+	public List<CounselVO> listSearchCriteria(SearchCriteria cri)throws Exception;
 	
-	public int listSearchCount(CSSearchCriteria cri) throws Exception;
+	public int listSearchCount(SearchCriteria cri) throws Exception;
 }

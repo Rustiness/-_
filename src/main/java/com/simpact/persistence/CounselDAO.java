@@ -5,7 +5,7 @@ import java.util.List;
 
 
 import com.simpact.domain.Criteria;
-import com.simpact.domain.CSSearchCriteria;
+import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.CounselVO;
 
 public interface CounselDAO {
@@ -28,10 +28,10 @@ public interface CounselDAO {
 	   public int countPaging()throws Exception;//조회(여러행-리스트)
 	   
 	   
-	   public List<CounselVO> listSearch(CSSearchCriteria cri)throws Exception;//검색어 조회
+	   public List<CounselVO> listSearch(SearchCriteria cri)throws Exception;//검색어 조회
 	   
 	   
-	   public int listSearchCount(CSSearchCriteria cri) throws Exception;
+	   public int listSearchCount(SearchCriteria cri) throws Exception;
 	
 	
 }

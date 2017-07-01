@@ -2,7 +2,7 @@ package com.simpact.domain;
 
 import com.simpact.domain.Criteria;
 
-public class CSSearchCriteria extends Criteria{
+public class SearchCriteria extends Criteria{
 
 	private String searchType;
 	private String keyword;

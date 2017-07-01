@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 
 import com.simpact.domain.Criteria;
-import com.simpact.domain.CSSearchCriteria;
+import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.CounselVO;
 
 @Repository
@@ -75,13 +75,13 @@ public class CounselDAOImpl implements CounselDAO {
 	}
 
 	@Override
-	public List<CounselVO> listSearch(CSSearchCriteria cri) throws Exception {
+	public List<CounselVO> listSearch(SearchCriteria cri) throws Exception {
 		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
 		return sqlSession.selectList("csboard2.listSearch",cri,bounds);
 	}
 
 	@Override
-	public int listSearchCount(CSSearchCriteria cri) throws Exception {		
+	public int listSearchCount(SearchCriteria cri) throws Exception {		
 		return sqlSession.selectOne("csboard2.listSearchCount",cri);
 	}
 }

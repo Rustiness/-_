@@ -53,7 +53,7 @@ public class PageMaker {//페이징에 관련된 속성 저장
   public String makeSearch(int page){
 	  //쿼리 생성     ?page=3&perPageNum=10&searchType=Writer&keyword=길동
 	  
-	  String keyword = ((CSSearchCriteria)cri).getKeyword();
+	  String keyword = ((SearchCriteria)cri).getKeyword();
 	         try {
 	        	System.out.println("keyword: "+ keyword);
 	        	if(keyword==null) keyword="";
@@ -66,7 +66,7 @@ public class PageMaker {//페이징에 관련된 속성 저장
 			  UriComponentsBuilder.newInstance()
 			  .queryParam("page", page)
 			  .queryParam("perPageNum", cri.getPerPageNum())
-			  .queryParam("searchType", ((CSSearchCriteria)cri).getSearchType() )
+			  .queryParam("searchType", ((SearchCriteria)cri).getSearchType() )
 			  .queryParam("keyword", keyword)
 			  .build();
 	  return uriComponents.toUriString();//"?page=3&perPageNum=10"

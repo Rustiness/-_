@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
-import com.simpact.domain.CSSearchCriteria;
+import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.CounselVO;
 import com.simpact.domain.Criteria;
 import com.simpact.domain.PageMaker;
@@ -36,7 +36,7 @@ public class CounselController {
 	
 	/* 고객문의 목록 */
 	@RequestMapping("/list")
-   public String listPage(@ModelAttribute("cri") CSSearchCriteria cri, Model model) throws Exception{//게시물 목록 출력
+   public String listPage(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{//게시물 목록 출력
     	
     	List<CounselVO> list = service.listSearchCriteria(cri);
 
@@ -74,7 +74,7 @@ public class CounselController {
 //////////////////////////////////////////////////////////////////////////////////
     //게시물 읽기
     @RequestMapping("/read")
-    public String readPage(String csNO, Model model, CSSearchCriteria cri )throws Exception{    
+    public String readPage(String csNO, Model model, SearchCriteria cri )throws Exception{    
     	model.addAttribute("boardVO",service.read(csNO));    
     	model.addAttribute("cri",cri);
     	return "client/counsel/read";//이동 JSP
@@ -83,7 +83,7 @@ public class CounselController {
 	/* 고객문의 수정 */
 	   //수정폼 보이기
     @RequestMapping(value="/mod", method=RequestMethod.GET) //요청 URL
-    public String upform2(String csNO, Model model, CSSearchCriteria cri) throws Exception{
+    public String upform2(String csNO, Model model, SearchCriteria cri) throws Exception{
     	model.addAttribute("boardVO",service.read(csNO));
     	model.addAttribute("cri", cri);
     	return "client/counsel/modify";
@@ -91,7 +91,7 @@ public class CounselController {
     
     //DB수정
     @RequestMapping(value="/mod", method=RequestMethod.POST) //요청 URL
-    public String update2(CounselVO vo, CSSearchCriteria cri, RedirectAttributes attr ) throws Exception{
+    public String update2(CounselVO vo, SearchCriteria cri, RedirectAttributes attr ) throws Exception{
     	service.modify(vo);
     	
     	attr.addAttribute("page", cri.getPage());
@@ -105,7 +105,7 @@ public class CounselController {
     //DB삭제
     @RequestMapping(value="/removePage", method=RequestMethod.POST)
     public String removePage(String csNO,
-    		CSSearchCriteria cri,
+    		SearchCriteria cri,
     		                 RedirectAttributes attr ) throws Exception{
     	//삭제작업
     	service.remove(csNO);
