@@ -7,20 +7,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created
  * User: simpact
  * Date: 2017-06-30
- * Time: ¿ÀÈÄ 4:38
+ * Time: ì˜¤í›„ 4:38
  */
 @Controller
 @RequestMapping("/l")
 public class LoginController {
 
-	/* ·Î±×ÀÎ */
+	/* ë¡œê·¸ì¸ */
 	@RequestMapping("/confirm")
 	public String confirm() {
 
 		return "/client/login/confirm";
 	}
 
-	/* ºñ¹Ğ¹øÈ£ Ã£±â */
+	/* ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸° */
 	@RequestMapping("/findPass")
 	public String findPass() {
 

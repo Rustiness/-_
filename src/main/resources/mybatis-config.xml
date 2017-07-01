@@ -3,6 +3,7 @@
 <configuration>
 	<!-- MyBatis환경설정 -->
 <typeAliases>
+<typeAlias type="com.simpact.domain.TalExchangeVO" alias="rboard"/>
 <typeAlias type="com.simpact.domain.CounselVO" alias="csboard2"/>
   
 </typeAliases>

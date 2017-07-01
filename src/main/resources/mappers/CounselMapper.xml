@@ -4,7 +4,7 @@
    
 	<insert id="create">
      insert into counboard(csNO,memNO,questDF,title,content,writeDate,state)
-            values ('CB_A'||LPAD(CounBoard_seq.nextval,5,0),'MEM_A00001','#{code}', #{title}, #{content},sysdate, '2')
+            values ('CB_A'||LPAD(CounBoard_seq.nextval,5,0),'MEM_A00001','D_QU01', #{title}, #{content},sysdate, '2')
  	</insert>
  	 	
  	<update id="update">

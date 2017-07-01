@@ -2,8 +2,8 @@ package com.simpact.domain;
 
 public class Criteria {
 	// 페이지 정보(page)와 한 페이지당 보여질 레코드 수(perPageNum)를 표현
-	private int page;
-	private int perPageNum;
+	private int page;//현재 조회하는 페이지의 번호
+	private int perPageNum;//한페이지당 출력하는 데이터의 개수
 	
 	public Criteria() {
 		//기본값
