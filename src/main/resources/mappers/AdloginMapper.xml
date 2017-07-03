@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Adlogin">
+	<!-- 로그인(직원인 사람만) -->	
+	<select id="login" resultType="int">		
+		select count(*)
+		from member
+		where email=#{email}
+		  and pass =#{pass}
+		  and (state ='2' or state ='3')
+		  and personDF='D_PE02'			<!-- 등급이 직원인 사람만 -->
+	</select>
+	
+	<!-- email을 통한 memNO얻기 -->
+	<select id="getMemNO" resultType="String">
+		select memNO
+		from member
+		where email=#{email}
+	</select>
+	
+	<!-- 로그인 성공시 최근접속일 최신화 -->
+	<update id="latestDateUpdate">
+		update member
+		set latestDate=sysdate
+	</update>
+	
+	<!-- momNO를 통한 전체 정보 얻기-->
+	<select id="getMeminfo" resultType="member" >
+		select memNO,personDF,email,pass,name,nickname,birth,sex,tel,joinDate,latestDate,state,id
+		from member natural join NP_MemMes 
+		where memNO=#{memNO}
+	</select>
+	
+	<!-- 수정하기 -->
+	<!--<update id="memberUpdate" parameterType="member">
+		update member		
+		set pass=#{pass},name=#{name},nickname=#{nickname},tel=#{tel}
+		where memNO=#{memNO}
+	</update>
+	
+	비밀번호찾기
+	<select id="findpass" resultType="String">
+		select pass
+		from member
+		where email=#{email} and name=#{name} and tel=#{tel}
+	</select>
+	
+	비밀번호 확인
+	<select id="passcheck" resultType="int">
+		select count(*)
+		from member
+		where memNO=#{memNO}
+		and   pass=#{pass}
+	</select>
+	회원탈퇴
+	<update id="delete">
+		update member
+		set state='4'
+		where memNO=#{memNO}
+		and   pass=#{pass}
+		
+	</update>
+	 -->
+</mapper>
