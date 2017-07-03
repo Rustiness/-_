@@ -36,6 +36,10 @@
 		location.href = "/ad";
 	});
 
+	$(document).on('click', '#Adlogin', function() { //로그인화면으로
+		location.href = "/ad";
+	});
+
 	$(document).on('click', '#gomemberlist', function() { //회원목록으로
 		location.href = "/ad/m/list";
 	});

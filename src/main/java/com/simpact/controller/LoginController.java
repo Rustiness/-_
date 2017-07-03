@@ -36,7 +36,7 @@ public class LoginController {
 	@RequestMapping("/logout")		//로그아웃!!
 	public String logout(HttpServletRequest req){	//로그인화면 출력
 		req.getSession().invalidate();			//로그아웃시 모든 세션제거
-		return "redirect:l/confirm";
+		return "redirect:/l/confirm";
 	}
 	
 	@RequestMapping("/check")
@@ -67,7 +67,7 @@ public class LoginController {
 		return "client/login/findPass";
 	}
 	
-	@RequestMapping("/login/findpass/check")
+	@RequestMapping("/findpass/check")
 	public @ResponseBody String findPasscheck(String email, String name, String tel, Model model){//db에서 비밀번호 찾기
 		String findpass =null;
 		try {

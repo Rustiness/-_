@@ -11,12 +11,12 @@
 	alert("비밀번호 찾기 페이지입니다.\n회원가입시 입력하셨던 아이디(email),이름,전화번호를 입력해주세요.");
 
 	$(document).on('click', '#back', function() {
-		location.href="/logout";
+		location.href="/l/logout";
 	});
 	
 	$(document).on('click', '#findpass', function() {
 		$.ajax({
-			url : "http://localhost/login/findpass/check",
+			url : "http://localhost/l/findpass/check",
 			type : "post",
 			data : {
 				email : $('#email').val(),
@@ -35,7 +35,6 @@
 							document.frm.name.value='';		
 							document.frm.tel.value='';	
 							$('#d1').html("<font color=blue>비밀번호는 :[ ${findpass} ]입니다</font>");
-							/* location.href="sendmail"; */
 						}
 			}
 			
