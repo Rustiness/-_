@@ -22,19 +22,16 @@ public class TalBoardDAOImpl implements TalBoardDAO {
 	@Override
 	public void create(TalBoardVO vo) throws Exception {
 		sqlsession.insert("talentBoard.create", vo);
-
 	}
 
 	@Override
 	public void update(TalBoardVO vo) throws Exception {
 		sqlsession.update("talentBoard.update", vo);
-
 	}
 
 	@Override
 	public void delete(int talDocNO) throws Exception {
 		sqlsession.delete("talentBoard.delete", talDocNO);
-
 	}
 
 	@Override
@@ -44,7 +41,6 @@ public class TalBoardDAOImpl implements TalBoardDAO {
 
 	@Override
 	public List<TalBoardVO> listAll() throws Exception {
-
 		return sqlsession.selectList("talentBoard.listAll");
 	}
 
@@ -62,7 +58,6 @@ public class TalBoardDAOImpl implements TalBoardDAO {
 	@Override
 	public List<TalBoardVO> listCriteria(Criteria cri) throws Exception {
 		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
-
 		return sqlsession.selectList("talentBoard.listAll", null, bounds);
 	}
 
@@ -84,13 +79,11 @@ public class TalBoardDAOImpl implements TalBoardDAO {
 
 	@Override
 	public List<TalCategoryVO> categoryList() throws Exception {
-	
 		return sqlsession.selectList("talentBoard.categoryList");
 	}
 
 	@Override
 	public List<TalDivVO> divList() throws Exception {
-		
 		return sqlsession.selectList("talentBoard.divList");
 	}
 

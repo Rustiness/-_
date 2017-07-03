@@ -13,7 +13,7 @@ public class AdLoginServiceImpl implements AdLoginService {
 
 	@Inject
 	AdLoginDAO dao;
-	
+
 	@Override
 	public int loginCheck(String email, String pass) throws Exception {
 		return dao.loginCheck(email, pass);

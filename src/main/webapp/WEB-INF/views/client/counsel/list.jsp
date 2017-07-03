@@ -18,17 +18,17 @@
 		<!-- left column -->
 		<div class="col-md-12">
 			<!-- general form elements -->
-			
+
 			<div class='box'>
 				<div class="box-header with-border">
 				<center>
 					<h1 class="box-title">고객문의 게시판</h1>
-					
+
 				</center>
 				</div>
 				<center>
 				<div class="box-body">
-				
+
 				<select name="searchType">
 						<option value="n"
 							<c:out value="${cri.searchType == null?'selected':''}"/>>
@@ -42,15 +42,15 @@
 						<option value="w"
 							<c:out value="${cri.searchType eq 'w'?'selected':''}"/>>
 							Writer</option>
-						
-					</select> 
+
+					</select>
 					<input type="text" name='keyword' id="keywordInput"
 						value='${cri.keyword }' placeholder="검색어">
 					<button id='searchBtn'>Search</button>
 					<button id='newBtn'>New Board</button>
 					<br>
-				
-				
+
+
 				<center>
 					<table class="table table-bordered" cellpadding="10">
 						<tr>
@@ -59,14 +59,14 @@
 							<th>제목</th>
 							<th>작성자번호</th>
 							<th>작성일</th>
-							
+
 							<th>상태</th>
 						</tr>
 
 						<c:forEach items="${list}" var="boardVO">
 
-						
-							
+
+
 						<tr>
 							<td>${boardVO.csNO}</td>
 							<td>${boardVO.questDF }</td>
@@ -76,7 +76,7 @@
 							<td>${boardVO.memNO}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 										value="${boardVO.writeDate}" /></td>
-							
+
 							<td> <center> ${boardVO.state }</center></td>
 						</tr>
 

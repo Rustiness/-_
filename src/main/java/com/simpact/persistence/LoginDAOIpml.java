@@ -15,23 +15,23 @@ public class LoginDAOIpml implements LoginDAO {
 
 	@Inject
 	SqlSession sqlSession;
-	
+
 	@Override
-	public int loginCheck(String email,String pass) {	//·Î±×ÀÎ °¡´ÉÇÑÁö È®ÀÎ -- id ¿Í pass¸¦ ºñ±³ÇÏ¿© ÀÖÀ¸¸é 1 ¾øÀ¸¸é 0 return; 
+	public int loginCheck(String email,String pass) {	//ë¡œê·¸ì¸ ê°€ëŠ¥í•œì§€ í™•ì¸ -- id ì™€ passë¥¼ ë¹„êµí•˜ì—¬ ìˆìœ¼ë©´ 1 ì—†ìœ¼ë©´ 0 return;
 		Map<String, String> map = new HashMap<>();
 		map.put("email", email);
 		map.put("pass", pass);
 		return sqlSession.selectOne("login.login",map);
 	}
-	
+
 	@Override
-	public String selectMemberNO(String email) {		//ÀÌ¸ŞÀÏ·Î È¸¿øÁ¤º¸
+	public String selectMemberNO(String email) {		//ì´ë©”ì¼ë¡œ íšŒì›ì •ë³´
 		return sqlSession.selectOne("login.getMemNO", email);
 	}
 
 	@Override
-	public MemberVO selectMemberinfo(String memNO) {		//È¸¿ø¹øÈ£·Î È¸¿øÁ¤º¸ ÀüÃ¼
-		
+	public MemberVO selectMemberinfo(String memNO) {		//íšŒì›ë²ˆí˜¸ë¡œ íšŒì›ì •ë³´ ì „ì²´
+
 		return sqlSession.selectOne("login.getMeminfo",memNO);
 	}
 
@@ -53,16 +53,16 @@ public class LoginDAOIpml implements LoginDAO {
 	public int uppasscheck(String memNO, String uppass) {
 		Map<String, String> map = new HashMap<>();
 		map.put("memNO", memNO);
-			map.put("pass", uppass);
+		map.put("pass", uppass);
 		return sqlSession.selectOne("login.passcheck",map);
 	}
-	
+
 	@Override
 	public int delpasscheck(String memNO, String delpass) {
 		Map<String, String> map = new HashMap<>();
 		map.put("memNO", memNO);
 		map.put("pass", delpass);
-		return sqlSession.update("login.delete",map); 
+		return sqlSession.update("login.delete",map);
 	}
 
 	@Override

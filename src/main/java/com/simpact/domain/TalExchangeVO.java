@@ -11,7 +11,6 @@ public class TalExchangeVO {
 	private Date repairDate; /* 수정일시 */
 	private String state; /* 표시상태 */
 
-	
 	private String name;//내가 받은 재능명
 	private String nickname;//상대방의 닉네임
 
@@ -95,8 +94,5 @@ public class TalExchangeVO {
 		this.nickname = nickname;
 	}
 
-	
-	
-	
 
 }

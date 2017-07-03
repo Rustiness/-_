@@ -2,63 +2,63 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="login">
 	<!-- 로그인 -->
-	<select id="login" resultType="int">		
-		select count(*)
-		from member
-		where email=#{email}
-		  and pass =#{pass}
-		  and (state ='2' or state ='3')
-		  and personDF='D_PE01'		<!-- 등급이 일반회원인 사람만 -->
+	<select id="login" resultType="int">
+		SELECT count(*)
+		FROM member
+		WHERE email=#{email}
+		AND pass =#{pass}
+		AND (state ='2' OR state ='3')
+		AND personDF='D_PE01'        <!-- 등급이 일반회원인 사람만 -->
 	</select>
-	
+
 	<!-- email을 통한 memNO얻기 -->
 	<select id="getMemNO" resultType="String">
-		select memNO
-		from member
-		where email=#{email}
+		SELECT memNO
+		FROM member
+		WHERE email = #{email}
 	</select>
-	
+
 	<!-- 로그인 성공시 최근접속일 최신화 -->
 	<update id="latestDateUpdate">
-		update member
-		set latestDate=sysdate
+		UPDATE member
+		SET latestDate = sysdate
 	</update>
-	
+
 	<!-- momNO를 통한 전체 정보 얻기-->
-	<select id="getMeminfo" resultType="member" >
-		select memNO,personDF,email,pass,name,nickname,birth,sex,tel,joinDate,latestDate,state,id
-		from member natural join NP_MemMes 
-		where memNO=#{memNO}
+	<select id="getMeminfo" resultType="member">
+		SELECT memNO, personDF, email, pass, name, nickname, birth, sex, tel, joinDate, latestDate, state, id
+		FROM member
+			NATURAL JOIN NP_MemMes
+		WHERE memNO = #{memNO}
 	</select>
-	
+
 	<!-- 수정하기 -->
 	<update id="memberUpdate" parameterType="member">
-		update member		
-		set pass=#{pass},name=#{name},nickname=#{nickname},tel=#{tel}
-		where memNO=#{memNO}
+		UPDATE member
+		SET pass = #{pass}, name = #{name}, nickname = #{nickname}, tel = #{tel}
+		WHERE memNO = #{memNO}
 	</update>
-	
+
 	<!-- 비밀번호찾기 -->
 	<select id="findpass" resultType="String">
-		select pass
-		from member
-		where email=#{email} and name=#{name} and tel=#{tel}
+		SELECT pass
+		FROM member
+		WHERE email = #{email} AND name = #{name} AND tel = #{tel}
 	</select>
-	
+
 	<!-- 비밀번호 확인 -->
 	<select id="passcheck" resultType="int">
-		select count(*)
-		from member
-		where memNO=#{memNO}
-		and   pass=#{pass}
+		SELECT count(*)
+		FROM member
+		WHERE memNO = #{memNO}
+		      AND pass = #{pass}
 	</select>
+
 	<!-- 회원탈퇴 -->
 	<update id="delete">
-		update member
-		set state='4'
-		where memNO=#{memNO}
-		and   pass=#{pass}
-		
+		UPDATE member
+		SET state = '4'
+		WHERE memNO = #{memNO}
+		      AND pass = #{pass}
 	</update>
-	
 </mapper>

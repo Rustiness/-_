@@ -12,9 +12,9 @@ import com.simpact.domain.TalExchangeVO;
 import com.simpact.persistence.TalExchangeDAO;
 
 @Service
-public class TalExchangeServiceImpl implements TalExchangeService{
+public class TalExchangeServiceImpl implements TalExchangeService {
 	//Controller ---> Service ---> DAO ---> xml
-	
+
 	@Inject
 	private TalExchangeDAO dao;
 
@@ -26,20 +26,15 @@ public class TalExchangeServiceImpl implements TalExchangeService{
 	@Override
 	public void modify(TalExchangeVO vo) throws Exception {//변경
 		dao.update(vo);
-		
 	}
 
 	@Override
 	public void remove(String talExcNO) throws Exception {//삭제
 		dao.delete(talExcNO);
-		
 	}
 
-
-
 	@Override
-	public TalExchangeVO read(String talExcNO) throws Exception {//삭세보기
-		
+	public TalExchangeVO read(String talExcNO) throws Exception {//상세보기
 		return dao.read(talExcNO);
 	}
 
@@ -67,6 +62,5 @@ public class TalExchangeServiceImpl implements TalExchangeService{
 	public int listSearchCount(SearchCriteria cri) throws Exception {
 		return dao.listSearchCount(cri);
 	}
-	
-	
+
 }

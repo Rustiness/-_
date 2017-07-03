@@ -1,4 +1,4 @@
- package com.simpact.controller;
+package com.simpact.controller;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -30,9 +30,7 @@ public class TalBoardController {
 
 	// 재능글 목록
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(SearchCriteria cri, Model model) throws Exception {// 게시물
-																			// 목록
-																			// 출력
+	public String list(SearchCriteria cri, Model model) throws Exception {// 게시물 목록 출력
 
 		// model.addAttribute("list", service.listCriteria(cri));
 		model.addAttribute("list", service.listSearch(cri));
@@ -44,18 +42,17 @@ public class TalBoardController {
 		model.addAttribute("pageMaker", maker);
 
 		return "client/talBoard/list";
-
 	}
 
 	// 재능글 등록 (1단계)
 	@RequestMapping(value = "/write1s", method = RequestMethod.GET)
-	public String uploadFirstGET(Model model, SearchCriteria cri, HttpSession session, TalBoardVO vo,
-			HttpServletRequest req) throws Exception {
+	public String uploadFirstGET(Model model, SearchCriteria cri, HttpSession session, TalBoardVO vo, HttpServletRequest req) throws Exception {
 
 		model.addAttribute("categoryList", service.categoryList());
 		model.addAttribute("divList", service.divList());
 		model.addAttribute("cri", cri);
 		model.addAttribute("TalentListVO", vo);
+
 		return "client/talBoard/write1step";
 	}
 
@@ -66,12 +63,12 @@ public class TalBoardController {
 		session.setAttribute("TalentListVO", vo);
 
 		return "redirect:/tb/write2s";
-
 	}
 
 	// 재능글 등록 (2단계)
 	@RequestMapping(value = "/write2s", method = RequestMethod.GET)
 	public String uploadSecondGET() throws Exception {
+
 		return "client/talBoard/write2step";
 	}
 
@@ -108,7 +105,6 @@ public class TalBoardController {
 
 		return "client/talBoard/read";
 	}
-
 
 	/* 재능글 수정 */
 	@RequestMapping("/mod")

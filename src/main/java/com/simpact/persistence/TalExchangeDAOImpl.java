@@ -21,12 +21,11 @@ public class TalExchangeDAOImpl implements TalExchangeDAO {
 	@Override
 	public void create(TalExchangeVO vo) throws Exception {
 		sqlSession.insert("rboard.create", vo);
-
 	}
 
 	@Override
 	public TalExchangeVO read(String talExcNO) throws Exception {
-	
+
 		return sqlSession.selectOne("rboard.read", talExcNO);
 	}
 

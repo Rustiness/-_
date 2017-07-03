@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="talExcConn">
+
+	<!-- 연결 생성 -->
+	<insert id="create">
+		INSERT INTO TalExcConn (talConnNO, talDocNO, title, content, reqDate, state)
+		VALUES ('TEC_A' || LPAD(TalExcConn_seq.nextval, 5, 0), 'TB_A00005', #{title}, #{content}, sysdate, 2)
+	</insert>
+
+
+	<!-- 게시물 상세읽기 -->
+	<select id="read" resultType="talExcConnVO">
+		SELECT talConnNO, title, content, reqDate
+		FROM TalExcConn
+		WHERE talConnNO = #{talConnNO}
+	</select>
+
+	<!--  검색어 조회 -->
+	<sql id="search">
+		<if test="searchType !=null">
+			<if test="searchType == 't'.toString()">
+				AND e.title LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'c'.toString()">
+				AND e.content LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'w'.toString()">
+				AND nickname LIKE '%'||#{keyword}||'%'
+			</if>
+		</if>
+	</sql>
+
+	<!-- 검색하기 -->
+	<select id="listSearch" resultType="talExcConnVO">
+		SELECT TEC.talConnNO, M.nickname, title, content, reqDate, TEC.state
+		FROM NP_TalHaveCn THC, TalExcConn TEC, Member M
+		WHERE TEC.memNO = M.memNO
+		      AND THC.talConnNO = TEC.talConnNO
+		GROUP BY TEC.talConnNO, M.NICKNAME, TITLE, CONTENT, REQDATE, TEC.STATE
+		ORDER BY talConnNO DESC
+	</select>
+
+	<select id="listTalDivCn" resultType="taldiv">
+		SELECT *
+		FROM NP_TalHaveCn
+			NATURAL JOIN DF_TALDIV
+	</select>
+
+	<!-- 전체글갯수 확인하기 -->
+	<select id="countPaging" resultType="int">
+		SELECT COUNT(*)
+		FROM TalExcConn
+	</select>
+
+	<!-- 검색으로 찾은 목록 갯수 확인하기 -->
+	<select id="listSearchCount" resultType="int">
+		SELECT COUNT(*) FROM TalExcConn
+		<include refid="search"></include>
+	</select>
+</mapper>

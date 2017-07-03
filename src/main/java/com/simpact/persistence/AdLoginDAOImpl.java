@@ -12,16 +12,16 @@ import com.simpact.domain.MemberVO;
 
 @Repository
 public class AdLoginDAOImpl implements AdLoginDAO {
-	
+
 	@Inject
 	SqlSession sqlSession;
-	
+
 	@Override
 	public int loginCheck(String email, String pass) {
 		Map<String, String> map = new HashMap<>();
 		map.put("email", email);
 		map.put("pass", pass);
-		return sqlSession.selectOne("Adlogin.login",map );
+		return sqlSession.selectOne("Adlogin.login", map);
 	}
 
 	@Override
@@ -32,7 +32,6 @@ public class AdLoginDAOImpl implements AdLoginDAO {
 	@Override
 	public void latestDateUpdate(String memNO) {
 		sqlSession.update("Adlogin.latestDateUpdate");
-
 	}
 
 	@Override
