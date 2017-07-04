@@ -7,6 +7,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%-- .jsp --%>
 <%@include file="../include/header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!-- Main content -->
 <section class="content">
@@ -23,29 +24,41 @@
 				<table>
 					<tr>
 						<th>카테고리</th>
-						<br>
-						<td><select>
-								<option >재능교환</option>
-								<option>교환후기</option>
-								<option>재능등록</option>
-						</select></td>
-						<br>
+						  <td>
+						    <select name="questDF">
+						        <c:forEach items="${list}" var="boardVO">
+								
+								   <option value="${boardVO.questDF }">${boardVO.name }</option>
+								
+								</c:forEach>
+						    </select>
+						  </td>
 					</tr>
-					<br>
 					<tr>
 						<th>공개여부</th>
-						<td><select>
+						   <td>
+						     <select>
 								<option>공개</option>
 								<option>비공개</option>
-						</select></td>
+						     </select>
+						   </td>
 						<br>
 					</tr>
 					<br>
 
 				</table>
-					<div class="form-group">
-						<label for="writer">작성자</label> <input type="text" id="writer"
-							name="writer" class="form-control" placeholder="작성자">
+				
+				
+<div class="form-group">
+						<label for="writer">작성자닉네임</label> 
+						<select name="memNO">
+						        <c:forEach items="${list2}" var="boardVO">
+								
+								<option value="${boardVO.memNO }">${boardVO.nickName }</option>
+								
+								</c:forEach>
+						   </select>
+							
 
 				<div class="box-body">
 					<div class="form-group">
@@ -55,8 +68,9 @@
 					</div>
 					<div class="form-group">
 						<label for="content">문의 내용</label>
-						<textarea class="form-control" name="content" rows="3"
-							id="content" placeholder="내용 ..."></textarea>
+						<br>
+						<textarea class="form-control" name="content" rows="5" cols="50"
+							id="content" placeholder="내용 "></textarea>
 					</div>
 					</div>
 				</div>

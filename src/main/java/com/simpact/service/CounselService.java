@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import com.simpact.domain.Criteria;
+import com.simpact.domain.QuestionVO;
 import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.CounselVO;
 
@@ -18,7 +19,11 @@ public interface CounselService {
 	public CounselVO read(String csNO) throws Exception; //조회
 
 	public List<CounselVO> listAll() throws Exception; //전체조회
-
+	
+	public List<QuestionVO> listcate() throws Exception; //카테고리조회
+	
+	public List<CounselVO> listnick() throws Exception; //닉네임조회
+	
 	public List<CounselVO> listCriteria(Criteria cri) throws Exception; //전체조회
 
 	public int listCountCriteria() throws Exception;

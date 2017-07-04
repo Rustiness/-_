@@ -7,17 +7,19 @@ public class CounselVO {
 	private String csNO; //게시물번호
 	private String memNO; // 회원번호(작성자느낌)
 	private String questDF; // 항목번호(어떤 종류의 문의인지)
+	private String name; // 항목번호(어떤 종류의 문의인지)
 	private String title; // 문의제목
 	private String content; //문의내용
 	private Date writeDate;  //등록일시
 	private Date repairDate; //수정일시
 	private String state; // 표시상태
-
+	private String nickName;//닉네임
+	
 	@Override
 	public String toString() {
-		return "CounselVO [csNO=" + csNO + ", memNO=" + memNO + ", questDF=" + questDF + ", title=" + title
-				+ ", content=" + content + ", writeDate=" + writeDate + ", repairDate=" + repairDate + ", state="
-				+ state + "]";
+		return "CounselVO [csNO=" + csNO + ", memNO=" + memNO + ", questDF=" + questDF + ", name=" + name + ", title="
+				+ title + ", content=" + content + ", writeDate=" + writeDate + ", repairDate=" + repairDate
+				+ ", state=" + state + ", nickName=" + nickName + "]";
 	}
 
 	public String getCsNO() {
@@ -43,7 +45,12 @@ public class CounselVO {
 	public void setQuestDF(String questDF) {
 		this.questDF = questDF;
 	}
-
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -83,6 +90,12 @@ public class CounselVO {
 	public void setState(String state) {
 		this.state = state;
 	}
-
-
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	
+	
 }

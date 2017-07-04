@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 
 import com.simpact.domain.Criteria;
+import com.simpact.domain.QuestionVO;
 import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.CounselVO;
 
@@ -83,5 +84,16 @@ public class CounselDAOImpl implements CounselDAO {
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {		
 		return sqlSession.selectOne("csboard2.listSearchCount",cri);
+	}
+
+	@Override
+	public List<QuestionVO> listcate() throws Exception {
+
+		return sqlSession.selectList("quest.cate");
+	}
+
+	@Override
+	public List<CounselVO> listnick() throws Exception {
+		return sqlSession.selectList("csboard2.nick");
 	}
 }

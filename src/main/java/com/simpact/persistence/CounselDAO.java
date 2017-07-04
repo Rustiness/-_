@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import com.simpact.domain.Criteria;
+import com.simpact.domain.QuestionVO;
 import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.CounselVO;
 
@@ -18,7 +19,11 @@ public interface CounselDAO {
 	public CounselVO read(String csNO) throws Exception;// 한개 읽어
 
 	public List<CounselVO> listAll() throws Exception; //다 읽어
-
+	
+	public List<QuestionVO> listcate() throws Exception; ///////카테고리읽어!!!!!!!
+	
+	public List<CounselVO> listnick() throws Exception; ///////닉네임읽어!!!!!!!
+	
 	public List<CounselVO> listPage(int page) throws Exception;//조회(여러행-리스트)
 
 	public List<CounselVO> listCriteria(Criteria cri) throws Exception;//조회(여러행-리스트)

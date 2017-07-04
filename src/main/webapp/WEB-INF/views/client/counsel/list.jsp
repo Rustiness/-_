@@ -57,29 +57,31 @@
 							<th style="width: 10px">NO.</th>
 							<th>문의항목</th>
 							<th>제목</th>
-							<th>작성자번호</th>
+							<th>닉네임</th>
 							<th>작성일</th>
-
 							<th>상태</th>
+							
+<%-- 	<c:if test="${param.age <20 }">
+     <font color='blue'>상태부분 조정 할떄 이거 사용해서 하자~!!</font><br>
+  	</c:if> --%>
+							
 						</tr>
 
 						<c:forEach items="${list}" var="boardVO">
 
-
-
 						<tr>
 							<td>${boardVO.csNO}</td>
-							<td>${boardVO.questDF }</td>
+							<td>${boardVO.name }</td>
 							<td><a
 									href='/c/read${pageMaker.makeSearch(pageMaker.cri.page) }&csNO=${boardVO.csNO}'>
 										${boardVO.title} </a></td>
-							<td>${boardVO.memNO}</td>
+										
+										
+							<td>${boardVO.nickName}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 										value="${boardVO.writeDate}" /></td>
-
 							<td> <center> ${boardVO.state }</center></td>
 						</tr>
-
 						</c:forEach>
 
 					</table>

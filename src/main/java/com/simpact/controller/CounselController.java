@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.simpact.domain.CounselVO;
 import com.simpact.domain.PageMaker;
+import com.simpact.domain.QuestionVO;
 import com.simpact.domain.SearchCriteria;
 import com.simpact.service.CounselService;
 
@@ -34,7 +35,10 @@ public class CounselController {
 	@RequestMapping("/list")
 	public String listPage(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception { //게시물 목록 출력
 		List<CounselVO> list = service.listSearchCriteria(cri);
-		model.addAttribute("list", list);
+	    	List<CounselVO> list2 = service.listnick();//닉네임
+
+	    	model.addAttribute("list", list);
+	    	model.addAttribute("list2", list2);//닉네임
 		PageMaker maker = new PageMaker();
 		maker.setCri(cri);
 		maker.setTotalCount(service.listSearchCount(cri));
@@ -45,8 +49,14 @@ public class CounselController {
 
 	///////////////////////////////////////////////////////////////////
 	//입력폼으로가라~
-	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String information_uploadget() throws Exception {
+	@RequestMapping(value="/write", method=RequestMethod.GET)
+	public String information_uploadget(@ModelAttribute("cri") SearchCriteria cri, Model model)throws Exception{
+
+		List<QuestionVO> list = service.listcate();
+		List<CounselVO> list2 = service.listnick();
+    	model.addAttribute("list", list);//문의항목
+    	model.addAttribute("list2", list2);//닉네임
+    	System.out.println(list.toString());
 		return "client/counsel/write";
 	}
 
