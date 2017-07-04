@@ -42,7 +42,9 @@
 							<td>${talExcConnList.talConnNO}</td>
 							<td>
 								<c:forEach items="${divList }" var="talDivItem">
-									<c:out value="${talExcConnList.talConnNO eq talDivItem.talConnNO ? talDivItem.name:''}"/>
+									<c:if test="${talExcConnList.talConnNO eq talDivItem.talConnNO}">
+										<p>#${talDivItem.name}</p>
+									</c:if>
 								</c:forEach>
 							</td>
 							<td>

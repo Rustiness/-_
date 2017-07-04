@@ -29,7 +29,7 @@
 		if (log == '') { //세션값이 없을경우
 			$('#onlogin').hide(); // ID가 onlogin인 요소를 show();
 		} else { // 그 외에는
-			$('#unlogin').hide(); // ID가 unlogin인 요소를 hide();        
+			$('#unlogin').hide(); // ID가 unlogin인 요소를 hide();
 		}
 	});
 
@@ -56,69 +56,58 @@
 </head>
 <%-- header.jsp --%>
 <body>
-
-	<div id="bs-content-row-navbar-collapse-5"
-		class="collapse navbar-collapse" style="background-color: gray">
+<nav role="navigation" class="navbar navbar-custom">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
-			<button data-target="#bs-content-row-navbar-collapse-5"
-				data-toggle="collapse" class="navbar-toggle" type="button">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
+			<button data-target="#bs-content-row-navbar-collapse-5" data-toggle="collapse" class="navbar-toggle" type="button">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
 			</button>
-			<input type="button" value="Talent Exchange" class="btn btn-default">
+			<a href="/lte" class="navbar-brand">LTE : Life Talent Exchange</a>
 		</div>
 
-		<ul class="nav navbar-nav navbar-right">
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div id="bs-content-row-navbar-collapse-5" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav navbar-left">
+				<li class="active"><a href="/intro">재능교환이란?</a></li>
+
+				<li class="dropdown">
+					<a data-toggle="dropdown" class="dropdown-toggle" href="#">재능교환<b class="caret"></b></a>
+					<ul role="menu" class="dropdown-menu">
+						<li class="dropdown-header">재능 목록</li>
+						<li><a href="/tb/list">전체</a></li>
+						<li class="divider"></li>
+						<li class="disabled"><a href="/tb/list?talCateDF=">디자인</a></li>
+						<li class="disabled"><a href="/tb/list?talCateDF=">문서</a></li>
+						<li class="disabled"><a href="/tb/list?talCateDF=">번역</a></li>
+					</ul>
+				</li>
+				<li class="active"><a href="/tec/list">교환정보</a></li>
+				<li class="active"><a href="/tr/list">교환후기</a></li>
+				<li class="active"><a href="/c/list">고객센터</a></li>
+				<!-- <li class="disabled"><a href="#">Link</a></li> -->
+			</ul>
+			<ul id="unlogin" class="nav navbar-nav navbar-right">
+				<li class="active">
+					<input type="button" class="btn btn-danger navbar-btn" id="gologin" value="로그인"/>
+					<input type="button" class="btn btn-danger navbar-btn" id="join"  value="회원가입"/>
+				</li>
+			</ul>
+			<ul id="onlogin" class="nav navbar-nav navbar-right" type="hidden">
+				<li>
+					<input type="button" class="btn btn-danger navbar-btn" id="tecclistaa" value="알림함"/>
+					<input type="button" class="btn btn-danger navbar-btn" id="userallinfo" value="계정정보"/>
+					<p class="navbar-text"><a class="navbar-link" href="">${SUCCESS.name } 님</a>
+					</p>
+					<input type="button" class="btn btn-danger navbar-btn" id="logout" value="로그아웃"/>
+				</li>
+			</ul>
 			<input type="hidden" value="${SUCCESS.memNO }" id="memNO">
-			<li class="active" id="unlogin"><input type="button" value="로그인"
-				id="gologin" class="btn btn-default"> <input type="button"
-				value="회원가입" id="join" class="btn btn-default"></li>
-			<li class="active" id="onlogin"><input type="button" value="알림함"
-				id="tecclistaa" class="btn btn-default"> <input
-				type="button" value="계정정보" id="userallinfo" class="btn btn-default">
-				${SUCCESS.name } 님 <input type="button" value="로그아웃" id="logout"
-				class="btn btn-default"></li>
-
-		</ul>
-		<ul class="nav navbar-nav navbar-left">
-			<li class="active"><input type="button" value="재능교환이란?"
-				class="btn btn-default">
-			<li class="dropdown"><a data-toggle="dropdown"
-				class="dropdown-toggle" href="#">재능 항목 <b class="caret"></b></a>
-				<ul role="menu" class="dropdown-menu">
-					<li><a href="#">디자인</a></li>
-					<li class="divider"></li>
-					<li><a href="#">문서</a></li>
-					<li class="divider"></li>
-					<li><a href="#">번역</a></li>
-					<li class="divider"></li>
-					<li><a href="#">컨텐츠제작</a></li>
-					<li class="divider"></li>
-					<li><a href="#">마케팅</a></li>
-					<li class="divider"></li>
-					<li><a href="#">상담&노하우</a></li>
-					<li class="divider"></li>
-					<li><a href="#">IT&프로그래밍</a></li>
-				</ul></li>
-			<input type="button" value="교환후기" class="btn btn-default">
-			<input type="button" value="소모임" class="btn btn-default">
-			<input type="button" value="고객센터" class="btn btn-default">
-
-			</li>
-		</ul>
-	</div>
-
-	<li class="dropdown"><a data-toggle="dropdown"
-		class="dropdown-toggle" href="#">Silverbux <b class="caret"></b></a>
-		<ul role="menu" class="dropdown-menu">
-			<li class="dropdown-header">Setting</li>
-			<li><a href="#">Action</a></li>
-			<li class="divider"></li>
-			<li class="active"><a href="#">Separated link</a></li>
-			<li class="divider"></li>
-			<li class="disabled"><a href="#">Signout</a></li>
-		</ul></li>
-
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
 </body>
 </html>
