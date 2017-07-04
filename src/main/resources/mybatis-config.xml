@@ -10,6 +10,7 @@
 		<typeAlias type="com.simpact.domain.TalDivVO" alias="taldiv"/>
 		<typeAlias type="com.simpact.domain.MemberVO" alias="member"/>
 		<typeAlias type="com.simpact.domain.TalExcConnVO" alias="talExcConnVO"/>
+		<typeAlias type="com.simpact.domain.MessengerVO" alias="messengerVO"/>
 	</typeAliases>
 	<!-- 따로따로 맴퍼를 등록해야한다면, 여기에 아래와 같이 등록!! -->
 	<!--

@@ -15,7 +15,7 @@ public class MemberVO {
 	private String email;
 	private String pass;
 	private String name;
-	private String nickname;
+	private String nickName;
 	private Date birth;
 	private String sex;
 	private String tel;
@@ -25,6 +25,25 @@ public class MemberVO {
 	private String id;
 
 	public MemberVO() {
+	}
+
+	@Override
+	public String toString() {
+		return "MemberVO{" +
+				"memNO='" + memNO + '\'' +
+				", personDF='" + personDF + '\'' +
+				", email='" + email + '\'' +
+				", pass='" + pass + '\'' +
+				", name='" + name + '\'' +
+				", nickName='" + nickName + '\'' +
+				", birth=" + birth +
+				", sex='" + sex + '\'' +
+				", tel='" + tel + '\'' +
+				", joinDate=" + joinDate +
+				", latestDate=" + latestDate +
+				", state='" + state + '\'' +
+				", id='" + id + '\'' +
+				'}';
 	}
 
 	public String getMemNO() {
@@ -67,12 +86,12 @@ public class MemberVO {
 		this.name = name;
 	}
 
-	public String getNickname() {
-		return nickname;
+	public String getNickName() {
+		return nickName;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public Date getBirth() {
@@ -130,24 +149,4 @@ public class MemberVO {
 	public void setId(String id) {
 		this.id = id;
 	}
-
-	public MemberVO(String memNO, String personDF, String email, String pass, String name, String nickname,
-	                Date birth, String sex, String tel, Date joinDate, Date latestDate, String state, String id) {
-		super();
-		this.memNO = memNO;
-		this.personDF = personDF;
-		this.email = email;
-		this.pass = pass;
-		this.name = name;
-		this.nickname = nickname;
-		this.birth = birth;
-		this.sex = sex;
-		this.tel = tel;
-		this.joinDate = joinDate;
-		this.latestDate = latestDate;
-		this.state = state;
-		this.id = id;
-	}
-
-
 }

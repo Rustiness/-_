@@ -16,28 +16,8 @@ public class TalExcConnServiceImpl implements TalExcConnService {
 	private TalExcConnDAO dao;
 
 	@Override
-	public void regist(TalExcConnVO vo) throws Exception {
-		dao.create(vo);
-	}
-
-	@Override
-	public void modify(TalExcConnVO vo) throws Exception {
-		dao.update(vo);
-	}
-
-	@Override
-	public void remove(String talExcConnNO) throws Exception {
-		dao.delete(talExcConnNO);
-	}
-
-	@Override
 	public TalExcConnVO read(String talExcConnNO) throws Exception {
 		return dao.read(talExcConnNO);
-	}
-
-	@Override
-	public TalExcConnVO nickname(String talExcConnNO) throws Exception {
-		return dao.nickread(talExcConnNO);
 	}
 
 	@Override

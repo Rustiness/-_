@@ -6,16 +6,7 @@ import java.util.List;
 
 public interface TalExcConnService {
 
-
-	public void regist(TalExcConnVO vo) throws Exception;	/* 등록 */
-
-	public void modify(TalExcConnVO vo) throws Exception;	/* 수정 */
-
-	public void remove(String talExcConnNO) throws Exception;	/* 삭제 */
-
 	public TalExcConnVO read(String talExcConnNO) throws Exception;	/* 상세정보 */
-
-	public TalExcConnVO nickname(String talExcConnNO) throws Exception; /* 상세정보 */
 
 	public List<TalExcConnVO> listCriteria(Criteria cri) throws Exception;	/* 페이징 */
 
