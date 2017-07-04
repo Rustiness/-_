@@ -49,7 +49,8 @@ public class JoinController {
 	/* 회원정보 등록 (진행) */
 	@RequestMapping(value = "/confirm", method = RequestMethod.POST)
 	public String confirmPOST(MemberVO vo, HttpSession session, RedirectAttributes attr,
-	                          String tel1, String tel2, String tel3, MessengerVO msgvo, Model model)
+	                          String tel1, String tel2, String tel3, MessengerVO msgvo, 
+	                          String pass2)
 			throws Exception {
 		System.out.println(">>> set confirm");
 		//System.out.println("vo.getEmail:"+vo.getEmail());
@@ -62,6 +63,8 @@ public class JoinController {
 
 		String tel = tel1 + tel2 + tel3;
 		vo.setTel(tel);
+		String pass = pass2;
+		vo.setPass(pass);
 
 		service.regist(vo); //회원정보등록(메신저빼고)
 		

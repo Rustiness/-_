@@ -33,8 +33,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int nickNameCheck(String nickName) throws Exception {
-		System.out.println("nickName:" + nickName);
+	public int nickNameCheck(String nickName) throws Exception {//닉네임 중복체크
+		System.out.println("nickName중복체크:" + nickName);
 		return dao.selectNickName(nickName);
 	}
 

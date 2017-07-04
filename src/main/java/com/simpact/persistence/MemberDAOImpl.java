@@ -35,8 +35,8 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public int selectNickName(String nickName) throws Exception {
-		System.out.println("nickName:" + nickName);
+	public int selectNickName(String nickName) throws Exception {//닉네임중복체크
+		System.out.println("nickName중복체크:" + nickName);
 		return sqlSession.selectOne("member.nickNameCheckSelect", nickName);
 	}
 

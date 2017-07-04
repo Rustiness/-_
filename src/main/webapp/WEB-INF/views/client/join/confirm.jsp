@@ -13,7 +13,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
-	$("#email").focusout(function(){
+	$("#email").change(function(){
 		
 		 $.ajax({
 				url : "/j/id",
@@ -22,47 +22,109 @@ $(document).ready(function () {
 					  email:$("#email").val()
 					},
 				success : function(data){
-					
-					 var emailPattern=/^[a-z][a-z0-9_-]{3,11}@([a-z\d\.-]+)\.[a-z\.]{2,6}$/;
+					var val=$('#email').val();
+					var emailPattern=/^[a-z][a-zA-Z0-9_-]{2,11}@([a-z\d\.-]+)\.[a-z\.]{2,6}$/;
+					var emailPattern1=/^[0-9][a-zA-Z0-9_-]{2,11}@([a-z\d\.-]+)\.[a-z\.]{2,6}$/;
+					var emailPattern11=/^[0-9][a-zA-Z0-9\.]{2,30}$/;
+					var emailPattern2=/^[a-z][a-zA-Z0-9_-]{2,11}([a-z\d\.-]+)\.[a-z\.]{2,6}$/;
+					var emailPattern3=/^[a-z][a-zA-Z0-9_-]{2,11}@([a-z\d\.-]+)[a-z\.]{2,6}$/;
+					var str='';
 					if(data=='duplicate')
+						
 						$('#email_1').html("중복된 아이디입니다.").css("color","red");
-					else if(data=='use')
+					else if(data=='use' && emailPattern.test(val))
+						
 						$('#email_1').html("사용 가능한 아이디입니다.").css("color","green");
-					else if(data==""||data==null)
-						$('#email_1').html("아이디(이메일)를 입력하세요.").css("color","red");
-					else if(!emailPattern.test(data))
-						$('#email_1').html("올바른 이메일 형식이 아닙니다.").css("color","red");
-				}	})
+					
+				    else if(val==""||val==null)
+						
+					    $('#email_1').html("아이디(이메일)를 입력하세요").css("color","red");
+					
+				    else if(emailPattern1.test(val) || emailPattern11.test(val) )
+				    	$('#email_1').html("맨 앞자리에 숫자가 들어가면 안됩니다.").css("color","red");
+					
+				    else if(emailPattern2.test(val))
+				    	$('#email_1').html("이메일 형식에 '@'가 들어가야 합니다.").css("color","red");
+					
+				    else if(emailPattern3.test(val))
+				    	$('#email_1').html("이메일형식에 '.'이 없습니다.").css("color","red");
+					
+				    else if(!emailPattern.test(val) || !emailPattern1.test(val) || !emailPattern2.test(val) || !emailPattern3.test(val))
+					    $('#email_1').html("이메일 형식이 아닙니다").css("color","red");
+
+					   /* if(emailPattern1.test(val))
+					    	$('#email_1').html("맨 앞자리에 숫자가 들어가면 안됩니다.").css("color","red");
+						
+					    else if(emailPattern2.test(val))
+					    	$('#email_1').html("이메일 형식에 '@'가 들어가야 합니다.").css("color","red");
+						
+					    else if(emailPattern3.test(val))
+					    	$('#email_1').html("이메일형식에 '.'이 없습니다.").css("color","red");
+				
+			 } */
+		}//success	
+	})//ajax
 		
-			 //var val=$(this).val();
-			 //var emailPattern=/^[a-z][a-z0-9_-]{3,11}@([a-z\d\.-]+)\.[a-z\.]{2,6}$/;
-			// emailPattern = new RegExp('^[a-z][a-z0-9_-]{3,11}@([a-z\d\.-]+)\.[a-z\.]{2,6}$','g')
-            // passPattern = new RegExp('^[a-zA-Z0-9]{4,8}$','g');
+			/*  var val=$(this).val();
+			 var emailPattern=/^[a-z][a-z0-9_-]{3,11}@([a-z\d\.-]+)\.[a-z\.]{2,6}$/;
+			
+           
 			
 			
-			/* if(val==""||val==null)
+			 if(val==""||val==null)
 				document.getElementById('email_1').innerHTML = "아이디(이메일)를 입력하세요.";
 			
 			else if(!emailPattern.test(val)) 
-				document.getElementById('email_1').innerHTML="이메일 형식이 아닙니다.";
-     */
+				document.getElementById('email_1').innerHTML="이메일 형식이 아닙니다."; */
+     
 	}) //email
 	
-	$("#nickname").focusout(function(){
+	$("#email").focusin(function(){
+		//$('#email_1').innerHTML="";
+		document.getElementById('email_1').innerHTML = "";
+		
+	})//focusin
+	
+	//$("#email").focusout(function(){
+		
+		 /* var val=$(this).val();
+		 var emailPattern=/^[a-z][a-z0-9_-]{3,11}@([a-z\d\.-]+)\.[a-z\.]{2,6}$/;
+		 
+		 if(val==""||val==null)
+				document.getElementById('email_1').innerHTML = "아이디(이메일)를 입력하세요.";
+			
+		else if(!emailPattern.test(val)) 
+				document.getElementById('email_1').innerHTML="이메일 형식이 아닙니다."; */
+		
+	//})//email
+	
+	
+	$("#nickName").change(function(){
 		
 		 $.ajax({
 				url : "/j/nickName",
 				type : "post",
 				data : {
-					  nickName:$("#nickname").val()
+					  nickName:$("#nickName").val()
 					},
-				success : function(data){				     
+				success : function(data){	
+					
+				  var val= $('#nickName').val();
 					if(data=='duplicate')
 						$('#nickname_1').html("중복된 별명입니다.").css("color","red");
-					else 
+					else if(data=='use' && val!='')
 						$('#nickname_1').html("사용 가능한 별명입니다.").css("color","green");
-				}	})
-	})
+					else if(val=='' || val==null)
+						$('#nickname_1').html("닉네임을 입력해주세요.").css("color","red");
+				}	
+		})
+  })//nickname_focusout
+
+     $("#nickName").focusin(function(){
+	   //$('#email_1').innerHTML="";
+	  document.getElementById('nickname_1').innerHTML = "";
+	
+ })//focusin
 	        
 	
 	$("#pass1").focusout(function(){
@@ -77,9 +139,16 @@ $(document).ready(function () {
 		else if(!passPattern1.test(val)) 
 			document.getElementById('pass_1').innerHTML="올바른 비밀번호 형식이 아닙니다.";
 			
-		else if(passPattern2.test(val))
+		else if(passPattern2.test(val) || !passPattern1.test(val))
 			document.getElementById('pass_1').innerHTML="연속된 숫자를 입력하셨습니다.";
-}) //pass1
+}) //pass1.focusout
+   
+    $("#pass1").focusin(function(){
+    	//$("#pass_1").innerHTML="";
+    	document.getElementById('pass_1').innerHTML = "";
+    	
+})//pass1.focusin
+
 
     $("#pass2").focusout(function(){
 	
@@ -93,8 +162,8 @@ $(document).ready(function () {
  }) //pass2_focusout	
 	   
 	$("#pass2").focusin(function(){
-		$("#pass_2").innerHTML="";
-		 //document.getElementById('pass2_2').innerHTML = "";
+		//$("#pass_2").innerHTML="";
+		 document.getElementById('pass_2').innerHTML = "";
      
  })//pass2_focusin
  
@@ -110,6 +179,25 @@ $(document).ready(function () {
 		document.getElementById('tel_1').innerHTML="숫자만 입력하세요."
 		
   }) //tell1   
+  
+     $("#tel1").focusin(function(){
+  	//$("#pass_1").innerHTML="";
+  	  document.getElementById('tel_1').innerHTML = "";
+  	
+})//tel1.focusin
+
+     $("#tel2").focusin(function(){
+  	//$("#pass_1").innerHTML="";
+    	document.getElementById('tel_1').innerHTML = "";
+  	
+})//tel2.focusin
+
+      $("#tel3").focusin(function(){
+  	//$("#pass_1").innerHTML="";
+  	  document.getElementById('tel_1').innerHTML = "";
+  	
+})//tel3.focusin
+
   
     $("#tel2").focusout(function(){
 		
@@ -136,7 +224,16 @@ $(document).ready(function () {
 				document.getElementById('tel_1').innerHTML="숫자만 입력하세요."
 	 }) //tell3   			
     
-    
+	 $("#name").focusout(function(){
+		 
+		 var val=$(this).val();
+			if(val==""||val==null)
+				document.getElementById('name_1').innerHTML = "이름을 입력하세요.";
+	 })
+	 
+	 $("#name").focusin(function(){
+		 document.getElementById('name_1').innerHTML = "";
+	 })
   
 });//document.ready
    
@@ -158,22 +255,23 @@ $(document).ready(function () {
         <tr> <td colspan="2" height="100">계정정보</td>
         
         <tr><td>아이디(이메일주소)</td>
-        <td><input type="text" id="email" name="email" size="28">
+        <td><input type="text" id="email" name="email" size="28" maxlength="30">
         <div id="email_1" style="color:red; font-size:11px;"></div></td></tr>
         
        <tr><td>비밀번호</td>
-       <td><input type="password" name="pass" id="pass1">
+       <td><input type="password" name="pass1" id="pass1" maxlength="12">
        <div id="pass_1" style="color:red; font-size:11px;"></div></td></tr>
-       
         <tr><td colspan="2">
         <font color=green size="1">
              최소 6자, 최대 12자 (영문과 숫자를 이용, 영문은 대소문자를 구분)</font></td></tr>
+             
         <tr><td>비밀번호 확인</td>
-        <td><input type="password" name="pass" id="pass2">
+        <td><input type="password" name="pass2" id="pass2" maxlength="12">
         <div id="pass_2" style="color:red; font-size:11px;"></div></td></tr>
         
         <tr><td colspan="2" height="100">개인정보</td></tr><br>
-            <tr><td>이름</td><td><input type="text" name="name"></td></tr>
+            <tr><td>이름</td><td><input type="text" name="name" id="name" maxlength="12">
+            <div id="name_1" style="color:red; font-size:11px;"></div></td></tr>
             
          <tr><td>닉네임</td><td><input type="text" id="nickName" name="nickName">
          <div id="nickname_1" style="color:red; font-size:11px;"></div></td></tr>  
@@ -207,18 +305,16 @@ $(document).ready(function () {
 
          </select> 
      
-          
-          
            <input type="text" name="msgID_1" id="msgID_1" size="15">
            <div id="msgID_11" style="color:red; font-size:11px;"></div></td></tr>
               
            <tr><td>SNS / 메신저2</td><td>
-          <select name="name2">
-           <option value="카카오톡">카카오톡</option>
-           <option value="라인">라인</option>
-           <option value="텔레그램">텔레그램</option>
-           <option value="인스타그램">인스타그램</option>
-           <option value="페이스북">페이스북</option>
+          <select>
+           <c:forEach items="${list }" var="list"  >
+          
+           <option value="${list.mesDF }">${list.name } </option>
+
+          </c:forEach> 
           </select>
            <input type="text" name="msgID_2" id="msgID_2" size="15">
            <div id="msgID_22" style="color:red; font-size:11px;"></div></td></tr>  

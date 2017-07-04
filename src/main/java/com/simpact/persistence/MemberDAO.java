@@ -15,9 +15,9 @@ public interface MemberDAO {
 
 	public void create(MemberVO vo) throws Exception;
 
-	public int selectEmail(String email) throws Exception;
+	public int selectEmail(String email) throws Exception;//이메일 중복체크
 
-	public int selectNickName(String nickName) throws Exception;
+	public int selectNickName(String nickName) throws Exception;//닉네임 중복체크
 
 	public String selectMsgMno(String email) throws Exception;//이메일로 회원번호 찾기
 
