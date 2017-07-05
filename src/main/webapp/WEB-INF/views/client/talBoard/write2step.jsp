@@ -22,8 +22,7 @@
 
 
 
-			self.location = "/tb/list?page=${cri.page}&perPageNum=${cri.perPageNum}"
-				+ "&searchType=${cri.searchType}&keyword=${cri.keyword}";
+			self.location = "/tb/list";
 
 
 
@@ -33,19 +32,13 @@
 
 		$("#backBtn").on("click", function() {
 		
-			formObj.attr("action", "/tb/write1s");
-			formObj.attr("method", "get");
-			formObj.submit();
+		          self.location = "/tb/write1s"+"?title="+$(".title").val()+"&contentHave="+$(".contentHave").val()+"&contentWant="+$(".contentWant").val();
+		          $(".title").val("");
+		          $(".contentHave").val("");
+			
+			
 			
 		});
-
-
-		$("#nextBtn").on("click", function() {
-			formObj.attr("method", "get");
-			formObj.attr("action", "/tb/write");
-			formObj.submit();
-		});
-
 
 
 	});
@@ -58,15 +51,15 @@
 	<br>
 	<br>
 	<input type="button" value="원하는 재능 이전글 가져오기">
-	<br> 1단계: 원하는 재능 정보
+	<br> 1단계: 보유한 재능 정보
 	<br>
-	<form role="form" method="post">
+	<form action="/tb/write" role="form" method="get">
 
 
 
-		<input type="text" value="${TalentListVO.title }" class="title"
+		<input type="text" value="${TalBoardVO.title }" class="title"
 			name="title"> <input type="text"
-			value="${TalentListVO.contentHave }" class="contentHave"
+			value="${TalBoardVO.contentHave }" class="contentHave"
 			name="contentHave">
 		<table>
 			<tr>
@@ -85,9 +78,9 @@
 			</tr>
 		</table>
 		원하는 재능 내용<br>
-		<textarea rows="10" cols="50" id="contentWant" name="contentWant">${TalentListVO.contentWant}</textarea>
+		<textarea rows="10" cols="50" class="contentWant" name="contentWant">${TalBoardVO.contentWant}</textarea>
 		<br> <input type="button" value="이전단계" id="backBtn">
-		 <input type="button" value="다음단계" id="nextBtn"> 
+		 <input type="submit" value="다음단계" id="nextBtn"> 
 		 <input type="button" value="작성취소" id="goListBtn">
 	</form>
 </section>

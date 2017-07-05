@@ -30,13 +30,15 @@ public class TalBoardController {
 
 	// 재능글 목록
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(SearchCriteria cri, Model model) throws Exception {// 게시물 목록 출력
+	public String list(SearchCriteria cri, Model model, HttpSession session) throws Exception {// 게시물 목록 출력
 
-		// model.addAttribute("list", service.listCriteria(cri));
+		session.invalidate();
+		model.addAttribute("talDivHave", service.listTalDivHave(cri));
+		model.addAttribute("talDivWant", service.listTalDivWant(cri));
 		model.addAttribute("list", service.listSearch(cri));
 		PageMaker maker = new PageMaker();
 		maker.setCri(cri);
-		// maker.setTotalCount(service.listCountCriteria());
+		
 		maker.setTotalCount(service.listSearchCount(cri));
 		model.addAttribute("categoryList", service.categoryList());
 		model.addAttribute("pageMaker", maker);
@@ -46,85 +48,120 @@ public class TalBoardController {
 
 	// 재능글 등록 (1단계)
 	@RequestMapping(value = "/write1s", method = RequestMethod.GET)
-	public String uploadFirstGET(Model model, SearchCriteria cri, HttpSession session, TalBoardVO vo, HttpServletRequest req) throws Exception {
-
+	public String uploadFirstGET(TalBoardVO vo, HttpSession session,Model model) throws Exception {
+		session.setAttribute("TalBoardVO", vo);
 		model.addAttribute("categoryList", service.categoryList());
-		model.addAttribute("divList", service.divList());
-		model.addAttribute("cri", cri);
-		model.addAttribute("TalentListVO", vo);
-
+		//model.addAttribute("divList", service.divList());
+		
+		
 		return "client/talBoard/write1step";
 	}
 
-	@RequestMapping(value = "/write1s", method = RequestMethod.POST)
-	public String uploadFirstPOST(TalBoardVO vo, HttpSession session, HttpServletRequest req, RedirectAttributes attr)
-			throws Exception {
-
-		session.setAttribute("TalentListVO", vo);
-
-		return "redirect:/tb/write2s";
-	}
-
 	// 재능글 등록 (2단계)
-	@RequestMapping(value = "/write2s", method = RequestMethod.GET)
-	public String uploadSecondGET() throws Exception {
-
+	@RequestMapping(value = "/write2s", method = RequestMethod.POST)
+	public String uploadSecond(TalBoardVO vo, HttpSession session) throws Exception {
+		session.setAttribute("TalBoardVO", vo);
 		return "client/talBoard/write2step";
 	}
 
-	@RequestMapping(value = "/write2s", method = RequestMethod.POST)
-	public String uploadSecond(TalBoardVO vo, HttpServletRequest req, HttpSession session) throws Exception {
-
-		req.setAttribute("TalentListVO", vo);
-
-		return "redirect:/tb/write";
-	}
-
-	// 재능글 등록 (등록 전)
+	// 재능글 등록 (등록 전 확인페이지로 이동)
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String uploadThirdGET(TalBoardVO vo, HttpServletRequest req) throws Exception {
+	public String uploadThirdGET(TalBoardVO vo, HttpSession session) throws Exception {
 
-		req.setAttribute("TalentListVO", vo);
+		session.setAttribute("TalBoardVO", vo);
 
 		return "client/talBoard/write";
 	}
 
+	// 재능글 등록
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String uploadThirdPOST(TalBoardVO vo) throws Exception {
+	public String uploadThirdPOST(TalBoardVO vo, HttpSession session) throws Exception {
 
 		service.regist(vo);
 
-		return "redirect:/tb/list";
+		return "redirect:list";
 	}
 
 	// 재능글 상세정보
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public String listread(TalBoardVO vo, HttpServletRequest req, String talDocNO) throws Exception {
-
-		req.setAttribute("TalentListVO", service.read(talDocNO));
-
+	public String listread(TalBoardVO vo, HttpServletRequest req, String talDocNO, String loginMem,SearchCriteria cri) throws Exception {
+		req.setAttribute("cri", cri);
+		
+		PageMaker maker = new PageMaker();
+		maker.setCri(cri);
+		req.setAttribute("pageMaker", maker);
+		
+		req.setAttribute("readDivHave", service.readTalDivHave(talDocNO));
+		req.setAttribute("readDivWant", service.readTalDivWant(talDocNO));
+		req.setAttribute("TalBoardVO", service.read(talDocNO));
+		req.setAttribute("loginMem", loginMem);
+		//req.setAttribute("divList", service.listTalDiv(cri));
 		return "client/talBoard/read";
 	}
 
-	/* 재능글 수정 */
-	@RequestMapping("/mod")
-	public String mod() {
+//	/* 재능글 수정 */
+//사용 안하기로 함
+//	@RequestMapping("/mod")
+//	public String mod() {
+//
+//		return "/client/talBoard/modify";
+//	}
 
-		return "/client/talBoard/modify";
+	
+
+	/* 재능글 수정 (보유한 재능 수정 페이지 이동) */
+	@RequestMapping(value = "/modHave", method = RequestMethod.GET)
+	public String updateHaveGET(Model model, TalBoardVO vo, String loginMem, String talDocNO,SearchCriteria cri) throws Exception {
+		model.addAttribute("cri", cri);
+		model.addAttribute("readDivHave", service.readTalDivHave(talDocNO));
+		model.addAttribute("categoryList", service.categoryList());
+		//model.addAttribute("divList", service.divList());
+		model.addAttribute("TalBoardVO", vo);
+		model.addAttribute("loginMem", loginMem);
+
+		return "client/talBoard/modifyHave";
+	}
+	// 보유한 재능 수정
+	@RequestMapping(value = "/modHave", method = RequestMethod.POST)
+	public String updateHavePOST(HttpServletRequest req, TalBoardVO vo,String talDocNO,String loginMem,SearchCriteria cri) throws Exception {
+		req.setAttribute("cri", cri);
+		req.setAttribute("readDivHave", service.readTalDivHave(talDocNO));
+		req.setAttribute("readDivWant", service.readTalDivWant(talDocNO));
+         System.out.println(talDocNO);
+         System.out.println(loginMem);
+		service.talHavemodify(vo);
+		req.setAttribute("TalBoardVO", service.read(talDocNO));
+		req.setAttribute("loginMem", loginMem);
+
+		return "client/talBoard/read";
+
 	}
 
-	/* 재능글 수정 (보유한재능) */
-	@RequestMapping("/modHave")
-	public String modHave() {
+	/* 재능글 수정 (원하는 재능 수정 페이지 이동) */
+	@RequestMapping(value = "/modWant", method = RequestMethod.GET)
+	public String updateWant(Model model, TalBoardVO vo, String loginMem,String talDocNO,SearchCriteria cri) throws Exception {
+		model.addAttribute("cri", cri);
+		model.addAttribute("readDivWant", service.readTalDivWant(talDocNO));
+		model.addAttribute("categoryList", service.categoryList());
+		//model.addAttribute("divList", service.divList());
+		model.addAttribute("TalBoardVO", vo);
+		model.addAttribute("loginMem", loginMem);
 
-		return "/client/talBoard/modifyHave";
+		return "client/talBoard/modifyWant";
 	}
+	// 원하는 재능 수정
+	@RequestMapping(value = "/modWant", method = RequestMethod.POST)
+	public String updateWantPOST(HttpServletRequest req, TalBoardVO vo,String talDocNO,String loginMem,SearchCriteria cri) throws Exception {
+		req.setAttribute("cri", cri);
+		req.setAttribute("readDivHave", service.readTalDivHave(talDocNO));
+		req.setAttribute("readDivWant", service.readTalDivWant(talDocNO));
+         System.out.println(talDocNO);
+         System.out.println(loginMem);
+		service.talWantmodify(vo);
+		req.setAttribute("TalBoardVO", service.read(talDocNO));
+		req.setAttribute("loginMem", loginMem);
 
-	/* 재능글 수정 (원하는재능) */
-	@RequestMapping("/modWant")
-	public String modWant() {
+		return "client/talBoard/read";
 
-		return "/client/talBoard/modifyWant";
 	}
-
 }

@@ -45,6 +45,7 @@
 		$("table tr:last td:last input").attr("class","talincrement2");
 		
 	});
+	
 	$(document).on("click", ".taldecrement2", function() {
 		$("#tr2").remove();
 		$("table tr:last td:last").attr("id","button1");
@@ -60,15 +61,35 @@
 
 		$("#goListBtn").click(function() {
 		
-			self.location = "/tb/list?page=${cri.page}&perPageNum=${cri.perPageNum}"
-				+ "&searchType=${cri.searchType}&keyword=${cri.keyword}";	
+			self.location = "/tb/list";	
 					
 				
 		});
 		
-		
-	
 	});
+ 		$(document).on("click", "#div2", function() {
+			var talDivDF = $("#div2 option:selected").val();
+			 $.ajax({
+					type:'GET',
+					url:'/talcate',
+					data: {talDivDF:talDivDF},
+					success:function(result){
+					
+						    alert(result);
+							$("#div").html(result);
+						     
+						}
+				});
+			 });
+			
+			
+	
+	 
+	
+
+	
+	
+	
 </script>
 <!-- Main content -->
 <section class="content">
@@ -77,13 +98,13 @@
 	<font color="blue">1단계 보유한 재능</font>]>[2단계 원하는 재능]>[내용확인]
 	<br> 재능글 제목
 	<br>
-	<form role="form" method="post">
-
+	<form action="/tb/write2s" role="form" method="post">
+        <input type="hidden" name="contentWant" id="contentWant" value="${TalBoardVO.contentWant}">
 		<input type="hidden" name='page' value="${cri.page}"> <input
 			type='hidden' name='perPageNum' value="${cri.perPageNum}"> <input
 			type="hidden" name='searchType' value="${cri.searchType}"> <input
 			type="hidden" name='keyword' value="${cri.keyword}"> <input
-			type="text" value="${TalentListVO.title }" id="title" name="title">
+			type="text" value="${TalBoardVO.title }" id="title" name="title">
 		<input type="button" value="보유한 재능 이전글 가져오기"> <br> 1단계:
 		보유한 재능 정보 <br>
 
@@ -91,19 +112,19 @@
 
 			<tr id="tr1">
 				<td>보유한 재능</td>
-				<td><select id="category2">
+				<td><select id="div2">
 						<c:forEach items="${categoryList }" var="TalCategoryVO">
-							<option value="${TalCategoryVO.talcatedf }"
-								<c:out value="${cri.searchType eq '${TalCategoryVO.talcatedf }'?'selected':''}"/>>
+							<option value="${TalCategoryVO.talCateDF }"
+								<c:out value="${cri.searchType eq '${TalCategoryVO.talCateDF }'?'selected':''}"/>>
 								${TalCategoryVO.name }</option>
 						</c:forEach>
 				</select></td>
-				<td><select id="div2">
-						<c:forEach items="${divList }" var="TalDivVO">
+				<td><select id="category2">
+						<%-- <c:forEach items="${divList }" var="TalDivVO">
 							<option value="${TalDivVO.taldivdf }"
 								<c:out value="${cri.searchType eq '${TalDivVO.taldivdf }'?'selected':''}"/>>
 								${TalDivVO.name }</option>
-						</c:forEach>
+						</c:forEach> --%>
 				</select></td>
 				<td id="button"><input type="button" value="+"
 					class="talincrement1"><br></td>
@@ -116,9 +137,11 @@
 
 		보유한 재능 내용 <br>
 		<textarea rows="10" cols="50" id="contentHave" name="contentHave"
-			value="내용을 입력해 주세요">${TalentListVO.contentHave }</textarea>
+			value="내용을 입력해 주세요">${TalBoardVO.contentHave }</textarea>
 		<br> <input type="submit" value="다음단계"> <input
 			type="button" value="작성취소" id="goListBtn">
 	</form>
-</body>
-</html>
+	
+	<div id="div"></div>
+	</section>
+<%@include file="../include/footer.jsp" %>

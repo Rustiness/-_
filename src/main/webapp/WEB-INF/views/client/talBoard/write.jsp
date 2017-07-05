@@ -16,12 +16,13 @@
 
 		$("#goListBtn").click(function() {
 
-			self.location = "/tb/list?page=${cri.page}&perPageNum=${cri.perPageNum}"
-				+ "&searchType=${cri.searchType}&keyword=${cri.keyword}";
+			self.location = "/tb/list";
 
 
 
 		});
+		
+		
 	});
 </script>
 <!-- Main content -->
@@ -29,12 +30,12 @@
 	재능등록<br> 등록단계: [1단계 보유한 재능]>[2단계 원하는 재능]>[<font color="blue">내용확인</font>]<br>
 	내용확인<br> 재능글 제목<br>
 	<form action="write" method="POST">
-		<input type="hidden" value="${TalentListVO.title }" id="title"
+		<input type="hidden" value="${TalBoardVO.title }" id="title"
 			name="title"> <input type="button" value="원하는 재능 이전글 가져오기"><br>
 		보유한 재능 정보<br> 보유한 재능<br>
-		<textarea rows="10" cols="50" name="contentHave" value="받아올 내용">${TalentListVO.contentHave }</textarea>
+		<textarea rows="10" cols="50" name="contentHave" value="받아올 내용">${TalBoardVO.contentHave }</textarea>
 		<br> 원하는 재능 정보<br> 원하는 재능 <br>
-		<textarea rows="10" cols="50" name="contentWant" value="받아올 내용">${TalentListVO.contentWant }</textarea>
+		<textarea rows="10" cols="50" name="contentWant" value="받아올 내용">${TalBoardVO.contentWant }</textarea>
 		<br>
 		<br>
 		<button onclick="history.back()">이전단계</button>

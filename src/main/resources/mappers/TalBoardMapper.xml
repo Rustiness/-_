@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="talentBoard">
-	<!-- -->
+	<!-- 게시물 등록 -->
 	<insert id="create">
 		INSERT INTO TalentBoard (talDocNO, memNO, title, contentHave, contentWant, excCalls, views, STATE)
 		VALUES ('TB_A' || LPAD(TalentBoard_seq.nextval, 5, 0), 'MEM_A00001', #{title}, #{contentHave}, #{contentWant}, 0, 0, 2)
 	</insert>
 
-	<!-- -->
-	<update id="update">
-		UPDATE TalentBoard
-		SET title = #{title},
-			contentHave = #{contentHave},
-			contentWant = #{contentWant},
-			repairDate = sysdate
-		WHERE talDocNO = #{talDocNO}
+	<!-- 보유한 재능 수정 -->
+	<update id="talHaveUpdate">
+		update TalentBoard set title=#{title},
+		contentHave=#{contentHave}, repairDate=sysdate
+		where
+		talDocNO=#{talDocNO}
+	</update>
+	
+	<!-- 원하는 재능 수정 -->
+	<update id="talWantUpdate">
+		update TalentBoard set title=#{title},
+		contentWant=#{contentWant}, repairDate=sysdate
+		WHERE talDocNO =
+		#{talDocNO}
 	</update>
 
 	<!-- -->
@@ -25,20 +31,14 @@
 
 	<!-- 특정게시물 읽기 -->
 	<select id="read" resultType="talentlist">
-		SELECT nickName, writeDate, contentHave, excCalls, contentWant, title
-		FROM TalentBoard, Member
-		WHERE TalentBoard.memNO = Member.memNO
-			AND talDocNO = #{talDocNO}
+		select talDocNO,nickName,writeDate,contentHave,excCalls,contentWant,title,TalentBoard.memNO
+		from TalentBoard,Member where
+		TalentBoard.memNO = Member.memNO 
+		AND talDocNO=#{talDocNO}
 	</select>
 
-	<!-- 리스트 -->
-	<select id="listAll" resultType="talentlist">
-		<!-- select bno,title,content,writer,redate,viewcnt from tbl_board order by bno desc -->
-		<![CDATA[
-			SELECT talDocNO, title, contentHave, contentWant, writeDate, memNO
-			FROM TalentBoard ORDER BY talDocNO DESC
-		]]>
-	</select>
+
+
 
 	<!-- -->
 	<select id="listPage" resultType="talentlist">
@@ -53,19 +53,22 @@
 		FROM TalentBoard
 	</select>
 
-	<!-- 검색어 조회1 -->
+	<!-- 검색어 조회 -->
 	<sql id="search">
 		<if test="searchType == 'all'.toString()">
 			AND ((title LIKE '%'||#{keyword}||'%')
-			OR (contentHave LIKE '%'||#{keyword}||'%')
+			OR (contentHave LIKE
+			'%'||#{keyword}||'%')
 			OR (contentWant LIKE '%'||#{keyword}||'%')
-			OR (nickName LIKE '%'||#{keyword}||'%' ))
+			OR
+			(nickName LIKE '%'||#{keyword}||'%' ))
 		</if>
 		<if test="searchType == 't'.toString()">
 			AND title LIKE '%'||#{keyword}||'%'
 		</if>
 		<if test="searchType == 'c'.toString()">
-			AND (contentHave LIKE '%'||#{keyword}||'%' OR contentWant LIKE
+			AND (contentHave LIKE '%'||#{keyword}||'%' OR contentWant
+			LIKE
 			'%'||#{keyword}||'%')
 		</if>
 		<if test="searchType == 'w'.toString()">
@@ -73,16 +76,53 @@
 		</if>
 	</sql>
 
-	<!-- -->
+	<!--리스트 -->
 	<select id="listSearch" resultType="talentlist">
-		SELECT talDocNO, title, contentHave, contentWant, writeDate, nickName, TalentBoard.memNO
-		FROM TalentBoard, Member
-		WHERE TalentBoard.memNO = Member.memNO
+		SELECT TB.TALDocNO, title, contentHave, contentWant,writeDate, M.nickName, TB.memNO, TB.state
+		from NP_TalHave TH,TalentBoard TB,Member M 
+		WHERE TB.memNO = M.memNO AND TH.TALDocNO = TB.TALDocNO
 		<include refid="search"></include>
+		GROUP BY TB.TALDocNO, title, contentHave, contentWant,writeDate, M.nickName, TB.memNO, TB.state
 		order by talDocNO desc
 	</select>
 
-	<!-- -->
+    <!-- 보유한 재능 항목 리스트 -->
+	<select id="listTalDivHave" resultType="taldiv">
+        SELECT TB.TALDocNO,DT.name
+		from NP_TalHave TH,TalentBoard TB,Member M ,DF_TALDIV DT
+		WHERE TB.memNO = M.memNO AND TH.TALDocNO = TB.TALDocNO AND DT.talDivDF = TH.talDivDF
+		<include refid="search"></include>
+		GROUP BY TB.TALDocNO, title, contentHave, contentWant,writeDate, M.nickName, TB.memNO,DT.name, TB.state
+		order by talDocNO desc
+	</select>
+	
+	<!-- 원하는 재능 항목 리스트 -->
+	<select id="listTalDivWant" resultType="taldiv">
+		SELECT TB.TALDocNO,DT.name
+		from NP_TalWant TW,TalentBoard TB,Member M ,DF_TALDIV DT
+		WHERE TB.memNO = M.memNO AND TW.TALDocNO = TB.TALDocNO AND DT.talDivDF = TW.talDivDF
+		<include refid="search"></include>
+		GROUP BY TB.TALDocNO, title, contentHave, contentWant,writeDate, M.nickName, TB.memNO,DT.name, TB.state
+		order by talDocNO desc
+	</select>
+	
+	<!-- 보유한 재능 페이지 출력 -->
+	<select id="readTalDivHave" resultType="taldiv">
+		SELECT *
+		FROM NP_TalHave
+		NATURAL JOIN DF_TALDIV
+		where talDocNO = #{talDocNO}
+	</select>
+	
+	<!-- 원하는 재능 페이지 출력 -->
+		<select id="readTalDivWant" resultType="taldiv">
+		SELECT *
+		FROM NP_TalWant
+		NATURAL JOIN DF_TALDIV
+		where talDocNO = #{talDocNO}
+	</select>
+
+	<!-- 게시물 갯수 출력 -->
 	<select id="listSearchCount" resultType="int">
 		SELECT count(*) FROM TalentBoard, Member
 		WHERE TalentBoard.memNO = Member.memNO
@@ -94,8 +134,8 @@
 		SELECT * FROM DF_TALCATEGORY
 	</select>
 
-	<!-- -->
+	<!-- 항목조회 -->
 	<select id="divList" resultType="taldiv">
-		SELECT * FROM DF_TalDiv
+		select * from DF_TalDiv where talDivDF = #{talDivDF}
 	</select>
 </mapper>

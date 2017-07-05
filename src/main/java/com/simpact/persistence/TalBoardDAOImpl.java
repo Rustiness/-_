@@ -25,11 +25,6 @@ public class TalBoardDAOImpl implements TalBoardDAO {
 	}
 
 	@Override
-	public void update(TalBoardVO vo) throws Exception {
-		sqlsession.update("talentBoard.update", vo);
-	}
-
-	@Override
 	public void delete(int talDocNO) throws Exception {
 		sqlsession.delete("talentBoard.delete", talDocNO);
 	}
@@ -83,8 +78,54 @@ public class TalBoardDAOImpl implements TalBoardDAO {
 	}
 
 	@Override
-	public List<TalDivVO> divList() throws Exception {
-		return sqlsession.selectList("talentBoard.divList");
+	public List<TalDivVO> divList(String talDivDF) throws Exception {
+		
+		return sqlsession.selectList("talentBoard.divList",talDivDF);
+	}
+
+	@Override
+	public void talHaveUpdate(TalBoardVO vo) throws Exception {
+		sqlsession.selectList("talentBoard.talHaveUpdate", vo);
+		
+	}
+
+	@Override
+	public void talWantUpdate(TalBoardVO vo) throws Exception {
+		sqlsession.selectList("talentBoard.talWantUpdate", vo);
+		
+	}
+
+	@Override
+	public List<TalDivVO> listTalDivHave(SearchCriteria cri) throws Exception {
+	
+			RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
+			List<TalDivVO> list = sqlsession.selectList("talentBoard.listTalDivHave", null, bounds);
+
+			return sqlsession.selectList("talentBoard.listTalDivHave", cri, bounds);
+		
+	}
+
+	@Override
+	public List<TalDivVO> readTalDivHave(String talDocNO) throws Exception {
+	
+		return sqlsession.selectList("talentBoard.readTalDivHave", talDocNO);
+	}
+
+	
+
+	@Override
+	public List<TalDivVO> listTalDivWant(SearchCriteria cri) throws Exception {
+		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
+		List<TalDivVO> list = sqlsession.selectList("talentBoard.listTalDivWant", null, bounds);
+
+		return sqlsession.selectList("talentBoard.listTalDivWant", cri, bounds);
+	
+	}
+
+
+	@Override
+	public List<TalDivVO> readTalDivWant(String talDocNO) throws Exception {
+		return sqlsession.selectList("talentBoard.readTalDivWant", talDocNO);
 	}
 
 }

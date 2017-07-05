@@ -6,7 +6,9 @@ public class TalDivVO {
 	private String name;
 	private String memo;
 	private String isYn;
-
+	
+	/*재능글 목록*/
+	private String talDocNO;
 	/* 재능연결 */
 	private String talConnNO;
 
@@ -71,5 +73,12 @@ public class TalDivVO {
 
 	public void setTalConnNO(String talConnNO) {
 		this.talConnNO = talConnNO;
+	}
+	public String gettalDocNO() {
+		return talDocNO;
+	}
+
+	public void settalDocNO(String talDocNO) {
+		this.talDocNO = talDocNO;
 	}
 }

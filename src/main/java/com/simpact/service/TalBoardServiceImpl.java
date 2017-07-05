@@ -24,11 +24,6 @@ public class TalBoardServiceImpl implements TalBoardService {
 	}
 
 	@Override
-	public void modify(TalBoardVO vo) throws Exception {
-		dao.update(vo);
-	}
-
-	@Override
 	public void remove(int bno) throws Exception {
 		dao.delete(bno);
 	}
@@ -76,9 +71,44 @@ public class TalBoardServiceImpl implements TalBoardService {
 	}
 
 	@Override
-	public List<TalDivVO> divList() throws Exception {
+	public List<TalDivVO> divList(String talDivDF) throws Exception {
 
-		return dao.divList();
+		return dao.divList(talDivDF);
 	}
 
+	@Override
+	public void talHavemodify(TalBoardVO vo) throws Exception {
+		dao.talHaveUpdate(vo);
+
+	}
+
+	@Override
+	public void talWantmodify(TalBoardVO vo) throws Exception {
+		dao.talWantUpdate(vo);
+
+	}
+
+	@Override
+	public List<TalDivVO> listTalDivHave(SearchCriteria cri) throws Exception {
+
+		return dao.listTalDivHave(cri);
+	}
+
+	@Override
+	public List<TalDivVO> readTalDivHave(String talDocNO) throws Exception {
+
+		return dao.readTalDivHave(talDocNO);
+	}
+
+	@Override
+	public List<TalDivVO> listTalDivWant(SearchCriteria cri) throws Exception {
+
+		return dao.listTalDivWant(cri);
+
+	}
+
+	@Override
+	public List<TalDivVO> readTalDivWant(String talDocNO) throws Exception {
+		return dao.readTalDivWant(talDocNO);
+	}
 }

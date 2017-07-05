@@ -10,10 +10,12 @@ import com.simpact.domain.TalBoardVO;
 
 public interface TalBoardService {
 
-	//브라우저샤용자(고객)입장에서 메소드를 정의
+	//브라우저 사용자(고객)입장에서 메소드를 정의
 	public void regist(TalBoardVO vo) throws Exception;
 
-	public void modify(TalBoardVO vo) throws Exception;
+	public void talHavemodify(TalBoardVO vo) throws Exception;
+
+	public void talWantmodify(TalBoardVO vo) throws Exception;
 
 	public void remove(int talDocNO) throws Exception;
 
@@ -29,8 +31,16 @@ public interface TalBoardService {
 
 	public int listSearchCount(SearchCriteria cri) throws Exception;
 
-	public List<TalCategoryVO> categoryList() throws Exception;  //카테고리 조회
+	public List<TalCategoryVO> categoryList() throws Exception; // 카테고리 조회
 
-	public List<TalDivVO> divList() throws Exception;  //항목조회
+	public List<TalDivVO> divList(String talDivDF) throws Exception;
+
+	public List<TalDivVO> listTalDivHave(SearchCriteria cri) throws Exception;
+
+	public List<TalDivVO> readTalDivHave(String talDocNO) throws Exception; // 특정게시물 항목조회
+
+	public List<TalDivVO> listTalDivWant(SearchCriteria cri) throws Exception;
+
+	public List<TalDivVO> readTalDivWant(String talDocNO) throws Exception; // 특정 게시물 항목조회
 
 }

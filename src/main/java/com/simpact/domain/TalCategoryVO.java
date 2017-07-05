@@ -1,48 +1,44 @@
 package com.simpact.domain;
 
 public class TalCategoryVO {
-
-	private String talcatedf;
+	
+	private String talCateDF;
 	private String name;
 	private String memo;
-	private String isyn;
-
-	public String getTalcatedf() {
-		return talcatedf;
+	private String isYn;
+	public String getTalCateDF() {
+		return talCateDF;
 	}
-
-	public void setTalcatedf(String talcatedf) {
-		this.talcatedf = talcatedf;
+	public void setTalCateDF(String talCateDF) {
+		this.talCateDF = talCateDF;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getMemo() {
 		return memo;
 	}
-
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
-
-	public String getIsyn() {
-		return isyn;
+	public String getIsYn() {
+		return isYn;
 	}
-
-	public void setIsyn(String isyn) {
-		this.isyn = isyn;
+	public void setIsYn(String isYn) {
+		this.isYn = isYn;
 	}
-
 	@Override
 	public String toString() {
-		return "TalCategoryVO [talcateDf=" + talcatedf + ", name=" + name + ", memo=" + memo + ", isyn=" + isyn + "]";
+		return "TalCategoryVO [talCateDF=" + talCateDF + ", name=" + name + ", memo=" + memo + ", isYn=" + isYn + "]";
 	}
+	
+	
 
+	
+	
+	
 
 }
