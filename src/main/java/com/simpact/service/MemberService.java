@@ -25,7 +25,7 @@ public interface MemberService {
 
 	public void msgRegist(MessengerVO vo) throws Exception;//찾은 회원번호로  메신저 테이블NP_MemMes에 등록
 
-	public String findMesDF(String memNo) throws Exception; //회원번호로 메신저 구분번호 찾고
+	//public String findMesDF(String memNo) throws Exception; //회원번호로 메신저 구분번호 찾고
 
 	public List<MessengerVO> listmsg() throws Exception;
 }

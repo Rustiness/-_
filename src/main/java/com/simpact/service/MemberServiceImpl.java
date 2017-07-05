@@ -23,12 +23,12 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO dao;
 
 	@Override
-	public void regist(MemberVO vo) throws Exception {
+	public void regist(MemberVO vo) throws Exception {//회원정보 등록
 		dao.create(vo);
 	}
 
 	@Override
-	public int idCheck(String email) throws Exception {
+	public int idCheck(String email) throws Exception {//이메일 중복체크
 		return dao.selectEmail(email);
 	}
 
@@ -49,14 +49,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String findMesDF(String memNo) throws Exception { //회원번호로 메신저 구분번호 찾고 
-		return dao.selectMesDF(memNo);
-	}
-
-	@Override
-	public List<MessengerVO> listmsg() throws Exception {
+	public List<MessengerVO> listmsg() throws Exception { //메신저 목록 브라우저에 출력하기 위함
 		return dao.listmsg();
 	}
 
 
+	/*@Override
+	public String findMesDF(String memNo) throws Exception { //회원번호로 메신저 구분번호 찾고 
+		return dao.selectMesDF(memNo);
+	}*/
 }

@@ -10,7 +10,9 @@
 
 <!-- Main content -->
 <section class="content">
-여기에 내용을 작성
+회원가입이 완료되었습니다.
+보유한 재능을 등록하고 재능교환을 시작하세요.
+<input type="button" value="재능등록">
 
 </section>
 
