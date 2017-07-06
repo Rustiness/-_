@@ -4,25 +4,18 @@
 
 	<!-- 회원가입등록 -->
 	<insert id="create">
-		INSERT INTO member (memNo, email, pass, name, birth, sex, tel, nickName, personDF, joinDate, latestDate, state)
-		VALUES ('MEM_A'||LPAD(Member_seq.nextval, 5, 0), #{email}, #{pass}, #{name}, #{birth}, #{sex}, #{tel}, #{nickName}, 'D_PE01', sysdate, #{latestDate,jdbcType=DATE}, '2')
+		<selectKey keyProperty="memNO" resultType="String" order="BEFORE">
+			select 'MEM_A'||LPAD(Member_seq.nextval, 5, 0) from dual
+		</selectKey>
+		INSERT INTO member (memNO, email, pass, name, birth, sex, tel, nickName, personDF, joinDate, state)
+		VALUES ('${memNO}', #{email}, #{pass}, #{name}, #{birth}, #{sex}, #{tel}, #{nickName}, 'D_PE01', sysdate,'2')
 	</insert>
 
-	<!-- 회원 메신저등록 -->
-	<select id="selectMsgMno" resultType="String"><!-- 이메일로 회원번호 찾기 -->
-		SELECT memNO
-		FROM member
-		WHERE email = #{email}
-	</select>
-
-	<insert id="msgCreate"> <!-- 찾은 회원번호로  메신저 테이블에 등록 -->
-		INSERT INTO NP_MemMes (memNo, mesdf, id)
-		VALUES (#{memNo},'D_ME03',#{id})
-	</insert>
+	
 
 	<select id="selectMesDF" resultType="String"> <!-- 회원번호로 메신저 구분번호 찾고  -->
 		SELECT mesDF FROM NP_MemMes
-		WHERE memNo = #{memNo}
+		WHERE memNO = #{memNO}
 	</select>
 
 	<!-- 중복체크 -->

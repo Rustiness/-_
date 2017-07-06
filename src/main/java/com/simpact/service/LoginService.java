@@ -1,5 +1,7 @@
 package com.simpact.service;
 
+import java.util.List;
+
 import com.simpact.domain.MemberVO;
 
 public interface LoginService {    //로그인관련 servive
@@ -10,7 +12,7 @@ public interface LoginService {    //로그인관련 servive
 
 	public void latestDateUpdate(String memNO) throws Exception;    // 로그인 성공시 최근 접속일 최신화
 
-	public MemberVO selectMemberinfo(String memNO) throws Exception;    // 회원번호로 회원정보 가져오기
+	public List<MemberVO> selectMemberinfo(String memNO) throws Exception;    // 회원번호로 회원정보 가져오기
 
 	public int memberUpdate(MemberVO vo) throws Exception;    // 회원정보 수정
 

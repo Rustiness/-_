@@ -22,9 +22,8 @@ public class MemberDAOImpl implements MemberDAO {
 
 
 	@Override
-	public void create(MemberVO vo) throws Exception { //회원정보 등록
-		System.out.println(vo.toString());
-		sqlSession.insert("member.create", vo);
+	public int create(MemberVO vo) throws Exception { //회원정보 등록
+		return sqlSession.insert("member.create", vo);
 	}
 
 	@Override
@@ -53,18 +52,22 @@ public class MemberDAOImpl implements MemberDAO {
 
 	}
 
-	
-	
+	/*@Override
+	public String selectMesDF(String memNo) throws Exception {//회원번호로 메신저 구분번호 찾고 
+
+		return sqlSession.selectOne("member.selectMesDF", memNo);
+	}*/
+
 	@Override
 	public List<MessengerVO> listmsg() throws Exception { //메신저 목록 브라우저에 출력하기 위함
 
 		return sqlSession.selectList("messenger.memMesInfo");
 	}
 
-	/*@Override
-	public String selectMesDF(String memNo) throws Exception {//회원번호로 메신저 구분번호 찾고 
+	@Override
+	public void createMES(MessengerVO vo) throws Exception {
+		sqlSession.insert("messenger.insert",vo);
+	}
 
-		return sqlSession.selectOne("member.selectMesDF", memNo);
-	}*/
 
 }

@@ -16,14 +16,14 @@ $(document).ready(function(){ //DOM이 준비되고
   	 }else{ // 그 외에는
   	 	$('#up').hide();
   	 }
-		});
+
 
 $(document).on('click', '#upcheck', function() {
 	$.ajax({
 		url : "http://localhost/m/upchkPass",
 		type : "post",
 		data : {
-			memNO : '${SUCCESS.memNO }',
+			memNO : '${SUCCESS[0].memNO }',
 			uppass : $('#uppass').val()
 		},			
 		dataType : "html",
@@ -43,7 +43,7 @@ $.ajax({
 		url : "http://localhost/m/delchkPass",
 		type : "post",
 		data : {
-			memNO : '${SUCCESS.memNO }',
+			memNO : '${SUCCESS[0].memNO }',
 			delpass : $('#delpass').val()
 			
 		},			
@@ -52,7 +52,7 @@ $.ajax({
 					if(result.match("success")){  //올바른 값 입력시
 						if (confirm("정말 삭제하시겠습니까??") == true){    //확인
 							alert("그동안  LTE(Life Talent Exchange)를 이용해 주셔서 대단히 갑사합니다.\n 다시 만나는 날을 희망합니다. :D");
-							location.href="/logout";	
+							location.href="/l/logout";	
 						}
 					}else{						//잘못된 값 입력시
 						document.delfrm.delpass.value='';		//pass초기화
@@ -61,6 +61,7 @@ $.ajax({
 			}
 		});
 	});
+});
 </script>
 <!-- Main content -->
 <section class="content">

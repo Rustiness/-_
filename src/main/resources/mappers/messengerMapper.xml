@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="messenger">
-
-	<!-- 회원 메신저등록 -->
-	<select id="memMesInfo" resultType="messengerVO"><!-- 메신저 목록 리스트 보기 -->
+	
+	<!-- 이건뭐야-->
+	<select id="selectMsgMno" resultType="String"><!-- 이메일로 회원번호 찾기 -->
+		SELECT memNO
+		FROM member
+		WHERE email = #{email}
+	</select>
+	
+	<!-- 메신저 등록 -->
+	<insert id="insert"> 
+		INSERT INTO NP_MemMes (memNO, mesDF, id)
+		VALUES ( #{memNO},#{mesDF},#{id})
+	</insert>
+	
+	
+	<!-- 메신저 목록 리스트 보기 -->
+	<select id="memMesInfo" resultType="messengerVO">
 		SELECT mesDF, name
 		FROM DF_Messenger
 		WHERE ISYN = 'Y'

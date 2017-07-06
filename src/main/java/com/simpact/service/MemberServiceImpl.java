@@ -23,8 +23,8 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO dao;
 
 	@Override
-	public void regist(MemberVO vo) throws Exception {//회원정보 등록
-		dao.create(vo);
+	public int regist(MemberVO vo) throws Exception {
+		return dao.create(vo);
 	}
 
 	@Override
@@ -53,9 +53,10 @@ public class MemberServiceImpl implements MemberService {
 		return dao.listmsg();
 	}
 
+	@Override
+	public void registMES(MessengerVO vo) throws Exception {
+		dao.createMES(vo);
+		
+	}
 
-	/*@Override
-	public String findMesDF(String memNo) throws Exception { //회원번호로 메신저 구분번호 찾고 
-		return dao.selectMesDF(memNo);
-	}*/
 }

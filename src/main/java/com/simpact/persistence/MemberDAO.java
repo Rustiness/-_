@@ -13,7 +13,9 @@ import com.simpact.domain.MessengerVO;
  */
 public interface MemberDAO {
 
-	public void create(MemberVO vo) throws Exception;
+	public int create(MemberVO vo) throws Exception;
+	
+	public void createMES(MessengerVO vo) throws Exception; //메신저 등록
 
 	public int selectEmail(String email) throws Exception;//이메일 중복체크
 

@@ -11,6 +11,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
+	var inputID = 1; //메신저추가시 아이디 비교용
 $(document).ready(function () {
 	$("#email").change(function(){
 		
@@ -259,23 +260,82 @@ $(document).ready(function () {
 	 
 	 $("#name").focusin(function(){//이름값 출력된 메시지 없애기
 		 document.getElementById('name_1').innerHTML = "";
-	 });
+		  });
 	 
-	  $("#confirmForm").submit(function(){
-		  
-	  //window.location.reload(true);
-	    location.replace(localhost/j/confirm);
-		  //$('email').empty();
-		// var a=$('#email').val();
-		// alert(a);
-		// document.getElementById('email').value = "";
-		 /* document.getElementById('name').value = "";
-		 document.getElementById('nickName').value = ""; */
-		 /* document.getElementById('sex').value = null
-		 document.getElementById('birth').value = null
-		 document.getElementById('tell').value = ""; */
-	}) 
-  
+		/* 메신저 추가용 */
+		//메신저 행 추가
+		$(document).on('click', '[name="addButton"]', function() {
+			$.ajax({
+				url : "/j/msgJson",
+				type : "get",
+				dataType : "JSON",
+				success : function(data) {
+					var selectlist = "<select id='select_box" + inputID + "'>";
+					$.each(data, function(index, m) { // db에 있는 메신저목록을 가져와서 하단의 div에 넣는다
+						selectlist += "<option value=" + m.mesDF + " id=" + m.mesDF + ">" + m.name + "</option>";
+					});
+					selectlist += "<select> <input type=text id='msg" + inputID + "'> <input type=button value='삭제' id='deletemsg'><br>";
+					inputID++;
+					$('#megform').append(selectlist);
+				}
+			});
+		});
+
+		//메신저 추가한거 제거
+		$(document).on('click', '#deletemsg', function() {
+			$(this).parent(this).remove();
+		});
+
+		//데이터 전달하기 기본정보
+		document.getElementById('insert').onclick = function() {
+			var tel = $('#tel1').val() + "-" + $('#tel2').val() + "-" + $('#tel3').val();
+			var sex = $('input:radio[name="sex"]:checked').val();
+			$.ajax({
+				url : "/j/confirm",
+				type : "post",
+				data : {
+					email : $('#email').val(),
+					pass : $('#pass1').val(),
+					name : $('#name').val(),
+					nickName : $('#nickName').val(),
+					birth : $('#birth').val(),
+					sex : sex,
+					tel : tel
+				},
+				dataType : "text",
+				success : function(result) {
+					result = result.split(":");
+					
+					if (result[0].match("success")) { //가입성공 (메세지제외)
+						var mesDF = '';
+						var mesid = '';
+						for (var i = 0; i < inputID; i++) {	//행을 삭제하지 않았을때 기준
+							mesDF += $('#select_box'+i+' option:selected').val() + ",";
+							mesid += $('#msg' + i + '').val() + ",";
+						}
+						//메세지테이블추가작업
+						$.ajax({
+							url : "/j/confirm/messenger",
+							type : "post",
+							data : {
+								memNO : result[1],
+								mesDF : mesDF,
+								id : mesid
+							},
+						    success : function(result){
+						    	if(result.match("success")){
+						    		alert("회원가입이 성공하였습니다.\n로그인해주세요~");
+						    		location.href="/j/res"
+						    	}
+						    }
+						});
+					} else { //가입실패
+						alert('가입실패!!');
+						location.href = "/j/confirm";
+					}
+				}
+			});
+		};
 });//document.ready
 	
 </script>
@@ -283,88 +343,44 @@ $(document).ready(function () {
 <!-- Main content -->
 <section class="content">
 
- 회원가입<br><br>
-   <form method="post" id="confirmForm">
-       <table cellpadding="1" >
-      
-        <!-- <input type="hidden" id="personDF" name="personDF"> --> <!-- value가 없으면 쓸모없음 -->
-       <!--  <input type="hidden" id="joinDate" name="joinDate"> -->
-        <!-- <input type="hidden" id="state" name="state"> -->
-        <!-- <input type="hidden" id="latestDate" name="latestDate"> -->
-        
-        <tr> <td colspan="2" height="100">계정정보</td>
-        
-        <tr><td>아이디(이메일주소)</td>
-        <td><input type="text" id="email" name="email" size="28" maxlength="30">
-        <div id="email_1" style="color:red; font-size:11px;"></div></td></tr>
-        
-       <tr><td>비밀번호</td>
-       <td><input type="password" name="pass1" id="pass1" maxlength="12">
-       <div id="pass_1" style="color:red; font-size:11px;"></div></td></tr>
-        <tr><td colspan="2">
-        <font color=green size="1">
-             최소 6자, 최대 12자 (영문과 숫자를 이용, 영문은 대소문자를 구분)</font></td></tr>
-             
-        <tr><td>비밀번호 확인</td>
-        <td><input type="password" name="pass2" id="pass2" maxlength="12">
-        <div id="pass_2" style="color:red; font-size:11px;"></div></td></tr>
-        
-        <tr><td colspan="2" height="100">개인정보</td></tr>
-            <tr><td>이름</td><td><input type="text" name="name" id="name" maxlength="12">
-            <div id="name_1" style="color:red; font-size:11px;"></div></td></tr>
-            
-         <tr><td>닉네임</td><td><input type="text" id="nickName" name="nickName">
-         <div id="nickname_1" style="color:red; font-size:11px;"></div></td></tr>  
-         <tr>
-		   <td>성별</td><td>
-		   남성<input type="radio" name="sex" value="1" id="sex">
-		   여성<input type="radio" name="sex" value="2" id="sex">
-           </td></tr>	
-			           
-           
-           <tr><td>생년월일</td>
-           <td><input type="date" name="birth" id="birth"></td></tr>
-           <tr><td>핸드폰번호</td><td>
-              <input type="text" name="tel1" id="tel1" size="4" maxlength="3">
-           - <input type="text" name="tel2" id="tel2" size="4" maxlength="4">
-           - <input type="text" name="tel3" id="tel3" size="4" maxlength="4">
-           <div id="tel_1" style="color:red; font-size:11px;"></div></td></tr>
-           
-          <!--  <tr><td>회원가입일</td></tr>
-           <td><input type="hidden"></td></tr> -->
-           
-           
-           
-           <tr><td>SNS / 메신저1</td><td>
-         <select> <!-- 메신저1 목록 불러오기 -->
-		 <c:forEach items="${list }" var="list"  >
-          
-           <option value="${list.mesDF }">${list.name } </option>
+	<br>회원가입<br> <br>
+	<form method="post" id="confirmForm">
+		<br>계정정보<br> 아이디(이메일주소)<input type="text" id="email"
+			name="email" size="28" maxlength="30">
+		<div id="email_1" style="color: red; font-size: 11px;"></div>
+		비밀번호<input type="password" name="pass1" id="pass1" maxlength="12"><br>
+		비밀번호 확인<input type="password" name="pass2" maxlength="12">
+		<div id="pass_1" style="color: red; font-size: 11px;"></div>
+		<div id="pass_2" style="color: red; font-size: 11px;"></div>
+		<font color=green size="1"> 최소 6자, 최대 12자 (영문과 숫자를 이용, 영문은
+			대소문자를 구분)</font><br> <br>개인정보<br> 이름<input type="text"
+			name="name" id="name" maxlength="12">
+		<div id="name_1" style="color: red; font-size: 11px;"></div>
 
-          </c:forEach> 
-
-         </select> 
-     
-           <input type="text" name="msgID_1" id="msgID_1" size="15">
-           <div id="msgID_11" style="color:red; font-size:11px;"></div></td></tr>
-              
-           <tr><td>SNS / 메신저2</td><td>
-          <select>
-           <c:forEach items="${list }" var="list"  >
-          
-           <option value="${list.mesDF }">${list.name } </option>
-
-          </c:forEach> 
-          </select>
-           <input type="text" name="msgID_2" id="msgID_2" size="15">
-           <div id="msgID_22" style="color:red; font-size:11px;"></div></td></tr>  
-          
-          <tr><td colspan="2" height="100" align="center" >
-          <input type="submit" value="등록" >
-           <button onclick="window.close()">취소</button></td></tr>
-       
-     </table>   
-     </form>    
+		닉네임<input type="text" id="nickName" name="nickName">
+		<div id="nickname_1" style="color: red; font-size: 11px;"></div>
+		<br>성별<br> 남성<input type="radio" name="sex" value="1"
+			checked="checked"> 여성<input type="radio" name="sex" value="2"><br>
+		생년월일<input type="date" name="birth" id="birth"><br> 핸드폰번호<input
+			type="text" name="tel1" id="tel1" size="4" maxlength="3"> - <input
+			type="text" name="tel2" id="tel2" size="4" maxlength="4"> - <input
+			type="text" name="tel3" id="tel3" size="4" maxlength="4">
+		<div id="tel_1" style="color: red; font-size: 11px;"></div>
+	</form>
+	<!-- 메신저 추가용  -->
+	메신저
+	<form id="megform" action="/j/confrim/messenger">
+		<select id="select_box0">
+			<c:forEach items="${list }" var="list">
+				<option value="${list.mesDF }" id="${list.mesDF }">${list.name }
+				</option>
+			</c:forEach>
+		</select> <input type="text" id="msg0"> <input name="addButton"
+			type="button" value="추가"><br>
+	</form>
+	<input type="button" value="등록" id="insert">
+	<button onclick="window.close()">취소</button>
+	<!-- 메신저 추가용  -->
 </section>
 <script type="text/javascript">
     var str='012535678';

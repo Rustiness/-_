@@ -32,7 +32,6 @@ $( document ).ready(function() {
 							document.frm.email.value='';	//emial초기화
 							document.frm.pass.value='';		//pass초기화
 							$('#d1').html("<font color=red>아이디가 존재하지 않거나,<br> 비밀번호가 일치하지 않습니다.</font>");
-							/* location.href="/l/confirm"; */
 						}else{						//올바른 값 입력시
 							location.href="/lte";
 						}

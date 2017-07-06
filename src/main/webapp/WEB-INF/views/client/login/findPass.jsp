@@ -16,26 +16,29 @@
 	
 	$(document).on('click', '#findpass', function() {
 		$.ajax({
-			url : "http://localhost/l/findpass/check",
+			url : "/l/findpass/check",
 			type : "post",
 			data : {
 				email : $('#email').val(),
 				name : $('#name').val(),
 				tel : $('#tel').val()
 			},			
-			dataType : "html",
+			dataType : "text",
 			success : function(result) {
-						if(result.match("fail")){  //잘못된 값 입력시
-							document.frm.email.value='';	
-							document.frm.name.value='';		
-							document.frm.tel.value='';		
-							$('#d1').html("<font color=red>아이디가 존재하지 않거나,<br>입력하신 값이 올바르지 않습니다.</font>");
-						}else{						//올바른 값 입력시
-							document.frm.email.value='';	
-							document.frm.name.value='';		
-							document.frm.tel.value='';	
-							$('#d1').html("<font color=blue>비밀번호는 :[ ${findpass} ]입니다</font>");
-						}
+				var seul = result.split(':')[0];
+				var seul2 = result.split(':')[1];
+				
+				if(seul.match("fail")){  //잘못된 값 입력시
+					document.frm.email.value='';	
+					document.frm.name.value='';		
+					document.frm.tel.value='';		
+					$('#d1').html("<font color=red>아이디가 존재하지 않거나,<br>입력하신 값이 올바르지 않습니다.</font>");
+				}else{						//올바른 값 입력시
+					document.frm.email.value='';	
+					document.frm.name.value='';		
+					document.frm.tel.value='';	
+					$('#d1').html("<font color=blue>비밀번호는 :[ "+seul2+ "]입니다</font>");
+				}
 			}
 			
 		});

@@ -5,6 +5,7 @@ import com.simpact.domain.MessengerVO;
 import com.simpact.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,48 +37,46 @@ public class JoinController {
 
 	/* 회원정보 등록 (입력폼) */
 	@RequestMapping(value = "/confirm", method = RequestMethod.GET)
-	public String confirmGET(Model model, MessengerVO msgvo) throws Exception {
-
+	public String confirmGET(Model model,HttpSession session) throws Exception {
 		List<MessengerVO> list = service.listmsg();
 		model.addAttribute("list", list);
-
-		System.out.println(list.toString());
-
 		return "/client/join/confirm";
 	}
-
+	
+	//메신저 목록얻어오기
+	@RequestMapping(value="/msgJson",method=RequestMethod.GET)
+	public @ResponseBody List<MessengerVO> getmsgList() throws Exception{
+		return service.listmsg();
+	}
+	
 	/* 회원정보 등록 (진행) */
-	@RequestMapping(value = "/confirm", method = RequestMethod.POST)
-	public String confirmPOST(MemberVO vo, HttpSession session, RedirectAttributes attr,
-	                          String tel1, String tel2, String tel3, MessengerVO msgvo, 
-	                          String pass2)
-			throws Exception {
-		System.out.println(">>> set confirm");
-		//System.out.println("vo.getEmail:"+vo.getEmail());
-		//System.out.println("vo.getNickName:"+vo.getNickName());
-		//System.out.println("tel1,tel2,tel3:"+tel1+","+tel2+","+tel3);
-
-		//System.out.println("vo.getTel():"+vo.getTel());
-		/*System.out.println("email:"+vo.getEmail()+",no"+vo.getMemNo()+",name"+vo.getName()
-				+",pass"+vo.getPass()+",sex"+vo.getSex()+",tel"+vo.getTel()+",birth"+vo.getBirth());*/
-
-		String tel = tel1 + tel2 + tel3;
-		vo.setTel(tel);
-		String pass = pass2;
-		vo.setPass(pass);
-
-		service.regist(vo); //회원정보등록(메신저빼고)
+	@RequestMapping(value="/confirm",method=RequestMethod.POST)
+	public @ResponseBody String confirmPOST(MemberVO vo, HttpSession session, String tel1, String tel2, String tel3, 
+								MessengerVO msgvo, String pass2)throws Exception {
 		
-/*		service.findMemNo(vo.getEmail());
-		service.msgRegist(msgvo);
-		service.findMesDF(msgvo.getMemNo());
-		service.DFMsgRegist(msgvo);*/
-
-
-		attr.addFlashAttribute("msg", "SUCCESS");
-		return "redirect:/j/res";
+		int t;
+		t = service.regist(vo); //회원정보등록(메신저빼고) //
+		if(t==1){ //입력이 성공했다면
+			return "success:"+vo.getMemNO(); 
+		}
+		return "fail:";
 	}
 
+	/* 회원정보 등록  (메신저)*/
+	@RequestMapping("/confirm/messenger")
+	public @ResponseBody String  msgPOST(MessengerVO vo) throws Exception{
+		String count[] = vo.getMesDF().split(",");	//사이즈 측정용
+		String mesDF[] = vo.getMesDF().split(",");
+		String mesID[] = vo.getId().split(",");
+		
+		for(int i=0; i<count.length; i++){	// ,로 나눈 배열만큼 메세지테이블에 인설트
+			vo.setMesDF(mesDF[i]);
+			vo.setId(mesID[i]);
+			 service.registMES(vo);
+		}
+		return "success";					//화면이 바뀌어야되는
+	}
+	
 	//이메일 중복
 	@RequestMapping("/id")
 	public @ResponseBody String email(String email) throws Exception {
@@ -95,7 +94,8 @@ public class JoinController {
 		if (t > 0) return "duplicate";
 		return "use";
 	}
-
+	
+	
 	/* 회원가입 완료 */
 	@RequestMapping("/res")
 	public String result() {

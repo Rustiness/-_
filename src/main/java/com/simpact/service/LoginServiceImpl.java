@@ -1,5 +1,7 @@
 package com.simpact.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public MemberVO selectMemberinfo(String memNO) throws Exception {
+	public List<MemberVO> selectMemberinfo(String memNO) throws Exception {
 		return dao.selectMemberinfo(memNO);
 	}
 

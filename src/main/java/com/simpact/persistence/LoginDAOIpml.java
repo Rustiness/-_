@@ -1,6 +1,7 @@
 package com.simpact.persistence;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -30,9 +31,8 @@ public class LoginDAOIpml implements LoginDAO {
 	}
 
 	@Override
-	public MemberVO selectMemberinfo(String memNO) {		//회원번호로 회원정보 전체
-
-		return sqlSession.selectOne("login.getMeminfo",memNO);
+	public List<MemberVO> selectMemberinfo(String memNO) {		//회원번호로 회원정보 전체
+		return sqlSession.selectList("login.getMeminfo",memNO);
 	}
 
 	@Override
