@@ -1,5 +1,7 @@
 package com.simpact.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,10 +27,10 @@ public class AdLoginController {
 	@Inject
 	private AdLoginService service;
 
-	/* 로그인 */
-	@RequestMapping("/l")
-	public String adminLogin() {
-		return "/admin/login/confirm";
+	/* 로그인후 메인화면 */
+	@RequestMapping("")
+	public String adminLogin( HttpServletRequest req) {
+		return "/admin/index";
 	}
 
 	@RequestMapping("/check")
@@ -39,8 +41,10 @@ public class AdLoginController {
 			if (t == 1) {    //로그인성공
 				String memNO = service.selectMemberNO(email);        //이메일을 통해 memno값 얻어오기
 				service.latestDateUpdate(memNO);            //최근 접속일 최신화
-				MemberVO vo = service.selectMemberinfo(memNO);                //회원번호로 회원정보 얻어오기
-				req.getSession().setAttribute("AdSUCCESS", vo);        // 로그인에 성공시 아이디(유일한값)를  키값으로하는 세션부여
+				List<MemberVO> list = service.selectMemberinfo(memNO);                //회원번호로 회원정보 얻어오기
+
+				req.getSession().setAttribute("memberList", list);        // 로그인에 성공시 AdSUCCESS(유일한값)를  키값으로하는 세션부여
+				System.out.println(req.getSession().getAttribute("memberList"));
 				return "success";    //성공후 메인페이지로이동
 			} else {
 				return "fail";
@@ -54,6 +58,6 @@ public class AdLoginController {
 	@RequestMapping("/logout")        //로그아웃!!
 	public String logout(HttpServletRequest req) {    //로그인화면 출력
 		req.getSession().invalidate();            //로그아웃시 모든 세션제거
-		return "redirect:/ad/l";
+		return "redirect:/admin";
 	}
 }

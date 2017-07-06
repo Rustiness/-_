@@ -6,7 +6,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%-- .jsp --%>
-<%@include file="../include/header.jsp" %>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
 $( document ).ready(function() {

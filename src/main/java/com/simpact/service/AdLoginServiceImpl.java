@@ -1,5 +1,7 @@
 package com.simpact.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -30,7 +32,7 @@ public class AdLoginServiceImpl implements AdLoginService {
 	}
 
 	@Override
-	public MemberVO selectMemberinfo(String memNO) throws Exception {
+	public List<MemberVO> selectMemberinfo(String memNO) throws Exception {
 		return dao.selectMemberinfo(memNO);
 	}
 

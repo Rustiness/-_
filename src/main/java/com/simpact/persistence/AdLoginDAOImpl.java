@@ -1,6 +1,7 @@
 package com.simpact.persistence;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -35,8 +36,8 @@ public class AdLoginDAOImpl implements AdLoginDAO {
 	}
 
 	@Override
-	public MemberVO selectMemberinfo(String memNO) {
-		return sqlSession.selectOne("Adlogin.getMeminfo", memNO);
+	public List<MemberVO> selectMemberinfo(String memNO) {
+		return sqlSession.selectList("Adlogin.getMeminfo", memNO);
 	}
 
 

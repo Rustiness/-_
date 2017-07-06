@@ -1,5 +1,7 @@
 package com.simpact.persistence;
 
+import java.util.List;
+
 import com.simpact.domain.MemberVO;
 
 public interface AdLoginDAO {
@@ -10,5 +12,5 @@ public interface AdLoginDAO {
 
 	public void latestDateUpdate(String memNO);    // 로그인시 최근접속 최신화
 
-	public MemberVO selectMemberinfo(String memNO);    // 회원번호로 회원정보 가져오기
+	public List<MemberVO> selectMemberinfo(String memNO);    // 회원번호로 회원정보 가져오기
 }

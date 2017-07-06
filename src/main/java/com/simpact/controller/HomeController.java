@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -43,11 +45,11 @@ public class HomeController {
 		return "/client/index";
 	}
 
-	/* 어드민 메인 */
-	@RequestMapping("/ad")
-	public String admin() {
-
-		return "/admin/index";
+	/* 어드민 로그인페이지 (초기화면) */
+	@RequestMapping("/admin")
+	public String admin(HttpServletRequest req) {
+		req.getSession().invalidate();
+		return "/admin/login/confirm";
 	}
 
 }

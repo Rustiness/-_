@@ -1,7 +1,16 @@
 package com.simpact.controller;
 
+import javax.inject.Inject;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.simpact.domain.PageMaker;
+import com.simpact.domain.SearchCriteria;
+import com.simpact.service.AdEmployeeService;
 
 /**
  * Created
@@ -13,10 +22,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/ad/e")
 public class AdEmployeeController {
 
+	@Inject
+	AdEmployeeService service;
+	
 	/* 직원목록 */
-	@RequestMapping("/list")
-	public String list() {
-
+	@RequestMapping(value="/list", method=RequestMethod.GET)
+	public String list(@ModelAttribute("cri") SearchCriteria cri, Model model)throws Exception{
+		
+		model.addAttribute("list",service.listSearchCriteria(cri));  //목록
+		PageMaker maker = new PageMaker();
+		maker.setCri(cri);
+		
+		maker.setTotalCount(service.listSearchCount(cri));
+		
+		model.addAttribute("pageMaker",maker);		//페이징
 		return "/admin/employee/list";
 	}
 
