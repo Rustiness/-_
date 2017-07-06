@@ -31,4 +31,24 @@
 		<beans:property name="suffix" value=".jsp"/>
 	</beans:bean>
 	<context:component-scan base-package="com.simpact.controller"/>
+	
+	<!-- 인터셉터 등록 -->
+	<beans:bean class="com.simpact.Interceptor.AuthInterceptor" id="authInterceptor"/>
+	<interceptors>
+		<interceptor>
+			<mapping path="/ad"/>		<!-- 내가원하는 곳에 다가 걸어두면 됨 ex)로그인전에는 못보는곳이라면~ -->		
+			<mapping path="/ad/m/list"/>
+			<mapping path="/ad/e/list"/>
+			<mapping path="/ad/tb/list"/>
+			<mapping path="/ad/tec/list"/>
+			<mapping path="/ad/te/list"/>
+			<mapping path="/ad/tr/list"/>
+			<mapping path="/ad/c/list"/>
+			<mapping path="/ad/r/list"/>
+			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
+	
+	
 </beans:beans>

@@ -29,6 +29,7 @@ public class AdEmployeeController {
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String list(@ModelAttribute("cri") SearchCriteria cri, Model model)throws Exception{
 		
+		
 		model.addAttribute("list",service.listSearchCriteria(cri));  //목록
 		PageMaker maker = new PageMaker();
 		maker.setCri(cri);
