@@ -41,7 +41,7 @@
 		ORDER BY talConnNO DESC
 	</select>
 
-	<select id="listTalDivCn" resultType="taldiv">
+	<select id="listTalDivCn" resultType="talDivVO">
 		SELECT *
 		FROM NP_TalHaveCn
 			NATURAL JOIN DF_TALDIV

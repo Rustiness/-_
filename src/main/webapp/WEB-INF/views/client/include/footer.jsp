@@ -10,8 +10,40 @@
 </head>
 <%-- footer.jsp --%>
 <body>
-<div>
-	클라이언트 푸터 입력부
+<div class="footer">
+	<div class="container">
+		<div class="clearfix">
+			<div class="footer-logo"><a href="#">Life Talent Exchange</a></div>
+			<dl class="footer-nav">
+				<dt class="nav-title">None</dt>
+				<dd class="nav-item"><a href="#">None</a></dd>
+				<dd class="nav-item"><a href="#">None &amp; None</a></dd>
+				<dd class="nav-item"><a href="#">None</a></dd>
+				<dd class="nav-item"><a href="#">None</a></dd>
+				<dd class="nav-item"><a href="#">None</a></dd>
+			</dl>
+			<dl class="footer-nav">
+				<dt class="nav-title">None</dt>
+				<dd class="nav-item"><a href="#">None</a></dd>
+				<dd class="nav-item"><a href="#">None</a></dd>
+				<dd class="nav-item"><a href="#">None</a></dd>
+			</dl>
+			<dl class="footer-nav">
+				<dt class="nav-title">None</dt>
+				<dd class="nav-item"><a href="#">None</a></dd>
+				<dd class="nav-item"><a href="#">None</a></dd>
+				<dd class="nav-item"><a href="#">None</a></dd>
+				<dd class="nav-item"><a href="#">None</a></dd>
+			</dl>
+			<dl class="footer-nav">
+				<dt class="nav-title">None</dt>
+				<dd class="nav-item"><a href="#">None</a></dd>
+				<dd class="nav-item"><a href="#">None</a></dd>
+				<dd class="nav-item"><a href="#">None</a></dd>
+			</dl>
+		</div>
+		<div class="footer-copyright text-center">Copyright © 2017 SummerImpact. All rights reserved.</div>
+	</div>
 </div>
 </body>
 </html>

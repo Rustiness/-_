@@ -87,7 +87,7 @@
 	</select>
 
     <!-- 보유한 재능 항목 리스트 -->
-	<select id="listTalDivHave" resultType="taldiv">
+	<select id="listTalDivHave" resultType="talDivVO">
         SELECT TB.TALDocNO,DT.name
 		from NP_TalHave TH,TalentBoard TB,Member M ,DF_TALDIV DT
 		WHERE TB.memNO = M.memNO AND TH.TALDocNO = TB.TALDocNO AND DT.talDivDF = TH.talDivDF
@@ -97,7 +97,7 @@
 	</select>
 	
 	<!-- 원하는 재능 항목 리스트 -->
-	<select id="listTalDivWant" resultType="taldiv">
+	<select id="listTalDivWant" resultType="talDivVO">
 		SELECT TB.TALDocNO,DT.name
 		from NP_TalWant TW,TalentBoard TB,Member M ,DF_TALDIV DT
 		WHERE TB.memNO = M.memNO AND TW.TALDocNO = TB.TALDocNO AND DT.talDivDF = TW.talDivDF
@@ -107,7 +107,7 @@
 	</select>
 	
 	<!-- 보유한 재능 페이지 출력 -->
-	<select id="readTalDivHave" resultType="taldiv">
+	<select id="readTalDivHave" resultType="talDivVO">
 		SELECT *
 		FROM NP_TalHave
 		NATURAL JOIN DF_TALDIV
@@ -115,7 +115,7 @@
 	</select>
 	
 	<!-- 원하는 재능 페이지 출력 -->
-		<select id="readTalDivWant" resultType="taldiv">
+		<select id="readTalDivWant" resultType="talDivVO">
 		SELECT *
 		FROM NP_TalWant
 		NATURAL JOIN DF_TALDIV
@@ -135,7 +135,7 @@
 	</select>
 
 	<!-- 항목조회 -->
-	<select id="divList" resultType="taldiv">
+	<select id="divList" resultType="talDivVO">
 		select * from DF_TalDiv where talDivDF = #{talDivDF}
 	</select>
 </mapper>

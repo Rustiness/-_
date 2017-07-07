@@ -4,18 +4,18 @@
 
    <!-- 게시판 글 생성 -->
 	<insert id="create">
-     insert into counboard(csNO,memNO,questDF,title,content,writeDate,state)
+     INSERT INTO counboard(csNO,memNO,questDF,title,content,writeDate,state)
             values ('CB_A'||LPAD(CounBoard_seq.nextval,5,0),#{memNO},#{questDF}, #{title}, #{content},sysdate, '2')
  	</insert>
 
-	<!-- 게시판 글 수정 --> 
+	<!-- 게시판 글 수정 -->
 	<update id="update">
 		UPDATE counboard
 		SET title = #{title}, content = #{content}
 		WHERE csNO = #{csNO}
 	</update>
 
-	<!-- 게시판 글 삭제 --> 
+	<!-- 게시판 글 삭제 -->
 	<delete id="delete">
 		DELETE FROM counboard
 		WHERE csNO = #{csNO}
@@ -41,8 +41,8 @@
 
 	<!-- -->
 	<select id="listPage" resultType="csboard2">
-     select csNO,memNO,name,title,content,writeDate,state
-                   from counboard natural join DF_Question
+		SELECT csNO, memNO, name, title, content, writeDate, state
+		FROM counboard NATURAL JOIN DF_Question
 		ORDER BY csNO DESC
 	</select>
 
@@ -53,30 +53,28 @@
 
 	<!-- search + listSearch 검색어조회 + 리스트목록 출력 -->
 	<sql id="search">
-     <if test="searchType != null">                
-	     <if test="searchType == 't'.toString()"> 
-	       and title like '%'||#{keyword}||'%'
-	     </if>           
-	     <if test="searchType == 'c'.toString()">  
-	       and content like '%'||#{keyword}||'%'
-	     </if>           
-	     <if test="searchType == 'w'.toString()">
-	       and writer like '%'||#{keyword}||'%'
-	     </if>           
-     </if>  
-  </sql>
-    
-  <select id="listSearch" resultType="csboard2">
-		select counboard.csNO, counboard.memNO, DF_Question.name,counboard.title,counboard.content,counboard.writeDate,counboard.state,Member.nickName 
-		from counboard, DF_Question, Member
-		where counboard.memNO=Member.memNO and counboard.questDF=DF_Question.questDF
-        <include refid="search"></include>     
-           
-      order by csNO desc
-  </select>
-  
-  
- 
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				AND title LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'c'.toString()">
+				AND content LIKE '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'w'.toString()">
+				AND writer LIKE '%'||#{keyword}||'%'
+			</if>
+		</if>
+	</sql>
+
+	<!-- -->
+	<select id="listSearch" resultType="csboard2">
+		SELECT counboard.csNO, counboard.memNO, DF_Question.name,counboard.title,counboard.content,counboard.writeDate,counboard.state,Member.nickName
+		FROM counboard, DF_Question, Member
+		WHERE counboard.memNO = Member.memNO AND counboard.questDF = DF_Question.questDF
+		<include refid="search"></include>
+		ORDER BY csNO DESC
+	</select>
+
    <!-- 검색어 조회 엔진 search2 + listSearchCount -->
   <sql id="search2">
 		<if test="searchType != null">
@@ -92,24 +90,20 @@
 		</if>
 	</sql>
 
-  
-  <!-- -->
-  <select id="listSearchCount" resultType="int">
-     select count(*) from counboard 
-     <include refid="search2"></include>             
-  </select>  	
-  
+	<!-- -->
+	<select id="listSearchCount" resultType="int">
+		SELECT count(*) FROM counboard
+		<include refid="search2"></include>
+	</select>
 
-   <!-- 닉네임 가져오기 -->  
-     <select id='nick' resultType="csboard2">
-   	select memNO,nickName from Member
-    </select>
-   
-   <!-- 카테고리 가져오기 --> 
-    <select id='cate' resultType="quest">
-    select questDF,name from DF_Question
-    where isYn='Y'
-    </select>
-    
-  	
+	<!-- 닉네임 가져오기 -->
+	<select id='nick' resultType="csboard2">
+		SELECT memNO, nickName FROM Member
+	</select>
+
+	<!-- 카테고리 가져오기 -->
+	<select id='cate' resultType="quest">
+		SELECT questDF, name FROM DF_Question
+		WHERE isYn = 'Y'
+	</select>
 </mapper>

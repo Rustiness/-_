@@ -6,11 +6,15 @@ public class TalDivVO {
 	private String name;
 	private String memo;
 	private String isYn;
-	
+
 	/*재능글 목록*/
 	private String talDocNO;
 	/* 재능연결 */
 	private String talConnNO;
+
+	/* 카테고리명 및 항목명 ~ 재능신청 */
+	private String talCateName; //카테고리명
+	private String talDivName; //항목명
 
 	public TalDivVO() {
 	}
@@ -23,7 +27,10 @@ public class TalDivVO {
 				", name='" + name + '\'' +
 				", memo='" + memo + '\'' +
 				", isYn='" + isYn + '\'' +
+				", talDocNO='" + talDocNO + '\'' +
 				", talConnNO='" + talConnNO + '\'' +
+				", talCateName='" + talCateName + '\'' +
+				", talDivName='" + talDivName + '\'' +
 				'}';
 	}
 
@@ -67,6 +74,14 @@ public class TalDivVO {
 		this.isYn = isYn;
 	}
 
+	public String getTalDocNO() {
+		return talDocNO;
+	}
+
+	public void setTalDocNO(String talDocNO) {
+		this.talDocNO = talDocNO;
+	}
+
 	public String getTalConnNO() {
 		return talConnNO;
 	}
@@ -74,11 +89,20 @@ public class TalDivVO {
 	public void setTalConnNO(String talConnNO) {
 		this.talConnNO = talConnNO;
 	}
-	public String gettalDocNO() {
-		return talDocNO;
+
+	public String getTalCateName() {
+		return talCateName;
 	}
 
-	public void settalDocNO(String talDocNO) {
-		this.talDocNO = talDocNO;
+	public void setTalCateName(String talCateName) {
+		this.talCateName = talCateName;
+	}
+
+	public String getTalDivName() {
+		return talDivName;
+	}
+
+	public void setTalDivName(String talDivName) {
+		this.talDivName = talDivName;
 	}
 }

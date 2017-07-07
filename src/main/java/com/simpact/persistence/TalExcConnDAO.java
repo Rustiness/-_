@@ -26,4 +26,9 @@ public interface TalExcConnDAO {
 	public int listSearchCount(SearchCriteria cri) throws Exception;
 
 
+	public List<TalDivVO> listUseCate() throws Exception; // 사용하는 카테고리 목록 가져오기
+
+	public List<TalDivVO> selCateCallDiv(String  talCateDF) throws Exception; // 선택한 카테고리의 항목 목록 가져오기
+
+	public List<TalDivVO> listAllCateDiv() throws Exception; // 전체 카테고리 및 항목 목록 가져오기
 }

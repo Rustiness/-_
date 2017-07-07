@@ -4,22 +4,22 @@
 
 	<!-- 후기 입력하기 -->
 	<insert id="create">
-		insert into TalExchange(talExcNO, talConnNO, title, content, writeDate)
-		values('TE_A'||LPAD(TalExchange_seq.nextval,5,0),'TEC_A00005', #{title}, #{content}, sysdate)
+		INSERT INTO TalExchange (talExcNO, talConnNO, title, content, writeDate)
+		VALUES ('TE_A' || LPAD(TalExchange_seq.nextval, 5, 0), 'TEC_A00005', #{title}, #{content}, sysdate)
 	</insert>
 
 	<!-- 후기 게시판 전체목록보기 -->
 	<select id="listAll" resultType="rboard">
-		select talExcNO , title, content, writeDate
-		from TalExchange
-		order by talExcNO desc
+		SELECT talExcNO, title, content, writeDate
+		FROM TalExchange
+		ORDER BY talExcNO DESC
 	</select>
 
 	<!-- 게시물 상세읽기 -->
 	<select id="read" resultType="rboard">
-		select talExcNO, title, content, writeDate
-		from TalExchange
-		where talExcNO=#{talExcNO}
+		SELECT talExcNO, title, content, writeDate
+		FROM TalExchange
+		WHERE talExcNO = #{talExcNO}
 	</select>
 
 	<!-- <select id="nickname"> select nickname from member where memno= (select 
@@ -37,23 +37,21 @@
 		delete from TalExchange where talExcNO=#{talExcNO}
 	</delete>
 
-	<!-- 검색어 조회 -->
+	<!--  검색어 조회 -->
 	<sql id="search">
 		<if test="searchType !=null">
 			<if test="searchType == 't'.toString()">
-				and e.title like '%'||#{keyword}||'%'
+				AND e.title LIKE '%'||#{keyword}||'%'
 			</if>
 			<if test="searchType == 'c'.toString()">
-				and e.content like '%'||#{keyword}||'%'
+				AND e.content LIKE '%'||#{keyword}||'%'
 			</if>
 			<if test="searchType == 'w'.toString()">
-				and nickname like '%'||#{keyword}||'%'
+				AND nickname LIKE '%'||#{keyword}||'%'
 			</if>
 		</if>
-
 	</sql>
-	
-	
+
 		<!-- 검색어 조회 -->
 	<sql id="search2">
 		<if test="searchType !=null">
@@ -67,12 +65,8 @@
 				where nickname like '%'||#{keyword}||'%'
 			</if>
 		</if>
-
 	</sql>
-	
-	
-	
-	
+
 	<!-- 전체리스트 검색하기(카테고리, 닉네임 조회때문에 복잡해짐 -_- -->
 	<select id="listSearch" resultType="rboard">
 		select e.talExcNO, e.title, e.content, m.nickName, e.writeDate,f.name
@@ -88,7 +82,7 @@
 
 	<!-- 전체글갯수 확인하기 -->
 	<select id="countPaging" resultType="int">
-		select count(*)	from TalExchange
+		SELECT count(*) FROM TalExchange
 	</select>
 
 	<!-- 검색으로 찾은 목록 갯수 확인하기 -->
@@ -97,9 +91,15 @@
 		<include refid="search2"></include>
 	</select>
 
-	<!-- <select id="nickname" resultType="int"> select nickname from member 
-		where memno= (select memNO from TalExcConn where talConnNo = (select talConnNO 
-		from TalExchange where talExcNO='TE_A00001')) </select> -->
+	<!-- <select id="nickname" resultType="int">
+	select nickname
+	from member
+	where memno= (select  memNO
+					from TalExcConn
+					where talConnNo = (select talConnNO
+										from TalExchange
+										where talExcNO='TE_A00001'))
+	</select> -->
 </mapper>
 
 

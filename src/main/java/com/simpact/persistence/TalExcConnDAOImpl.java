@@ -1,6 +1,9 @@
 package com.simpact.persistence;
 
-import com.simpact.domain.*;
+import com.simpact.domain.Criteria;
+import com.simpact.domain.SearchCriteria;
+import com.simpact.domain.TalDivVO;
+import com.simpact.domain.TalExcConnVO;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -58,4 +61,19 @@ public class TalExcConnDAOImpl implements TalExcConnDAO {
 		return sqlSession.selectOne("talExcConn.listSearchCount", cri);
 	}
 
+
+	@Override
+	public List<TalDivVO> listUseCate() throws Exception {
+		return sqlSession.selectList("talDivision.listCateUse");
+	}
+
+	@Override
+	public List<TalDivVO> selCateCallDiv(String talCateDF) throws Exception {
+		return sqlSession.selectList("talDivision.selCateCallDiv", talCateDF);
+	}
+
+	@Override
+	public List<TalDivVO> listAllCateDiv() throws Exception {
+		return sqlSession.selectList("talDivision.listAllCateDiv");
+	}
 }

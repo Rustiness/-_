@@ -2,15 +2,14 @@ package com.simpact.controller;
 
 import com.simpact.domain.PageMaker;
 import com.simpact.domain.SearchCriteria;
+import com.simpact.domain.TalDivVO;
 import com.simpact.service.TalExcConnService;
-import com.simpact.service.TalExchangeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Created
@@ -40,9 +39,33 @@ public class TalExcConnController {
 		return "/client/talExcConn/list";
 	}
 
+	/* 재능교환신청 등록 페이지 이동 */
+	@RequestMapping(value="/app", method=RequestMethod.GET)
+	public String applyGET(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+
+		List<TalDivVO> listUseCate = service.listUseCate();
+		List<TalDivVO> listAllCateDiv = service.listAllCateDiv();
+		model.addAttribute("listUseCate", listUseCate);// 사용중 카테고리 목록
+		model.addAttribute("listAllCateDiv", listAllCateDiv);// 전체 카테고리 및 항목 목록
+
+		return "/client/talExcConn/apply";
+	}
+
+	/* 재능교환신청 등록 ~ 선택한 카테고리의 항목 목록 가져오기 */
+	@RequestMapping(value = "/app/{selItemNO}", method = RequestMethod.POST)
+	public @ResponseBody List<TalDivVO> listDiv(@PathVariable("selItemNO") String talCateDF) throws Exception {
+		System.out.println("조회할 기준 게시물번호:" + talCateDF);
+
+		List<TalDivVO> list = service.selCateCallDiv(talCateDF); // 선택한 카테고리와 관련된 항목 목록
+
+		System.out.println(list.toString());
+
+		return list;
+	}
+
 	/* 재능교환신청 등록 */
-	@RequestMapping("/app")
-	public String app() {
+	@RequestMapping(value="/app", method=RequestMethod.POST)
+	public String applyPOST() throws Exception {
 
 		return "/client/talExcConn/apply";
 	}

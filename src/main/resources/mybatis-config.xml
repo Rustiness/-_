@@ -8,7 +8,7 @@
 <typeAlias type="com.simpact.domain.TalReviewReplyVO" alias="talreview"/>  
 		<typeAlias type="com.simpact.domain.TalBoardVO" alias="talentlist"/>
 		<typeAlias type="com.simpact.domain.TalCategoryVO" alias="talCategory"/>
-		<typeAlias type="com.simpact.domain.TalDivVO" alias="taldiv"/>
+		<typeAlias type="com.simpact.domain.TalDivVO" alias="talDivVO"/>
 		<typeAlias type="com.simpact.domain.MemberVO" alias="member"/>
 		<typeAlias type="com.simpact.domain.TalExcConnVO" alias="talExcConnVO"/>
 		<typeAlias type="com.simpact.domain.MessengerVO" alias="messengerVO"/>
@@ -18,8 +18,8 @@
 	<!-- 따로따로 맴퍼를 등록해야한다면, 여기에 아래와 같이 등록!! -->
 	<!--
 	<mappers>
-		<mapper resource="testMapper.xml"/>
-		<mapper resource="memberMapper.xml"/>
+		<mapper resource="TestMapper.xml"/>
+		<mapper resource="MemberMapper.xml"/>
 	</mappers>
 	-->
 </configuration>

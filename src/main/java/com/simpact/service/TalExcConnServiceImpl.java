@@ -45,5 +45,18 @@ public class TalExcConnServiceImpl implements TalExcConnService {
 		return dao.listSearchCount(cri);
 	}
 
+	@Override
+	public List<TalDivVO> listUseCate() throws Exception {
+		return dao.listUseCate();
+	}
 
+	@Override
+	public List<TalDivVO> selCateCallDiv(String talCateDF) throws Exception {
+		return dao.selCateCallDiv(talCateDF);
+	}
+
+	@Override
+	public List<TalDivVO> listAllCateDiv() throws Exception {
+		return dao.listAllCateDiv();
+	}
 }
