@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.simpact.domain.Criteria;
 import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.TalExchangeVO;
+import com.simpact.domain.TalExchangelistVO;
 
 @Repository
 public class TalExchangeDAOImpl implements TalExchangeDAO {
@@ -84,6 +85,11 @@ public class TalExchangeDAOImpl implements TalExchangeDAO {
 	@Override
 	public TalExchangeVO nickread(String talExcNO) throws Exception {
 		return sqlSession.selectOne("rboard.nickname", talExcNO);
+	}
+
+	@Override
+	public List<TalExchangelistVO> catelist() throws Exception {
+		return sqlSession.selectList("rboardlist.catelist");
 	}
 
 }

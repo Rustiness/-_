@@ -5,6 +5,7 @@
    Time: 오후 6:04
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%-- .jsp --%>
 <%@include file="../include/header.jsp" %>
     <script
@@ -18,13 +19,27 @@
 				<!-- /.box-header -->
 
 <form role="form" method="post">
- <input type="hidden" name="nickname" value="김주원"> 
- <input type="hidden" name="talConnNO" value="TEC_A00025"> 
+ 
+
  
 	<div data-text-content="true" style="font-weight:bold;font-size:18px" class>교환후기 등록</div>
 	<div data-text-content="true" style="font-weight: bold; font-size: 18px; background-color: rgb(224, 224, 224);" class spellcheck="false">  교환 정보</div>
      <table>
-     <tr><th>받은재능</th><td><select><option>피아노</option><option>요리</option><option>프로그래밍</option></select></td></tr>
+     <tr><th>받은재능</th>
+     <td>
+     
+    <select>
+		<c:forEach items="${list }" var="list">
+    		 <option>${list.name}</option>
+
+		</c:forEach>     
+     </select>
+						
+
+     
+     </td>
+     
+     </tr>
      <tr><th>교환자닉네임</th><td><select><option>x7360</option><option>gildon</option><option>lime</option></select></td></tr>
      
      

@@ -5,6 +5,7 @@ import java.util.List;
 import com.simpact.domain.Criteria;
 import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.TalExchangeVO;
+import com.simpact.domain.TalExchangelistVO;
 
 
 public interface TalExchangeDAO {
@@ -18,6 +19,8 @@ public interface TalExchangeDAO {
 	public boolean delete(String talExcNO) throws Exception;
 
 	public List<TalExchangeVO> listPage(int page) throws Exception;//조회(여러행-리스트)
+
+	public List<TalExchangelistVO> catelist() throws Exception;//재능카테고리 읽어오기
 
 	public List<TalExchangeVO> listCriteria(Criteria cri) throws Exception;//전체레코드 수
 

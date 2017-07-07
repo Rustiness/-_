@@ -5,6 +5,7 @@ import java.util.List;
 import com.simpact.domain.Criteria;
 import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.TalExchangeVO;
+import com.simpact.domain.TalExchangelistVO;
 
 public interface TalExchangeService {
 
@@ -26,5 +27,7 @@ public interface TalExchangeService {
 	public List<TalExchangeVO> listSearch(SearchCriteria cri) throws Exception;//페이지관련
 
 	public int listSearchCount(SearchCriteria cri) throws Exception; //검색관련
+		
+		public List<TalExchangelistVO> listcate() throws Exception;
 
 }

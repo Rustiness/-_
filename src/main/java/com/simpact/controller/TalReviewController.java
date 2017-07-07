@@ -1,5 +1,7 @@
 package com.simpact.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.simpact.domain.PageMaker;
 import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.TalExchangeVO;
+import com.simpact.domain.TalExchangelistVO;
 import com.simpact.service.TalExchangeService;
 
 /**
@@ -22,7 +25,7 @@ import com.simpact.service.TalExchangeService;
  * Date: 2017-06-30
  * Time: 오후 4:55
  */
-
+ 
 @Controller
 @RequestMapping("/tr")
 public class TalReviewController {
@@ -34,7 +37,9 @@ public class TalReviewController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String listPage(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 
-		model.addAttribute("list", service.listSearch(cri));
+		List<TalExchangeVO> list = service.listSearch(cri);
+		
+		model.addAttribute("list", list);
 		PageMaker maker = new PageMaker();
 		maker.setCri(cri);
 
@@ -45,7 +50,10 @@ public class TalReviewController {
 
 	// 입력폼만 보기
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String registerGET() throws Exception {
+	public String registerGET(Model model) throws Exception {
+		List<TalExchangelistVO> list = service.listcate();
+		model.addAttribute("list",list);
+		System.out.println(list.toString());
 		return "/client/talReview/write";
 	}
 
@@ -54,11 +62,11 @@ public class TalReviewController {
 	public String registerPOST(TalExchangeVO vo) throws Exception {
 		System.out.println(vo);
 		service.regist(vo);
-		return "redirect:/tr/listall";
+		return "redirect:/tr/list";
 	}
-
+	
 	//DB입력 후 계속 입력 안되게하기 위해 direct로 받고 list로 페이지 이동
-	@RequestMapping("/listall")
+	@RequestMapping("/list")
 	public String ListAll() throws Exception {
 		return "/client/talReview/list";
 	}
@@ -78,7 +86,8 @@ public class TalReviewController {
 
 	// 내용 변경후에 페이지 이동 없이 그 페이지 머물게 하는거(3페이지에서 수정했어도 3페이지에 머물기)
 	@RequestMapping(value = "/mod", method = RequestMethod.GET)
-	public String modifyPageGET(String talExcNO, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+	public String modifyPageGET(String talExcNO, @ModelAttribute("cri") SearchCriteria cri, Model model)
+			throws Exception {
 		model.addAttribute("talExchange", service.read(talExcNO));
 		return "client/talReview/modify";
 	}
@@ -95,10 +104,11 @@ public class TalReviewController {
 		return "redirect:/tr/list";
 	}//modifyPage
 
-
+	
 	// 게시물삭제해도 해당 페이지에 머무르기
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
-	public String removePage(@RequestParam("talExcNO") String talExcNO, SearchCriteria cri, RedirectAttributes attr) throws Exception {
+	public String removePage(@RequestParam("talExcNO") String talExcNO, SearchCriteria cri, RedirectAttributes attr)
+			throws Exception {
 		service.remove(talExcNO);
 
 		attr.addAttribute("page", cri.getPage());

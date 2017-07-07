@@ -4,11 +4,12 @@
    Date: 2017-06-30
    Time: 오후 6:04
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%-- .jsp --%>
-<%@include file="../include/header.jsp" %>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<%@include file="../include/header.jsp"%>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <!-- Main content -->
 <section class="content">
@@ -48,40 +49,39 @@
 						<th>제목</th>
 						<th>작성자</th>
 						<th>작성일</th>
-						
+
 					</tr>
 
 					<c:forEach items="${list }" var="TalExchangeVO">
 
 						<tr>
 							<td>${TalExchangeVO. talExcNO}</td>
-							<td>제이쿼리</td>
-							<td><a href='/tr/read${pageMaker.makeSearch(pageMaker.cri.page) }&talExcNO=${TalExchangeVO.talExcNO}'>
-                              ${TalExchangeVO.title} </a></td>
+							
+							
+									<td>${TalExchangeVO.name}</td>
+								
+								
+									
+							
+							
+							<td><a
+								href='/tr/read${pageMaker.makeSearch(pageMaker.cri.page) }&talExcNO=${TalExchangeVO.talExcNO}'>
+									${TalExchangeVO.title} </a></td>
 							<td>${TalExchangeVO.nickname }</td>
 							<td>${TalExchangeVO.writeDate }</td>
-					
-					
 						</tr>
-
 					</c:forEach>
-
 				</table>
 			</div>
 			<!-- /.box-body -->
-
-
-
-
-	
-
 
 		</div>
 		<div class="text-center">
 			<ul class="pagination" id="pagination">
 
 				<c:if test="${pageMaker.prev}">
-					<li><a href="list${pageMaker.makeSearch(pageMaker.startPage - 1)}">&laquo;</a></li>
+					<li><a
+						href="list${pageMaker.makeSearch(pageMaker.startPage - 1)}">&laquo;</a></li>
 				</c:if>
 
 				<c:forEach begin="${pageMaker.startPage }"
@@ -93,7 +93,8 @@
 				</c:forEach>
 
 				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-					<li><a href="list${pageMaker.makeSearch(pageMaker.endPage +1)}">&raquo;</a></li>
+					<li><a
+						href="list${pageMaker.makeSearch(pageMaker.endPage +1)}">&raquo;</a></li>
 				</c:if>
 
 			</ul>
@@ -128,4 +129,4 @@
 	</script>
 </section>
 
-<%@include file="../include/footer.jsp" %>
+<%@include file="../include/footer.jsp"%>

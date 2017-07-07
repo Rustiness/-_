@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="talreview">
+
+
+	<!--
+	private String commExNO;  /* 댓글번호 */
+ 	private String  talExcNO;  /* 재능교환번호 */
+	private String  content; /* 댓글내용 */
+	private Date  writeDate; /* 등록일시 */
+	private Date  repairDate; /* 수정일시 */
+	private String  state;  /* 표시상태 */
+ -->
+
+  <select id="list" resultType="talreview">
+  	select commExNO, talExcNO, content, writeDate, repairDate, state
+  	from TalExcComment
+  	where talExcNO=#{talExcNO}
+  	order by commExNO desc
+  <!-- 	<if test="cri.pageStart != null">
+  	
+  	</if> -->
+  </select>
+  
+  <insert id="create">
+  	insert into TalExcComment(commExNO, talExcNO, content)
+  	values (TalExcComment_seq.nextval, #{talExcNO},#{content})
+  </insert>
+  
+  <update id="update">
+  	update TalExcComment
+  	set content=#{content}, repairDate=sysdate
+  	where commExNO=#{commExNO}
+  </update>
+  
+  <delete id="delete">
+  	delete from TalExcComment where commExNO=#{commExNO}
+  </delete>
+  
+	<!-- count -->
+  <select id="count" resultType="int">
+  	select count(*)
+  	from TalExcComment
+  	where commExNO=#{commExNO}
+  </select>
+</mapper>

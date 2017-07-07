@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.simpact.domain.Criteria;
 import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.TalExchangeVO;
+import com.simpact.domain.TalExchangelistVO;
 import com.simpact.persistence.TalExchangeDAO;
 
 @Service
@@ -63,4 +64,10 @@ public class TalExchangeServiceImpl implements TalExchangeService {
 		return dao.listSearchCount(cri);
 	}
 
+	@Override
+	public List<TalExchangelistVO> listcate() throws Exception {
+	return dao.catelist();
+	}
+	
+	
 }

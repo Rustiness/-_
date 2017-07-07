@@ -4,92 +4,102 @@
 
 	<!-- 후기 입력하기 -->
 	<insert id="create">
-		INSERT INTO TalExchange (talExcNO, talConnNO, title, content, writeDate)
-		VALUES ('TE_A' || LPAD(TalExchange_seq.nextval, 5, 0), 'TEC_A00005', #{title}, #{content}, sysdate)
+		insert into TalExchange(talExcNO, talConnNO, title, content, writeDate)
+		values('TE_A'||LPAD(TalExchange_seq.nextval,5,0),'TEC_A00005', #{title}, #{content}, sysdate)
 	</insert>
 
 	<!-- 후기 게시판 전체목록보기 -->
 	<select id="listAll" resultType="rboard">
-		SELECT talExcNO, title, content, writeDate
-		FROM TalExchange
-		ORDER BY talExcNO DESC
+		select talExcNO , title, content, writeDate
+		from TalExchange
+		order by talExcNO desc
 	</select>
 
 	<!-- 게시물 상세읽기 -->
 	<select id="read" resultType="rboard">
-		SELECT talExcNO, title, content, writeDate
-		FROM TalExchange
-		WHERE talExcNO = #{talExcNO}
+		select talExcNO, title, content, writeDate
+		from TalExchange
+		where talExcNO=#{talExcNO}
 	</select>
 
-	<!-- 	<select id="nickname">
-			select nickname
-					from member
-						where memno= (select  memNO
-					from TalExcConn
-					where talConnNo = (select talConnNO
-										from TalExchange
-										where talExcNO=#{talExcNO}))
-		</select> -->
+	<!-- <select id="nickname"> select nickname from member where memno= (select 
+		memNO from TalExcConn where talConnNo = (select talConnNO from TalExchange 
+		where talExcNO=#{talExcNO})) </select> -->
 
 	<!-- 게시물 수정 -->
 	<update id="update">
-		UPDATE TalExchange
-		SET title = #{title}, content = #{content}
-		WHERE talExcNO = #{talExcNO}
+		update TalExchange set title=#{title}, content=#{content}
+		where talExcNO=#{talExcNO}
 	</update>
 
 	<!-- 게시물 삭제 -->
 	<delete id="delete">
-		DELETE FROM TalExchange
-		WHERE talExcNO = #{talExcNO}
+		delete from TalExchange where talExcNO=#{talExcNO}
 	</delete>
 
-	<!--  검색어 조회 -->
+	<!-- 검색어 조회 -->
 	<sql id="search">
 		<if test="searchType !=null">
 			<if test="searchType == 't'.toString()">
-				AND e.title LIKE '%'||#{keyword}||'%'
+				and e.title like '%'||#{keyword}||'%'
 			</if>
 			<if test="searchType == 'c'.toString()">
-				AND e.content LIKE '%'||#{keyword}||'%'
+				and e.content like '%'||#{keyword}||'%'
 			</if>
 			<if test="searchType == 'w'.toString()">
-				AND nickname LIKE '%'||#{keyword}||'%'
+				and nickname like '%'||#{keyword}||'%'
 			</if>
 		</if>
-	</sql>
 
-	<!-- 검색하기 -->
+	</sql>
+	
+	
+		<!-- 검색어 조회 -->
+	<sql id="search2">
+		<if test="searchType !=null">
+			<if test="searchType == 't'.toString()">
+				where e.title like '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'c'.toString()">
+				where e.content like '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'w'.toString()">
+				where nickname like '%'||#{keyword}||'%'
+			</if>
+		</if>
+
+	</sql>
+	
+	
+	
+	
+	<!-- 전체리스트 검색하기(카테고리, 닉네임 조회때문에 복잡해짐 -_- -->
 	<select id="listSearch" resultType="rboard">
-		SELECT talExcNO, e.title, e.content, nickName, writeDate
-		FROM TalExchange e, TalExcConn c, member m
-		WHERE c.memNO = m.memNO
-		AND e.talConnNO = c.talConnNO <!-- <include refid="search"></include> -->
-		ORDER BY talExcNO DESC
+		select e.talExcNO, e.title, e.content, m.nickName, e.writeDate,f.name
+		from TalExchange e,TalExcConn c,member m,TalentBoard t,NP_TalHave n,DF_TalDiv f
+		where n.talDivDF = f.talDivDF <!--DF_재능항목+보유한재능(작성자)  -->
+		and e.talConnNO = c.talConnNO <!--재능교환(후기)+재능연결  -->
+		and n.talDocNO = t.talDocNO <!--재능연결+재능글  -->
+		and t.talDocNO = c.talDocNO <!--재능글+보유한재능 -->
+		and c.memNO = m.memNO <!--재능연걸+회원  -->
+		<include refid="search"></include>
+		order by e.talExcNO desc
 	</select>
 
 	<!-- 전체글갯수 확인하기 -->
 	<select id="countPaging" resultType="int">
-		SELECT count(*)
-		FROM TalExchange
+		select count(*)	from TalExchange
 	</select>
 
 	<!-- 검색으로 찾은 목록 갯수 확인하기 -->
 	<select id="listSearchCount" resultType="int">
-		SELECT count(*) FROM TalExchange
-		<include refid="search"></include>
+		select count(*) from TalExchange
+		<include refid="search2"></include>
 	</select>
 
-	<!-- <select id="nickname" resultType="int">
-	select nickname
-	from member
-	where memno= (select  memNO
-					from TalExcConn
-					where talConnNo = (select talConnNO
-										from TalExchange
-										where talExcNO='TE_A00001'))
-	</select> -->
+	<!-- <select id="nickname" resultType="int"> select nickname from member 
+		where memno= (select memNO from TalExcConn where talConnNo = (select talConnNO 
+		from TalExchange where talExcNO='TE_A00001')) </select> -->
 </mapper>
 
 
