@@ -27,23 +27,87 @@
 </script>
 <!-- Main content -->
 <section class="content">
-	재능등록<br> 등록단계: [1단계 보유한 재능]>[2단계 원하는 재능]>[<font color="blue">내용확인</font>]<br>
-	내용확인<br> 재능글 제목<br>
-	<form action="write" method="POST">
-		<input type="hidden" value="${TalBoardVO.title }" id="title"
-			name="title"> <input type="button" value="원하는 재능 이전글 가져오기"><br>
-		보유한 재능 정보<br> 보유한 재능<br>
-		<textarea rows="10" cols="50" name="contentHave" value="받아올 내용">${TalBoardVO.contentHave }</textarea>
-		<br> 원하는 재능 정보<br> 원하는 재능 <br>
-		<textarea rows="10" cols="50" name="contentWant" value="받아올 내용">${TalBoardVO.contentWant }</textarea>
-		<br>
-		<br>
-		<button onclick="history.back()">이전단계</button>
-		<input type="submit" value="등록"> <input type="button"
-			value="작성취소" id="goListBtn">
+	<div class="container-fluid">
+		<div class="row row-offcanvas row-offcanvas-left">
+			<%@include file="../include/lefter.jsp"%>
 
-	</form>
+			<div class="col-xs-12 col-sm-9 content">
 
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<a href="javascript:void(0);" class="toggle-sidebar"><span
+								class="fa fa-angle-double-left" data-toggle="offcanvas"
+								title="Maximize Panel"></span></a>재능 패널
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div align="left">
+							<h4>재능등록</h4>
+
+						</div>
+
+						<br>
+						<h5>
+							등록단계: [1단계 보유한 재능]>[2단계 원하는 재능]>[<font color="blue">내용확인</font>]
+						</h5>
+						<br>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h1 class="panel-title">
+									<b><font size="5">3단계: 내용확인</font></b>
+								</h1>
+							</div>
+
+
+							<form action="write" method="POST">
+
+								<div class="form-group">
+									<div class="col-md-10">
+										재능글 제목<br> <input type="text"
+											value="${TalBoardVO.title }" id="title" name="title" class="form-control">
+										<input type="button" value="원하는 재능 이전글 가져오기">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-10 control-label" for="description">보유한
+										재능 내용</label>
+									<div class="col-md-10">
+										<textarea rows="10" cols="50" name="contentHave"
+											value="받아올 내용" class="form-control">${TalBoardVO.contentHave }</textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-10 control-label" for="description">원하는
+										재능 내용</label>
+									<div class="col-md-10">
+										<textarea rows="10" cols="50" name="contentWant" value="받아올 내용" class="form-control">${TalBoardVO.contentWant }</textarea>
+									</div>
+								</div>
+
+
+
+
+
+
+
+
+
+								<br>
+								<div class="form-group">
+									<div class="col-md-offset-2 col-md-10">
+										<button onclick="history.back()" class="btn btn-info">이전단계</button>
+										<input type="submit" value="등록" class="btn btn-info"> <input type="button"
+											value="작성취소" id="goListBtn" class="btn btn-info">
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 
 <%@include file="../include/footer.jsp"%>

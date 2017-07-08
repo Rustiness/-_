@@ -46,5 +46,5 @@ public interface TalBoardDAO {
 	public List<TalCategoryVO> categoryList() throws Exception;
 
 	//항목조회
-	public List<TalDivVO> divList(String talDivDF)throws Exception;
+	public List<TalDivVO> divList()throws Exception;
 }

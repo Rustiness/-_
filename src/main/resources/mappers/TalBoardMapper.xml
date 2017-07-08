@@ -136,6 +136,6 @@
 
 	<!-- 항목조회 -->
 	<select id="divList" resultType="talDivVO">
-		select * from DF_TalDiv where talDivDF = #{talDivDF}
+		select * from DF_TalDiv
 	</select>
 </mapper>

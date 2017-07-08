@@ -78,9 +78,9 @@ public class TalBoardDAOImpl implements TalBoardDAO {
 	}
 
 	@Override
-	public List<TalDivVO> divList(String talDivDF) throws Exception {
+	public List<TalDivVO> divList() throws Exception {
 		
-		return sqlsession.selectList("talentBoard.divList",talDivDF);
+		return sqlsession.selectList("talentBoard.divList");
 	}
 
 	@Override
@@ -98,10 +98,10 @@ public class TalBoardDAOImpl implements TalBoardDAO {
 	@Override
 	public List<TalDivVO> listTalDivHave(SearchCriteria cri) throws Exception {
 	
-			RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
-			List<TalDivVO> list = sqlsession.selectList("talentBoard.listTalDivHave", null, bounds);
+			//RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
+			//List<TalDivVO> list = sqlsession.selectList("talentBoard.listTalDivHave", null, bounds);
 
-			return sqlsession.selectList("talentBoard.listTalDivHave", cri, bounds);
+			return sqlsession.selectList("talentBoard.listTalDivHave", cri);
 		
 	}
 
@@ -115,10 +115,10 @@ public class TalBoardDAOImpl implements TalBoardDAO {
 
 	@Override
 	public List<TalDivVO> listTalDivWant(SearchCriteria cri) throws Exception {
-		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
-		List<TalDivVO> list = sqlsession.selectList("talentBoard.listTalDivWant", null, bounds);
+		//RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
+		//List<TalDivVO> list = sqlsession.selectList("talentBoard.listTalDivWant", null, bounds);
 
-		return sqlsession.selectList("talentBoard.listTalDivWant", cri, bounds);
+		return sqlsession.selectList("talentBoard.listTalDivWant", cri);
 	
 	}
 

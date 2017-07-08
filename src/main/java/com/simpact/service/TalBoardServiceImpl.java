@@ -71,9 +71,9 @@ public class TalBoardServiceImpl implements TalBoardService {
 	}
 
 	@Override
-	public List<TalDivVO> divList(String talDivDF) throws Exception {
+	public List<TalDivVO> divList() throws Exception {
 
-		return dao.divList(talDivDF);
+		return dao.divList();
 	}
 
 	@Override

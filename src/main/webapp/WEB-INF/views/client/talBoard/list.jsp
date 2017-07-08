@@ -12,13 +12,13 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-
+	var loginMem = '${SUCCESS[0].memNO }';
 
 	$(document).on("click", ".checkMem", function() {
 		var memNO = $(this).find('.memNO').val();
 		var talDocNO = $(this).find('.talDocNO').val();
 		alert(talDocNO);
-		var loginMem = 'MEM_A00001';
+
 
 		self.location = "read${pageMaker.makeSearch(pageMaker.cri.page) }"+"&talDocNO=" + talDocNO + "&loginMem=" + loginMem;
 
@@ -69,111 +69,150 @@
 <!-- Main content -->
 <section class="content">
 
-	<center>
-		<select name="searchType">
-			<option value="all"
-				<c:out value="${cri.searchType eq 'all'?'selected':''}"/>>
-				통합검색</option>
-			<option value="t"
-				<c:out value="${cri.searchType eq 't'?'selected':''}"/>>제목</option>
-			<option value="c"
-				<c:out value="${cri.searchType eq 'c'?'selected':''}"/>>내용</option>
-			<option value="w"
-				<c:out value="${cri.searchType eq 'w'?'selected':''}"/>>
-				작성자</option>
+	<div class="container-fluid">
 
-		</select> <input type="text" name='keyword' id="keywordInput"
-			value='${cri.keyword }'>&nbsp;&nbsp;&nbsp; <input
-			type="button" value="검색" id="searchBtn"> <select
-			name="detailsearchType">
-			<option value="all"
-				<c:out value="${cri.searchType eq 'all'?'selected':''}"/>>
-				전체</option>
-			<c:forEach items="${categoryList }" var="TalCategoryVO">
-				<option value="${TalCategoryVO.talCateDF }"
-					<c:out value="${cri.searchType eq '${TalCategoryVO.talCateDF }'?'selected':''}"/>>
-					${TalCategoryVO.name }</option>
-			</c:forEach>
-		</select> <select>
-			<option>보유한재능</option>
-			<option>원하는재능</option>
-		</select> <input type="button" value="상세재능필터" id="detailsearchBtn">
-	</center>
-	<br>
 
-				<div class="content-row">
-				<div class="row">
-					<c:forEach items="${list}" var="TalBoardVO">
-					<div class="checkMem">
-					<div class="col-sm-6 col-md-3">
-					
-                                <input type="hidden" value="${TalBoardVO.memNO }" class="memNO">
-                                <input type="hidden" value="${TalBoardVO.talDocNO }" class="talDocNO">
-						<tr>
-				            		
-							<td align="center" colspan="4">사진</td>
-							<td>보유재능 :<c:forEach items="${talDivHave }" var="talDivHavItem">
-									<c:if test="${TalBoardVO.talDocNO eq talDivHavItem.talDocNO}">
-										<p>#${talDivHavItem.name}</p>
-									</c:if>
-								</c:forEach><br>
-								<hr> 찾는재능 : <c:forEach items="${talDivWant }" var="talDivItem">
-									<c:if test="${TalBoardVO.talDocNO eq talDivItem.talDocNO}">
-										<p>#${talDivItem.name}</p>
-									</c:if>
-								</c:forEach><br>
-							</td>
-						</tr>
+		<div class="row row-offcanvas row-offcanvas-left">
+			<%@include file="../include/lefter.jsp"%>
+			<div class="form-group">
+				<div id="searchType" class="form-inline col-md-10">
+					<div class="form-inline">
+						<select name="searchType" class="form-control">
 
-						<tr>
-							<td colspan="6" height="20">${TalBoardVO.title }
-                               
-							</td>
-						</tr>
-						<tr>
-							<td colspan="6" height="20">${TalBoardVO.nickName }</td>
-						</tr>
-						<tr>
-							<td align="left" colspan="3" height="20">★★★★★</td>
-							<td align="right" colspan="3" height="20">
-								${TalBoardVO.writeDate }</td>
+							<option value="all"
+								<c:out value="${cri.searchType eq 'all'?'selected':''}"/>>
+								통합검색</option>
+							<option value="t"
+								<c:out value="${cri.searchType eq 't'?'selected':''}"/>>제목</option>
+							<option value="c"
+								<c:out value="${cri.searchType eq 'c'?'selected':''}"/>>내용</option>
+							<option value="w"
+								<c:out value="${cri.searchType eq 'w'?'selected':''}"/>>
+								작성자</option>
 
-						</tr>
-							   </div>
-							   </div>
-					</c:forEach>
+						</select>
+
+
+
+						<div class="col-md-2">
+							<div class="input-group form-search">
+								<input type="text" name='keyword' id="keywordInput"
+									value='${cri.keyword }' class="form-control search-query">
+								<span class="input-group-btn"><input type="button"
+									value="검색" id="searchBtn" class="btn btn-primary"></span>
+							</div>
+						</div>
+						<select name="detailsearchType">
+							<option value="all"
+								<c:out value="${cri.searchType eq 'all'?'selected':''}"/>>
+								전체</option>
+							<c:forEach items="${categoryList }" var="TalCategoryVO">
+								<option value="${TalCategoryVO.talCateDF }"
+									<c:out value="${cri.searchType eq '${TalCategoryVO.talCateDF }'?'selected':''}"/>>
+									${TalCategoryVO.name }</option>
+							</c:forEach>
+						</select> <select>
+							<option>보유한재능</option>
+							<option>원하는재능</option>
+						</select> <input type="button" value="상세재능필터" id="detailsearchBtn"
+							class="btn">
 					</div>
 				</div>
-		
-	<input type="button" value="보유재능등록" id="uploadBtn">
+			</div>
+			<div class="col-xs-12 col-sm-9 content">
 
-	<div class="box-footer">
+				<div class="panel panel-default">
 
-		<div class="text-center">
-			<ul class="pagination">
 
-				<c:if test="${pageMaker.prev}">
-					<li><a
-						href="list${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
-				</c:if>
 
-				<c:forEach begin="${pageMaker.startPage }"
-					end="${pageMaker.endPage }" var="idx">
-					<li
-						<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-						<a href="list${pageMaker.makeSearch(idx)}">${idx}</a>
-					</li>
-				</c:forEach>
+					<br>
 
-				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-					<li><a
-						href="list${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
-				</c:if>
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="content-row">
+								<div class="row">
+									<c:forEach items="${list}" var="TalBoardVO">
 
-			</ul>
+										<div class="col-sm-6 col-md-3">
+
+
+
+											<div class="checkMem">
+												<input type="hidden" value="${TalBoardVO.memNO }"
+													class="memNO"> <input type="hidden"
+													value="${TalBoardVO.talDocNO }" class="talDocNO">
+
+
+												<div class="caption text-center">
+													<div height="120" width="100">사진</div>
+													<p>${TalBoardVO.nickName }</p>
+
+													<h5>${TalBoardVO.title }</h5>
+
+													<p>보유재능 :</p>
+													<c:forEach items="${talDivHave }" var="talDivHavItem">
+														<c:if
+															test="${TalBoardVO.talDocNO eq talDivHavItem.talDocNO}">
+															<span>#${talDivHavItem.name}</span>
+														</c:if>
+													</c:forEach>
+													<br> <br>
+													<p>찾는재능 :</p>
+													<c:forEach items="${talDivWant }" var="talDivItem">
+														<c:if test="${TalBoardVO.talDocNO eq talDivItem.talDocNO}">
+															<span>#${talDivItem.name}</span>
+														</c:if>
+													</c:forEach>
+
+
+
+													<p>${TalBoardVO.writeDate }</p>
+
+
+
+												</div>
+											</div>
+										</div>
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<input type="button" value="보유재능등록" id="uploadBtn"
+						class="btn btn-primary">
+				</div>
+
+				<div class="box-footer">
+
+					<div class="text-center">
+						<ul class="pagination">
+
+							<c:if test="${pageMaker.prev}">
+								<li><a
+									href="list${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
+							</c:if>
+
+							<c:forEach begin="${pageMaker.startPage }"
+								end="${pageMaker.endPage }" var="idx">
+								<li
+									<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
+									<a href="list${pageMaker.makeSearch(idx)}">${idx}</a>
+								</li>
+							</c:forEach>
+
+							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+								<li><a
+									href="list${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
+							</c:if>
+
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
-
 	</div>
+
 </section>
 
 <%@include file="../include/footer.jsp"%>

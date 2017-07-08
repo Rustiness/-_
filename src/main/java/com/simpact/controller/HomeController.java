@@ -51,5 +51,12 @@ public class HomeController {
 		req.getSession().invalidate();
 		return "/admin/login/confirm";
 	}
+	
+	/*재능소개*/
+	@RequestMapping("/intro")
+	public String intro() {
+
+		return "/client/intro/intro";
+	}
 
 }

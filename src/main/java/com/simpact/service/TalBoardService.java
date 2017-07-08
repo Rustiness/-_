@@ -33,7 +33,7 @@ public interface TalBoardService {
 
 	public List<TalCategoryVO> categoryList() throws Exception; // 카테고리 조회
 
-	public List<TalDivVO> divList(String talDivDF) throws Exception;
+	public List<TalDivVO> divList() throws Exception;
 
 	public List<TalDivVO> listTalDivHave(SearchCriteria cri) throws Exception;
 

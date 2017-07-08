@@ -32,7 +32,7 @@ public class TalBoardController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(SearchCriteria cri, Model model, HttpSession session) throws Exception {// 게시물 목록 출력
 
-		session.invalidate();
+		
 		model.addAttribute("talDivHave", service.listTalDivHave(cri));
 		model.addAttribute("talDivWant", service.listTalDivWant(cri));
 		model.addAttribute("list", service.listSearch(cri));
@@ -50,8 +50,9 @@ public class TalBoardController {
 	@RequestMapping(value = "/write1s", method = RequestMethod.GET)
 	public String uploadFirstGET(TalBoardVO vo, HttpSession session,Model model) throws Exception {
 		session.setAttribute("TalBoardVO", vo);
-		model.addAttribute("categoryList", service.categoryList());
-		//model.addAttribute("divList", service.divList());
+		model.addAttribute("listUseCate", service.categoryList());
+		model.addAttribute("divList", service.divList());
+
 		
 		
 		return "client/talBoard/write1step";
@@ -59,8 +60,11 @@ public class TalBoardController {
 
 	// 재능글 등록 (2단계)
 	@RequestMapping(value = "/write2s", method = RequestMethod.POST)
-	public String uploadSecond(TalBoardVO vo, HttpSession session) throws Exception {
+	public String uploadSecond(TalBoardVO vo, HttpSession session,Model model) throws Exception {
 		session.setAttribute("TalBoardVO", vo);
+		model.addAttribute("listUseCate", service.categoryList());
+		model.addAttribute("divList", service.divList());
+		
 		return "client/talBoard/write2step";
 	}
 
