@@ -12,6 +12,12 @@ import java.util.List;
  */
 public interface TalExcConnDAO {
 
+	public int createConn(TalExcConnVO talExcConnVO) throws Exception;// 신청 등록
+
+	public void createWantCn(TalDivVO talDivVO) throws Exception;// 신청의 항목 연결 등록
+
+	public void createHaveCn(TalDivVO talDivVO) throws Exception;// 신청의 항목 연결 등록
+
 	public TalExcConnVO read(String talConnNO) throws Exception;//상세읽기
 
 	public List<TalExcConnVO> listCriteria(Criteria cri) throws Exception;//전체레코드 수

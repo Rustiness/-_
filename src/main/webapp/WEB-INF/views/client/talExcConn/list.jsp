@@ -31,7 +31,7 @@
 				<table class="table table-bordered" cellpadding="10">
 					<tr>
 						<th>NO.</th>
-						<th>상대 보유재능</th>
+						<th>보유재능</th>
 						<th>메시지명</th>
 						<th>작성자</th>
 						<th>수신일시</th>
@@ -48,7 +48,7 @@
 								</c:forEach>
 							</td>
 							<td>
-								<a href='/tec/read${pageMaker.makeSearch(pageMaker.cri.page) }&talExcNO=${talExcConnList.talConnNO}'>${talExcConnList.title} </a>
+								<a href='/tec/infoRecipient${pageMaker.makeSearch(pageMaker.cri.page) }&talExcNO=${talExcConnList.talConnNO}'>${talExcConnList.title} </a>
 							</td>
 							<td>${talExcConnList.nickname }</td>
 							<td>${talExcConnList.reqDate }</td>

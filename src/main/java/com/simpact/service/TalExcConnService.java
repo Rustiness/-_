@@ -6,6 +6,11 @@ import java.util.List;
 
 public interface TalExcConnService {
 
+	public int createConn(TalExcConnVO talExcConnVO) throws Exception;	/* 신청 등록 */
+
+	public void createWantCn(TalDivVO talDivVO) throws Exception; /* 신청의 원하는 항목 연결 등록 */
+
+	public void createHaveCn(TalDivVO talDivVO) throws Exception; /* 신청의 보유한 항목 연결 등록 */
 	public TalExcConnVO read(String talExcConnNO) throws Exception;	/* 상세정보 */
 
 	public List<TalExcConnVO> listCriteria(Criteria cri) throws Exception;	/* 페이징 */

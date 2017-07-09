@@ -8,6 +8,26 @@
 		VALUES ('TEC_A' || LPAD(TalExcConn_seq.nextval, 5, 0), 'TB_A00005', #{title}, #{content}, sysdate, 2)
 	</insert>
 
+	<!-- 신청 등록 -->
+	<insert id="createConn">
+		<selectKey keyProperty="talConnNO" resultType="String" order="BEFORE">
+			SELECT 'TEC_A' || LPAD(TalExcConn_seq.nextval, 5, 0) FROM dual
+		</selectKey>
+		INSERT INTO TalExcConn (talConnNO, talDocNO, memNO, title, content, state)
+		VALUES ('${talConnNO}', #{talDocNO}, #{memNO}, #{title}, #{content}, 2)
+	</insert>
+
+	<!-- 신청 ~ 원하는 재능 등록 -->
+	<insert id="createWantCn">
+		INSERT INTO NP_TalWantCn (talConnNO, talDivDF)
+		VALUES (#{talConnNO}, #{talDivDF})
+	</insert>
+
+	<!-- 신청 ~ 보유한 재능 등록 -->
+	<insert id="createHaveCn">
+		INSERT INTO NP_TalHaveCn (talConnNO, talDivDF)
+		VALUES (#{talConnNO},#{talDivDF})
+	</insert>
 
 	<!-- 게시물 상세읽기 -->
 	<select id="read" resultType="talExcConnVO">

@@ -16,6 +16,21 @@ public class TalExcConnServiceImpl implements TalExcConnService {
 	private TalExcConnDAO dao;
 
 	@Override
+	public int createConn(TalExcConnVO talExcConnVO) throws Exception {
+		return dao.createConn(talExcConnVO);
+	}
+
+	@Override
+	public void createWantCn(TalDivVO talDivVO) throws Exception {
+		dao.createWantCn(talDivVO);
+	}
+
+	@Override
+	public void createHaveCn(TalDivVO talDivVO) throws Exception {
+		dao.createHaveCn(talDivVO);
+	}
+
+	@Override
 	public TalExcConnVO read(String talExcConnNO) throws Exception {
 		return dao.read(talExcConnNO);
 	}

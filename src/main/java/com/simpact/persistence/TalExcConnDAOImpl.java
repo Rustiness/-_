@@ -24,6 +24,21 @@ public class TalExcConnDAOImpl implements TalExcConnDAO {
 	private SqlSession sqlSession;
 
 	@Override
+	public int createConn(TalExcConnVO talExcConnVO) throws Exception {
+		return sqlSession.insert("talExcConn.createConn", talExcConnVO);
+	}
+
+	@Override
+	public void createWantCn(TalDivVO talDivVO) throws Exception {
+		sqlSession.insert("talExcConn.createWantCn", talDivVO);
+	}
+
+	@Override
+	public void createHaveCn(TalDivVO talDivVO) throws Exception {
+		sqlSession.insert("talExcConn.createHaveCn", talDivVO);
+	}
+
+	@Override
 	public TalExcConnVO read(String talConnNO) throws Exception {
 
 		return sqlSession.selectOne("talExcConn.read", talConnNO);
