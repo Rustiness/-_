@@ -12,7 +12,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-	var loginMem = '${SUCCESS[0].memNO }';
+	var loginMem = '${clientMemberVO.memNO }';
 
 	$(document).on("click", ".checkMem", function() {
 		var memNO = $(this).find('.memNO').val();
@@ -42,7 +42,7 @@
 			$('#uploadBtn').on("click", function() {
 
 				self.location = "write1s"
-					+ "${pageMaker.makeSearch(pageMaker.cri.page) }";
+					+ "${pageMaker.makeSearch(pageMaker.cri.page) }"+"&memNO="+loginMem;
 
 			});
 

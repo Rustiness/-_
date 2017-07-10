@@ -19,8 +19,20 @@ public class TalBoardServiceImpl implements TalBoardService {
 	private TalBoardDAO dao;
 
 	@Override
-	public void regist(TalBoardVO vo) throws Exception {
-		dao.create(vo);
+	public int regist(TalBoardVO vo) throws Exception {
+		
+		return dao.create(vo);
+	}
+	@Override
+	public void createWant(TalDivVO talDivVO) throws Exception {
+	         dao.createWant(talDivVO);
+		
+	}
+
+	@Override
+	public void createHave(TalDivVO talDivVO) throws Exception {
+		dao.createHave(talDivVO);
+		
 	}
 
 	@Override
@@ -106,9 +118,16 @@ public class TalBoardServiceImpl implements TalBoardService {
 		return dao.listTalDivWant(cri);
 
 	}
+	
+	@Override
+	public List<TalDivVO> selCateCallDiv(String talCateDF) throws Exception {
+		return dao.selCateCallDiv(talCateDF);
+	}
 
 	@Override
 	public List<TalDivVO> readTalDivWant(String talDocNO) throws Exception {
 		return dao.readTalDivWant(talDocNO);
 	}
+
+	
 }

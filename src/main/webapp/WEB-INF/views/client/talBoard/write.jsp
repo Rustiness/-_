@@ -61,6 +61,10 @@
 
 
 							<form action="write" method="POST">
+							
+							    <input type="hidden" value="${talHaveDiv}" id="talHaveDiv" name="talHaveDiv"> 
+							    <input type="hidden" value="${talWantDiv}" id="talWantDiv" name="talWantDiv"> 
+							    <input type="hidden" value="${TalBoardVO.memNO}" id="memNO" name="memNO"> 
 
 								<div class="form-group">
 									<div class="col-md-10">

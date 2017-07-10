@@ -10,7 +10,12 @@ import com.simpact.domain.TalDivVO;
 
 public interface TalBoardDAO {
 
-	public void create(TalBoardVO vo) throws Exception;//내용추가
+	public int create(TalBoardVO vo) throws Exception;//내용추가
+	
+	public void createWant(TalDivVO talDivVO) throws Exception;// 신청의 항목 연결 등록
+
+	public void createHave(TalDivVO talDivVO) throws Exception;// 신청의 항목 연결 등록
+
 	
 	public void talHaveUpdate(TalBoardVO vo) throws Exception;//수정 보유한 재능
 	
@@ -47,4 +52,6 @@ public interface TalBoardDAO {
 
 	//항목조회
 	public List<TalDivVO> divList()throws Exception;
+	
+	public List<TalDivVO> selCateCallDiv(String  talCateDF) throws Exception; // 선택한 카테고리의 항목 목록 가져오기
 }

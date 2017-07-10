@@ -4,9 +4,9 @@
    Date: 2017-06-30
    Time: 오후 6:04
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%-- .jsp --%>
-<%@include file="../include/header.jsp" %>
+<%@include file="../include/header.jsp"%>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
@@ -29,13 +29,13 @@
 
 		//이전단계로 이동
 		$("#backBtn").on("click", function() {
-		
-		          self.location = "/tb/write1s"+"?title="+$(".title").val()+"&contentHave="+$(".contentHave").val()+"&contentWant="+$(".contentWant").val();
-		          $(".title").val("");
-		          $(".contentHave").val("");
-			
-			
-			
+
+			self.location = "/tb/write1s" + "?title=" + $(".title").val() + "&contentHave=" + $(".contentHave").val() + "&contentWant=" + $(".contentWant").val();
+			$(".title").val("");
+			$(".contentHave").val("");
+
+
+
 		});
 
 
@@ -54,7 +54,7 @@
 			$('#talWantField').append(div); //document.getElementById('field').appendChild(div);
 
 			$('div#talWantSelect_' + talWantCount + ' select#talWantCate_0').attr("id", 'talWantCate_' + talWantCount); //카테고리 아이디 변경
-			$('div#talWantSelect_' + talWantCount + ' select#talWantDiv_0').attr("id", 'talWantDiv_' + talWantCount).attr("name", 'talWantName_' + talWantCount); //항목 아이디 및 네임 등록
+			$('div#talWantSelect_' + talWantCount + ' select#talWantDiv_0').attr("id", 'talWantDiv_' + talWantCount); //항목 아이디 및 네임 등록
 			$('div#talWantSelect_' + talWantCount + ' div input#talWantAdd').remove(); //추가 버튼 제거
 			$('div#talWantSelect_' + talWantCount + ' div input#talWantDel').attr("id", 'talWantDel_' + talWantCount); //삭제 버튼 아이디 등록
 			//$('#talWantField div#talWantSelect-'+talWantCount+' div input#talWantAdd').attr("id", 'talWantAdd-'+talWantCount);
@@ -62,7 +62,7 @@
 			$("#talWantCate_" + talWantCount + " .selCateDefult").attr('style', ''); // 카테고리선택 문장 표시
 			$("#talWantDiv_" + talWantCount + " .divDefult").attr('style', '');
 
-			var divReset = "<select id=talWantDiv_" + talWantCount + " name=talWantName_" + talWantCount + " class='form-control'>";
+			var divReset = "<select id=talWantDiv_" + talWantCount + " name='talWantDiv' class='form-control'>";
 			divReset += "<option class='divDefult' value='none'>  </option>";
 			$("#talWantDiv_" + talWantCount).html(divReset);
 			$('#talWantDel_' + talWantCount).attr('style', ''); //숨김취소
@@ -71,6 +71,46 @@
 			talWantCount++; //등록 카운트
 		});
 		//원하는 재능 끝
+
+
+
+
+
+
+		//원하는 재능 보내기
+		$(document).on('click', '#talSend', function() {
+
+
+
+			//원하는 재능 항목
+			var talWantDivSel = $('#talWantField div div select[name="talWantDiv"] option:selected:not([value="none"])'); //선택된 것 중 none이 아닌것만!
+			var talWantDivData = talWantDivSel.map(function() {
+				return $(this).val();
+			}).get().join(); //맵으로 된 오브젝트 값을 가져온 후 배열화
+			console.log('talWantDivData:' + talWantDivData);
+
+			$.ajax({
+				type : 'post',
+				url : '/tb/write2s/',
+				data : {
+					talDocNO : $('#talDocNO').val(),
+					title : $('#title').val(),
+					memNO : $('#memNO').val(),
+					contentHave : $('#contentHave').val(),
+					contentWant : $('#contentWant').val(),
+					talHaveDiv : $('#talHaveDiv').val(),
+					talWantDiv : talWantDivData
+				},
+				dataType : "text",
+				success : function(result) {
+					if(result.match("success")) {
+						alert('등록성공');
+						self.location ='/tb/write';
+					}
+				}
+			});
+
+		});
 
 
 	});
@@ -100,7 +140,7 @@
 			temp = selCateNO;
 			$.ajax({
 				type : 'post',
-				url : '/tec/app/' + selCateNO,
+				url : '/tb/write1s/' + selCateNO,
 				dataType : 'json',
 				success : function(data) {
 					var listDiv = "<select id=" + divID + " name=" + divName + " class='form-control' onclick='selDiv(this);'>";
@@ -153,15 +193,17 @@
 										</div>
 										<br> <input type="button" value="원하는 재능 이전글 가져오기">
 
-										<form action="/tb/write" role="form" method="get">
+										<form>
 
 											<div class="form-group">
 												<label class="col-md-2 control-label">1단계: 보유한 재능 정보</label>
 												<div class="col-md-10">
+													<input type="hidden" value="${talHaveDiv}" id="talHaveDiv">
+													<input type="hidden" value="${TalBoardVO.memNO}" id="memNO">
 													<input type="text" value="${TalBoardVO.title }"
-														class="title" name="title" class="form-control"> <input
-														type="text" value="${TalBoardVO.contentHave }"
-														class="contentHave" name="contentHave"
+														class="title" name="title" class="form-control" id="title">
+													<input type="text" value="${TalBoardVO.contentHave }"
+														id="contentHave" class="contentHave" name="contentHave"
 														class="form-control"> 원하는 재능 내용<br>
 												</div>
 											</div>
@@ -180,7 +222,7 @@
 															<c:forEach items="${listUseCate}" var="itemC">
 																<option value="${itemC.talCateDF }">${itemC.name }</option>
 															</c:forEach>
-														</select> <select id="talWantDiv_0" name="talWantDiv_0"
+														</select> <select id="talWantDiv_0" name="talWantDiv"
 															class="form-control" onclick="selDiv(this);">
 															<option class="divDefult" value="none"></option>
 														</select> <input type="button" class="btn btn-info btn-sm"
@@ -199,16 +241,18 @@
 												<div class="col-md-10">
 													<textarea required="" class="form-control contentWant"
 														placeholder="Description" rows="10" cols="30"
-														id="contentWant" name="contentWant" >${TalBoardVO.contentWant}</textarea>
+														id="contentWant" name="contentWant">${TalBoardVO.contentWant}</textarea>
 												</div>
 											</div>
 
 
 											<div class="form-group">
 												<div class="col-md-offset-2 col-md-10">
-													<input type="button" value="이전단계" id="backBtn" class="btn btn-info"> <input
-														type="submit" value="다음단계" id="nextBtn" class="btn btn-info"> <input
-														type="button" value="작성취소" id="goListBtn" class="btn btn-info">
+													<input type="button" value="이전단계" id="backBtn"
+														class="btn btn-info"> <input type="button"
+														value="다음단계" id="talSend" class="btn btn-info"> <input
+														type="button" value="작성취소" id="goListBtn"
+														class="btn btn-info">
 												</div>
 											</div>
 										</form>
