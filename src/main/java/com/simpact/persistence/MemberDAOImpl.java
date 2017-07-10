@@ -84,6 +84,16 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	
 	@Override
+	public int messengerDelete(MessengerVO vo) {
+		return sqlSession.delete("messenger.delete",vo);
+	}
+	
+	@Override
+	public int messengerAdd(MessengerVO vo) {
+		return sqlSession.insert("messenger.add",vo);
+	}
+	
+	@Override
 	public int uppasscheck(String memNO, String uppass) {
 		Map<String, String> map = new HashMap<>();
 		map.put("memNO", memNO);

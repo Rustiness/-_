@@ -11,8 +11,8 @@
 	
 	<!-- 메신저 등록 -->
 	<insert id="insert"> 
-		INSERT INTO NP_MemMes (NO,memNO, mesDF, id)
-		VALUES ( #{No},#{memNO},#{mesDF},#{id})
+		INSERT INTO NP_MemMes (no,memNO, mesDF, id)
+		VALUES ( #{no},#{memNO},#{mesDF},#{id})
 	</insert>
 	
 	
@@ -27,7 +27,23 @@
 	<update id="update">
 		update NP_MemMes
 		set id = #{id}, mesDF = #{mesDF} 
-		where No = #{No}
+		where no = #{no}
 		and memNO=#{memNO}
 	</update>
+	
+	<!-- 메신저 삭제 -->
+	<delete id="delete">
+		delete
+		from NP_MemMes
+		where memNO=#{memNO}
+		and no= #{no}
+	</delete>
+	
+	<!-- 메신저 추가등록 -->
+	<insert id="add">
+		INSERT INTO NP_MemMes (no,memNO, mesDF, id)
+		VALUES ( #{no},#{memNO},#{mesDF},#{id})
+	</insert>
+	
+	
 </mapper>

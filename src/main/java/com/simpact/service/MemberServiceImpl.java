@@ -70,6 +70,16 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public int messengerDelete(MessengerVO vo) throws Exception {
+		return dao.messengerDelete(vo);
+	}
+	
+	@Override
+	public int messengerAdd(MessengerVO vo) throws Exception {
+		return dao.messengerAdd(vo);
+	}
+	
+	@Override
 	public int uppasscheck(String memNO, String uppass) throws Exception {
 		return dao.uppasscheck(memNO, uppass);
 	}

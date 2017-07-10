@@ -25,16 +25,16 @@
 		where memNO=#{memNO}
 	</update>
 
-	<!-- momNO를 통한 전체 정보 얻기-->
+	<!-- memNO를 통한 전체 정보(member테이블) 얻기-->
 	<select id="getMeminfo" resultType="member">
 		SELECT memNO, personDF, email, pass, name, nickName, birth, sex, tel, joinDate, latestDate, state
 		FROM member
 		WHERE memNO = #{memNO}
 	</select>
 
-	<!-- momNO를 통한 전체 정보 얻기-->
+	<!-- memNO를 통한 전체 정보(messenger테이블) 얻기-->
 	<select id="getMembermsg" resultType="messengerVO">
-		select memNO, mesDF, id, name
+		select no, memNO, mesDF, id, name
 		from NP_MemMes natural join DF_Messenger
 		where memNO= #{memNO}
 	</select>

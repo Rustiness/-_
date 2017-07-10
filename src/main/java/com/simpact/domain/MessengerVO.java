@@ -1,7 +1,7 @@
 package com.simpact.domain;
 
 public class MessengerVO {
-	private String No;
+	private String no;
 	private String memNO;
 	private String mesDF;
 	private String name;
@@ -10,27 +10,22 @@ public class MessengerVO {
 	public MessengerVO() {
 	}
 
-	
-
-	public String getNo() {
-		return No;
-	}
-
-
-
-	public void setNo(String no) {
-		No = no;
-	}
-
-
-
 	public MessengerVO(String no, String memNO, String mesDF, String name, String id) {
 		super();
-		No = no;
+		this.no = no;
 		this.memNO = memNO;
 		this.mesDF = mesDF;
 		this.name = name;
 		this.id = id;
+	}
+
+	public String getNo() {
+		return no;
+	}
+
+
+	public void setNo(String no) {
+		this.no = no;
 	}
 
 	public String getMemNO() {

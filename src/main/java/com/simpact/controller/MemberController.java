@@ -2,6 +2,7 @@ package com.simpact.controller;
 
 import com.simpact.domain.MemberVO;
 import com.simpact.domain.MessengerVO;
+import com.simpact.service.LoginService;
 import com.simpact.service.MemberService;
 
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created
@@ -26,6 +28,9 @@ public class MemberController {
 
 	@Inject
 	private MemberService service;
+	
+	@Inject
+	private LoginService loginService;
 
 	/* 비밀번호 확인 */
 	@RequestMapping("/chkPass")
@@ -65,7 +70,9 @@ public class MemberController {
 
 	/* 회원정보 수정 (수정폼) */
 	@RequestMapping("/mod")
-	public String modifyfrom(Model model) throws Exception {
+	public String modifyfrom(HttpServletRequest req,Model model) throws Exception {
+		req.getSession().getAttribute("clientMessengerVO");
+		
 		List<MessengerVO> list = service.listmsg();//리스트 목록출력
 		model.addAttribute("messengerVOlist", list);
 		return "/client/member/modify";
@@ -98,16 +105,30 @@ public class MemberController {
 		return "clientmsgUpFAIL";
 	}
 	
-	/* 회원정보 수정 (기본정보가 처리된 뒤에 메신저 수정한 뒤에 메신저 추가!)*/
-	@RequestMapping("/mod/messenger/add")
-	public @ResponseBody String modMessengerAdd(){
-		return "";
-	}
-	
 	/* 회원정보 수정 (기본정보가 처리된 뒤에 메신저 수정한 뒤에 메신저 삭제!)*/
 	@RequestMapping("/mod/messenger/del")
-	public @ResponseBody String modMessengerDel(){
-		return "";
+	public @ResponseBody String modMessengerDel(MessengerVO vo,HttpSession session) throws Exception{
+		System.out.println(vo.getNo());
+		System.out.println();
+		int t=0;
+		t = service.messengerDelete(vo);
+		if(t==1){			
+			session.setAttribute("clientMessengerVO", loginService.selectMembermsg(vo.getMemNO()));
+			return "clientmsgDelSUCCESS";
+		}
+			return "clientmsgDelFAIL";
+	}
+	
+	/* 회원정보 수정 (기본정보가 처리된 뒤에 메신저 수정한 뒤에 메신저 추가!)*/
+	@RequestMapping("/mod/messenger/add")
+	public @ResponseBody String modMessengerAdd(MessengerVO vo,HttpSession session) throws Exception{
+		int t =0;
+		t = service.messengerAdd(vo);
+		if(t==1){
+			session.setAttribute("clientMessengerVO", loginService.selectMembermsg(vo.getMemNO()));
+			return "clientmsgAddSUCCESS";
+		}
+		return "clientmsgAddFAIL";
 	}
 	
 	

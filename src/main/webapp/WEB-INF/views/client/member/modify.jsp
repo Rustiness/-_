@@ -10,8 +10,8 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
-		var inputID = 1; //메신저추가시 아이디 비교용
 		var lastmsg = $('#msglast').val(); // 기존에 있던 메신저의 마지막행값
+		
 $(document).on('click', '#update', function() {
 	$.ajax({
 		url : "/m/mod/result",
@@ -31,7 +31,7 @@ $(document).on('click', '#update', function() {
 								url : "/m/mod/messenger/up",			
 								type : "post",
 								data : {
-										No : i+'',
+										no : i+'',
 										memNO : $('#memNO').val(),
 										mesDF : $('#upmesDF'+i+' option:selected').val(),
 										id : $('#upmesID'+i).val()
@@ -48,53 +48,65 @@ $(document).on('click', '#update', function() {
 		
 	});
 	});
-		if(lastmsg > 3){	//버튼 3개 이상이면 추가버튼 사라짐
-			$('#maxadd').hide();
-		}
-		if(lastmsg < 3){	//버튼 3개 이하이면 추가버튼 보임
-			$('#maxadd').show();
-		}
+		
+		var no=''; //메신저 추가시 비교용
+			for(var i=1; i<4; i++){
+				if(!$('#no'+i).length){
+					no=i+"";
+					break;
+				}
+			}
+			if(lastmsg>=3){
+				$('#addmsgMAX').hide();
+			}else{
+				$('#addmsgMAX').show();
+			}
 		//메신저 행 추가
 		$(document).on('click', '[name="addButton"]', function() {
-			$.ajax({
-				url : "/j/msgJson",
-				type : "get",
-				dataType : "JSON",
-				success : function(data) {
-					var selectlist = "<div><select id='select_box" + inputID + "'>";
-					$.each(data, function(index, m) { // db에 있는 메신저목록을 가져와서 하단의 div에 넣는다
-						selectlist += "<option value=" + m.mesDF + " id=" + m.mesDF + ">" + m.name + "</option>";
-					});
-					selectlist += "<select> <input type=text id='msg" + inputID + "'> <input type=button value='삭제' id='deletemsg'></div>";
-					inputID++;
-					$('#megform').append(selectlist);
-				}
-			});
+				$.ajax({
+					url : "/m/mod/messenger/add",
+					type : "post",
+					data : {
+							no : no,
+							memNO : $('#memNO').val(),
+							mesDF : $('#select_box option:selected').val(),
+							id : $('#msg').val()
+					},
+					success : function(result) {
+						if(result =="clientmsgAddSUCCESS"){
+							alert('메신저가 추가되었습니다.');
+							location.href='/m/mod';
+						}
+					}
+				});
 		});
 		//기존에 있던 메신저 제거
 		$(document).on('click', '#removemsg', function() {
-			$.ajax({
-				url : "/j/mod/messenger/del",
-				type : "post",
-				data : {
-					No :$(this).prev().val(),
-					memNO : $('#memNO').val(),
-				},
-				success : function(data) {
-					alert('메신저가 삭제되었습니다.');
-					$(this).parent(this).remove();  //컨트롤러가서 NO 랑 memno넘어오는지 확인하고 service진행하기 새로
-				}
-			});
-		});
-		//메신저 추가한거 제거
-		$(document).on('click', '#deletemsg', function() {
-			$(this).parent(this).remove();
+			if(lastmsg==1){
+				alert("최소 1개의 메신저를 보유해야 합니다.");
+			}else{
+				$.ajax({
+					url : "/m/mod/messenger/del",
+					type : "post",
+					data : {
+						no :$(this).prev().val(),
+						memNO : $('#memNO').val()
+					},
+					success : function(result) {						
+						if(result === "clientmsgDelSUCCESS"){
+							alert('메신저가 삭제되었습니다.');
+							location.href='/m/mod';
+						
+						}
+					}
+				});
+			}
 		});
 })
 </script>
 <!-- Main content -->
 <section class="content">
-회원정보수정<br><br>
+회원정보수정ss<br><br>
 계정정보
 회원분류
 <input type="hidden" value="${clientMemberVO.memNO }" id="memNO">
@@ -133,7 +145,7 @@ $(document).on('click', '#update', function() {
 		</c:forEach>
 	</select>
 	<input type="text" value="${my.id}" id="upmesID${status.count }"> 
-	<input type="hidden" value=${status.count }>
+	<input type="hidden" value="${my.no }" id="no${my.no }">
 	<input type=button value='삭제' id='removemsg'><br>
 	
 	<c:if test="${status.last}">
@@ -143,20 +155,20 @@ $(document).on('click', '#update', function() {
 </c:forEach>
 
 <br><br>
-<div id="maxadd">
+<div id="addmsgMAX">
 메신저 추가하기
-	<form id="megform" action=""><!-- 메신저 추가로 입력하기-->
-		<select id="select_box0">
+	<form id="megform"><!-- 메신저 추가로 입력하기-->
+		<select id="select_box">
 				 <c:forEach items="${messengerVOlist}" var="messenger"> 
 						<option value="${messenger.mesDF }">${messenger.name }</option>
 				</c:forEach>
 		</select>
 			 
-			 	<input type="text" id="msg0" value=""> <input name="addButton" type="button" value="추가"><br>
+			 	<input type="text" id="msg" value=""> <input name="addButton" type="button" value="추가"><br>
 			 
 	</form>
 </div>
           <input type="button" value="수정" id="update"> <input type="button" value="취소"><br>
 </section>
 
-<%@include file="../include/footer.jsp" %>
+<%@include file="../include/footer.jsp" %>	

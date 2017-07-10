@@ -36,6 +36,10 @@ public interface MemberService {
 
 	public int messengerUpdate(MessengerVO vo) throws Exception;    // 회원메신저정보 수정
 
+	public int messengerDelete(MessengerVO vo) throws Exception;    // 회원메신저정보 삭제
+	
+	public int messengerAdd(MessengerVO vo) throws Exception;    // 회원메신저정보 삭제
+
 	public int uppasscheck(String memNO, String uppass) throws Exception;    //정보수정을 위한 비밀번호 확인
 
 	public int delpasscheck(String memNO, String delpass) throws Exception;    //삭제를 위한 비밀번호 확인

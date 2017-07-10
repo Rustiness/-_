@@ -30,6 +30,10 @@ public interface MemberDAO {
 	public int memberUpdate(MemberVO vo);	// 회원 정보 수정
 	
 	public int messengerUpdate(MessengerVO vo);	// 회원 메신저정보 수정
+
+	public int messengerDelete(MessengerVO vo);	// 회원 메신저정보 삭제
+
+	public int messengerAdd(MessengerVO vo);	// 회원 메신저정보 삭제
 	
 	public int uppasscheck(String memNO,String uppass);	// 비밀번호 통과 확인(수정용)
 	
