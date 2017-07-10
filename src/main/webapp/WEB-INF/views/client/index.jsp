@@ -8,6 +8,6 @@
 <%-- .jsp --%>
 <%@include file="include/header.jsp" %>
 <!-- Main content -->
-<h2>메인</h2>
+<%@include file="intro/main.jsp" %>
 
 <%@include file="include/footer.jsp" %>

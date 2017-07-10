@@ -51,7 +51,7 @@
 </head>
 <%-- header.jsp --%>
 <body>
-<nav role="navigation" class="navbar navbar-custom">
+<nav style="background-color: #5a3259;" role="navigation" class="navbar navbar-custom">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -61,40 +61,35 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a href="/lte" class="navbar-brand">LTE : Life Talent Exchange</a>
+			<b><a style="color: #fff;" href="/lte" class="navbar-brand">LTE : Life Talent Exchange</a></b>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div id="bs-content-row-navbar-collapse-5" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-left">
-				<li class="active"><a href="/intro">재능교환이란?</a></li>
+				<li class="active"><a href="/intro"><b>재능교환이란?</b></a></li>
 
 				<li class="dropdown">
-					<a data-toggle="dropdown" class="dropdown-toggle" href="#">재능교환<b class="caret"></b></a>
+					<a data-toggle="dropdown" class="dropdown-toggle" href="#"><b>교환정보</b><b class="caret"></b></a>
 					<ul role="menu" class="dropdown-menu">
-						<li class="dropdown-header">재능 목록</li>
-						<li><a href="/tb/list">전체</a></li>
-						<li class="divider"></li>
-						<li class="disabled"><a href="/tb/list?talCateDF=">디자인</a></li>
-						<li class="disabled"><a href="/tb/list?talCateDF=">문서</a></li>
-						<li class="disabled"><a href="/tb/list?talCateDF=">번역</a></li>
+						<li class="disabled"><a href="/tec/list">교환신청 수신함</a></li>
+						<li class="disabled"><a href="/te/list">연결된 재능목록</a></li>
 					</ul>
 				</li>
-				<li class="active"><a href="/tec/list">교환정보</a></li>
-				<li class="active"><a href="/tr/list">교환후기</a></li>
-				<li class="active"><a href="/c/list">고객센터</a></li>
+				<li class="active"><a href="/tr/list"><b></b>교환후기</b></a></li>
+				<li class="active"><a href="/c/list"><b>고객센터</b></a></li>
 				<!-- <li class="disabled"><a href="#">Link</a></li> -->
 			</ul>
 			<ul id="unlogin" class="nav navbar-nav navbar-right">
 				<li class="active">
-					<input type="button" class="btn btn-danger navbar-btn" id="gologin" value="로그인"/>
-					<input type="button" class="btn btn-danger navbar-btn" id="join" value="회원가입"/>
+					<input type="button" class="btn btn-info navbar-btn" id="gologin" value="로그인"/>
+					<input type="button" class="btn btn-info navbar-btn" id="join" value="회원가입"/>
 				</li>
 			</ul>
 			<ul id="onlogin" class="nav navbar-nav navbar-right" type="hidden">
 				<li>
-					<input type="button" class="btn btn-danger navbar-btn" id="tecclistaa" value="알림함"/>
-					<input type="button" class="btn btn-danger navbar-btn" id="userallinfo" value="계정정보"/>
+					<input type="button" class="btn btn-info navbar-btn" id="tecclistaa" value="알림함"/>
+					<input type="button" class="btn btn-info navbar-btn" id="userallinfo" value="계정정보"/>
 					<p class="navbar-text"><a class="navbar-link" href="">${clientMemberVO.name } 님</a>
 					</p>
 					<input type="button" class="btn btn-danger navbar-btn" id="logout" value="로그아웃"/>
