@@ -17,8 +17,7 @@ public interface TalExcConnService {
 	public List<TalDivVO> listSenderWantDiv(String talConnNO) throws Exception;	/* 신청자가 원하는 재능 정보 */
 
 	public List<TalDivVO> listSenderHaveDiv(String talConnNO) throws Exception;	/* 신청자가 보유한 재능 정보 */
-	public TalExcConnVO read(String talExcConnNO) throws Exception;	/* 상세정보 */
-
+	
 	public List<TalExcConnVO> listCriteria(Criteria cri) throws Exception;	/* 페이징 */
 
 	public List<TalDivVO> listTalDivCn(SearchCriteria cri) throws Exception;  /* 값 */
