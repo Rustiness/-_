@@ -49,8 +49,9 @@
 				<div class="panel panel-default">
 					<div style="background-color:#875F9A;" class="panel-heading">
 						<h3 style="color:#FFF;" class="panel-title">
-							<a href="javascript:void(0);"  class="toggle-sidebar">
-							<span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span>
+							<a href="javascript:void(0);" class="toggle-sidebar">
+								<span class="fa fa-angle-double-left" data-toggle="offcanvas"
+								      title="Maximize Panel"></span>
 							</a>재능 패널</h3>
 					</div>
 					<div class="panel-body">
@@ -75,13 +76,13 @@
 									<label class="col-md-2 form-label">원하는 재능</label>
 									<div class="col-md-4">
 										<c:forEach items="${listSenderWantDiv }" var="wantDivItem">
-											<span>#${wantDivItem.name}</span>
+											<span style="background-color: #2d9bff" class="label label-info">#${wantDivItem.name}</span>
 										</c:forEach>
 									</div>
 									<label class="col-md-2 form-label">보유한 재능</label>
 									<div class="col-md-4">
 										<c:forEach items="${listSenderHaveDiv }" var="haveDivItem">
-											#${haveDivItem.name}&nbsp;
+											<span style="background-color: #c525ff" class="label label-info">#${haveDivItem.name}</span>
 										</c:forEach>
 									</div>
 								</div>
@@ -98,89 +99,101 @@
 									<div id="talDocNO" value="재능글NO" title="재능글번호" style="display:none;"/>
 								</div>
 							</div>
+
+
+							<div class="panel panel-default">
+								<div style="background-color:#89729E" class="panel-heading">
+									<div style="color:#FFF;" class="panel-title">
+										<span><b>신청 정보</b></span>
+									</div>
+
+									<div class="panel-options">
+										<a class="bg" data-target="#sample-modal-dialog-1" data-toggle="modal"
+										   href="#sample-modal">
+											<i class="entypo-cog"></i></a>
+										<a data-rel="collapse" href="#"><i class="entypo-down-open"></i></a>
+										<a data-rel="close" href="#!/tasks" ui-sref="Tasks"><i
+												class="entypo-cancel"></i></a>
+									</div>
+								</div>
+
+								<div class="panel-body">
+									<div class="text-right">
+								<span style="background-color:#89729E;"
+								      class="badge badge-primary">Send : <fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+								                                                         value="${talExcConnVO.reqDate}"/></span>
+									</div>
+									<div style="min-height: 80px;" novalidate="" class="form-horizontal jumbotron-contents">
+										${talExcConnVO.content}
+									</div>
+								</div>
+								<%-- CONTENT 끝--%>
+							</div><!-- panel body -->
+							<div class="form-group">
+								<div class="col-md-12">
+									<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info"
+									       type="button" id="btnList" value="목록"/>
+									<a style="background-color:#5B3256; border-color:#89729E;" href="#"
+									   class="btn btn-info"
+									   data-toggle="modal" data-target="#acceptModal">수락</a>
+									<a style="background-color:#5B3256; border-color:#89729E;" href="#"
+									   class="btn btn-info"
+									   data-toggle="modal" data-target="#refuseModal">거절</a>
+								</div>
+							</div>
 						</div>
-
-
-						<div class="panel panel-default">
-							<div style="background-color:#89729E" class="panel-heading">
-								<div style="color:#FFF;" class="panel-title">
-									<span><b>신청 정보</b></span>
-
+					</div><!-- content -->
+					<%-- 신청 수락 Modal 시작--%>
+					<div class="modal fade" id="acceptModal" tabindex="-1" role="dialog" aria-labelledby="smallModal"
+					     aria-hidden="true">
+						<div class="modal-dialog modal-sm">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+									</button>
+									<h4 class="modal-title" id="acceptModalLabel">재능교환 알림창</h4>
 								</div>
-
-								<div class="panel-options">
-									<a class="bg" data-target="#sample-modal-dialog-1" data-toggle="modal" href="#sample-modal">
-										<i class="entypo-cog"></i></a>
-									<a data-rel="collapse" href="#"><i class="entypo-down-open"></i></a>
-									<a data-rel="close" href="#!/tasks" ui-sref="Tasks"><i
-											class="entypo-cancel"></i></a>
+								<div class="modal-body">
+									<h6>재능 교환을 진행하시겠습니까?</h6>
+									<h7>수락시 상대와 자신의 연락처가 공유됩니다.</h7>
 								</div>
-							</div>
-
-							<div class="panel-body">
-								<div class="text-right">
-									<span style="background-color:#89729E;" class="badge badge-primary">Send : <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${talExcConnVO.reqDate}"/></span>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+									<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info"
+									       type="button" id="btnAccept" value="수락"/>
 								</div>
-								<div novalidate="" class="form-horizontal jumbotron-contents">
-									${talExcConnVO.content}
-								</div>
-							</div>
-							<%-- CONTENT 끝--%>
-						</div><!-- panel body -->
-						<div class="form-group">
-							<div class="col-md-12">
-								<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info" type="button" id="btnList" value="목록"/>
-								<a style="background-color:#5B3256; border-color:#89729E;" href="#" class="btn btn-info" data-toggle="modal" data-target="#acceptModal">수락</a>
-								<a style="background-color:#5B3256; border-color:#89729E;" href="#" class="btn btn-info" data-toggle="modal" data-target="#refuseModal">거절</a>
 							</div>
 						</div>
 					</div>
-				</div><!-- content -->
-				<%-- 신청 수락 Modal 시작--%>
-				<div class="modal fade" id="acceptModal" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
-					<div class="modal-dialog modal-sm">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
-								</button>
-								<h4 class="modal-title" id="acceptModalLabel">재능교환 알림창</h4>
-							</div>
-							<div class="modal-body">
-								<h6>재능 교환을 진행하시겠습니까?</h6>
-								<h7>수락시 상대와 자신의 연락처가 공유됩니다.</h7>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-								<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info" type="button" id="btnAccept" value="수락"/>
+					<%-- 신청 수락 Modal 끝--%>
+					<%-- 신청 거절 Modal 시작--%>
+					<div class="modal fade" id="refuseModal" tabindex="-1" role="dialog" aria-labelledby="smallModal"
+					     aria-hidden="true">
+						<div class="modal-dialog modal-sm">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+									</button>
+									<h4 class="modal-title" id="refuseModalLabel">재능교환 알림창</h4>
+								</div>
+								<div class="modal-body">
+									<h6>재능 교환을 거절하시겠습니까?</h6>
+									<h7>거절시 해당 신청내역이 목록에서 삭제됩니다.</h7>
+									<!--<h7>교환 거절시 상대는 연결된 게시글을 통해 교환신청을 할 수 없게 됩니다.</h7>-->
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+									<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info"
+									       type="button" id="btnRefuse" value="거절"/>
+								</div>
 							</div>
 						</div>
 					</div>
+					<%-- 신청 거절 Modal 끝--%>
 				</div>
-				<%-- 신청 수락 Modal 끝--%>
-				<%-- 신청 거절 Modal 시작--%>
-				<div class="modal fade" id="refuseModal" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
-					<div class="modal-dialog modal-sm">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
-								</button>
-								<h4 class="modal-title" id="refuseModalLabel">재능교환 알림창</h4>
-							</div>
-							<div class="modal-body">
-								<h6>재능 교환을 거절하시겠습니까?</h6>
-								<h7>거절시 해당 신청내역이 목록에서 삭제됩니다.</h7>
-								<!--<h7>교환 거절시 상대는 연결된 게시글을 통해 교환신청을 할 수 없게 됩니다.</h7>-->
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-								<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info" type="button" id="btnRefuse" value="거절"/>
-							</div>
-						</div>
-					</div>
-				</div>
-				<%-- 신청 거절 Modal 끝--%>
 			</div>
 		</div>
+	</div>
 	</div>
 </section>
 

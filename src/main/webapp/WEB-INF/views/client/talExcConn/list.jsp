@@ -80,7 +80,7 @@
 									<td>
 										<c:forEach items="${divList }" var="talDivItem">
 											<c:if test="${talExcConnList.talConnNO eq talDivItem.talConnNO}">
-												<p>#${talDivItem.name}</p>
+												<span style="background-color: #2d9bff" class="label label-info">#${talDivItem.name}</span>
 											</c:if>
 										</c:forEach>
 									</td>
