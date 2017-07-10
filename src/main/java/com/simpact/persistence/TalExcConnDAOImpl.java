@@ -1,9 +1,6 @@
 package com.simpact.persistence;
 
-import com.simpact.domain.Criteria;
-import com.simpact.domain.SearchCriteria;
-import com.simpact.domain.TalDivVO;
-import com.simpact.domain.TalExcConnVO;
+import com.simpact.domain.*;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -39,9 +36,19 @@ public class TalExcConnDAOImpl implements TalExcConnDAO {
 	}
 
 	@Override
-	public TalExcConnVO read(String talConnNO) throws Exception {
+	public TalExcConnVO readReception(String talConnNO) throws Exception {
 
-		return sqlSession.selectOne("talExcConn.read", talConnNO);
+		return sqlSession.selectOne("talExcConn.readReception", talConnNO);
+	}
+
+	@Override
+	public List<TalDivVO> listSenderWantDiv(String talConnNO) throws Exception {
+		return sqlSession.selectList("talExcConn.listSenderWantDiv", talConnNO);
+	}
+
+	@Override
+	public List<TalDivVO> listSenderHaveDiv(String talConnNO) throws Exception {
+		return sqlSession.selectList("talExcConn.listSenderHaveDiv", talConnNO);
 	}
 
 	@Override

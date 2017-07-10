@@ -158,15 +158,37 @@ public class TalExcConnController {
 
 	/* 재능교환신청 상세정보 (수령인) */
 	@RequestMapping(value = "/infoRecipient", method = RequestMethod.GET)
-	public String infoRecipient(TalExcConnVO talExcConnVO, Model model, SearchCriteria cri) throws Exception {
-
+	public String infoRecipientGET(TalExcConnVO talExcConnVO, Model model, SearchCriteria cri) throws Exception {
+		talExcConnVO.setTalConnNO("TEC_A00003"); //임시데이터
 //		TalDivVO talDivVO = new TalDivVO();
-//		model.addAttribute("cri", cri);
-//		model.addAttribute("TalExcConnVO", service.infoSend(talExcConnVO));
+
+		String talConnNO = talExcConnVO.getTalConnNO(); // 재능연결번호
+
+		model.addAttribute("cri", cri);
+
+		TalExcConnVO talResult = service.readReception(talConnNO);
+		System.out.println(talResult.toString());
+		model.addAttribute("talExcConnVO", talResult); //신청글 정보
+		model.addAttribute("listSenderWantDiv", service.listSenderWantDiv(talConnNO)); //신청자가 원하는 재능 정보
+		model.addAttribute("listSenderHaveDiv", service.listSenderHaveDiv(talConnNO)); //신청자가 보유한 재능 정보
 
 
 		return "/client/talExcConn/infoRecipient";
 	}
 
 
+
+		/* 재능교환신청 상세정보 (수령인) */
+	@RequestMapping(value="/infoRecipient", method = RequestMethod.POST)
+	public @ResponseBody String infoRecipientPOST(TalExcConnVO talExcConnVO) throws Exception {
+		System.out.println("talConnNO"+talExcConnVO.toString());
+		//작업중
+		int result = 1;
+
+		if (result == 1) {
+			return "SUCCESS";
+		} else {
+			return "FAIL";
+		}
+	}
 }

@@ -29,12 +29,29 @@
 		VALUES (#{talConnNO},#{talDivDF})
 	</insert>
 
-	<!-- 게시물 상세읽기 -->
-	<select id="read" resultType="talExcConnVO">
-		SELECT talConnNO, title, content, reqDate
-		FROM TalExcConn
+	<!-- 신청글 상세정보 -->
+	<select id="readReception" resultType="talExcConnVO">
+		SELECT talConnNO, memNO, nickName, title, content, reqDate
+		FROM TalExcConn NATURAL JOIN Member
 		WHERE talConnNO = #{talConnNO}
 	</select>
+
+	<!-- 신청자가 보유한 재능 정보 -->
+	<select id="listSenderHaveDiv" resultType="talDivVO">
+		SELECT talDivDF, name
+		FROM NP_TalHaveCn NATURAL JOIN DF_TALDIV
+		WHERE talConnNO = #{talConnNO}
+		ORDER BY talDivDF ASC
+	</select>
+
+	<!-- 신청자가 원하는 재능 정보 -->
+	<select id="listSenderWantDiv" resultType="talDivVO">
+		SELECT talDivDF, name
+		FROM NP_TalWantCn NATURAL JOIN DF_TALDIV
+		WHERE talConnNO = #{talConnNO}
+		ORDER BY talDivDF ASC
+	</select>
+
 
 	<!--  검색어 조회 -->
 	<sql id="search">

@@ -77,7 +77,7 @@
 		//====================================//
 
 		//재능 등록
-		$(document).on('click', '#talSend', function() {
+		$(document).on('click', '#btnSend', function() {
 			console.log("등록");
 
 			var talWantDivSel = $('#talWantField div div select[name="talWantDiv"] option:selected:not([value="none"])'); //선택된 것 중 none이 아닌것만!
@@ -282,7 +282,7 @@
 									</div>
 									<div class="form-group">
 										<div class="col-md-offset-2 col-md-10">
-											<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info" type="button" id="talSend" value="전송"/>
+											<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info" type="button" id="btnSend" value="전송"/>
 											<input style="background-color:#900725; border-color:#ae2631;" class="btn btn-info" type="button" value="취소"/>
 										</div>
 									</div>

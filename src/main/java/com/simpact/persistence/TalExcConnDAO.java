@@ -18,8 +18,11 @@ public interface TalExcConnDAO {
 
 	public void createHaveCn(TalDivVO talDivVO) throws Exception;// 신청의 항목 연결 등록
 
-	public TalExcConnVO read(String talConnNO) throws Exception;//상세읽기
+	public TalExcConnVO readReception(String talConnNO) throws Exception;	/* 신청글 상세정보 */
 
+	public List<TalDivVO> listSenderWantDiv(String talConnNO) throws Exception;	/* 신청자가 원하는 재능 정보 */
+
+	public List<TalDivVO> listSenderHaveDiv(String talConnNO) throws Exception;	/* 신청자가 보유한 재능 정보 */
 	public List<TalExcConnVO> listCriteria(Criteria cri) throws Exception;//전체레코드 수
 
 	//전체레코드 수

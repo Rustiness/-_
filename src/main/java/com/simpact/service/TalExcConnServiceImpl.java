@@ -31,8 +31,18 @@ public class TalExcConnServiceImpl implements TalExcConnService {
 	}
 
 	@Override
-	public TalExcConnVO read(String talExcConnNO) throws Exception {
-		return dao.read(talExcConnNO);
+	public TalExcConnVO readReception(String talConnNO) throws Exception {
+		return dao.readReception(talConnNO);
+	}
+
+	@Override
+	public List<TalDivVO> listSenderWantDiv(String talConnNO) throws Exception {
+		return dao.listSenderWantDiv(talConnNO);
+	}
+
+	@Override
+	public List<TalDivVO> listSenderHaveDiv(String talConnNO) throws Exception {
+		return dao.listSenderHaveDiv(talConnNO);
 	}
 
 	@Override
