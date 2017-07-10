@@ -7,7 +7,9 @@ import com.simpact.domain.SearchCriteria;
 
 public interface AdMemberDAO {
 
-	public MemberVO read(String memNO)throws Exception;//상세보기
+	public MemberVO read(String memNO)throws Exception;//상세보기멤버
+
+	public List<MemberVO> readmsg(String memNO)throws Exception;//상세보기메신저
 	
 	public void update(MemberVO vo)throws Exception;//수정
 	

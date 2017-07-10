@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.simpact.domain.MemberVO;
+import com.simpact.domain.MessengerVO;
 
 @Repository
 public class LoginDAOIpml implements LoginDAO {
@@ -31,14 +32,15 @@ public class LoginDAOIpml implements LoginDAO {
 	}
 
 	@Override
-	public List<MemberVO> selectMemberinfo(String memNO) {		//회원번호로 회원정보 전체
-		return sqlSession.selectList("login.getMeminfo",memNO);
+	public MemberVO selectMemberinfo(String memNO) {		//회원번호로 회원정보 전체
+		return sqlSession.selectOne("login.getMeminfo",memNO);
+	}
+	
+	@Override
+	public List<MessengerVO> selectMembermsg(String memNO) {		//회원번호로 메신저리스트
+		return sqlSession.selectList("login.getMembermsg",memNO);
 	}
 
-	@Override
-	public int memberUpdate(MemberVO vo) {
-		return sqlSession.update("login.memberUpdate",vo);
-	}
 
 	@Override
 	public String findpass(String email, String name, String tel) {
@@ -47,22 +49,6 @@ public class LoginDAOIpml implements LoginDAO {
 		map.put("name", name);
 		map.put("tel", tel);
 		return sqlSession.selectOne("login.findpass", map);
-	}
-
-	@Override
-	public int uppasscheck(String memNO, String uppass) {
-		Map<String, String> map = new HashMap<>();
-		map.put("memNO", memNO);
-		map.put("pass", uppass);
-		return sqlSession.selectOne("login.passcheck",map);
-	}
-
-	@Override
-	public int delpasscheck(String memNO, String delpass) {
-		Map<String, String> map = new HashMap<>();
-		map.put("memNO", memNO);
-		map.put("pass", delpass);
-		return sqlSession.update("login.delete",map);
 	}
 
 	@Override

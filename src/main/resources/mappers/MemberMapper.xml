@@ -10,7 +10,29 @@
 		INSERT INTO member (memNO, email, pass, name, birth, sex, tel, nickName, personDF, joinDate, state)
 		VALUES ('${memNO}', #{email}, #{pass}, #{name}, #{birth}, #{sex}, #{tel}, #{nickName}, 'D_PE01', sysdate,'2')
 	</insert>
+	
+	<!-- 수정하기 -->
+	<update id="memberUpdate" parameterType="member">
+		UPDATE member
+		SET pass = #{pass}, name = #{name}, nickName = #{nickName}, tel = #{tel}
+		WHERE memNO = #{memNO}
+	</update>
+	
+	<!-- 비밀번호 확인 -->
+	<select id="passcheck" resultType="int">
+		SELECT count(*)
+		FROM member
+		WHERE memNO = #{memNO}
+		      AND pass = #{pass}
+	</select>
 
+	<!-- 회원탈퇴 -->
+	<update id="delete">
+		UPDATE member
+		SET state = '4'
+		WHERE memNO = #{memNO}
+		      AND pass = #{pass}
+	</update>
 	
 
 	<select id="selectMesDF" resultType="String"> <!-- 회원번호로 메신저 구분번호 찾고  -->

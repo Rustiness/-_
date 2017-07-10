@@ -32,7 +32,7 @@ public class AdLoginDAOImpl implements AdLoginDAO {
 
 	@Override
 	public void latestDateUpdate(String memNO) {
-		sqlSession.update("Adlogin.latestDateUpdate");
+		sqlSession.update("Adlogin.latestDateUpdate",memNO);
 	}
 
 	@Override

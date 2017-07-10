@@ -32,6 +32,11 @@ public class AdMemberServiceImpl implements AdMemberService {
 	public MemberVO read(String memNO) throws Exception {
 		return dao.read(memNO);
 	}
+	
+	@Override
+	public List<MemberVO> readmsg(String memNO) throws Exception {
+		return dao.readmsg(memNO);
+	}
 
 	@Override
 	public List<MemberVO> listSearchCriteria(SearchCriteria cri) throws Exception {

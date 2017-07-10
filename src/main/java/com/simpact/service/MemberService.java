@@ -2,6 +2,8 @@ package com.simpact.service;
 
 import java.util.List;
 
+import org.springframework.ui.Model;
+
 import com.simpact.domain.MemberVO;
 import com.simpact.domain.MessengerVO;
 
@@ -28,5 +30,13 @@ public interface MemberService {
 
 	public void msgRegist(MessengerVO vo) throws Exception;//찾은 회원번호로  메신저 테이블NP_MemMes에 등록
 
-	public List<MessengerVO> listmsg() throws Exception;
+	public List<MessengerVO> listmsg() throws Exception; // 메신저 리스트
+	
+	public int memberUpdate(MemberVO vo) throws Exception;    // 회원정보 수정
+
+	public int messengerUpdate(MessengerVO vo) throws Exception;    // 회원메신저정보 수정
+
+	public int uppasscheck(String memNO, String uppass) throws Exception;    //정보수정을 위한 비밀번호 확인
+
+	public int delpasscheck(String memNO, String delpass) throws Exception;    //삭제를 위한 비밀번호 확인
 }

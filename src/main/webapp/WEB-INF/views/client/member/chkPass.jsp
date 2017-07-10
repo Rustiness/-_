@@ -23,7 +23,7 @@ $(document).on('click', '#upcheck', function() {
 		url : "http://localhost/m/upchkPass",
 		type : "post",
 		data : {
-			memNO : '${SUCCESS[0].memNO }',
+			memNO : '${clientMemberVO.memNO }',
 			uppass : $('#uppass').val()
 		},			
 		dataType : "html",
@@ -43,7 +43,7 @@ $.ajax({
 		url : "http://localhost/m/delchkPass",
 		type : "post",
 		data : {
-			memNO : '${SUCCESS[0].memNO }',
+			memNO : '${clientMemberVO.memNO }',
 			delpass : $('#delpass').val()
 			
 		},			

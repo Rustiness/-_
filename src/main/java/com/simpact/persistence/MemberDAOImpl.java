@@ -6,7 +6,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created
@@ -69,5 +72,31 @@ public class MemberDAOImpl implements MemberDAO {
 		sqlSession.insert("messenger.insert",vo);
 	}
 
+	@Override
+	public int memberUpdate(MemberVO vo) {
+		return sqlSession.update("member.memberUpdate",vo);
+	}
+
+	
+	@Override
+	public int messengerUpdate(MessengerVO vo) {
+		return sqlSession.update("messenger.update",vo);
+	}
+	
+	@Override
+	public int uppasscheck(String memNO, String uppass) {
+		Map<String, String> map = new HashMap<>();
+		map.put("memNO", memNO);
+		map.put("pass", uppass);
+		return sqlSession.selectOne("member.passcheck",map);
+	}
+
+	@Override
+	public int delpasscheck(String memNO, String delpass) {
+		Map<String, String> map = new HashMap<>();
+		map.put("memNO", memNO);
+		map.put("pass", delpass);
+		return sqlSession.update("member.delete",map);
+	}
 
 }

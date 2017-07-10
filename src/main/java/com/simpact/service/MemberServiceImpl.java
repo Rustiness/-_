@@ -58,5 +58,24 @@ public class MemberServiceImpl implements MemberService {
 		dao.createMES(vo);
 		
 	}
+	
+	@Override
+	public int memberUpdate(MemberVO vo) throws Exception {
+		return dao.memberUpdate(vo);
+	}
+	
+	@Override
+	public int messengerUpdate(MessengerVO vo) throws Exception {
+		return dao.messengerUpdate(vo);
+	}
+	
+	@Override
+	public int uppasscheck(String memNO, String uppass) throws Exception {
+		return dao.uppasscheck(memNO, uppass);
+	}
 
+	@Override
+	public int delpasscheck(String memNO, String delpass) throws Exception {
+		return dao.delpasscheck(memNO, delpass);
+	}
 }

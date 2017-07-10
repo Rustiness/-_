@@ -1,11 +1,15 @@
 package com.simpact.controller;
 
 import com.simpact.domain.MemberVO;
-import com.simpact.service.LoginService;
+import com.simpact.domain.MessengerVO;
+import com.simpact.service.MemberService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 public class MemberController {
 
 	@Inject
-	private LoginService service;
+	private MemberService service;
 
 	/* 비밀번호 확인 */
 	@RequestMapping("/chkPass")
@@ -61,19 +65,19 @@ public class MemberController {
 
 	/* 회원정보 수정 (수정폼) */
 	@RequestMapping("/mod")
-	public String modifyfrom(HttpServletRequest req) {
-		req.getSession().getAttribute("SUCCESS");
+	public String modifyfrom(Model model) throws Exception {
+		List<MessengerVO> list = service.listmsg();//리스트 목록출력
+		model.addAttribute("messengerVOlist", list);
 		return "/client/member/modify";
 	}
 
-	/* 회원정보 수정 */
+	/* 회원정보 수정 (기본정보만)*/
 	@RequestMapping("/mod/result")
 	public @ResponseBody String mod(HttpServletRequest req, MemberVO vo) {
 		int t = 0;
 		try {
 			t = service.memberUpdate(vo);            //수정 되면 1 안되면 0
 			if (t == 1) {
-				req.getSession().removeAttribute("SUCCESS");
 				return t + "";
 			}
 		} catch (Exception e) {
@@ -82,7 +86,35 @@ public class MemberController {
 
 		return null;
 	}
-
+	
+	/* 회원정보 수정 (기본정보가 처리된 뒤에 메신저 수정)*/
+	@RequestMapping("/mod/messenger/up")
+	public @ResponseBody String modMessengerUp(MessengerVO vo) throws Exception{
+		int t = 0;
+		t = service.messengerUpdate(vo);
+		if(t==1){
+			return "clientmsgUpSUCCESS";
+		}
+		return "clientmsgUpFAIL";
+	}
+	
+	/* 회원정보 수정 (기본정보가 처리된 뒤에 메신저 수정한 뒤에 메신저 추가!)*/
+	@RequestMapping("/mod/messenger/add")
+	public @ResponseBody String modMessengerAdd(){
+		return "";
+	}
+	
+	/* 회원정보 수정 (기본정보가 처리된 뒤에 메신저 수정한 뒤에 메신저 삭제!)*/
+	@RequestMapping("/mod/messenger/del")
+	public @ResponseBody String modMessengerDel(){
+		return "";
+	}
+	
+	
+	
+	
+	
+	
 	//비밀번호 확인폼 (삭제를 위한)
 	@RequestMapping("/delchkPassform")
 	public String deletechk(HttpServletRequest req, Model model) {

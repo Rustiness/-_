@@ -3,6 +3,8 @@ package com.simpact.controller;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.simpact.domain.Criteria;
+import com.simpact.domain.MemberVO;
 import com.simpact.domain.PageMaker;
 import com.simpact.domain.SearchCriteria;
 import com.simpact.service.AdMemberService;
@@ -45,9 +49,10 @@ public class AdMemberController {
 
 	/* 회원 상세정보 */
 	@RequestMapping("/read")
-	public String read(@RequestParam("memNO") String memNO)throws Exception {
-		service.read(memNO);
-		
+	public String read(@RequestParam("memNO") String memNO, SearchCriteria cri, Model model)throws Exception {
+		model.addAttribute("memberVO",service.read(memNO)); //회원정보 
+		model.addAttribute("messengerVO",service.readmsg(memNO));	//메신저정보 list
+		model.addAttribute("cri",cri);
 		return "/admin/member/read";
 	}
 

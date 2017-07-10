@@ -5,6 +5,7 @@
    Time: 오후 6:04
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- .jsp --%>
 <%@include file="../include/header.jsp" %>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -22,35 +23,30 @@
 <!-- Main content -->
 <section class="content">
 
-   회원정보보기<br><br>
-       <table  cellpadding="1">
-      <tr>
-        <td colspan="2" height="100">계정정보</td>
+회원정보보기<br><br>
+계정정보<br>
+회원분류
         <c:choose>
-        	<c:when test="${SUCCESS[0].personDF eq 'D_PE01'}"><c:out value="<tr><td>회원분류</td><td><input type=text value=일반회원 disabled=disabled></td></tr>" escapeXml="false"></c:out></c:when>
-			<c:otherwise><c:out value="<tr><td>회원분류</td><td><input type=text value=관리자 disabled=disabled></td></tr>" escapeXml="true"></c:out></c:otherwise>        
-        </c:choose>
-        
-        <tr><td>아이디(이메일주소)</td><td><input type="text" value="${SUCCESS[0].email }" disabled="disabled"></td></tr>
-        
-        <tr><td colspan="2" height="100">개인정보</td></tr>
-            <tr><td>이름</td><td><input type="text" value="${SUCCESS[0].name }" disabled="disabled"></td></tr>
-         <tr><td>닉네임</td><td><input type="text" value="${SUCCESS[0].nickName }" disabled="disabled"></td></tr>              
-           <tr><td>생년월일</td><td><input type="Date" value="${SUCCESS[0].birth }" disabled="disabled"></td></tr>
-           <c:choose>
-           		<c:when test="${SUCCESS[0].sex eq '1'}"><tr><td>성별</td><td><input type="text" value="남자" disabled="disabled"></td></tr></c:when>
-           		<c:otherwise><tr><td>성별</td><td><input type="text" value="여자" disabled="disabled"></td></tr></c:otherwise>
-           </c:choose>
-           		
-           <tr><td>핸드폰번호</td><td><input type="tel" value="${SUCCESS[0].tel }" disabled="disabled"></td></tr>
-           <tr><td>가입일</td><td><input type="Date" value="${SUCCESS[0].joinDate }" disabled="disabled"></td></tr>
-           
-          
-          <tr><td colspan="2" height="100" align="center" >
-          <input type="button" value="수정" id="update"> <input type="button" value="삭제" id="delete"> </td></tr>
-             
-     </table>   
-   
+        	<c:when test="${clientMemberVO.personDF eq 'D_PE01'}"><input type=text value=일반회원 disabled=disabled></c:when>
+			<c:otherwise><input type=text value=관리자 disabled=disabled></c:otherwise>       
+        </c:choose><br>
+아이디(이메일주소)<input type="text" value="${clientMemberVO.email }" disabled="disabled"><br><br>
+개인정보<br>
+이름<input type="text" value="${clientMemberVO.name }" disabled="disabled"><br>
+닉네임<input type="text" value="${clientMemberVO.nickName }" disabled="disabled">  <br>         
+생년월일<input type="Date" value="${clientMemberVO.birth }" disabled="disabled"><br>
+성별               <c:choose>
+           		<c:when test="${clientMemberVO.sex eq '1'}"><input type="text" value="남자" disabled="disabled"></c:when>
+           		<c:otherwise><input type="text" value="여자" disabled="disabled"></c:otherwise>
+           </c:choose><br>
+핸드폰번호<input type="tel" value="${clientMemberVO.tel }" disabled="disabled"><br>
+가입일<input type="Date" value="${clientMemberVO.joinDate }" disabled="disabled"><br>
+   <br><br>           
+메신저목록<br>
+<c:forEach items="${clientMessengerVO }" var="list">
+	<input type="text" value="${list.name}" disabled="disabled"> <input type="text" value="${list.id}" disabled="disabled"><br>
+</c:forEach><br><br>
+	<input type="button" value="수정" id="update"> <input type="button" value="삭제" id="delete">
 </section>
 
 <%@include file="../include/footer.jsp" %>

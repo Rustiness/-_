@@ -10,6 +10,7 @@
 		<typeAlias type="com.simpact.domain.TalCategoryVO" alias="talCategory"/>
 		<typeAlias type="com.simpact.domain.TalDivVO" alias="talDivVO"/>
 		<typeAlias type="com.simpact.domain.MemberVO" alias="member"/>
+		<typeAlias type="com.simpact.domain.EmployeeVO" alias="employee"/>
 		<typeAlias type="com.simpact.domain.TalExcConnVO" alias="talExcConnVO"/>
 		<typeAlias type="com.simpact.domain.MessengerVO" alias="messengerVO"/>
 		<typeAlias type="com.simpact.domain.QuestionVO" alias="quest"/>

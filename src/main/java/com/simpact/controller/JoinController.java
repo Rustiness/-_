@@ -66,15 +66,18 @@ public class JoinController {
 	@RequestMapping("/confirm/messenger")
 	public @ResponseBody String  msgPOST(MessengerVO vo) throws Exception{
 		String count[] = vo.getMesDF().split(",");	//사이즈 측정용
+		
+		String mesNO[] = vo.getNo().split(",");
 		String mesDF[] = vo.getMesDF().split(",");
 		String mesID[] = vo.getId().split(",");
 		
 		for(int i=0; i<count.length; i++){	// ,로 나눈 배열만큼 메세지테이블에 인설트
+			vo.setNo(mesNO[i]);
 			vo.setMesDF(mesDF[i]);
 			vo.setId(mesID[i]);
 			 service.registMES(vo);
 		}
-		return "success";					//화면이 바뀌어야되는
+		return "success";					
 	}
 	
 	//이메일 중복

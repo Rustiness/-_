@@ -9,9 +9,12 @@
 <%@include file="../include/header.jsp" %>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
+$(document).ready(function () {
+		var inputID = 1; //메신저추가시 아이디 비교용
+		var lastmsg = $('#msglast').val(); // 기존에 있던 메신저의 마지막행값
 $(document).on('click', '#update', function() {
 	$.ajax({
-		url : "http://localhost/m/mod/result",
+		url : "/m/mod/result",
 		type : "post",
 		data : {
 			memNO : $('#memNO').val(),
@@ -23,48 +26,137 @@ $(document).on('click', '#update', function() {
 		dataType : "html",
 		success : function(result) {
 					if(result.match("1")){  //수정성공시
-						
+						for(var i=1; i<=lastmsg; i++){	//기존에 있는 메신저의 양만큼 수정을 실행 
+							$.ajax({
+								url : "/m/mod/messenger/up",			
+								type : "post",
+								data : {
+										No : i+'',
+										memNO : $('#memNO').val(),
+										mesDF : $('#upmesDF'+i+' option:selected').val(),
+										id : $('#upmesID'+i).val()
+											}
+							});
+						}
 						alert("수정이 완료되었습니다\n다시 로그인해 주세요.");
-						location.href="/l/confirm"
+						location.href="/l/confirm"	
+					
+					}else{
+						alert("실패입니다");
 					}
 		}
 		
 	});
 	});
+		if(lastmsg > 3){	//버튼 3개 이상이면 추가버튼 사라짐
+			$('#maxadd').hide();
+		}
+		if(lastmsg < 3){	//버튼 3개 이하이면 추가버튼 보임
+			$('#maxadd').show();
+		}
+		//메신저 행 추가
+		$(document).on('click', '[name="addButton"]', function() {
+			$.ajax({
+				url : "/j/msgJson",
+				type : "get",
+				dataType : "JSON",
+				success : function(data) {
+					var selectlist = "<div><select id='select_box" + inputID + "'>";
+					$.each(data, function(index, m) { // db에 있는 메신저목록을 가져와서 하단의 div에 넣는다
+						selectlist += "<option value=" + m.mesDF + " id=" + m.mesDF + ">" + m.name + "</option>";
+					});
+					selectlist += "<select> <input type=text id='msg" + inputID + "'> <input type=button value='삭제' id='deletemsg'></div>";
+					inputID++;
+					$('#megform').append(selectlist);
+				}
+			});
+		});
+		//기존에 있던 메신저 제거
+		$(document).on('click', '#removemsg', function() {
+			$.ajax({
+				url : "/j/mod/messenger/del",
+				type : "post",
+				data : {
+					No :$(this).prev().val(),
+					memNO : $('#memNO').val(),
+				},
+				success : function(data) {
+					alert('메신저가 삭제되었습니다.');
+					$(this).parent(this).remove();  //컨트롤러가서 NO 랑 memno넘어오는지 확인하고 service진행하기 새로
+				}
+			});
+		});
+		//메신저 추가한거 제거
+		$(document).on('click', '#deletemsg', function() {
+			$(this).parent(this).remove();
+		});
+})
 </script>
 <!-- Main content -->
 <section class="content">
- 회원정보수정<br><br>
-       <table>
-      <tr>
-        <td colspan="2" height="100">계정정보</td>
+회원정보수정<br><br>
+계정정보
+회원분류
+<input type="hidden" value="${clientMemberVO.memNO }" id="memNO">
         <c:choose>
-        	<c:when test="${SUCCESS[0].personDF eq 'D_PE01'}"><c:out value="<tr><td>회원분류</td><td><input type=text value=일반회원 disabled=disabled></td></tr>" escapeXml="false"></c:out></c:when>
-			<c:otherwise><c:out value="<tr><td>회원분류</td><td><input type=text value=관리자 disabled=disabled></td></tr>" escapeXml="true"></c:out></c:otherwise>        
-        </c:choose>
-        
-        <tr><td><input type="hidden" value="${SUCCESS[0].memNO }" id="memNO"></td></tr>
-        <tr><td>아이디(이메일주소)</td><td><input type="text" value="${SUCCESS[0].email }" disabled="disabled"></td></tr>
-        <tr><td>비밀번호</td><td><input type="password" value="${SUCCESS[0].pass }" id="pass"></td></tr>
-        <tr><td>비밀번호확인</td><td><input type="password" value="${SUCCESS[0].pass }"></td></tr>
-        
-        <tr><td colspan="2" height="100">개인정보</td></tr>
-            <tr><td>이름</td><td><input type="text" value="${SUCCESS[0].name }" id="name"></td></tr>
-         <tr><td>닉네임</td><td><input type="text" value="${SUCCESS[0].nickName }" id="nickName"></td></tr>              
-           <tr><td>생년월일</td><td><input type="Date" value="${SUCCESS[0].birth }" disabled="disabled" id="birth"></td></tr>
+        	<c:when test="${clientMemberVO.personDF eq 'D_PE01'}"><input type=text value=일반회원 disabled=disabled></c:when>
+			<c:otherwise><input type=text value=관리자 disabled=disabled></c:otherwise>        
+        </c:choose><br>
+아이디(이메일주소)<input type="text" value="${clientMemberVO.email }" disabled="disabled"><br>
+비밀번호<input type="password" value="${clientMemberVO.pass }" id="pass"><br>
+비밀번호확인<input type="password" value="${clientMemberVO.pass }"><br><br>
+개인정보<br>
+이름<input type="text" value="${clientMemberVO.name }" id="name"><br>
+닉네임<input type="text" value="${clientMemberVO.nickName }" id="nickName">            <br>
+생년월일<input type="Date" value="${clientMemberVO.birth }" disabled="disabled" id="birth"><br>
+성별   
            <c:choose>
-           		<c:when test="${SUCCESS[0].sex eq '1'}"><tr><td>성별</td><td><input type="text" value="남자" disabled="disabled" id=sex></td></tr></c:when>
-           		<c:otherwise><tr><td>성별</td><td><input type="text" value="여자" disabled="disabled" id="sex"></td></tr></c:otherwise>
-           </c:choose>
-           		
-           <tr><td>핸드폰번호</td><td><input type="text" value="${SUCCESS[0].tel }" id="tel"></td></tr>
-           <tr><td>가입일</td><td><input type="Date" value="${SUCCESS[0].joinDate }" disabled="disabled" id="joinDate"></td></tr>
-           
-          
-          <tr><td colspan="2" height="100" align="center" >
-          <input type="submit" value="수정" id="update"> <input type="button" value="취소"> </td></tr>
-             
-     </table>
+           		<c:when test="${clientMemberVO.sex eq '1'}"><input type="text" value="남자" disabled="disabled" id=sex></c:when>
+           		<c:otherwise><input type="text" value="여자" disabled="disabled" id="sex"></c:otherwise>
+           </c:choose><br>
+핸드폰번호<input type="text" value="${clientMemberVO.tel }" id="tel"><br>
+가입일<input type="Date" value="${clientMemberVO.joinDate }" disabled="disabled" id="joinDate">	<br><br>
+메신저목록<br>
+	
+<c:forEach items="${clientMessengerVO }" var="my" varStatus="status">  <!-- 회원이 등록한 메신저 수정-->
+  <div>
+	<select id="upmesDF${status.count }">
+		<c:forEach items="${messengerVOlist}" var="list">	
+				<c:choose>
+					<c:when test="${my.name eq list.name}">
+						<option selected="selected" value="${list.mesDF }">${list.name }</option>
+					</c:when>
+					<c:otherwise>
+						<option value="${list.mesDF }">${list.name }</option>
+					</c:otherwise>
+				</c:choose>
+		</c:forEach>
+	</select>
+	<input type="text" value="${my.id}" id="upmesID${status.count }"> 
+	<input type="hidden" value=${status.count }>
+	<input type=button value='삭제' id='removemsg'><br>
+	
+	<c:if test="${status.last}">
+		<input type="hidden" value="${status.count}" id="msglast">
+	</c:if>
+  </div>
+</c:forEach>
+
+<br><br>
+<div id="maxadd">
+메신저 추가하기
+	<form id="megform" action=""><!-- 메신저 추가로 입력하기-->
+		<select id="select_box0">
+				 <c:forEach items="${messengerVOlist}" var="messenger"> 
+						<option value="${messenger.mesDF }">${messenger.name }</option>
+				</c:forEach>
+		</select>
+			 
+			 	<input type="text" id="msg0" value=""> <input name="addButton" type="button" value="추가"><br>
+			 
+	</form>
+</div>
+          <input type="button" value="수정" id="update"> <input type="button" value="취소"><br>
 </section>
 
 <%@include file="../include/footer.jsp" %>

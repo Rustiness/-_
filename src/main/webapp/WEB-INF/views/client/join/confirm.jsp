@@ -12,6 +12,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 	var inputID = 1; //메신저추가시 아이디 비교용
+	var msgmaxcount = 1; // 행최고치계산용
+	
 $(document).ready(function () {
 	$("#email").change(function(){
 		
@@ -270,19 +272,28 @@ $(document).ready(function () {
 				type : "get",
 				dataType : "JSON",
 				success : function(data) {
-					var selectlist = "<select id='select_box" + inputID + "'>";
+					var selectlist = "<div><select id='select_box" + inputID + "'>";
 					$.each(data, function(index, m) { // db에 있는 메신저목록을 가져와서 하단의 div에 넣는다
 						selectlist += "<option value=" + m.mesDF + " id=" + m.mesDF + ">" + m.name + "</option>";
 					});
-					selectlist += "<select> <input type=text id='msg" + inputID + "'> <input type=button value='삭제' id='deletemsg'><br>";
+					selectlist += "<select> <input type=text id='msg" + inputID + "'> <input type=button value='삭제' id='deletemsg'></div>";
 					inputID++;
+					msgmaxcount++;
 					$('#megform').append(selectlist);
+						if(msgmaxcount == 3){	//버튼 3개 초과면 추가버튼 사라짐
+							$('#addmax').hide();
+					}
+					
 				}
 			});
 		});
 
 		//메신저 추가한거 제거
 		$(document).on('click', '#deletemsg', function() {
+			msgmaxcount--;
+			if(msgmaxcount == 2){	//버튼 3개 미만이면 추가버튼 보임
+				$('#addmax').show();
+			}
 			$(this).parent(this).remove();
 		});
 
@@ -306,18 +317,25 @@ $(document).ready(function () {
 				success : function(result) {
 					result = result.split(":");
 					
-					if (result[0].match("success")) { //가입성공 (메세지제외)
+					if (result[0].match("success")) { //가입성공 (메세지제외한상태)
+						var mesCount= 1;
+						var mesNO = ''; //메신저테이블에 들어갈 NO
 						var mesDF = '';
 						var mesid = '';
 						for (var i = 0; i < inputID; i++) {	//행을 삭제하지 않았을때 기준
-							mesDF += $('#select_box'+i+' option:selected').val() + ",";
-							mesid += $('#msg' + i + '').val() + ",";
+							if($('#select_box'+i+' option:selected').val() !== undefined){
+								mesNO += mesCount+',';
+								mesDF += $('#select_box'+i+' option:selected').val() + ",";
+								mesid += $('#msg' + i + '').val() + ",";
+								mesCount++;
+							}
 						}
 						//메세지테이블추가작업
 						$.ajax({
 							url : "/j/confirm/messenger",
 							type : "post",
 							data : {
+								No : mesNO,
 								memNO : result[1],
 								mesDF : mesDF,
 								id : mesid
@@ -336,6 +354,8 @@ $(document).ready(function () {
 				}
 			});
 		};
+		
+		
 });//document.ready
 	
 </script>
@@ -370,13 +390,14 @@ $(document).ready(function () {
 	<!-- 메신저 추가용  -->
 	메신저
 	<form id="megform" action="/j/confrim/messenger">
+		<div>
 		<select id="select_box0">
 			<c:forEach items="${list }" var="list">
-				<option value="${list.mesDF }" id="${list.mesDF }">${list.name }
-				</option>
+				<option value="${list.mesDF }" id="${list.mesDF }">${list.name }</option>
 			</c:forEach>
-		</select> <input type="text" id="msg0"> <input name="addButton"
-			type="button" value="추가"><br>
+		</select> 
+		<input type="text" id="msg0"> <input name="addButton" type="button" value="추가" id="addmax">
+		</div>
 	</form>
 	<input type="button" value="등록" id="insert">
 	<button onclick="window.close()">취소</button>

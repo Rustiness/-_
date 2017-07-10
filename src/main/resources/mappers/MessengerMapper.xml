@@ -11,8 +11,8 @@
 	
 	<!-- 메신저 등록 -->
 	<insert id="insert"> 
-		INSERT INTO NP_MemMes (memNO, mesDF, id)
-		VALUES ( #{memNO},#{mesDF},#{id})
+		INSERT INTO NP_MemMes (NO,memNO, mesDF, id)
+		VALUES ( #{No},#{memNO},#{mesDF},#{id})
 	</insert>
 	
 	
@@ -22,4 +22,12 @@
 		FROM DF_Messenger
 		WHERE ISYN = 'Y'
 	</select>
+	
+	<!-- 메신저 수정 -->
+	<update id="update">
+		update NP_MemMes
+		set id = #{id}, mesDF = #{mesDF} 
+		where No = #{No}
+		and memNO=#{memNO}
+	</update>
 </mapper>

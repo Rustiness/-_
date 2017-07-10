@@ -19,7 +19,7 @@
 	<!-- 내꺼 -->
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript">
-		var log = '${SUCCESS[0].memNO }';
+	var log = '${clientMemberVO.memNO }';
 		$(document).ready(function () { //DOM이 준비되고
 			if (log == '') { //세션값이 없을경우
 				$('#onlogin').hide(); // ID가 onlogin인 요소를 show();
@@ -95,12 +95,12 @@
 				<li>
 					<input type="button" class="btn btn-danger navbar-btn" id="tecclistaa" value="알림함"/>
 					<input type="button" class="btn btn-danger navbar-btn" id="userallinfo" value="계정정보"/>
-					<p class="navbar-text"><a class="navbar-link" href="">${SUCCESS[0].name } 님</a>
+					<p class="navbar-text"><a class="navbar-link" href="">${clientMemberVO.name } 님</a>
 					</p>
 					<input type="button" class="btn btn-danger navbar-btn" id="logout" value="로그아웃"/>
 				</li>
 			</ul>
-			<input type="hidden" value="${SUCCESS[0].memNO }" id="memNO">
+			<input type="hidden" value="${clientMemberVO.memNO }" id="memNO">
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->
 </nav>

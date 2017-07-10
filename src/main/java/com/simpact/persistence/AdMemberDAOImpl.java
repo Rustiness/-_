@@ -18,8 +18,13 @@ public class AdMemberDAOImpl implements AdMemberDAO {
 	private SqlSession sqlSession;
 	
 	@Override
-	public MemberVO read(String memNO) throws Exception {		//상세보기
+	public MemberVO read(String memNO) throws Exception {		//상세보기멤버
 		return sqlSession.selectOne("member.read",memNO);
+	}
+	
+	@Override
+	public List<MemberVO> readmsg(String memNO) throws Exception {		//상세보기메신저
+		return sqlSession.selectList("member.readmsg",memNO);
 	}
 
 	@Override

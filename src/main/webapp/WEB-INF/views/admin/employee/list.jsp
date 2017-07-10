@@ -15,9 +15,7 @@ $(document).ready(function(){
 	$(document).on('click', '.tr',function(){
 		var trid = $(this).attr('id'); 			// 각 행의 id값
 		var no = document.getElementById("no"+trid).childNodes.item(0).nodeValue;// 선택한 행에 따른 memNO값
-		var person = doucument.getElementById("person"+trid).childNodes.item(0).nodeValue; // 선택한 행에 따른 personDF값
-		alert(person);
-		/* location.href="/ad/m/read?memNO="+no+"personDF="+person; */
+		location.href="/ad/e/read?memNO="+no;
 	});	
 });
 </script>

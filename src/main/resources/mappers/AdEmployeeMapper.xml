@@ -2,13 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="employee">
 
-	<!-- 한 건의 게시물 읽기 -->
-	<!-- <select id="read" resultType="board">
-		select memNo,personDF,email,pass,name,nickName,birth,sex,tel,joinDate,latestDate,stat,name(회원분류),memo,
-		bno,title,content,writer,regdate,viewcnt
-		from tbl_board
-		where bno=#{bno}
-	</select> -->
+	<!-- 한 건의 게시물 읽기(직원기본정보) -->
+	<select id="read" resultType="member">
+		select memNo,personDF,email,pass,name,nickName,birth,sex,tel,joinDate,latestDate,state
+		from member
+		where memNO=#{memNO}
+	</select>
+
+	<!-- 한 건의 게시물 읽기(직원추가정보) pname 직책명  gname  관리명 -->
+	<select id="reademp" resultType="employee">
+		select e.empNO,e.memNO,e.gradeDF,e.posDF,e.latestDate,e.retireDate,e.state,p.name pname,g.name gname
+		from employee e, DF_Position p, DF_Grade g
+		where  e.memNO= #{memNO}
+		and e.gradeDF = g.gradeDF
+		and e.posDF = p.posDF
+	</select>
+	
+	<!-- 한 건의 게시물 읽기(메신저) -->
+	<select id="readmsg" resultType="messengerVO">
+		select memNO, mesDF, id, name
+		from NP_MemMes natural join DF_Messenger
+		where memNO= #{memNO}
+	</select>
 	
 	<!-- 정보 수정하기 -->
 	<!-- <update id="update">

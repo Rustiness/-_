@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.simpact.domain.MemberVO;
+import com.simpact.domain.MessengerVO;
 import com.simpact.persistence.LoginDAO;
 
 @Service
@@ -26,14 +27,15 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List<MemberVO> selectMemberinfo(String memNO) throws Exception {
+	public MemberVO selectMemberinfo(String memNO) throws Exception {
 		return dao.selectMemberinfo(memNO);
 	}
-
+	
 	@Override
-	public int memberUpdate(MemberVO vo) throws Exception {
-		return dao.memberUpdate(vo);
+	public List<MessengerVO> selectMembermsg(String memNO) throws Exception {
+		return dao.selectMembermsg(memNO);
 	}
+
 
 	@Override
 	public String findpass(String email, String name, String tel) throws Exception {
@@ -41,15 +43,7 @@ public class LoginServiceImpl implements LoginService {
 		return dao.findpass(email, name, tel);
 	}
 
-	@Override
-	public int uppasscheck(String memNO, String uppass) throws Exception {
-		return dao.uppasscheck(memNO, uppass);
-	}
 
-	@Override
-	public int delpasscheck(String memNO, String delpass) throws Exception {
-		return dao.delpasscheck(memNO, delpass);
-	}
 
 	@Override
 	public void latestDateUpdate(String memNO) throws Exception {

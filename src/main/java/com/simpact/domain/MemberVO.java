@@ -22,31 +22,15 @@ public class MemberVO {
 	private Date joinDate;		//가입일
 	private Date latestDate;	//최근접속일
 	private String state;		//계정상태
-	private String id;	//메신저아이디
-	
-	/*//직원 추가정보
-	private String empNO;		//직원번호
-	private String gradeDF;		//관리등급번호(ex_클레임담당 등등)
-	private String posDF;		//직책번호(ex)부장,차장)
-	private Date AdlatestDate;	//입사일
-	private Date AdretireDate;	//퇴사일
-	private String Adstate;		//직원상태
-	
-	//메모추가정보
-	private String cname;	//회원분류명 
-	private String memo;	//회원메모
-	private Date memoDate;	//회원메모수정일
-	*/
 	
 	
-	
-	
-
 	public MemberVO() {
 	}
 
+
+
 	public MemberVO(String memNO, String personDF, String email, String pass, String name, String nickName, Date birth,
-			String sex, String tel, Date joinDate, Date latestDate, String state, String id) {
+			String sex, String tel, Date joinDate, Date latestDate, String state) {
 		super();
 		this.memNO = memNO;
 		this.personDF = personDF;
@@ -60,113 +44,151 @@ public class MemberVO {
 		this.joinDate = joinDate;
 		this.latestDate = latestDate;
 		this.state = state;
-		this.id = id;
 	}
+
+
 
 	public String getMemNO() {
 		return memNO;
 	}
 
+
+
 	public void setMemNO(String memNO) {
 		this.memNO = memNO;
 	}
+
+
 
 	public String getPersonDF() {
 		return personDF;
 	}
 
+
+
 	public void setPersonDF(String personDF) {
 		this.personDF = personDF;
 	}
+
+
 
 	public String getEmail() {
 		return email;
 	}
 
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+
 
 	public String getPass() {
 		return pass;
 	}
 
+
+
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
+
+
 
 	public String getName() {
 		return name;
 	}
 
+
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
 
 	public String getNickName() {
 		return nickName;
 	}
 
+
+
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
+
+
 
 	public Date getBirth() {
 		return birth;
 	}
 
+
+
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
+
+
 
 	public String getSex() {
 		return sex;
 	}
 
+
+
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
+
+
 
 	public String getTel() {
 		return tel;
 	}
 
+
+
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
+
+
 
 	public Date getJoinDate() {
 		return joinDate;
 	}
 
+
+
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
+
+
 
 	public Date getLatestDate() {
 		return latestDate;
 	}
 
+
+
 	public void setLatestDate(Date latestDate) {
 		this.latestDate = latestDate;
 	}
+
+
 
 	public String getState() {
 		return state;
 	}
 
+
+
 	public void setState(String state) {
 		this.state = state;
 	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 
 
 }

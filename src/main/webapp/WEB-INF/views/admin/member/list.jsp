@@ -15,9 +15,8 @@ $(document).ready(function(){
 	$(document).on('click', '.tr',function(){
 		var trid = $(this).attr('id'); 			// 각 행의 id값
 		var no = document.getElementById("no"+trid).childNodes.item(0).nodeValue;// 선택한 행에 따른 memNO값
-		var person = doucument.getElementById("person"+trid).childNodes.item(0).nodeValue; // 선택한 행에 따른 personDF값
-		alert(person);
-		/* location.href="/ad/m/read?memNO="+no+"personDF="+person; */
+		//var person = doucument.getElementById("person"+trid).childNodes.item(0).nodeValue; // 선택한 행에 따른 personDF값
+		location.href="/ad/m/read?memNO="+no; 
 	});	
 });
 </script>
@@ -88,8 +87,8 @@ $(document).ready(function(){
 								<td>${memberVO.email}</td>
 								<td id="person${status.count}">
 									<c:choose>
-        								<c:when test="${memberVO.personDF eq 'D_PE01'}">일반회원</c:when>
-										<c:otherwise>관리자회원</c:otherwise>        
+        								<c:when test="${memberVO.personDF eq 'D_PE01'}"><input type="hidden" value="'D_PE01'">일반회원</c:when>
+										<c:otherwise><input type="hidden" value="'D_PE02'">관리자회원</c:otherwise>        
         							</c:choose>
         						</td>
         							<c:choose>

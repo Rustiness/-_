@@ -1,6 +1,7 @@
 package com.simpact.controller;
 
 import com.simpact.domain.MemberVO;
+import com.simpact.domain.MessengerVO;
 import com.simpact.service.LoginService;
 
 import org.springframework.http.HttpRequest;
@@ -52,9 +53,10 @@ public class LoginController {
 			if (t == 1) {    //로그인성공
 				String memNO = service.selectMemberNO(email);        //이메일을 통해 memno값 얻어오기
 				service.latestDateUpdate(memNO);                    //최근 접속일 최신화
-				List<MemberVO> list = service.selectMemberinfo(memNO);                //회원번호로 회원정보 얻어오기
-				
-				req.getSession().setAttribute("SUCCESS", list);        // 로그인에 성공시 아이디(유일한값)를  키값으로하는 세션부여
+				MemberVO vo = service.selectMemberinfo(memNO);//회원번호로 회원정보 얻어오기
+				List<MessengerVO> list = service.selectMembermsg(memNO);  // 메신저정보얻기
+				req.getSession().setAttribute("clientMemberVO", vo);        // 로그인에 성공시 회원정보 세션저장
+				req.getSession().setAttribute("clientMessengerVO", list);        // 로그인에 성공시 메신저정보 세션저장
 				return "success";    //성공후 메인페이지로
 			} else {
 
