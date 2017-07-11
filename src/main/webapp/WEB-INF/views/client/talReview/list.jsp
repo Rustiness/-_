@@ -52,23 +52,23 @@
 
 					</tr>
 
-					<c:forEach items="${list }" var="TalExchangeVO">
+					<c:forEach items="${list }" var="TalReviewVO">
 
 						<tr>
-							<td>${TalExchangeVO. talExcNO}</td>
+							<td>${TalReviewVO. talReviewNO}</td>
 							
 							
-									<td>${TalExchangeVO.name}</td>
+									<td>${TalReviewVO.name}</td>
 								
 								
 									
 							
 							
 							<td><a
-								href='/tr/read${pageMaker.makeSearch(pageMaker.cri.page) }&talExcNO=${TalExchangeVO.talExcNO}'>
-									${TalExchangeVO.title} </a></td>
-							<td>${TalExchangeVO.nickname }</td>
-							<td>${TalExchangeVO.writeDate }</td>
+								href='/tr/read${pageMaker.makeSearch(pageMaker.cri.page) }&talReviewNO=${TalReviewVO.talReviewNO}'>
+									${TalReviewVO.title} </a></td>
+							<td>${TalReviewVO.nickname }</td>
+							<td>${TalReviewVO.writeDate }</td>
 						</tr>
 					</c:forEach>
 				</table>

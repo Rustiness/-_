@@ -5,7 +5,7 @@
 
 	<!--
 	private String commExNO;  /* 댓글번호 */
- 	private String  talExcNO;  /* 재능교환번호 */
+ 	private String  talReviewNO;  /* 재능교환번호 */
 	private String  content; /* 댓글내용 */
 	private Date  writeDate; /* 등록일시 */
 	private Date  repairDate; /* 수정일시 */
@@ -13,9 +13,9 @@
  -->
 
   <select id="list" resultType="talreview">
-  	select commExNO, talExcNO, content, writeDate, repairDate, state
+  	select commExNO, talReviewNO, content, writeDate, repairDate, state
   	from TalExcComment
-  	where talExcNO=#{talExcNO}
+  	where talReviewNO=#{talReviewNO}
   	order by commExNO desc
   <!-- 	<if test="cri.pageStart != null">
   	
@@ -23,8 +23,8 @@
   </select>
   
   <insert id="create">
-  	insert into TalExcComment(commExNO, talExcNO, content)
-  	values (TalExcComment_seq.nextval, #{talExcNO},#{content})
+  	insert into TalExcComment(commExNO, talReviewNO, content)
+  	values (TalExcComment_seq.nextval, #{talReviewNO},#{content})
   </insert>
   
   <update id="update">

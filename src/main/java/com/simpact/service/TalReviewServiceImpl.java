@@ -1,16 +1,14 @@
 package com.simpact.service;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
-import org.springframework.stereotype.Service;
-
 import com.simpact.domain.Criteria;
 import com.simpact.domain.SearchCriteria;
-import com.simpact.domain.TalExchangeVO;
 import com.simpact.domain.TalExchangelistVO;
+import com.simpact.domain.TalReviewVO;
 import com.simpact.persistence.TalReviewDAO;
+import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
+import java.util.List;
 
 @Service
 public class TalReviewServiceImpl implements TalReviewService {
@@ -20,32 +18,32 @@ public class TalReviewServiceImpl implements TalReviewService {
 	private TalReviewDAO dao;
 
 	@Override
-	public void regist(TalExchangeVO vo) throws Exception {//입력
+	public void regist(TalReviewVO vo) throws Exception {//입력
 		dao.create(vo);
 	}
 
 	@Override
-	public void modify(TalExchangeVO vo) throws Exception {//변경
+	public void modify(TalReviewVO vo) throws Exception {//변경
 		dao.update(vo);
 	}
 
 	@Override
-	public void remove(String talExcNO) throws Exception {//삭제
-		dao.delete(talExcNO);
+	public void remove(String talReviewNO) throws Exception {//삭제
+		dao.delete(talReviewNO);
 	}
 
 	@Override
-	public TalExchangeVO read(String talExcNO) throws Exception {//상세보기
-		return dao.read(talExcNO);
+	public TalReviewVO read(String talReviewNO) throws Exception {//상세보기
+		return dao.read(talReviewNO);
 	}
 
 	@Override
-	public TalExchangeVO nickname(String talExcNO) throws Exception {
-		return dao.nickread(talExcNO);
+	public TalReviewVO nickname(String talReviewNO) throws Exception {
+		return dao.nickread(talReviewNO);
 	}
 
 	@Override
-	public List<TalExchangeVO> listCriteria(Criteria cri) throws Exception {
+	public List<TalReviewVO> listCriteria(Criteria cri) throws Exception {
 		return dao.listCriteria(cri);
 	}
 
@@ -55,7 +53,7 @@ public class TalReviewServiceImpl implements TalReviewService {
 	}
 
 	@Override
-	public List<TalExchangeVO> listSearch(SearchCriteria cri) throws Exception {
+	public List<TalReviewVO> listSearch(SearchCriteria cri) throws Exception {
 		return dao.listSearch(cri);
 	}
 

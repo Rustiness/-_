@@ -25,14 +25,14 @@
 
 		<div class="box-body">
 			<div data-text-content="true"
-				style="font-weight: bold; font-size: 24px; border-width: 0px; border-style: none; text-shadow: rgba(0, 0, 0, 0.5) 3px 3px 14px;">${TalExchangeVO.title}</div>
+				style="font-weight: bold; font-size: 24px; border-width: 0px; border-style: none; text-shadow: rgba(0, 0, 0, 0.5) 3px 3px 14px;">${TalReviewVO.title}</div>
 			<div data-text-content="true"
 				style="font-weight: bold; font-size: 18px; background-color: rgb(224, 224, 224);"
 				class>교환 정보</div>
 			<table>
 				<form role="form" method="post">
 
-					<input type='hidden' name='talExcNO' value="${TalExchangeVO.talExcNO}"> 
+					<input type='hidden' name='talReviewNO' value="${TalReviewVO.talReviewNO}">
 					<input type='hidden' name='page' value="${cri.page}"> 
 					<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 					<input type='hidden' name='searchType' value="${cri.searchType}">
@@ -45,9 +45,9 @@
 					<td></td>
 				</tr>
 			</table>
-				<br> ${TalExchangeVO.nickname}님의 교환후기<br>
+				<br> ${TalReviewVO.nickname}님의 교환후기<br>
 				<br>
-			<textarea rows="5" cols="50" readonly>${TalExchangeVO.content }</textarea>
+			<textarea rows="5" cols="50" readonly>${TalReviewVO.content }</textarea>
 			<br>
 		</div>
 		<!-- /.box-body -->
@@ -97,11 +97,11 @@
 
 
 <script>
-	 var talExcNO= "${TalExchangeVO.talExcNO}";
+	 var talReviewNO= "${TalReviewVO.talReviewNO}";
 
 	    function getAllList(){
 	    	$.ajax({	    		
-	  	      url:'/tr/replies/all/'+talExcNO,
+	  	      url:'/tr/replies/all/'+talReviewNO,
 	  	      success:function(data){
 	  	    	  console.log(data.length);
 	  	    	 var str='';
@@ -148,7 +148,7 @@
 					      "X-HTTP-Method-Override": "POST" },
 					dataType:'text',
 					data: JSON.stringify({
-					talExcNO:talExcNO,
+					talReviewNO:talReviewNO,
 					content:content
 					}),
 					

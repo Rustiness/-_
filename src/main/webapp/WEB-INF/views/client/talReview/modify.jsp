@@ -16,7 +16,7 @@
 
 	<form role="form" method="post" action="mod">
 		
-	    <input type='hidden' name='talExcNO' value="${talExchange.talExcNO}">
+	    <input type='hidden' name='talReviewNO' value="${talExchange.talReviewNO}">
 		<input type='hidden' name='page' value="${cri.page}"> 
 		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 		<input type='hidden' name='searchType' value="${cri.searchType}">

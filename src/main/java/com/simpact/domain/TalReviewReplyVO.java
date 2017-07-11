@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class TalReviewReplyVO {
 	private String commExNO;  /* 댓글번호 */
-	private String  talExcNO;  /* 재능교환번호 */
+	private String  talReviewNO;  /* 재능교환번호 */
 	private String  content; /* 댓글내용 */
 	private Date  writeDate; /* 등록일시 */
 	private Date  repairDate; /* 수정일시 */
@@ -12,7 +12,7 @@ public class TalReviewReplyVO {
 	
 	@Override
 	public String toString() {
-		return "TalReviewReplyVO [commExNO=" + commExNO + ", talExcNO=" + talExcNO + ", content=" + content
+		return "TalReviewReplyVO [commExNO=" + commExNO + ", talReviewNO=" + talReviewNO + ", content=" + content
 				+ ", writeDate=" + writeDate + ", repairDate=" + repairDate + ", state=" + state + "]";
 	}
 	public String getCommExNO() {
@@ -21,11 +21,11 @@ public class TalReviewReplyVO {
 	public void setCommExNO(String commExNO) {
 		this.commExNO = commExNO;
 	}
-	public String getTalExcNO() {
-		return talExcNO;
+	public String getTalReviewNO() {
+		return talReviewNO;
 	}
-	public void setTalExcNO(String talExcNO) {
-		this.talExcNO = talExcNO;
+	public void setTalReviewNO(String talReviewNO) {
+		this.talReviewNO = talReviewNO;
 	}
 	public String getContent() {
 		return content;

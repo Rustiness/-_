@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/te")
-public class TalExcController {
+public class TalExchangeController {
 
 	/* 재능교환 목록 */
 	@RequestMapping("/list")

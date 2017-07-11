@@ -91,10 +91,10 @@
 							<tbody class="text-info">
 							<c:forEach items="${list }" var="TECVO">
 								<tr class="text-center">
-									<td>${TECVO. talExcNO}</td>
+									<td>${TECVO. talReviewNO}</td>
 									<td>제이쿼리??</td>
 									<td>
-										<a href='/tr/read${pageMaker.makeSearch(pageMaker.cri.page) }&talExcNO=${TECVO.talExcNO}'>
+										<a href='/tr/read${pageMaker.makeSearch(pageMaker.cri.page) }&talReviewNO=${TECVO.talReviewNO}'>
 												${TalExchangeVO.title} </a></td>
 									<td>${TECVO.nickname }</td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${TECVO.writeDate }"/></td>

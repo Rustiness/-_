@@ -18,9 +18,9 @@ public class TalReviewReplyDAOImpl implements TalReviewReplyDAO {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<TalReviewReplyVO> list(String talExcNO) throws Exception {
+	public List<TalReviewReplyVO> list(String talReviewNO) throws Exception {
 	
-		return sqlSession.selectList("talreview.list",talExcNO );
+		return sqlSession.selectList("talreview.list",talReviewNO );
 	}
 
 	@Override
@@ -39,14 +39,14 @@ public class TalReviewReplyDAOImpl implements TalReviewReplyDAO {
 	}
 
 	@Override
-	public List<TalReviewReplyVO> listPage(String talExcNO, Criteria cri) throws Exception {
+	public List<TalReviewReplyVO> listPage(String talReviewNO, Criteria cri) throws Exception {
 		RowBounds bounds = new RowBounds(cri.getPageStart(),cri.getPerPageNum());
-		return sqlSession.selectList("talreview.list",talExcNO);
+		return sqlSession.selectList("talreview.list",talReviewNO);
 	}
 
 	@Override
-	public int count(String talExcNO) throws Exception {
-		return sqlSession.selectOne("talreview.count",talExcNO);
+	public int count(String talReviewNO) throws Exception {
+		return sqlSession.selectOne("talreview.count",talReviewNO);
 	}
 
 }

@@ -1,17 +1,15 @@
 package com.simpact.persistence;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
+import com.simpact.domain.Criteria;
+import com.simpact.domain.SearchCriteria;
+import com.simpact.domain.TalExchangelistVO;
+import com.simpact.domain.TalReviewVO;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.simpact.domain.Criteria;
-import com.simpact.domain.SearchCriteria;
-import com.simpact.domain.TalExchangeVO;
-import com.simpact.domain.TalExchangelistVO;
+import javax.inject.Inject;
+import java.util.List;
 
 @Repository
 public class TalReviewDAOImpl implements TalReviewDAO {
@@ -20,18 +18,18 @@ public class TalReviewDAOImpl implements TalReviewDAO {
 	private SqlSession sqlSession;
 
 	@Override
-	public void create(TalExchangeVO vo) throws Exception {
+	public void create(TalReviewVO vo) throws Exception {
 		sqlSession.insert("rboard.create", vo);
 	}
 
 	@Override
-	public TalExchangeVO read(String talExcNO) throws Exception {
+	public TalReviewVO read(String talReviewNO) throws Exception {
 
-		return sqlSession.selectOne("rboard.read", talExcNO);
+		return sqlSession.selectOne("rboard.read", talReviewNO);
 	}
 
 	@Override
-	public boolean update(TalExchangeVO vo) throws Exception {
+	public boolean update(TalReviewVO vo) throws Exception {
 		int t = sqlSession.update("rboard.update", vo);
 		if (t == 1) {
 			System.out.println(vo);
@@ -41,15 +39,15 @@ public class TalReviewDAOImpl implements TalReviewDAO {
 	}
 
 	@Override
-	public boolean delete(String talExcNO) throws Exception {
-		int t = sqlSession.delete("rboard.delete", talExcNO);
+	public boolean delete(String talReviewNO) throws Exception {
+		int t = sqlSession.delete("rboard.delete", talReviewNO);
 		if (t == 1)
 			return true;
 		return false;
 	}
 
 	@Override
-	public List<TalExchangeVO> listPage(int page) throws Exception {
+	public List<TalReviewVO> listPage(int page) throws Exception {
 		if (page < 1)
 			page = 1;
 		page = (page - 1) * 10;
@@ -59,7 +57,7 @@ public class TalReviewDAOImpl implements TalReviewDAO {
 	}
 
 	@Override
-	public List<TalExchangeVO> listCriteria(Criteria cri) throws Exception {
+	public List<TalReviewVO> listCriteria(Criteria cri) throws Exception {
 
 		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
 		return sqlSession.selectList("rboard.listAll", null, bounds);
@@ -71,9 +69,9 @@ public class TalReviewDAOImpl implements TalReviewDAO {
 	}
 
 	@Override
-	public List<TalExchangeVO> listSearch(SearchCriteria cri) throws Exception {
+	public List<TalReviewVO> listSearch(SearchCriteria cri) throws Exception {
 		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
-		List<TalExchangeVO> list = sqlSession.selectList("rboard.listSearch", cri, bounds);
+		List<TalReviewVO> list = sqlSession.selectList("rboard.listSearch", cri, bounds);
 		return sqlSession.selectList("rboard.listSearch", cri, bounds);
 	}
 
@@ -83,8 +81,8 @@ public class TalReviewDAOImpl implements TalReviewDAO {
 	}
 
 	@Override
-	public TalExchangeVO nickread(String talExcNO) throws Exception {
-		return sqlSession.selectOne("rboard.nickname", talExcNO);
+	public TalReviewVO nickread(String talReviewNO) throws Exception {
+		return sqlSession.selectOne("rboard.nickname", talReviewNO);
 	}
 
 	@Override

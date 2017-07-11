@@ -43,13 +43,13 @@ public class TalReviewReplyController {
 
 	// (특정 게시물에 대한)전체 댓글 조회
 	// 클라이언트 URL요청 ----> http://localhost/replies/all/6
-	@RequestMapping(value = "/all/{talExcNO}")
-	public ResponseEntity<List<TalReviewReplyVO>> list(@PathVariable("talExcNO") String talExcNO) {
-		System.out.println("조회할 기준 게시물번호: " + talExcNO);
+	@RequestMapping(value = "/all/{talReviewNO}")
+	public ResponseEntity<List<TalReviewReplyVO>> list(@PathVariable("talReviewNO") String talReviewNO) {
+		System.out.println("조회할 기준 게시물번호: " + talReviewNO);
 		ResponseEntity<List<TalReviewReplyVO>> entity = null;
 
 		try {
-			entity = new ResponseEntity<>(service.listReply(talExcNO), HttpStatus.OK);
+			entity = new ResponseEntity<>(service.listReply(talReviewNO), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
