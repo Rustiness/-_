@@ -34,6 +34,7 @@
 	
 	<!-- 인터셉터 등록 -->
 	<beans:bean class="com.simpact.Interceptor.AuthInterceptor" id="authInterceptor"/>
+	<beans:bean class="com.simpact.Interceptor.ClientInterceptor" id="clientInterceptor"/>
 	<interceptors>
 		<interceptor>
 			<mapping path="/ad"/>		<!-- 내가원하는 곳에 다가 걸어두면 됨 ex)로그인전에는 못보는곳이라면~ -->		
@@ -46,6 +47,47 @@
 			<mapping path="/ad/c/list"/>
 			<mapping path="/ad/r/list"/>
 			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/c/write"/>
+			<mapping path="/c/mod"/>
+			<mapping path="/c/removePage"/>
+			<mapping path="/m/mod/result"/>
+			<mapping path="/m/info"/>
+			<mapping path="/m/chkPass"/>
+			<mapping path="/m/upchkPassform"/>
+			<mapping path="/m/mod"/>
+			<mapping path="/m/delchkPass"/>
+			<mapping path="/m/withdrawal"/>
+			<mapping path="/m/delchkPassform"/>
+			<mapping path="/m/mod/messenger/del"/>
+			<mapping path="/m/mod/messenger/up"/>
+			<mapping path="/m/mod/messenger/add"/>
+			<mapping path="/m/upchkPass"/>
+			<mapping path="/r/write"/>
+			<mapping path="/tb/write2s"/>
+			<mapping path="/tb/write2s"/>
+			<mapping path="/tb/modHave"/>
+			<mapping path="/tb/modWant"/>
+			<mapping path="/tb/write1s"/>
+			<mapping path="/tb/write"/>
+			<mapping path="/tb/write1s"/>
+			<mapping path="/tb/write1s"/>
+			<mapping path="/tb/read"/>
+			<mapping path="/tb/modHave"/>
+			<mapping path="/tb/write"/>
+			<mapping path="/tb/modWant"/>
+			<mapping path="/tec/infoRecipient"/>
+			<mapping path="/tec/app"/>
+			<mapping path="/tec/infoSender"/>
+			<mapping path="/tec/infoRecipient"/>
+			<mapping path="/te/read"/>
+			<mapping path="/tr/remove"/>
+			<mapping path="/tr/write"/>
+			<mapping path="/tr/replies"/>
+			<mapping path="/tec/list"/>
+			<mapping path="/te/list"/>
+			<beans:ref bean="clientInterceptor"/>
 		</interceptor>
 	</interceptors>
 	
