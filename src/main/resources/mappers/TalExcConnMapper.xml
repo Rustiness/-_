@@ -31,7 +31,7 @@
 
 	<!-- 신청글 상세정보 -->
 	<select id="readReception" resultType="talExcConnVO">
-		SELECT talConnNO, memNO, nickName, title, content, reqDate
+		SELECT talConnNO, memNO, nickName, title, content, isYnView, reqDate
 		FROM TalExcConn NATURAL JOIN Member
 		WHERE talConnNO = #{talConnNO}
 	</select>
@@ -52,6 +52,26 @@
 		ORDER BY talDivDF ASC
 	</select>
 
+	<!-- 글 확인 -->
+	<update id="updIsView" parameterType="talExcConnVO">
+		UPDATE TalExcConn
+		SET isYnView = 'Y' --신청글 확인
+		WHERE talConnNO = #{talConnNO}
+	</update>
+
+	<!-- 재능교환 연결 수락 -->
+	<update id="updTecAccept" parameterType="talExcConnVO">
+		UPDATE TalExcConn
+		SET state = '3' --연결성공
+		WHERE talConnNO = #{talConnNO}
+	</update>
+
+	<!-- 재능교환 연결 거절 -->
+	<update id="updTecRefuse" parameterType="talExcConnVO">
+		UPDATE TalExcConn
+		SET state = '4' --연결거절
+		WHERE talConnNO = #{talConnNO}
+	</update>
 
 	<!--  검색어 조회 -->
 	<sql id="search">
@@ -70,11 +90,12 @@
 
 	<!-- 검색하기 -->
 	<select id="listSearch" resultType="talExcConnVO">
-		SELECT TEC.talConnNO, M.nickname, title, content, reqDate, TEC.state
+		SELECT TEC.talConnNO, M.nickname, title, content, reqDate, TEC.state, TEC.isYnView
 		FROM NP_TalHaveCn THC, TalExcConn TEC, Member M
 		WHERE TEC.memNO = M.memNO
 		      AND THC.talConnNO = TEC.talConnNO
-		GROUP BY TEC.talConnNO, M.NICKNAME, TITLE, CONTENT, REQDATE, TEC.STATE
+			AND TEC.STATE = 2
+		GROUP BY TEC.talConnNO, M.NICKNAME, TITLE, CONTENT, REQDATE, TEC.STATE, TEC.isYnView
 		ORDER BY talConnNO DESC
 	</select>
 

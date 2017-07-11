@@ -17,19 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.simpact.domain.Criteria;
 import com.simpact.domain.PageMaker;
 import com.simpact.domain.TalReviewReplyVO;
-import com.simpact.service.TalExchageReplyService;
+import com.simpact.service.TalReviewReplyService;
 
 @RestController
 @RequestMapping("/tr/replies") // 공통 URL요청
 public class TalReviewReplyController {
 
 	@Inject
-	private TalExchageReplyService service;
+	private TalReviewReplyService service;
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ResponseEntity<String> register(@RequestBody TalReviewReplyVO vo) {// 리턴:
-																				// 문자열+서버의
-																				// 상태
+	public ResponseEntity<String> register(@RequestBody TalReviewReplyVO vo) {// 리턴:  문자열+서버의  상태
 		System.out.println("입력 댓글: " + vo);
 		ResponseEntity<String> entity = null;
 		try {

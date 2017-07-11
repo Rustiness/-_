@@ -1,9 +1,6 @@
 package com.simpact.controller;
 
-import com.simpact.domain.PageMaker;
-import com.simpact.domain.SearchCriteria;
-import com.simpact.domain.TalDivVO;
-import com.simpact.domain.TalExcConnVO;
+import com.simpact.domain.*;
 import com.simpact.service.TalExcConnService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,8 +41,18 @@ public class TalExcConnController {
 
 	/* 재능교환신청 등록 페이지 이동 */
 	@RequestMapping(value="/app", method=RequestMethod.GET)
-	public String applyGET(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+	public String applyGET(@ModelAttribute("cri") SearchCriteria cri, Model model, TalExcConnVO talExcConnVO) throws Exception {
 
+		System.out.println("cri ===> "+cri.toString());
+		System.out.println("model.toString() ===> "+model.toString());
+		System.out.println("talExcConnVO.toString() ===> "+talExcConnVO.toString());
+		model.addAttribute("cri", cri);
+		model.addAttribute("talExcConnVO", talExcConnVO);
+
+		TalBoardVO talBoardVO = service.infoTalBoard(talExcConnVO.getTalDocNO()); //작성글 및 작성자 정보
+		System.out.println("talBoardVO"+talBoardVO);
+		model.addAttribute("talBoardVO", talBoardVO);
+		model.addAttribute("readDivHave", service.readTalDivHave(talExcConnVO.getTalDocNO())); //작성글의 작성자가 보유한 재능
 		List<TalDivVO> listUseCate = service.listUseCate();
 		List<TalDivVO> listAllCateDiv = service.listAllCateDiv();
 		model.addAttribute("listUseCate", listUseCate);// 사용중 카테고리 목록
@@ -69,8 +76,6 @@ public class TalExcConnController {
 	/* 재능교환신청 등록 */
 	@RequestMapping(value="/app", method=RequestMethod.POST)
 	public @ResponseBody String applyPOST(TalExcConnVO talExcConnVO, String talWantDiv, String talHaveDiv) throws Exception {
-		talExcConnVO.setMemNO("MEM_A00001");
-		talExcConnVO.setTalDocNO("TB_A00005");
 
 		System.out.println("Title:" + talExcConnVO.getTitle());
 		System.out.println("Content:" + talExcConnVO.getContent());
@@ -159,14 +164,17 @@ public class TalExcConnController {
 	/* 재능교환신청 상세정보 (수령인) */
 	@RequestMapping(value = "/infoRecipient", method = RequestMethod.GET)
 	public String infoRecipientGET(TalExcConnVO talExcConnVO, Model model, SearchCriteria cri) throws Exception {
-		talExcConnVO.setTalConnNO("TEC_A00003"); //임시데이터
-//		TalDivVO talDivVO = new TalDivVO();
-
+		System.out.println("talExcConnVO.toString()" + talExcConnVO.toString());
 		String talConnNO = talExcConnVO.getTalConnNO(); // 재능연결번호
+		int result = 0;
+		System.out.println("talExcConnVO.getIsYNview()   " +talExcConnVO.getIsYNview());
+		if ("N".equals(talExcConnVO.getIsYNview())){
+			result = service.updIsView(talExcConnVO); //글 읽은상태
+			System.out.println("글 읽은 상태 : " + result);
+		}
 
 		model.addAttribute("cri", cri);
-
-		TalExcConnVO talResult = service.readReception(talConnNO);
+		TalExcConnVO talResult = service.readReception(talConnNO); //신청글 정보
 		System.out.println(talResult.toString());
 		model.addAttribute("talExcConnVO", talResult); //신청글 정보
 		model.addAttribute("listSenderWantDiv", service.listSenderWantDiv(talConnNO)); //신청자가 원하는 재능 정보
@@ -176,19 +184,27 @@ public class TalExcConnController {
 		return "/client/talExcConn/infoRecipient";
 	}
 
-
-
 		/* 재능교환신청 상세정보 (수령인) */
 	@RequestMapping(value="/infoRecipient", method = RequestMethod.POST)
 	public @ResponseBody String infoRecipientPOST(TalExcConnVO talExcConnVO) throws Exception {
-		System.out.println("talConnNO"+talExcConnVO.toString());
-		//작업중
-		int result = 1;
+		System.out.println("talConnNO : "+talExcConnVO.toString());
+		int result = 0;
+		if (talExcConnVO.getState().length() != 0 && "3".equals(talExcConnVO.getState())) {
+			result = service.updTecAccept(talExcConnVO); //연결 수락
+			if (result == 1) {
+				return "successAccept"; //성공
+			} else {
+				return "failAccept"; //실패
+			}
 
-		if (result == 1) {
-			return "SUCCESS";
-		} else {
-			return "FAIL";
+		} else if (talExcConnVO.getState().length() != 0 && "4".equals(talExcConnVO.getState())) {
+			result = service.updTecRefuse(talExcConnVO); //연결 거절
+			if (result == 1) {
+				return "successRefuse"; //성공
+			}else {
+				return "failRefuse"; //실패
+			}
 		}
+		return "failError"; // 조건 성립이 안될 때
 	}
 }

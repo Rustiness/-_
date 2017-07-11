@@ -14,28 +14,61 @@
 			self.location = "list?page=${cri.page}&perPageNum=${cri.perPageNum}" + "&searchType=${cri.searchType}&keyword=${cri.keyword}";
 		});
 
-		$(document).on("click", "#btnAccept", function () {
+		$(document).on("click", ".btn", function () {
+			var state = 2;
+			if ($(this).attr("id") == "btnAccept"){
+				console.log("수락 진행");
+				state = 3;
+			}else if ($(this).attr("id") == "btnRefuse"){
+				console.log("거절 진행");
+				state = 4;
+			} else {
+				return;
+			}
+
 			$.ajax({
 				type: 'post',
 				url: '/tec/infoRecipient',
 				data: {
 					talConnNO: '${talExcConnVO.talConnNO}',
-					isYNview: 'Y',
-					state: '3',
+					state: state,
 				},
 				dataType: 'text',
 				success: function (result) {
 					console.log("result: " + result);
-					if (result == 'SUCCESS') {
-						alert("신청을 수락하였습니다.");
-						self.location = "list?page=${cri.page}&perPageNum=${cri.perPageNum}" + "&searchType=${cri.searchType}&keyword=${cri.keyword}";
+					if(result.match("successAccept")) {
+						alert("교환신청을 수락하였습니다.");
+					} else if (result.match("failAccept")) {
+						alert("교환신청 수락이 실패되었습니다.");
+					} else if (result.match("successRefuse")) {
+						alert("교환신청을 거절하였습니다.");
+					} else if (result.match("failRefuse")) {
+						alert("교환신청 거절이 실패되었습니다.");
+					} else if (result.match("failError")) {
+						alert("신청에 문제가 발생하였습니다.");
 					}
+					self.location = "list?page=${cri.page}&perPageNum=${cri.perPageNum}" + "&searchType=${cri.searchType}&keyword=${cri.keyword}";
 				}
 			});
 		});
 
 		$(document).on("click", "#btnRefuse", function () {
-			alert("거절");
+			$.ajax({
+				type: 'post',
+				url: '/tec/infoRecipient',
+				data: {
+					talConnNO: '${talExcConnVO.talConnNO}',
+					state: '4',
+				},
+				dataType: 'text',
+				success: function (result) {
+					console.log("result: " + result);
+					if (result == 'SUCCESS') {
+						alert("신청을 거절하였습니다.");
+						self.location = "list?page=${cri.page}&perPageNum=${cri.perPageNum}" + "&searchType=${cri.searchType}&keyword=${cri.keyword}";
+					}
+				}
+			});
 		});
 	});
 </script>

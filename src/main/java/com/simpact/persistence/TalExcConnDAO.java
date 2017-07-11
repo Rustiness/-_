@@ -12,6 +12,10 @@ import java.util.List;
  */
 public interface TalExcConnDAO {
 
+	public TalBoardVO infoTalBoard(String talDocNO) throws Exception;// 작성글 및 작성자 정보
+
+	public  List<TalDivVO>readTalDivHave(String talDocNO) throws Exception; //작성글의 작성자가 보유한 재능
+
 	public int createConn(TalExcConnVO talExcConnVO) throws Exception;// 신청 등록
 
 	public void createWantCn(TalDivVO talDivVO) throws Exception;// 신청의 항목 연결 등록
@@ -23,6 +27,13 @@ public interface TalExcConnDAO {
 	public List<TalDivVO> listSenderWantDiv(String talConnNO) throws Exception;	/* 신청자가 원하는 재능 정보 */
 
 	public List<TalDivVO> listSenderHaveDiv(String talConnNO) throws Exception;	/* 신청자가 보유한 재능 정보 */
+
+	public int updIsView(TalExcConnVO talExcConnVO) throws Exception;	/* 수신자가 글을 읽음 */
+
+	public int updTecAccept(TalExcConnVO talExcConnVO) throws Exception;	/* 연결 수락 */
+
+	public int updTecRefuse(TalExcConnVO talExcConnVO) throws Exception;	/* 연결 거절 */
+
 	public List<TalExcConnVO> listCriteria(Criteria cri) throws Exception;//전체레코드 수
 
 	//전체레코드 수
@@ -33,7 +44,6 @@ public interface TalExcConnDAO {
 	public List<TalDivVO> listTalDivCn(SearchCriteria cri) throws Exception;
 
 	public int listSearchCount(SearchCriteria cri) throws Exception;
-
 
 	public List<TalDivVO> listUseCate() throws Exception; // 사용하는 카테고리 목록 가져오기
 

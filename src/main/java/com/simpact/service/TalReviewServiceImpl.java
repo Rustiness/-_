@@ -10,14 +10,14 @@ import com.simpact.domain.Criteria;
 import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.TalExchangeVO;
 import com.simpact.domain.TalExchangelistVO;
-import com.simpact.persistence.TalExchangeDAO;
+import com.simpact.persistence.TalReviewDAO;
 
 @Service
-public class TalExchangeServiceImpl implements TalExchangeService {
+public class TalReviewServiceImpl implements TalReviewService {
 	//Controller ---> Service ---> DAO ---> xml
 
 	@Inject
-	private TalExchangeDAO dao;
+	private TalReviewDAO dao;
 
 	@Override
 	public void regist(TalExchangeVO vo) throws Exception {//입력

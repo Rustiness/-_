@@ -6,7 +6,7 @@ import com.simpact.domain.Criteria;
 import com.simpact.domain.TalReviewReplyVO;
 
 
-public interface TalExchageReplyService {
+public interface TalReviewReplyService {
 	
 	public void addReply(TalReviewReplyVO vo) throws Exception;
 

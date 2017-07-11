@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +16,7 @@ import com.simpact.domain.PageMaker;
 import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.TalExchangeVO;
 import com.simpact.domain.TalExchangelistVO;
-import com.simpact.service.TalExchangeService;
+import com.simpact.service.TalReviewService;
 
 /**
  * Created
@@ -31,7 +30,7 @@ import com.simpact.service.TalExchangeService;
 public class TalReviewController {
 
 	@Inject
-	private TalExchangeService service;// DB관련작업
+	private TalReviewService service;// DB관련작업
 
 	// 전체페이지 보기(페이징포함)
 	@RequestMapping(value = "/list", method = RequestMethod.GET)

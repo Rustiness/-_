@@ -2,7 +2,6 @@ package com.simpact.service;
 
 import com.simpact.domain.*;
 import com.simpact.persistence.TalExcConnDAO;
-import com.simpact.persistence.TalExchangeDAO;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -14,6 +13,16 @@ public class TalExcConnServiceImpl implements TalExcConnService {
 
 	@Inject
 	private TalExcConnDAO dao;
+
+	@Override
+	public TalBoardVO infoTalBoard(String talDocNO) throws Exception {
+		return dao.infoTalBoard(talDocNO);
+	}
+
+	@Override
+	public List<TalDivVO> readTalDivHave(String talDocNO) throws Exception {
+		return dao.readTalDivHave(talDocNO);
+	}
 
 	@Override
 	public int createConn(TalExcConnVO talExcConnVO) throws Exception {
@@ -43,6 +52,21 @@ public class TalExcConnServiceImpl implements TalExcConnService {
 	@Override
 	public List<TalDivVO> listSenderHaveDiv(String talConnNO) throws Exception {
 		return dao.listSenderHaveDiv(talConnNO);
+	}
+
+	@Override
+	public int updIsView(TalExcConnVO talExcConnVO) throws Exception {
+		return dao.updIsView(talExcConnVO);
+	}
+
+	@Override
+	public int updTecAccept(TalExcConnVO talExcConnVO) throws Exception {
+		return dao.updTecAccept(talExcConnVO);
+	}
+
+	@Override
+	public int updTecRefuse(TalExcConnVO talExcConnVO) throws Exception {
+		return dao.updTecRefuse(talExcConnVO);
 	}
 
 	@Override

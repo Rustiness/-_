@@ -21,6 +21,16 @@ public class TalExcConnDAOImpl implements TalExcConnDAO {
 	private SqlSession sqlSession;
 
 	@Override
+	public TalBoardVO infoTalBoard(String talDocNO) throws Exception {
+		return sqlSession.selectOne("talentBoard.read", talDocNO);
+	}
+
+	@Override
+	public List<TalDivVO> readTalDivHave(String talDocNO) throws Exception {
+		return sqlSession.selectList("talentBoard.readTalDivHave", talDocNO);
+	}
+
+	@Override
 	public int createConn(TalExcConnVO talExcConnVO) throws Exception {
 		return sqlSession.insert("talExcConn.createConn", talExcConnVO);
 	}
@@ -49,6 +59,21 @@ public class TalExcConnDAOImpl implements TalExcConnDAO {
 	@Override
 	public List<TalDivVO> listSenderHaveDiv(String talConnNO) throws Exception {
 		return sqlSession.selectList("talExcConn.listSenderHaveDiv", talConnNO);
+	}
+
+	@Override
+	public int updIsView(TalExcConnVO talExcConnVO) throws Exception {
+		return sqlSession.update("talExcConn.updIsView", talExcConnVO);
+	}
+
+	@Override
+	public int updTecAccept(TalExcConnVO talExcConnVO) throws Exception {
+		return sqlSession.update("talExcConn.updTecAccept", talExcConnVO);
+	}
+
+	@Override
+	public int updTecRefuse(TalExcConnVO talExcConnVO) throws Exception {
+		return sqlSession.update("talExcConn.updTecRefuse", talExcConnVO);
 	}
 
 	@Override

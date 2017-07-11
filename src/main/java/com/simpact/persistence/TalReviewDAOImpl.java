@@ -14,7 +14,7 @@ import com.simpact.domain.TalExchangeVO;
 import com.simpact.domain.TalExchangelistVO;
 
 @Repository
-public class TalExchangeDAOImpl implements TalExchangeDAO {
+public class TalReviewDAOImpl implements TalReviewDAO {
 
 	@Inject
 	private SqlSession sqlSession;

@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 
 import com.simpact.domain.Criteria;
 import com.simpact.domain.TalReviewReplyVO;
-import com.simpact.persistence.TalExchangeReplyDAO;
+import com.simpact.persistence.TalReviewReplyDAO;
 
 @Service
-public class TalExchageReplyServiceImpl implements TalExchageReplyService{
+public class TalReviewReplyServiceImpl implements TalReviewReplyService {
 	//Controller ---> Service ---> DAO ---> xml
 	
 	@Inject
-	private TalExchangeReplyDAO dao;
+	private TalReviewReplyDAO dao;
 
 	@Override
 	public void addReply(TalReviewReplyVO vo) throws Exception {

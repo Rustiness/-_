@@ -8,7 +8,7 @@ import com.simpact.domain.TalExchangeVO;
 import com.simpact.domain.TalExchangelistVO;
 
 
-public interface TalExchangeDAO {
+public interface TalReviewDAO {
 
 	public void create(TalExchangeVO vo) throws Exception;// 추가
 

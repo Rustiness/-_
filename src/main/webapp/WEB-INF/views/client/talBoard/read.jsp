@@ -42,6 +42,13 @@
 
 		});
 
+		/* 재능교환 신청 */
+		$('.exchageApply').on("click", function () {
+			self.location = "/tec/app?page=${cri.page}&perPageNum=${cri.perPageNum}"
+				+ "&searchType=${cri.searchType}&keyword=${cri.keyword}"
+				+ '&memNO=' + loginMem + '&talDocNO=' + '${TalBoardVO.talDocNO}';
+		});
+
 		/* 목록 표시 */
 		$("#btnList").click(function () {
 			self.location = "list?page=${cri.page}&perPageNum=${cri.perPageNum}"

@@ -12,7 +12,7 @@ import com.simpact.domain.Criteria;
 import com.simpact.domain.TalReviewReplyVO;
 
 @Repository
-public class TalExchangeReplyDAOImpl implements TalExchangeReplyDAO{
+public class TalReviewReplyDAOImpl implements TalReviewReplyDAO {
 	
 	@Inject
 	private SqlSession sqlSession;

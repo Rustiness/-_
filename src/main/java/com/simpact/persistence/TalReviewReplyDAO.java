@@ -5,7 +5,7 @@ import java.util.List;
 import com.simpact.domain.Criteria;
 import com.simpact.domain.TalReviewReplyVO;
 
-public interface TalExchangeReplyDAO {
+public interface TalReviewReplyDAO {
 	
 	public List<TalReviewReplyVO> list(String talExcNO) throws Exception;
 	

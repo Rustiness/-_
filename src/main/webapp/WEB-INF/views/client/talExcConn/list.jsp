@@ -67,10 +67,11 @@
 							<tr>
 								<th class="col-md-1">NO.</th>
 								<th class="col-md-2">보유재능</th>
-								<th class="col-md-5">메시지명</th>
+								<th class="col-md-3">메시지명</th>
 								<th class="col-md-1">닉네임</th>
-								<th class="col-md-2">수신일시</th>
-								<th class="col-md-1">상태</th>
+								<th class="col-md-1">수신일시</th>
+								<th class="col-md-1">확인</th>
+								<th class="col-md-1">연결</th>
 							</tr>
 							</thead>
 							<tbody class="text-info">
@@ -85,11 +86,26 @@
 										</c:forEach>
 									</td>
 									<td>
-										<a href='/tec/infoRecipient${pageMaker.makeSearch(pageMaker.cri.page) }&talExcNO=${talExcConnList.talConnNO}'>${talExcConnList.title} </a>
+										<a href='/tec/infoRecipient${pageMaker.makeSearch(pageMaker.cri.page) }&talConnNO=${talExcConnList.talConnNO}&isYNview=${talExcConnList.isYNview}'>${talExcConnList.title} </a>
 									</td>
 									<td>${talExcConnList.nickname }</td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${talExcConnList.reqDate }"/></td>
-									<td>${talExcConnList.state }</td>
+									<td>
+										<c:choose>
+											<c:when test="${talExcConnList.isYNview eq 'N'}">읽지않음</c:when>
+											<c:when test="${talExcConnList.isYNview eq 'Y'}">읽음</c:when>
+											<c:otherwise>ERROR</c:otherwise>
+										</c:choose>
+									</td>
+									<td>
+										<c:choose>
+											<c:when test="${talExcConnList.state eq '1'}">비활성</c:when>
+											<c:when test="${talExcConnList.state eq '2'}">대기</c:when>
+											<c:when test="${talExcConnList.state eq '3'}">성공</c:when>
+											<c:when test="${talExcConnList.state eq '4'}">실패</c:when>
+											<c:otherwise>ERROR</c:otherwise>
+										</c:choose>
+									</td>
 								</tr>
 							</c:forEach>
 							</tbody>

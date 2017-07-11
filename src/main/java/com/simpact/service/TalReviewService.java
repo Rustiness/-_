@@ -7,7 +7,7 @@ import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.TalExchangeVO;
 import com.simpact.domain.TalExchangelistVO;
 
-public interface TalExchangeService {
+public interface TalReviewService {
 
 	// 게시물에 대한 조회,수정,삭제
 	public void regist(TalExchangeVO vo) throws Exception;//입력

@@ -8,6 +8,37 @@
 <%-- .jsp --%>
 <%@include file="../include/header.jsp" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<%-- SmartEditor를 사용하기 위해서 다음 js파일을 추가 (경로 확인) --%>
+<script type="text/javascript" src="/resources/SE2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" id="SE2">
+	var oEditors = [];
+	$(function(){
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef: oEditors,
+			elPlaceHolder: "description", //textarea에서 지정한 id와 일치해야 합니다.
+			//SmartEditor2Skin.html 파일이 존재하는 경로
+			sSkinURI: "/resources/SE2/SmartEditor2Skin.html",
+			htParams : {
+				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseToolbar : true,
+				// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseVerticalResizer : true,
+				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseModeChanger : true,
+				fOnBeforeUnload : function(){
+
+				}
+			},
+			fOnAppLoad : function(){
+				//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
+				//oEditors.getById["description"].exec("PASTE_HTML", ['${talExcConnVO.content}']);
+			},
+			fCreator: "createSEditor2"
+		});
+	});
+</script>
+
 <script type="text/javascript">
 	$(document).ready(function () {
 
@@ -96,9 +127,10 @@
 				type : 'post',
 				url : '/tec/app/',
 				data : {
-					talDocNO:$('#talDocNO').val(),
+					memNO:'${talExcConnVO.memNO}', //신청자
+					talDocNO:'${talExcConnVO.talDocNO}', //재능글
 					title:$('#title').val(),
-					content:$('#description').val(),
+					content:oEditors.getById["description"].getIR(),
 					talWantDiv: talWantDivData,
 					talHaveDiv: talHaveDivData
 				},
@@ -194,17 +226,20 @@
 							<div class="panel-body">
 								<div class="row">
 									<label class="col-md-2 form-label">닉네임</label>
-									<div class="col-md-4">talent87</div>
+									<div class="col-md-4">${talBoardVO.nickName}</div>
 									<label class="col-md-2 form-label">보유한 재능</label>
-									<div class="col-md-4">#영문번역 #주식투자</div>
+									<div class="col-md-4">
+										<c:forEach items="${readDivHave }" var="writerHaveItem">
+											<span style="background-color: #2d9bff" class="label label-info">#${writerHaveItem.talDivName}</span>
+										</c:forEach>
+									</div>
 								</div>
 								<div class="row form-inline">
 									<label class="col-md-2 form-label">신청 대상 재능글</label>
 									<div class="col-md-10">
-										<span class="">저에게 피아노를 가르쳐주세요~!!!!zzz저에게 피아노를 가르쳐주세요~!!!!zzz</span>
+										<span class="">${talBoardVO.title}</span>
 										<input style="background-color:#5B3256; border-color:#89729E;" type="button" class="btn btn-info btn-xs" value="팝업창">
 									</div>
-									<div id="talDocNO" value="재능글NO" title="재능글번호" style="display:none;"/>
 								</div>
 							</div>
 						</div>
@@ -277,7 +312,7 @@
 									<div class="form-group">
 										<label class="col-md-2 control-label" for="description">신청내용</label>
 										<div class="col-md-10">
-											<textarea required="" class="form-control" placeholder="Description" rows="10" cols="30" id="description" name="description"></textarea>
+											<textarea style="width: 100%" required="" class="form-control" placeholder="Description" rows="10" cols="30" id="description" name="description"></textarea>
 										</div>
 									</div>
 									<div class="form-group">
