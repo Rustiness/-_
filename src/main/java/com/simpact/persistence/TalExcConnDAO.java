@@ -34,16 +34,13 @@ public interface TalExcConnDAO {
 
 	public int updTecRefuse(TalExcConnVO talExcConnVO) throws Exception;	/* 연결 거절 */
 
-	public List<TalExcConnVO> listCriteria(Criteria cri) throws Exception;//전체레코드 수
+	public int countPaging() throws Exception; //전체레코드 수
 
-	//전체레코드 수
-	public int countPaging() throws Exception;
+	public List<TalExcConnVO> listSearch(SearchCriteria cri) throws Exception;/* 페이징 목록표시 */
 
-	public List<TalExcConnVO> listSearch(SearchCriteria cri) throws Exception;
+	public List<TalDivVO> listTalDivCn(SearchCriteria cri) throws Exception; /* 신청자 보유 재능 */
 
-	public List<TalDivVO> listTalDivCn(SearchCriteria cri) throws Exception;
-
-	public int listSearchCount(SearchCriteria cri) throws Exception;
+	public int listSearchCount(SearchCriteria cri) throws Exception; /* 페이징 검색 게시물 수 */
 
 	public List<TalDivVO> listUseCate() throws Exception; // 사용하는 카테고리 목록 가져오기
 

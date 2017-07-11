@@ -12,10 +12,8 @@
 <script>
 	$(document).ready(
 		function () {
-
 			$('#searchBtn').on("click",
 				function (event) {
-
 					self.location = "list"
 						+ '${pageMaker.makeQuery(1)}'
 						+ "&searchType="
@@ -23,13 +21,6 @@
 						+ "&keyword=" + encodeURIComponent($('#keywordInput').val());
 
 				});
-
-			$('#newBtn').on("click", function (evt) {
-
-				self.location = "write";
-
-			});
-
 		});
 </script>
 <!-- Main content -->
@@ -41,10 +32,8 @@
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
 					<div style="background-color:#875F9A;" class="panel-heading">
-						<h3 style="color:#FFF;" class="panel-title"><a href="javascript:void(0);"
-						                                               class="toggle-sidebar"><span
-								class="fa fa-angle-double-left" data-toggle="offcanvas"
-								title="Maximize Panel"></span></a>재능 패널</h3>
+						<h3 style="color:#FFF;" class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar">
+							<span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a>재능 패널</h3>
 					</div>
 					<%-- 패널 시작 --%>
 					<div class="panel-body">
@@ -69,15 +58,11 @@
 									작성자
 								</option>
 							</select>
-							<input class=" form-control" type="text" name='keyword' id="keywordInput"
-							       value='${cri.keyword }'>
-							<button style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info"
-							        id='searchBtn'>찾기
-							</button>
+							<input class=" form-control" type="text" name='keyword' id="keywordInput" value='${cri.keyword }'>
+							<button style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info" id='searchBtn'>찾기 </button>
 						</div>
 						<br>
-						<table style="font-size:inherit;" class="table table-condensed table-bordered table-hover"
-						       cellpadding="10">
+						<table style="font-size:inherit;" class="table table-condensed table-bordered table-hover" cellpadding="10">
 							<thead style="color:#FFF; background-color:#89729E; text-align: center;">
 							<tr>
 								<th class="col-md-1">NO.</th>
@@ -89,37 +74,47 @@
 							</tr>
 							</thead>
 							<tbody class="text-info">
-							<c:forEach items="${list }" var="TECVO">
+							<c:forEach items="${listSearch }" var="talExchangeVO">
 								<tr class="text-center">
-									<td>${TECVO. talReviewNO}</td>
-									<td>제이쿼리??</td>
+									<td>${talExchangeVO.talConnNO}</td>
+									<td>${talExchangeVO.nickName}</td>
 									<td>
-										<a href='/tr/read${pageMaker.makeSearch(pageMaker.cri.page) }&talReviewNO=${TECVO.talReviewNO}'>
-												${TalExchangeVO.title} </a></td>
-									<td>${TECVO.nickname }</td>
-									<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${TECVO.writeDate }"/></td>
+										<c:forEach items="${talDivHave}" var="talDivItem">
+											<c:if test="${talExchangeVO.talConnNO eq talDivItem.talConnNO}">
+												<span style="background-color: #2d9bff" class="label label-info">#${talDivItem.name}</span>
+											</c:if>
+										</c:forEach>
+									</td>
+									<td>
+											<span style="background-color: #2d9bff" class="label label-info">이메일 : ${talExchangeVO.email}</span>
+										<span style="background-color: #2d9bff" class="label label-info">연락처 : ${talExchangeVO.tel}</span>
+									</td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${talExchangeVO.reqDate }"/></td>
+									<td>
+										<a href='/tr/write${pageMaker.makeSearch(pageMaker.cri.page) }&talConnNO=${talExchangeVO.talConnNO}'>후기등록</a></td>
 								</tr>
 							</c:forEach>
 							</tbody>
 						</table>
 
 						<div class="text-center">
-							<ul class="pagination" id="pagination">
+							<ul class="pagination">
+
 								<c:if test="${pageMaker.prev}">
-									<li><a href="list${pageMaker.makeSearch(pageMaker.startPage - 1)}">&laquo;</a></li>
+									<li><a href="list${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a>
+									</li>
 								</c:if>
 
-								<c:forEach begin="${pageMaker.startPage }"
-								           end="${pageMaker.endPage }" var="idx">
-									<li
-											<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
+								<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+									<li <c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
 										<a href="list${pageMaker.makeSearch(idx)}">${idx}</a>
 									</li>
 								</c:forEach>
 
 								<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-									<li><a href="list${pageMaker.makeSearch(pageMaker.endPage +1)}">&raquo;</a></li>
+									<li><a href="list${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
 								</c:if>
+
 							</ul>
 						</div>
 					</div>

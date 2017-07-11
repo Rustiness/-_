@@ -28,11 +28,7 @@ public interface TalExcConnService {
 
 	public int updTecRefuse(TalExcConnVO talExcConnVO) throws Exception;	/* 연결 거절 */
 
-	public List<TalExcConnVO> listCriteria(Criteria cri) throws Exception;	/* 페이징 */
-
 	public List<TalDivVO> listTalDivCn(SearchCriteria cri) throws Exception;  /* 값 */
-
-	public int listCountCriteria() throws Exception;	/* 페이징 */
 
 	public List<TalExcConnVO> listSearch(SearchCriteria cri) throws Exception;	/* 페이징 */
 

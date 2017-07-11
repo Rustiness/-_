@@ -105,12 +105,6 @@
 			NATURAL JOIN DF_TALDIV
 	</select>
 
-	<!-- 전체글갯수 확인하기 -->
-	<select id="countPaging" resultType="int">
-		SELECT COUNT(*)
-		FROM TalExcConn
-	</select>
-
 	<!-- 검색으로 찾은 목록 갯수 확인하기 -->
 	<select id="listSearchCount" resultType="int">
 		SELECT COUNT(*) FROM TalExcConn

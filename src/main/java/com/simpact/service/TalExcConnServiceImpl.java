@@ -70,16 +70,6 @@ public class TalExcConnServiceImpl implements TalExcConnService {
 	}
 
 	@Override
-	public List<TalExcConnVO> listCriteria(Criteria cri) throws Exception {
-		return dao.listCriteria(cri);
-	}
-
-	@Override
-	public int listCountCriteria() throws Exception {
-		return dao.countPaging();
-	}
-
-	@Override
 	public List<TalExcConnVO> listSearch(SearchCriteria cri) throws Exception {
 		return dao.listSearch(cri);
 	}

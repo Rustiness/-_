@@ -77,13 +77,6 @@ public class TalExcConnDAOImpl implements TalExcConnDAO {
 	}
 
 	@Override
-	public List<TalExcConnVO> listCriteria(Criteria cri) throws Exception {
-
-		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
-		return sqlSession.selectList("talExcConn.listAll", null, bounds);
-	}
-
-	@Override
 	public int countPaging() throws Exception {
 		return sqlSession.selectOne("talExcConn.countPaging");
 	}

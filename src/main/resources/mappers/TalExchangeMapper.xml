@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="talExchange">
+
+	<!-- 검색어 조회 -->
+	<sql id="search">
+		<if test="searchType == 'all'.toString()">
+			AND ((title LIKE '%'||#{keyword}||'%')
+			OR (contentHave LIKE
+			'%'||#{keyword}||'%')
+			OR (contentWant LIKE '%'||#{keyword}||'%')
+			OR
+			(nickName LIKE '%'||#{keyword}||'%' ))
+		</if>
+		<if test="searchType == 't'.toString()">
+			AND title LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'c'.toString()">
+			AND (contentHave LIKE '%'||#{keyword}||'%' OR contentWant
+			LIKE
+			'%'||#{keyword}||'%')
+		</if>
+		<if test="searchType == 'w'.toString()">
+			AND nickName LIKE '%'||#{keyword}||'%'
+		</if>
+	</sql>
+
+	<!--리스트 -->
+	<select id="listSearch" resultType="talExChangeVO">
+		SELECT TEC.talConnNO, TEC.memNO, M.nickName, M.EMAIL, M.TEL, TEC.state
+		from NP_TalHaveCn NTH, TalExcConn TEC, Member M
+		WHERE TEC.memNO = M.memNO AND NTH.talConnNO = TEC.talConnNO
+		<include refid="search"></include>
+		GROUP BY TEC.talConnNO, TEC.memNO, M.nickName, M.EMAIL, M.TEL, TEC.state
+		order by talConnNO desc
+	</select>
+
+	<!-- 게시물 갯수 출력 -->
+	<select id="listSearchCount" resultType="int">
+		SELECT count(*) FROM TalExcConn, Member
+		WHERE TalExcConn.memNO = Member.memNO
+		AND TalExcConn.STATE = 3
+		<include refid="search"></include>
+	</select>
+
+	<!-- 상대가 보유한 재능 항목 리스트 -->
+	<select id="listTalDivHave" resultType="talDivVO">
+		SELECT TEC.TALCONNNO, DT.name
+		FROM NP_TalHaveCn TH, TalExcConn TEC, Member M, DF_TALDIV DT
+		WHERE TEC.memNO = M.memNO
+		AND TH.TALCONNNO = TEC.TALCONNNO
+		AND DT.talDivDF = TH.talDivDF
+		<include refid="search"></include>
+		GROUP BY TEC.TALCONNNO, M.nickName, TEC.memNO, DT.name, TEC.state
+		order by TALCONNNO desc
+	</select>
+
+</mapper>
+
+
+
+

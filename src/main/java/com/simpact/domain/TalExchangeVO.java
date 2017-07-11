@@ -2,32 +2,46 @@ package com.simpact.domain;
 
 import java.util.Date;
 
+/**
+ * Created
+ * User: kosta
+ * Date: 2017-07-11
+ * Time: 오후 4:58
+ */
 public class TalExchangeVO {
-	private String talExcNO; /* 재능교환번호 */
-	private String talConnNO; /* 재능연결번호 */
-	private String title; /* 후기제목 */
-	private String content; /* 후기내용 */
-	private Date writeDate; /* 등록일시 */
-	private Date repairDate; /* 수정일시 */
-	private String state; /* 표시상태 */
+	private String talConnNO;   /* 재능연결번호 */
+	private String talDocNO;    /* 재능글번호 */
+	private String memNO;       /* 회원번호(신청자) */
+	private String title;       /* 신청제목 */
+	private String content;     /* 신청내용 */
+	private Date reqDate;       /* 신청일시 */
+	private String isYNview;    /* 신청확인유무 */
+	private String state;       /* 진행상태 */
 
-	private String name;//내가 받은 재능명
-	private String nickname;//상대방의 닉네임
+	private String email;       /* 회원아이디(이메일) */
+	private String nickName;    /* 교환상대 닉네임 */
+	private String tel;         /* 전화번호 */
+	private Date connDate;      /* 연결일시 */
 
+	public TalExchangeVO() {
+	}
 
 	@Override
 	public String toString() {
-		return "TalExchangeVO [talExcNO=" + talExcNO + ", talConnNO=" + talConnNO + ", title=" + title + ", content="
-				+ content + ", writeDate=" + writeDate + ", repairDate=" + repairDate + ", state=" + state + ", name="
-				+ name + ", nickName=" + nickname + "]";
-	}
-
-	public String getTalExcNO() {
-		return talExcNO;
-	}
-
-	public void setTalExcNO(String talExcNO) {
-		this.talExcNO = talExcNO;
+		return "TalExchangeVO{" +
+				"talConnNO='" + talConnNO + '\'' +
+				", talDocNO='" + talDocNO + '\'' +
+				", memNO='" + memNO + '\'' +
+				", title='" + title + '\'' +
+				", content='" + content + '\'' +
+				", reqDate=" + reqDate +
+				", isYNview='" + isYNview + '\'' +
+				", state='" + state + '\'' +
+				", email='" + email + '\'' +
+				", nickName='" + nickName + '\'' +
+				", tel='" + tel + '\'' +
+				", connDate=" + connDate +
+				'}';
 	}
 
 	public String getTalConnNO() {
@@ -36,6 +50,22 @@ public class TalExchangeVO {
 
 	public void setTalConnNO(String talConnNO) {
 		this.talConnNO = talConnNO;
+	}
+
+	public String getTalDocNO() {
+		return talDocNO;
+	}
+
+	public void setTalDocNO(String talDocNO) {
+		this.talDocNO = talDocNO;
+	}
+
+	public String getMemNO() {
+		return memNO;
+	}
+
+	public void setMemNO(String memNO) {
+		this.memNO = memNO;
 	}
 
 	public String getTitle() {
@@ -54,20 +84,20 @@ public class TalExchangeVO {
 		this.content = content;
 	}
 
-	public Date getWriteDate() {
-		return writeDate;
+	public Date getReqDate() {
+		return reqDate;
 	}
 
-	public void setWriteDate(Date writeDate) {
-		this.writeDate = writeDate;
+	public void setReqDate(Date reqDate) {
+		this.reqDate = reqDate;
 	}
 
-	public Date getRepairDate() {
-		return repairDate;
+	public String getIsYNview() {
+		return isYNview;
 	}
 
-	public void setRepairDate(Date repairDate) {
-		this.repairDate = repairDate;
+	public void setIsYNview(String isYNview) {
+		this.isYNview = isYNview;
 	}
 
 	public String getState() {
@@ -78,21 +108,35 @@ public class TalExchangeVO {
 		this.state = state;
 	}
 
-	public String getName() {
-		return name;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getNickname() {
-		return nickname;
+	public String getNickName() {
+		return nickName;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
+	public String getTel() {
+		return tel;
+	}
 
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public Date getConnDate() {
+		return connDate;
+	}
+
+	public void setConnDate(Date connDate) {
+		this.connDate = connDate;
+	}
 }
