@@ -9,8 +9,19 @@
 <%-- .jsp --%>
 <%@include file="../include/header.jsp" %>
 
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	var memNO = $('#memNO').val();
+	$(document).on('click', '#update', function() {
+		location.href="/ad/m/mod?memNO="+memNO;
+	});
+});
+</script>
+
 <!-- Main content -->
 <section class="content">
+<input type="hidden" id="memNO" value="${memberVO.memNO }">
 계정정보<br>
 회원분류 
 <c:choose>
@@ -44,7 +55,7 @@
 <c:forEach items="${messengerVO }" var="list">
 	<input type="text" value="${list.name}" disabled="disabled"> <input type="text" value="${list.id}" disabled="disabled"><br>
 </c:forEach>
-
+<br><br>
 <input type="button" value="수정" id="update"> <input type="button" value="삭제" id="delete">
 
 

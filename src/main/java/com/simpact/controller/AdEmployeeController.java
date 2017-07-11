@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.simpact.domain.EmployeeVO;
+import com.simpact.domain.MemberVO;
 import com.simpact.domain.MessengerVO;
 import com.simpact.domain.PageMaker;
 import com.simpact.domain.SearchCriteria;
@@ -50,7 +52,12 @@ public class AdEmployeeController {
 
 	/* 직원 상세정보 */
 	@RequestMapping("/read")
-	public String read(@RequestParam("memNO") String memNO, SearchCriteria cri, Model model) throws Exception {
+	public String read(@RequestParam("memNO") String memNO, SearchCriteria cri, Model model,HttpServletRequest req) throws Exception {
+		List<MemberVO> list = (List<MemberVO>) req.getSession().getAttribute("memberList"); // 로그인한 사람의 정보 LIST
+		String loginMemNO = list.get(0).getMemNO();											// 그중 memNO을 얻음
+		model.addAttribute("loginMemNO",service.reademp(loginMemNO));// "로그인한 직원"의 직원정보
+		
+		
 		model.addAttribute("memberVO",service.read(memNO)); //직원기본정보 
 		model.addAttribute("employeeVO",service.reademp(memNO)); //직원추가정보 
 		
@@ -59,21 +66,27 @@ public class AdEmployeeController {
 		return "/admin/employee/read";
 	}
 
-	/* 직원등록 */
-	@RequestMapping("/write")
-	public String write() {
-
-		return "/admin/employee/write";
-	}
-
-	/* 직원정보 수정 */
-	@RequestMapping(value="/mod",method=RequestMethod.GET)
-	public String mod(HttpServletRequest req) throws Exception {
+	/* 직원정보 수정폼으로 */
+	@RequestMapping("/mod")
+	public String mod(@RequestParam("memNO") String memNO, SearchCriteria cri, Model model) throws Exception {
+		model.addAttribute("memberVO",service.read(memNO)); //직원기본정보 
+		model.addAttribute("employeeVO",service.reademp(memNO)); //직원추가정보 
 		
-		List<MessengerVO> list = service.listmsg();
+		model.addAttribute("gradeDF",service.readgrade(memNO)); //관리등급정보 (memNO에 따른)
+		model.addAttribute("positionDF",service.readposition(memNO)); //직챙정보(memNO에 따른)
 		
-		req.getSession().setAttribute("list", list);	//기존에 있는 메신저항목  
+		model.addAttribute("empmessengerVO",service.readmsg(memNO));	//직원메신저정보 list
+		model.addAttribute("cri",cri);
 		return "/admin/employee/modify";
+	}
+	
+	/* 직원정보 DB수정 */
+	@RequestMapping("/mod/db")
+	public @ResponseBody String modDB(EmployeeVO vo) throws Exception {
+		if(service.modify(vo)==1){
+			return "empUPSUCCESS";
+		}
+		return "empUPFAIL";
 	}
 
 }

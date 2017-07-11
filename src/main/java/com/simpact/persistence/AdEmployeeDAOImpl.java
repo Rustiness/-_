@@ -8,8 +8,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.simpact.domain.EmployeeVO;
+import com.simpact.domain.GradeDFVO;
 import com.simpact.domain.MemberVO;
 import com.simpact.domain.MessengerVO;
+import com.simpact.domain.PositionDFVO;
 import com.simpact.domain.SearchCriteria;
 
 @Repository
@@ -20,24 +22,33 @@ public class AdEmployeeDAOImpl implements AdEmployeeDAO {
 	
 	@Override
 	public MemberVO read(String memNO) throws Exception {
-		return sqlsession.selectOne("employee.read",memNO);
+		return sqlsession.selectOne("Ademployee.read",memNO);
 	}
 	
 	@Override
 	public EmployeeVO reademp(String memNO) throws Exception {
-		return sqlsession.selectOne("employee.reademp",memNO);
+		return sqlsession.selectOne("Ademployee.reademp",memNO);
 	}
 
 
 	@Override
 	public List<MemberVO> readmsg(String memNO) throws Exception {
-		return sqlsession.selectList("employee.readmsg",memNO);
+		return sqlsession.selectList("Ademployee.readmsg",memNO);
+	}
+	
+	@Override
+	public List<GradeDFVO> readgrade(String memNO) throws Exception {
+		return sqlsession.selectList("Ademployee.readgrade",memNO);
+	}
+	
+	@Override
+	public List<PositionDFVO> readposition(String memNO) throws Exception {
+		return sqlsession.selectList("Ademployee.readposition",memNO);
 	}
 
 	@Override
-	public void update(MemberVO vo) throws Exception {
-		// TODO Auto-generated method stub
-
+	public int update(EmployeeVO vo) throws Exception {
+		return sqlsession.update("Ademployee.update",vo);
 	}
 
 	@Override
@@ -48,12 +59,12 @@ public class AdEmployeeDAOImpl implements AdEmployeeDAO {
 
 	@Override
 	public List<MemberVO> listSearch(SearchCriteria cri) throws Exception {
-		return sqlsession.selectList("employee.listSearch",cri);
+		return sqlsession.selectList("Ademployee.listSearch",cri);
 	}
 
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
-		return sqlsession.selectOne("employee.listSearchCount",cri);
+		return sqlsession.selectOne("Ademployee.listSearchCount",cri);
 	}
 
 	@Override

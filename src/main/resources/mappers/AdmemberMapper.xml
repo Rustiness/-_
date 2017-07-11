@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="member">
+<mapper namespace="Admember">
 
 	<!-- 한 건의 게시물 읽기 member용-->
 	<select id="read" resultType="member">
@@ -17,18 +17,17 @@
 	</select>
 	
 	<!-- 정보 수정하기 -->
-	<!-- <update id="update">
-		update tbl_board
-		set title=#{title},content=#{content},writer=#{writer}
-		where bno=#{bno}
+	<update id="update">
+		update member
+		set personDF=#{personDF}, state=#{state}
+		where memNO=#{memNO}
 	</update>
-
-	삭제하기
-	<delete id="delete">
-		delete from tbl_board
-		where bno=#{bno}
-	</delete> -->
 	
+	<!-- 직원으로 변경시 emp테이블에 기본값 부여하기 -->
+	<insert id="newAdmin">
+		insert into employee(empNo,memNO,gradeDF,posDF,latestDate,state)
+					  values('EMP_A'||LPAD(Emeployee_seq.nextval,5,0),#{memNO},'D_GR01','D_PO01',sysdate,'2')
+	</insert>
 	<!-- 검색어 조회 -->
 	<sql id="search">
 		<if test="searchType!=null">

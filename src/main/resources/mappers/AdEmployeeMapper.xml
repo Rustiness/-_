@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="employee">
+<mapper namespace="Ademployee">
 
 	<!-- 한 건의 게시물 읽기(직원기본정보) -->
 	<select id="read" resultType="member">
@@ -25,14 +25,26 @@
 		where memNO= #{memNO}
 	</select>
 	
+	<!-- 관리등급 리스트 -->
+	<select id="readgrade" resultType="gradeDF">
+		select gradeDF, name, memo, isYn
+		from DF_grade 
+	</select>
+	
+	<!-- 직책 리스트 -->
+	<select id="readposition" resultType="positionDF">
+		select posDF, name, memo, isYn
+		from DF_position 
+	</select>
+	
 	<!-- 정보 수정하기 -->
-	<!-- <update id="update">
-		update tbl_board
-		set title=#{title},content=#{content},writer=#{writer}
-		where bno=#{bno}
+	<update id="update">
+		update employee
+		set gradeDF=#{gradeDF}, posDF= #{posDF}, state=#{state}
+		where empNO=#{empNO}
 	</update>
 
-	삭제하기
+	<!-- 삭제하기 
 	<delete id="delete">
 		delete from tbl_board
 		where bno=#{bno}

@@ -44,7 +44,6 @@ public class AdLoginController {
 				List<MemberVO> list = service.selectMemberinfo(memNO);                //회원번호로 회원정보 얻어오기
 
 				req.getSession().setAttribute("memberList", list);        // 로그인에 성공시 AdSUCCESS(유일한값)를  키값으로하는 세션부여
-				System.out.println(req.getSession().getAttribute("memberList"));
 				return "success";    //성공후 메인페이지로이동
 			} else {
 				return "fail";

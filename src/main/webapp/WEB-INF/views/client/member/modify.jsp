@@ -63,6 +63,9 @@ $(document).on('click', '#update', function() {
 			}
 		//메신저 행 추가
 		$(document).on('click', '[name="addButton"]', function() {
+			if($('#msg').val() == ''){
+				 alert('메신저 아이디 값을 입력해 주세요');
+			}else{
 				$.ajax({
 					url : "/m/mod/messenger/add",
 					type : "post",
@@ -79,6 +82,7 @@ $(document).on('click', '#update', function() {
 						}
 					}
 				});
+			}	
 		});
 		//기존에 있던 메신저 제거
 		$(document).on('click', '#removemsg', function() {
@@ -164,7 +168,7 @@ $(document).on('click', '#update', function() {
 				</c:forEach>
 		</select>
 			 
-			 	<input type="text" id="msg" value=""> <input name="addButton" type="button" value="추가"><br>
+			 	<input type="text" id="msg"> <input name="addButton" type="button" value="추가"><br>
 			 
 	</form>
 </div>

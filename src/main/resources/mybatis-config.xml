@@ -15,6 +15,9 @@
 		<typeAlias type="com.simpact.domain.MessengerVO" alias="messengerVO"/>
 		<typeAlias type="com.simpact.domain.QuestionVO" alias="quest"/>
 		<typeAlias type="com.simpact.domain.TalExchangelistVO" alias="rboardlist"/>
+		<typeAlias type="com.simpact.domain.PersonDFVO" alias="personDF"/>
+		<typeAlias type="com.simpact.domain.GradeDFVO" alias="gradeDF"/>
+		<typeAlias type="com.simpact.domain.PositionDFVO" alias="positionDF"/>
 </typeAliases>
 	<!-- 따로따로 맴퍼를 등록해야한다면, 여기에 아래와 같이 등록!! -->
 	<!--
