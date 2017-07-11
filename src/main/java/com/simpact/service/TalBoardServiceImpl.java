@@ -128,6 +128,11 @@ public class TalBoardServiceImpl implements TalBoardService {
 	public List<TalDivVO> readTalDivWant(String talDocNO) throws Exception {
 		return dao.readTalDivWant(talDocNO);
 	}
+	@Override
+	public List<TalBoardVO> selBeforeTal(String memNO) throws Exception {
+
+		return dao.selBeforeTal(memNO);
+	}
 
 	
 }

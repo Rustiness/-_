@@ -141,5 +141,10 @@ public class TalBoardDAOImpl implements TalBoardDAO {
 	public List<TalDivVO> selCateCallDiv(String talCateDF) throws Exception {
 		return sqlSession.selectList("talDivision.selCateCallDiv", talCateDF);
 	}
+	@Override
+	public List<TalBoardVO> selBeforeTal(String memNO) throws Exception {
+
+		return sqlSession.selectList("talentBoard.beforeTal", memNO);
+	}
 
 }

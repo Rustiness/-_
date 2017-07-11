@@ -30,10 +30,31 @@
 		//이전단계로 이동
 		$("#backBtn").on("click", function() {
 
-			self.location = "/tb/write1s" + "?title=" + $(".title").val() + "&contentHave=" + $(".contentHave").val() + "&contentWant=" + $(".contentWant").val();
-			$(".title").val("");
-			$(".contentHave").val("");
-
+		 	location.href = "/tb/write1s" + "?title=" + $("#title").val() + "&contentHave=" + $("#contentHave").val() + "&contentWant=" + $(".contentWant").val();
+			$("#title").val("");
+			$("#contentHave").val("");  
+			
+			/* 
+			$.ajax({
+				type : 'post',
+				url : '/tb/write1s/',
+				data : {
+					title : $('#title').val(),
+					contentHave : $('#contentHave').val(),
+					contentWant : $('#contentWant').val(),
+					
+				},
+				dataType : "text",
+				success : function(result) {
+					if(result.match("success")) {
+					
+						self.location ='/tb/write1s';
+					} 
+						
+						
+				}
+			});
+ */
 
 
 		});
@@ -104,11 +125,39 @@
 				dataType : "text",
 				success : function(result) {
 					if(result.match("success")) {
-						alert('등록성공');
+					
 						self.location ='/tb/write';
+					} else if(result.match("fail_talWantDiv")) {
+						alert('원하는 재능항목을 설정하세요.');
+					}  else if(result.match("fail_WantContent")) {
+						alert('원하는 재능내용을 입력하세요.');
 					}
+						
+						
 				}
 			});
+
+		});
+		
+		
+		$(document).on('click', '#beforeTalBtn', function() {
+			var memNO = $("#memNO").val();
+
+			$.ajax({
+				type : 'post',
+				url : '/tb/write1s/tal/' + memNO,
+				dataType : 'json',
+				success : function(result) {
+					$("#title").val("");
+					$("#contentHave").val("");
+					$("#contentWant").val("");
+					$('#title').val(result.title);
+					$('#contentHave').val(result.contentHave);
+					$('#contentWant').val(result.contentWant);
+
+				}
+			});
+
 
 		});
 
@@ -191,20 +240,20 @@
 												<b><font size="5">2단계: 원하는 재능 정보 입력</font></b>
 											</h1>
 										</div>
-										<br> <input type="button" value="원하는 재능 이전글 가져오기">
+										<br> <input type="button" value="원하는 재능 이전글 가져오기" id="beforeTalBtn">
 
 										<form>
 
 											<div class="form-group">
 												<label class="col-md-2 control-label">1단계: 보유한 재능 정보</label>
-												<div class="col-md-10">
+												<div class="col-md-9">
 													<input type="hidden" value="${talHaveDiv}" id="talHaveDiv">
 													<input type="hidden" value="${TalBoardVO.memNO}" id="memNO">
-													<input type="text" value="${TalBoardVO.title }"
-														class="title" name="title" class="form-control" id="title">
-													<input type="text" value="${TalBoardVO.contentHave }"
-														id="contentHave" class="contentHave" name="contentHave"
-														class="form-control"> 원하는 재능 내용<br>
+													제목 :<input type="text" value="${TalBoardVO.title }"
+														name="title" class="form-control" id="title" readonly>
+													보유재능 :<input type="text" value="${TalBoardVO.contentHave }"
+														id="contentHave" class="form-control" name="contentHave"
+														class="form-control" readonly> 원하는 재능 내용<br>
 												</div>
 											</div>
 

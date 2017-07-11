@@ -51,12 +51,19 @@
 
 
 
-		//보유한 재능 보내기
-		$(document).on('click', '#talSend', function() {
-		
+		//이전 재능글 선택 후 가져오기
+		$(document).on('click', '#btnChoiceTal', function() {
+			var memNO = $("#memNO").val();
 
 			
-            //보유한 재능 항목
+
+
+		});
+
+		$(document).on('click', '#talSend', function() {
+
+
+			//보유한 재능 항목
 			var talHaveDivSel = $('#talHaveField div div select[name="talHaveDiv"] option:selected:not([value="none"])'); //선택된 것 중 none이 아닌것만!
 			var talHaveDivData = talHaveDivSel.map(function() {
 				return $(this).val();
@@ -71,16 +78,21 @@
 					title : $('#title').val(),
 					memNO : $("#memNO").val(),
 					contentHave : $('#contentHave').val(),
+					contentWant : $('#contentWant').val(),
 					talHaveDiv : talHaveDivData
 				},
 				dataType : "text",
 				success : function(result) {
-					if(result.match("success")) {
-						alert('등록성공');
-						self.location ='/tb/write2s';
+					if (result.match("success")) {
+						self.location = '/tb/write2s';
+					} else if (result.match("fail_title")) {
+						alert('제목을 입력하세요.');
+					} else if (result.match("fail_talHaveDiv")) {
+						alert('보유한 재능항목을 설정하세요.');
+
+					} else if (result.match("fail_haveContent")) {
+						alert('보유한 재능내용을 입력하세요.');
 					}
-				    
-				
 				}
 			});
 
@@ -141,7 +153,7 @@
 	}
 
 	$(document).ready(function() {
-	
+
 
 		$("#goListBtn").click(function() {
 
@@ -186,14 +198,15 @@
 							</div>
 
 
-							<form>
+							<form method="post" action="write1s">
 								<input type="hidden" name="contentWant" id="contentWant"
 									value="${TalBoardVO.contentWant}"> <input type="hidden"
 									name='page' value="${cri.page}"> <input type='hidden'
 									name='perPageNum' value="${cri.perPageNum}"> <input
 									type="hidden" name='searchType' value="${cri.searchType}">
 								<input type="hidden" name='keyword' value="${cri.keyword}">
-								<input type="hidden" id="memNO" name="memNO" value="${TalBoardVO.memNO}">
+								<input type="hidden" id="memNO" name="memNO"
+									value="${TalBoardVO.memNO}">
 								<div id="selDiv"></div>
 
 
@@ -207,9 +220,8 @@
 								</div>
 
 
-								<input type="button" value="보유한 재능 이전글 가져오기"> <br>
-								<br>
-								<br>
+								<input type="button" value="보유한 재능 이전글 가져오기" data-toggle="modal" data-target="#beforeTalModal">
+								<br> <br> <br>
 
 
 								<%--보유한 재능 셀렉트 시작--%>
@@ -251,12 +263,45 @@
 
 								<div class="form-group">
 									<div class="col-md-offset-2 col-md-10">
-										<input type="button" value="다음단계" class="btn btn-info" id="talSend">
-										<input type="button" value="작성취소" id="goListBtn"
-											class="btn btn-info">
+										<input type="button" value="다음단계" class="btn btn-info"
+											id="talSend"> <input type="button" value="작성취소"
+											id="goListBtn" class="btn btn-info">
 									</div>
 								</div>
 							</form>
+						</div>
+					</div>
+					<%-- Modal 시작--%>
+					<div class="modal fade" id="beforeTalModal" tabindex="-1" role="dialog" aria-labelledby="bigModal"
+					     aria-hidden="true">
+						<div class="modal-dialog modal-sm">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+									</button>
+									<h4 class="modal-title" id="acceptModalLabel">이전 재능글 선택</h4>
+								</div>
+								<div class="modal-body">
+									<table>
+									   <tr>
+									   <th>제목</th><th>보유한 재능</th><th>원하는 재능</th>
+									   </tr>
+									   <c:forEach items="${beforeTal}" var="list">
+									     <tr>
+									     <td>${list.title}</td>
+									     <td>${list.contentHave}</td>
+									     <td>${list.contentWant}</td>
+									     </tr>
+									   </c:forEach>
+									  
+									</table>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+									<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info"
+									       type="button" id="btnChoiceTal" value="선택"/>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

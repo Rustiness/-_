@@ -3,25 +3,29 @@
 <mapper namespace="talentBoard">
 	<!-- 게시물 등록 -->
 	<insert id="create">
-	<selectKey keyProperty="talDocNO" resultType="String" order="BEFORE">
+		<selectKey keyProperty="talDocNO" resultType="String" order="BEFORE">
 			SELECT 'TB_A' || LPAD(TalentBoard_seq.nextval, 5, 0) FROM dual
 		</selectKey>
-		INSERT INTO TalentBoard (talDocNO, memNO, title, contentHave, contentWant, excCalls, views, STATE)
-		VALUES (#{talDocNO}, #{memNO}, #{title}, #{contentHave}, #{contentWant}, 0, 0, 2)
+		INSERT INTO TalentBoard (talDocNO, memNO, title, contentHave,
+		contentWant, excCalls, views, STATE)
+		VALUES (#{talDocNO}, #{memNO},
+		#{title}, #{contentHave}, #{contentWant}, 0, 0, 2)
 	</insert>
-	
-	
-	
+
+
+
 	<!-- 신청 ~ 원하는 재능 등록 -->
 	<insert id="createWant">
 		INSERT INTO NP_TalWant (talDocNO, talDivDF)
-		VALUES (#{talDocNO}, #{talDivDF})
+		VALUES
+		(#{talDocNO}, #{talDivDF})
 	</insert>
 
 	<!-- 신청 ~ 보유한 재능 등록 -->
 	<insert id="createHave">
 		INSERT INTO NP_TalHave (talDocNO, talDivDF)
-		VALUES (#{talDocNO},#{talDivDF})
+		VALUES
+		(#{talDocNO},#{talDivDF})
 	</insert>
 
 	<!-- 보유한 재능 수정 -->
@@ -30,14 +34,27 @@
 		contentHave=#{contentHave}, repairDate=sysdate
 		where
 		talDocNO=#{talDocNO}
+
 	</update>
-	
+	<!-- 보유한 재능 항목 수정 -->
+	<update id="updateHaveDiv">
+		update NP_TalHave set talDivDF=#{talDivDF} where
+		talDocNO = #{talDocNO}
+	</update>
+
+
+
+
 	<!-- 원하는 재능 수정 -->
 	<update id="talWantUpdate">
 		update TalentBoard set title=#{title},
 		contentWant=#{contentWant}, repairDate=sysdate
-		WHERE talDocNO =
-		#{talDocNO}
+		WHERE talDocNO = #{talDocNO}
+	</update>
+	<!-- 원하는 재능 항목 수정 -->
+	<update id="updateWantDiv">
+		update NP_TalWant set talDivDF=#{talDivDF} where
+		talDocNO = #{talDocNO}
 	</update>
 
 	<!-- -->
@@ -48,10 +65,12 @@
 
 	<!-- 특정게시물 읽기 -->
 	<select id="read" resultType="talentlist">
-		select talDocNO,nickName,writeDate,contentHave,excCalls,contentWant,title,TalentBoard.memNO
+		select
+		talDocNO,nickName,writeDate,contentHave,excCalls,contentWant,title,TalentBoard.memNO
 		from TalentBoard,Member where
-		TalentBoard.memNO = Member.memNO 
-		AND talDocNO=#{talDocNO}
+		TalentBoard.memNO = Member.memNO
+		AND
+		talDocNO=#{talDocNO}
 	</select>
 
 
@@ -59,15 +78,18 @@
 
 	<!-- -->
 	<select id="listPage" resultType="talentlist">
-		SELECT talDocNO, title, contentHave, contentWant, writeDate, memNO
+		SELECT talDocNO, title,
+		contentHave, contentWant, writeDate, memNO
 		FROM TalentBoard
-		ORDER BY talDocNO DESC
+		ORDER BY
+		talDocNO DESC
 	</select>
 
 	<!-- -->
 	<select id="countPaging" resultType="int">
 		SELECT count(*)
-		FROM TalentBoard
+		FROM
+		TalentBoard
 	</select>
 
 	<!-- 검색어 조회 -->
@@ -95,63 +117,93 @@
 
 	<!--리스트 -->
 	<select id="listSearch" resultType="talentlist">
-		SELECT TB.TALDocNO, title, contentHave, contentWant,writeDate, M.nickName, TB.memNO, TB.state
-		from NP_TalHave TH,TalentBoard TB,Member M 
+		SELECT TB.TALDocNO, title, contentHave, contentWant,writeDate,
+		M.nickName, TB.memNO, TB.state
+		from NP_TalHave TH,TalentBoard TB,Member
+		M
 		WHERE TB.memNO = M.memNO AND TH.TALDocNO = TB.TALDocNO
 		<include refid="search"></include>
-		GROUP BY TB.TALDocNO, title, contentHave, contentWant,writeDate, M.nickName, TB.memNO, TB.state
+		GROUP BY TB.TALDocNO, title, contentHave, contentWant,writeDate,
+		M.nickName, TB.memNO, TB.state
 		order by talDocNO desc
 	</select>
 
-    <!-- 보유한 재능 항목 리스트 -->
+	<!-- 보유한 재능 항목 리스트 -->
 	<select id="listTalDivHave" resultType="talDivVO">
-        SELECT TB.TALDocNO,DT.name
-		from NP_TalHave TH,TalentBoard TB,Member M ,DF_TALDIV DT
-		WHERE TB.memNO = M.memNO AND TH.TALDocNO = TB.TALDocNO AND DT.talDivDF = TH.talDivDF
+		SELECT TB.TALDocNO,DT.name
+		from NP_TalHave TH,TalentBoard TB,Member M
+		,DF_TALDIV DT
+		WHERE TB.memNO = M.memNO AND TH.TALDocNO = TB.TALDocNO
+		AND DT.talDivDF = TH.talDivDF
 		<include refid="search"></include>
-		GROUP BY TB.TALDocNO, title, contentHave, contentWant,writeDate, M.nickName, TB.memNO,DT.name, TB.state
+		GROUP BY TB.TALDocNO, title, contentHave, contentWant,writeDate,
+		M.nickName, TB.memNO,DT.name, TB.state
 		order by talDocNO desc
 	</select>
-	
+
 	<!-- 원하는 재능 항목 리스트 -->
 	<select id="listTalDivWant" resultType="talDivVO">
 		SELECT TB.TALDocNO,DT.name
-		from NP_TalWant TW,TalentBoard TB,Member M ,DF_TALDIV DT
-		WHERE TB.memNO = M.memNO AND TW.TALDocNO = TB.TALDocNO AND DT.talDivDF = TW.talDivDF
+		from NP_TalWant TW,TalentBoard TB,Member M
+		,DF_TALDIV DT
+		WHERE TB.memNO = M.memNO AND TW.TALDocNO = TB.TALDocNO
+		AND DT.talDivDF = TW.talDivDF
 		<include refid="search"></include>
-		GROUP BY TB.TALDocNO, title, contentHave, contentWant,writeDate, M.nickName, TB.memNO,DT.name, TB.state
+		GROUP BY TB.TALDocNO, title, contentHave, contentWant,writeDate,
+		M.nickName, TB.memNO,DT.name, TB.state
 		order by talDocNO desc
 	</select>
-	
+
 	<!-- 보유한 재능 페이지 출력 -->
 	<select id="readTalDivHave" resultType="talDivVO">
-		SELECT NP_TalHave.talDivDF,DF_TalCategory.name talCateName,  DF_TALDIV.name talDivName,DF_TALDIV.talcateDf  FROM NP_TalHave,DF_TALDIV,DF_TalCategory 
-		where NP_TalHave.talDivDF = DF_TALDIV.talDivDF AND  DF_TALDIV.talcateDf = DF_TalCategory.talcateDf AND 
+		SELECT
+		NP_TalHave.talDivDF,DF_TalCategory.name talCateName, DF_TALDIV.name
+		talDivName,DF_TALDIV.talcateDf FROM
+		NP_TalHave,DF_TALDIV,DF_TalCategory
+		where NP_TalHave.talDivDF =
+		DF_TALDIV.talDivDF AND DF_TALDIV.talcateDf =
+		DF_TalCategory.talcateDf
+		AND
 		talDocNO = #{talDocNO}
 	</select>
-	
+
 	<!-- 원하는 재능 페이지 출력 -->
-		<select id="readTalDivWant" resultType="talDivVO">
-		SELECT *
-		FROM NP_TalWant
-		NATURAL JOIN DF_TALDIV
-		where talDocNO = #{talDocNO}
+	<select id="readTalDivWant" resultType="talDivVO">
+		SELECT
+		NP_TalWant.talDivDF,DF_TalCategory.name talCateName, DF_TALDIV.name
+		talDivName,DF_TALDIV.talcateDf FROM
+		NP_TalWant,DF_TALDIV,DF_TalCategory
+		where NP_TalWant.talDivDF =
+		DF_TALDIV.talDivDF AND DF_TALDIV.talcateDf =
+		DF_TalCategory.talcateDf
+		AND
+		talDocNO = #{talDocNO}
 	</select>
 
 	<!-- 게시물 갯수 출력 -->
 	<select id="listSearchCount" resultType="int">
 		SELECT count(*) FROM TalentBoard, Member
-		WHERE TalentBoard.memNO = Member.memNO
+		WHERE TalentBoard.memNO =
+		Member.memNO
 		<include refid="search"></include>
 	</select>
 
 	<!-- 카테고리 조회 -->
 	<select id="categoryList" resultType="talCategory">
-		SELECT * FROM DF_TALCATEGORY
+		SELECT * FROM
+		DF_TALCATEGORY
 	</select>
 
 	<!-- 항목조회 -->
 	<select id="divList" resultType="talDivVO">
 		select * from DF_TalDiv
 	</select>
+	<!-- 이전 재능글 게시글 가져오기 -->
+	<select id="beforeTal" resultType="talentlist">
+		select title, contentHave,
+		contentWant from TalentBoard where memNO =
+		#{memNO} order by writeDate
+		desc
+	</select>
+
 </mapper>

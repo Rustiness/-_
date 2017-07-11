@@ -17,9 +17,9 @@
 	$(document).on("click", ".checkMem", function() {
 		var memNO = $(this).find('.memNO').val();
 		var talDocNO = $(this).find('.talDocNO').val();
-		alert(talDocNO);
+		
 
-
+        
 		self.location = "read${pageMaker.makeSearch(pageMaker.cri.page) }"+"&talDocNO=" + talDocNO + "&loginMem=" + loginMem;
 
 
@@ -40,10 +40,15 @@
 				});
 
 			$('#uploadBtn').on("click", function() {
-
-				self.location = "write1s"
+                 if(loginMem == ''){
+                	 
+                	 alert('로그인시 이용가능 합니다.');
+                	 
+                 }else{				
+                 
+                	 self.location = "write1s"
 					+ "${pageMaker.makeSearch(pageMaker.cri.page) }"+"&memNO="+loginMem;
-
+                 }
 			});
 
 			/* $('.checkMem').on("click", function(event) {

@@ -53,7 +53,6 @@
 
 
 
-
 	});
 	//셀렉트 카테고리 항목 제거
 	function delSelect(obj) {
@@ -72,22 +71,12 @@
 	}
 
 
-	function initCate(obj) {
-		$("#talHaveField").html("<div id='talHaveSelect_0' class='form-inline col-md-10'><div class='form-inline'><select id='talHaveCate_0' class='form-control'onclick='selCate(this);''><option class='selCateDefult' value='none'>카테고리 선택</option><c:forEach items='${listUseCate}' var='itemC'><option value='${itemC.talCateDF }'>${itemC.name }</option></c:forEach></select> <select id='talHaveDiv_0' name='talHaveDiv' class='form-control' onclick='selDiv(this);''><option class='divDefult' value='none'></option></select> <input type='button' class='btn btn-info btn-sm' id='talHaveAdd' value='추가'> <input type='button'class='btn btn-info btn-sm remove' id='talHaveDel' value='삭제' onclick='delSelect(this);' style='display: none;'></div></div>");
-		
-	}
+
 
 
 	//카테고리 셀렉트 선택
 	var temp = null;
 	function selCate(obj) {
-		
-		
-		
-		
-
-		
-
 		var selCateID = $(obj).attr("id").toString(); // 선택 셀렉트 ID
 		var selCateNO = $("#" + selCateID + " option:selected").val(); //선택한 값
 		var divID = $(obj).next().attr("id").toString(); // 형제노드 셀렉트 ID
@@ -114,66 +103,122 @@
 			});
 		}
 	}
-	
 </script>
 <!-- Main content -->
 <section class="content">
-	재능수정 <br> 재능글 제목 <br>
-	<form action="/tb/modHave" role="form" method="post">
-		<input type="hidden" name="contentWant" id="contentWant"
-			value="${TalBoardVO.contentWant}"> <input type='hidden'
-			name='page' value="${cri.page}"> <input type='hidden'
-			name='perPageNum' value="${cri.perPageNum}"> <input
-			type='hidden' name='searchType' value="${cri.searchType}"> <input
-			type='hidden' name='keyword' value="${cri.keyword}"> <input
-			type="hidden" value="${TalBoardVO.talDocNO }" id="talDocNO"
-			name="talDocNO"> <input type="hidden" value="${loginMem }"
-			id="loginMem" name="loginMem"> <input type="text"
-			value="${TalBoardVO.title }" id="title" name="title"> <input
-			type="button" value="보유한 재능 이전글 가져오기"> <br> 보유한 재능 정보 <br>
+	<div class="container-fluid">
+		<div class="row row-offcanvas row-offcanvas-left">
+			<%@include file="../include/lefter.jsp"%>
 
-		<%--보유한 재능 셀렉트 시작--%>
-		<label class="col-md-2 control-label">보유한 재능</label>
+			<div class="col-xs-12 col-sm-9 content">
 
-		<c:forEach items="${readDivHave}" var="readDivHave">
-
-			<div id="talHaveField" class="form-group">
-
-				<div id="talHaveSelect_0" class="form-inline col-md-10">
-					<div class="form-inline">
-						<select id="talHaveCate_0" class="form-control"
-							onclick="initCate(this);">
-							<option value="${readDivHave.talCateDF }">${readDivHave.talCateName }</option>
-						</select> <select id="talHaveDiv_0" name="talHaveDiv" class="form-control"
-							onclick="selDiv(this);">
-							<option value="${readDivHave.talCateDF }">${readDivHave.talDivName }</option>
-						</select> <input type="button" class="btn btn-info btn-sm" id="talHaveAdd"
-							value="추가"> <input type="button"
-							class="btn btn-info btn-sm remove" id="talHaveDel" value="삭제"
-							onclick="delSelect(this);" style="display: none;">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<a href="javascript:void(0);" class="toggle-sidebar"><span
+								class="fa fa-angle-double-left" data-toggle="offcanvas"
+								title="Maximize Panel"></span></a>재능 패널
+						</h3>
 					</div>
+					<div class="panel-body">
+						<div align="left">
+							<h4>재능수정</h4>
+						</div>
+						<form action="/tb/modHave" role="form" method="post">
+						<div class="panel panel-default">
+							<div class="form-group">
+								<label class="col-md-2 control-label">제목</label>
+								<div class="col-md-10">
+									<input type="text" required="" placeholder="Title" id="title"
+										class="form-control" name="title" value="${TalBoardVO.title }">
+								</div>
+							</div>
+							
+
+
+
+								<input type="hidden" name="contentWant" id="contentWant"
+									value="${TalBoardVO.contentWant}"> <input type='hidden'
+									name='page' value="${cri.page}"> <input type='hidden'
+									name='perPageNum' value="${cri.perPageNum}"> <input
+									type='hidden' name='searchType' value="${cri.searchType}">
+								<input type='hidden' name='keyword' value="${cri.keyword}">
+								<input type="hidden" value="${TalBoardVO.talDocNO }"
+									id="talDocNO" name="talDocNO"> <input type="hidden"
+									value="${loginMem }" id="loginMem" name="loginMem"> <input
+									type="button" value="보유한 재능 이전글 가져오기"> <br> 보유한 재능
+								정보 <br>
+
+
+
+
+								<%--보유한 재능 셀렉트 시작--%>
+								<div id="talHaveField" class="form-group">
+									<label class="col-md-2 control-label">보유한 재능</label>
+
+									<c:forEach items="${readDivHave}" var="readDivHave">
+
+										<div id="talHaveField" class="form-group">
+
+											<div id="talHaveSelect_0" class="form-inline col-md-10">
+												<div class="form-inline">
+													<select id="talHaveCate_0" class="form-control"
+														onclick="selCate(this)">
+														<c:forEach items="${listUseCate}" var="itemC">
+															<c:if test="${itemC.talCateDF eq readDivHave.talCateDF }">
+																<option>${itemC.name }</option>
+															</c:if>
+														</c:forEach>
+														<c:forEach items="${listUseCate}" var="itemC">
+															<option value="${itemC.talCateDF }">${itemC.name }</option>
+														</c:forEach>
+
+													</select> <select id="talHaveDiv_0" name="talHaveDiv"
+														class="form-control" onclick="selDiv(this);">
+														<option class="divDefult" value="none">${readDivHave.talDivName}</option>
+													</select><input type="button" class="btn btn-info btn-sm"
+														id="talHaveAdd" value="추가"> <input type="button"
+														class="btn btn-info btn-sm remove" id="talHaveDel"
+														value="삭제" onclick="delSelect(this);"
+														style="display: none;">
+
+
+												</div>
+											</div>
+										</div>
+
+
+
+
+									</c:forEach>
+								</div>
+								<%--보유한 재능 셀렉트 끝--%>
+
+
+
+								<div class="form-group">
+									<label class="col-md-2 control-label" for="description">보유한 재능 내용</label>
+									<div class="col-md-10">
+										<textarea rows="10" cols="50" id="contentHave"
+											name="contentHave" value="내용을 수정해 주세요">${TalBoardVO.contentHave }</textarea>
+									</div>
+								</div>
+								<br>
+								<div class="form-group">
+									<div class="col-md-offset-2 col-md-10">
+										<input type="submit" value="보유한 재능 수정" class="btn btn-info">
+										<input type="button" value="수정취소" id="goReadBtn"
+											class="btn btn-info">
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
 				</div>
 			</div>
-		</c:forEach>
-
-		<%--보유한 재능 셀렉트 끝--%>
-
-
-
-
-		보유한 재능 내용 <br>
-		<textarea rows="10" cols="50" id="contentHave" name="contentHave"
-			value="내용을 수정해 주세요">${TalBoardVO.contentHave }</textarea>
-		<br> <input type="submit" value="보유한 재능 수정"> <input
-			type="button" value="수정취소" id="goReadBtn">
-	</form>
-
-
-
-
-
-
-
+		</div>
+	</div>
 
 </section>
 

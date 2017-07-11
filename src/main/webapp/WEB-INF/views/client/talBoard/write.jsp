@@ -23,6 +23,30 @@
 		});
 		
 		
+
+		$(document).on('click', '#beforeTalBtn', function() {
+			var memNO = $("#memNO").val();
+
+			$.ajax({
+				type : 'post',
+				url : '/tb/write1s/tal/' + memNO,
+				dataType : 'json',
+				success : function(result) {
+					$("#title").val("");
+					$("#contentHave").val("");
+					$("#contentWant").val("");
+					$('#title').val(result.title);
+					$('#contentHave').val(result.contentHave);
+					$('#contentWant').val(result.contentWant);
+
+				}
+			});
+
+
+		});
+
+
+		
 	});
 </script>
 <!-- Main content -->
@@ -69,23 +93,23 @@
 								<div class="form-group">
 									<div class="col-md-10">
 										재능글 제목<br> <input type="text"
-											value="${TalBoardVO.title }" id="title" name="title" class="form-control">
-										<input type="button" value="원하는 재능 이전글 가져오기">
+											value="${TalBoardVO.title }" id="title" name="title" class="form-control" readonly>
+										<input type="button" value="원하는 재능 이전글 가져오기" id="beforeTalBtn" >
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-10 control-label" for="description">보유한
 										재능 내용</label>
 									<div class="col-md-10">
-										<textarea rows="10" cols="50" name="contentHave"
-											value="받아올 내용" class="form-control">${TalBoardVO.contentHave }</textarea>
+										<textarea rows="10" cols="50" name="contentHave" id="contentHave"
+											value="받아올 내용" class="form-control" readonly>${TalBoardVO.contentHave }</textarea>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-10 control-label" for="description">원하는
 										재능 내용</label>
 									<div class="col-md-10">
-										<textarea rows="10" cols="50" name="contentWant" value="받아올 내용" class="form-control">${TalBoardVO.contentWant }</textarea>
+										<textarea rows="10" cols="50" name="contentWant" id="contentWant" value="받아올 내용" class="form-control" readonly>${TalBoardVO.contentWant }</textarea>
 									</div>
 								</div>
 

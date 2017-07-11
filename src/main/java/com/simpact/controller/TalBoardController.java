@@ -38,14 +38,15 @@ public class TalBoardController {
 	// 재능글 목록
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(SearchCriteria cri, Model model, HttpSession session) throws Exception {// 게시물 목록 출력
+																								
 
-		
+		cri.setPerPageNum(8);
 		model.addAttribute("talDivHave", service.listTalDivHave(cri));
 		model.addAttribute("talDivWant", service.listTalDivWant(cri));
 		model.addAttribute("list", service.listSearch(cri));
 		PageMaker maker = new PageMaker();
 		maker.setCri(cri);
-		
+
 		maker.setTotalCount(service.listSearchCount(cri));
 		model.addAttribute("categoryList", service.categoryList());
 		model.addAttribute("pageMaker", maker);
@@ -55,10 +56,21 @@ public class TalBoardController {
 
 	// 재능글 등록 (1단계)
 	@RequestMapping(value = "/write1s", method = RequestMethod.GET)
-	public String uploadFirstGET(TalBoardVO vo, HttpSession session,Model model) throws Exception {
+	public String uploadFirstGET(TalBoardVO vo, HttpSession session, Model model,String memNO) throws Exception {
+		
+		
+		
+		
 		session.setAttribute("TalBoardVO", vo);
 		model.addAttribute("listUseCate", service.categoryList());
 		model.addAttribute("divList", service.divList());
+		System.out.println(vo.getMemNO());
+        List<TalBoardVO> list = service.selBeforeTal(vo.getMemNO()); 
+		
+		
+		model.addAttribute("beforeTal",list);
+		
+		
 
 		return "client/talBoard/write1step";
 	}
@@ -76,9 +88,36 @@ public class TalBoardController {
 		return list;
 	}
 
+	/* 이전 재능글 가져오기 */
+	@RequestMapping(value = "/write1s/tal/{memNO}", method = RequestMethod.POST)
+	public @ResponseBody TalBoardVO selBeforeTal(@PathVariable("memNO") String memNO,Model model) throws Exception {
+		System.out.println(memNO);
+		TalBoardVO vo = new TalBoardVO();
+		List<TalBoardVO> list = service.selBeforeTal(memNO); // 선택한 카테고리와
+		
+		
+		model.addAttribute("beforeTal",list);
+	 
+	
+
+		return vo;
+	}
+
 	@RequestMapping(value = "/write1s", method = RequestMethod.POST)
 	public @ResponseBody String uploadFirstPost(TalBoardVO vo, HttpSession session, Model model, String talHaveDiv)
 			throws Exception {
+
+		
+		if (vo.getTitle().length() == 0) {
+			return "fail_title";
+		}
+		if (talHaveDiv.length() == 0) {
+			return "fail_talHaveDiv";
+		}
+		if (vo.getContentHave().length() == 0) {
+			return "fail_haveContent";
+		}
+
 		System.out.println("talHaveDiv:" + talHaveDiv);
 		session.setAttribute("TalBoardVO", vo);
 		session.setAttribute("talHaveDiv", talHaveDiv);
@@ -93,6 +132,13 @@ public class TalBoardController {
 	@RequestMapping(value = "/write2s", method = RequestMethod.POST)
 	public @ResponseBody String uploadSecondPost(TalBoardVO vo, HttpSession session, String talHaveDiv,
 			String talWantDiv) throws Exception {
+		if (talWantDiv.length() == 0) {
+			return "fail_talWantDiv";
+		}
+		if (vo.getContentWant().length() == 0) {
+			return "fail_WantContent";
+		}
+
 		session.setAttribute("TalBoardVO", vo);
 		session.setAttribute("talHaveDiv", talHaveDiv);
 		session.setAttribute("talWantDiv", talWantDiv);
@@ -191,13 +237,13 @@ public class TalBoardController {
 		return "client/talBoard/read";
 	}
 
-//	/* 재능글 수정 */
-//사용 안하기로 함
-//	@RequestMapping("/mod")
-//	public String mod() {
-//
-//		return "/client/talBoard/modify";
-//	}
+	// /* 재능글 수정 */
+	// 사용 안하기로 함
+	// @RequestMapping("/mod")
+	// public String mod() {
+	//
+	// return "/client/talBoard/modify";
+	// }
 
 	/* 재능글 수정 (보유한 재능 수정 페이지 이동) */
 	@RequestMapping(value = "/modHave", method = RequestMethod.GET)
@@ -223,6 +269,7 @@ public class TalBoardController {
 		req.setAttribute("readDivWant", service.readTalDivWant(talDocNO));
 		System.out.println(talDocNO);
 		System.out.println(loginMem);
+		System.out.println(vo);
 		service.talHavemodify(vo);
 		req.setAttribute("TalBoardVO", service.read(talDocNO));
 		req.setAttribute("loginMem", loginMem);
@@ -241,6 +288,8 @@ public class TalBoardController {
 		// model.addAttribute("divList", service.divList());
 		model.addAttribute("TalBoardVO", vo);
 		model.addAttribute("loginMem", loginMem);
+		model.addAttribute("listUseCate", service.categoryList());
+		model.addAttribute("divList", service.divList());
 
 		return "client/talBoard/modifyWant";
 	}
@@ -253,6 +302,7 @@ public class TalBoardController {
 		req.setAttribute("readDivWant", service.readTalDivWant(talDocNO));
 		System.out.println(talDocNO);
 		System.out.println(loginMem);
+		System.out.println(vo);
 		service.talWantmodify(vo);
 		req.setAttribute("TalBoardVO", service.read(talDocNO));
 		req.setAttribute("loginMem", loginMem);

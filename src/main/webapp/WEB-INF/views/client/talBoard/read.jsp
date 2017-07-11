@@ -108,7 +108,7 @@
 									<label class="col-md-2 form-label">원하는 재능</label>
 									<div class="col-md-4">
 										<c:forEach items="${readDivWant }" var="talDivItem">
-											<span style="background-color: #2d9bff" class="label label-info">#${talDivItem.name}</span>
+											<span style="background-color: #2d9bff" class="label label-info">#${talDivItem.talDivName}</span>
 										</c:forEach>
 									</div>
 

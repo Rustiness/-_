@@ -49,6 +49,10 @@ public interface TalBoardService {
 	
 	public List<TalDivVO> selCateCallDiv(String talCateDF) throws Exception; // 사용하는 카테고리 목록 가져오기
 	
+	public List<TalBoardVO> selBeforeTal(String memNO) throws Exception; // 재능글 이전 게시글 가져오기
+	
+	
+	
 
 
 }

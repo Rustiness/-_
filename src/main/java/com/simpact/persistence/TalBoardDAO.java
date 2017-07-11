@@ -54,4 +54,6 @@ public interface TalBoardDAO {
 	public List<TalDivVO> divList()throws Exception;
 	
 	public List<TalDivVO> selCateCallDiv(String  talCateDF) throws Exception; // 선택한 카테고리의 항목 목록 가져오기
+	
+	public List<TalBoardVO> selBeforeTal(String memNO) throws Exception; // 재능글 이전 게시글 가져오기
 }
