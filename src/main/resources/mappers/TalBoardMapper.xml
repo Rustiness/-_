@@ -125,7 +125,7 @@
 	
 	<!-- 보유한 재능 페이지 출력 -->
 	<select id="readTalDivHave" resultType="talDivVO">
-		SELECT NP_TalHave.talDivDF,DF_TalCategory.name talCateName,  DF_TALDIV.name talDivName FROM NP_TalHave,DF_TALDIV,DF_TalCategory 
+		SELECT NP_TalHave.talDivDF,DF_TalCategory.name talCateName,  DF_TALDIV.name talDivName,DF_TALDIV.talcateDf  FROM NP_TalHave,DF_TALDIV,DF_TalCategory 
 		where NP_TalHave.talDivDF = DF_TALDIV.talDivDF AND  DF_TALDIV.talcateDf = DF_TalCategory.talcateDf AND 
 		talDocNO = #{talDocNO}
 	</select>

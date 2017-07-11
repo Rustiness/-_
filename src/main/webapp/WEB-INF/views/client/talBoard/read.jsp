@@ -95,7 +95,7 @@
 									<label class="col-md-2 form-label">보유한 재능</label>
 									<div class="col-md-4">
 										<c:forEach items="${readDivHave }" var="talDivItem">
-											<span style="background-color: #c525ff" class="label label-info">#${talDivItem.name}</span>
+											<span style="background-color: #c525ff" class="label label-info">#${talDivItem.talDivName}</span>
 										</c:forEach>
 									</div>
 									<label class="col-md-2 form-label">원하는 재능</label>
