@@ -13,7 +13,24 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function() {
+		
+		$(document).on("click", ".choice", function() {
+			
+			
+			var title = $(this).find('.titleChoi').val();
+			var contentHave = $(this).find('.contentHaveChoi').val();
+			var contentWant = $(this).find('.contentWantChoi').val();
+		
+			
+			$("#title").val('');
+			$("#contentHave").val('');
+			$("#contentWant").val('');
+			$("#title").val(title);
+			$("#contentHave").val(contentHave);
+			$("#contentWant").val(contentWant);
 
+			
+		});
 
 
 		var talHaveCount = 1; //id, name 인덱스 생성 카운트
@@ -84,7 +101,7 @@
 				dataType : "text",
 				success : function(result) {
 					if (result.match("success")) {
-						self.location = '/tb/write2s';
+						self.location = '/tb/write2s'+'?memNO='+$("#memNO").val();
 					} else if (result.match("fail_title")) {
 						alert('제목을 입력하세요.');
 					} else if (result.match("fail_talHaveDiv")) {
@@ -156,7 +173,7 @@
 
 
 		$("#goListBtn").click(function() {
-
+           
 			self.location = "/tb/list";
 
 
@@ -220,8 +237,8 @@
 								</div>
 
 
-								<input type="button" value="보유한 재능 이전글 가져오기" data-toggle="modal" data-target="#beforeTalModal">
-								<br> <br> <br>
+								<input type="button" value="보유한 재능 이전글 가져오기" data-toggle="modal"
+									data-target="#beforeTalModal"> <br> <br> <br>
 
 
 								<%--보유한 재능 셀렉트 시작--%>
@@ -272,34 +289,39 @@
 						</div>
 					</div>
 					<%-- Modal 시작--%>
-					<div class="modal fade" id="beforeTalModal" tabindex="-1" role="dialog" aria-labelledby="bigModal"
-					     aria-hidden="true">
-						<div class="modal-dialog modal-sm">
+					<div class="modal fade" id="beforeTalModal" tabindex="-1"
+						role="dialog" aria-labelledby="bigModal" aria-hidden="true">
+						<div class="modal-dialog modal-lg">
 							<div class="modal-content">
 								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
-									</button>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
 									<h4 class="modal-title" id="acceptModalLabel">이전 재능글 선택</h4>
 								</div>
 								<div class="modal-body">
-									<table>
-									   <tr>
-									   <th>제목</th><th>보유한 재능</th><th>원하는 재능</th>
-									   </tr>
-									   <c:forEach items="${beforeTal}" var="list">
-									     <tr>
-									     <td>${list.title}</td>
-									     <td>${list.contentHave}</td>
-									     <td>${list.contentWant}</td>
-									     </tr>
-									   </c:forEach>
-									  
-									</table>
+
+
+									<label>제목</label><label>보유한 재능</label><label>원하는 재능</label><label>작성일</label>
+
+									<c:forEach items="${beforeTal}" var="list">
+                                       <div class="choice" data-dismiss="modal">
+                                          <input type="hidden" value="${list.title }" class="titleChoi">
+                                          <input type="hidden" value="${list.contentHave }" class="contentHaveChoi">
+                                          <input type="hidden" value="${list.contentWant }" class="contentWantChoi">
+                                    
+										<span class="titleChoi">${list.title}</span>
+										<span class="contentHaveChoi">${list.contentHave}</span>
+										<span class="contentWantChoi">${list.contentWant}</span>
+										
+                                      </div><br>
+									</c:forEach>
+
+
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-									<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info"
-									       type="button" id="btnChoiceTal" value="선택"/>
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">취소</button>
+								
 								</div>
 							</div>
 						</div>

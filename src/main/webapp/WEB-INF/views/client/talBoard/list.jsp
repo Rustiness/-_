@@ -47,20 +47,7 @@
 			}
 		);
 
-		/* $('.checkMem').on("click", function(event) {
-		 var loginMem = "MEM_A00001";
-		 alert(loginMem);
-		 alert($("#memNO").val());
-		 if(loginMem == $("#memNO").val()){
-		 self.location="talentInfo_detail_maker"
-		 + "?talDocNO="
-		 + $(".talDocNO").val();
-		 }else{
-		 self.location = "talentInfo_detail_guest"
-		 + "?talDocNO="
-		 + $(".talDocNO").val();
-		 }
-		 }); */
+	
 
 	});
 </script>
@@ -163,8 +150,9 @@
 											<%--<div class="clearfix"></div>--%>
 									</div>
 								</div>
+								</c:forEach>
 							</div>
-							</c:forEach>
+							
 						</div>
 					</div>
 				</div>

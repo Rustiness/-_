@@ -15,7 +15,7 @@
 
 
 		$("#goListBtn").click(function() {
-
+			 
 			self.location = "/tb/list";
 
 
@@ -24,26 +24,7 @@
 		
 		
 
-		$(document).on('click', '#beforeTalBtn', function() {
-			var memNO = $("#memNO").val();
-
-			$.ajax({
-				type : 'post',
-				url : '/tb/write1s/tal/' + memNO,
-				dataType : 'json',
-				success : function(result) {
-					$("#title").val("");
-					$("#contentHave").val("");
-					$("#contentWant").val("");
-					$('#title').val(result.title);
-					$('#contentHave').val(result.contentHave);
-					$('#contentWant').val(result.contentWant);
-
-				}
-			});
-
-
-		});
+		
 
 
 		
@@ -94,7 +75,7 @@
 									<div class="col-md-10">
 										재능글 제목<br> <input type="text"
 											value="${TalBoardVO.title }" id="title" name="title" class="form-control" readonly>
-										<input type="button" value="원하는 재능 이전글 가져오기" id="beforeTalBtn" >
+										
 									</div>
 								</div>
 								<div class="form-group">

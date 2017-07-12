@@ -7,9 +7,9 @@
 			SELECT 'TB_A' || LPAD(TalentBoard_seq.nextval, 5, 0) FROM dual
 		</selectKey>
 		INSERT INTO TalentBoard (talDocNO, memNO, title, contentHave,
-		contentWant, excCalls, views, STATE)
+		contentWant, excCalls, views,repairDate, STATE)
 		VALUES (#{talDocNO}, #{memNO},
-		#{title}, #{contentHave}, #{contentWant}, 0, 0, 2)
+		#{title}, #{contentHave}, #{contentWant}, 0, 0,sysdate,2)
 	</insert>
 
 
@@ -66,7 +66,7 @@
 	<!-- 특정게시물 읽기 -->
 	<select id="read" resultType="talentlist">
 		select
-		talDocNO,nickName,writeDate,contentHave,excCalls,contentWant,title,TalentBoard.memNO
+		talDocNO,nickName,repairDate,contentHave,excCalls,contentWant,title,TalentBoard.memNO
 		from TalentBoard,Member where
 		TalentBoard.memNO = Member.memNO
 		AND
@@ -201,7 +201,7 @@
 	<!-- 이전 재능글 게시글 가져오기 -->
 	<select id="beforeTal" resultType="talentlist">
 		select title, contentHave,
-		contentWant from TalentBoard where memNO =
+		contentWant, writeDate from TalentBoard where memNO =
 		#{memNO} order by writeDate
 		desc
 	</select>

@@ -11,6 +11,33 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function() {
+		
+            $(document).on("click", ".choice", function() {
+			
+			
+			var title = $(this).find('.titleChoi').val();
+			var contentHave = $(this).find('.contentHaveChoi').val();
+			var contentWant = $(this).find('.contentWantChoi').val();
+		   
+			
+			$("#title").val('');
+			$("#contentHave").val('');
+			$("#contentWant").val('');
+			$("#title").val(title);
+			$("#contentHave").val(contentHave);
+			$("#contentWant").val(contentWant);
+
+			
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		var talWantCount = 1; //id, name 인덱스 생성 카운트
 
@@ -18,7 +45,7 @@
 		$("#goListBtn").click(function() {
 
 
-
+			  
 
 			self.location = "/tb/list";
 
@@ -30,31 +57,33 @@
 		//이전단계로 이동
 		$("#backBtn").on("click", function() {
 
-		 	location.href = "/tb/write1s" + "?title=" + $("#title").val() + "&contentHave=" + $("#contentHave").val() + "&contentWant=" + $(".contentWant").val();
-			$("#title").val("");
-			$("#contentHave").val("");  
+		 	//location.href = "/tb/write1s" + "?title=" + $("#title").val() + "&contentHave=" + $("#contentHave").val() + "&contentWant=" + $(".contentWant").val();
 			
-			/* 
-			$.ajax({
+			
+			
+		 	$.ajax({
 				type : 'post',
 				url : '/tb/write1s/',
 				data : {
-					title : $('#title').val(),
-					contentHave : $('#contentHave').val(),
-					contentWant : $('#contentWant').val(),
+					title : $('.title').val(),
+					contentHave : $('.contentHave').val(),
+					contentWant : $('.contentWant').val(),
+					talHaveDiv : $('.talHaveDiv').val(),
+					memNO :  $('#memNO').val()
 					
 				},
 				dataType : "text",
 				success : function(result) {
 					if(result.match("success")) {
 					
-						self.location ='/tb/write1s';
+					
+						self.location ='/tb/write1s'+'?memNO='+$('#memNO').val();
 					} 
 						
 						
 				}
-			});
- */
+			}); 
+ 
 
 
 		});
@@ -240,20 +269,24 @@
 												<b><font size="5">2단계: 원하는 재능 정보 입력</font></b>
 											</h1>
 										</div>
-										<br> <input type="button" value="원하는 재능 이전글 가져오기" id="beforeTalBtn">
+										<br> <input type="button" value="원하는 재능 이전글 가져오기"
+											id="beforeTalBtn" data-toggle="modal"
+											data-target="#beforeTalModal">
 
-										<form>
+										<form method="post" action="">
 
 											<div class="form-group">
 												<label class="col-md-2 control-label">1단계: 보유한 재능 정보</label>
 												<div class="col-md-9">
-													<input type="hidden" value="${talHaveDiv}" id="talHaveDiv">
-													<input type="hidden" value="${TalBoardVO.memNO}" id="memNO">
-													제목 :<input type="text" value="${TalBoardVO.title }"
-														name="title" class="form-control" id="title" readonly>
+													<input type="hidden" value="${talHaveDiv}" id="talHaveDiv"
+														class="talHaveDiv"> <input type="hidden"
+														value="${TalBoardVO.memNO}" id="memNO"> 제목 :<input
+														type="text" value="${TalBoardVO.title }" name="title"
+														class="form-control title" id="title" readonly>
 													보유재능 :<input type="text" value="${TalBoardVO.contentHave }"
-														id="contentHave" class="form-control" name="contentHave"
-														class="form-control" readonly> 원하는 재능 내용<br>
+														id="contentHave" class="form-control contentHave"
+														name="contentHave" class="form-control" readonly>
+													원하는 재능 내용<br>
 												</div>
 											</div>
 
@@ -305,6 +338,45 @@
 												</div>
 											</div>
 										</form>
+									</div>
+								</div>
+								<%-- Modal 시작--%>
+								<div class="modal fade" id="beforeTalModal" tabindex="-1"
+									role="dialog" aria-labelledby="bigModal" aria-hidden="true">
+									<div class="modal-dialog modal-lg">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal"
+													aria-hidden="true">&times;</button>
+												<h4 class="modal-title" id="acceptModalLabel">이전 재능글 선택</h4>
+											</div>
+											<div class="modal-body">
+
+
+												<label>제목</label><label>보유한 재능</label><label>원하는 재능</label><label>작성일</label>
+
+												<c:forEach items="${beforeTal}" var="list">
+													<div class="choice" data-dismiss="modal">
+														<input type="hidden" value="${list.title }"
+															class="titleChoi"> <input type="hidden"
+															value="${list.contentHave }" class="contentHaveChoi">
+														<input type="hidden" value="${list.contentWant }"
+															class="contentWantChoi"> <span class="titleChoi">${list.title}</span>
+														<span class="contentHaveChoi">${list.contentHave}</span> <span
+															class="contentWantChoi">${list.contentWant}</span>
+
+													</div>
+													<br>
+												</c:forEach>
+
+
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default"
+													data-dismiss="modal">취소</button>
+
+											</div>
+										</div>
 									</div>
 								</div>
 

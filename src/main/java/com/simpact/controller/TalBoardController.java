@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,9 +38,9 @@ public class TalBoardController {
 
 	// 재능글 목록
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(SearchCriteria cri, Model model, HttpSession session) throws Exception {// 게시물 목록 출력
+	public String list(SearchCriteria cri, Model model,HttpSession session) throws Exception {// 게시물 목록 출력
 																								
-
+       
 		cri.setPerPageNum(8);
 		model.addAttribute("talDivHave", service.listTalDivHave(cri));
 		model.addAttribute("talDivWant", service.listTalDivWant(cri));
@@ -50,7 +51,7 @@ public class TalBoardController {
 		maker.setTotalCount(service.listSearchCount(cri));
 		model.addAttribute("categoryList", service.categoryList());
 		model.addAttribute("pageMaker", maker);
-
+        session.removeAttribute("TalBoardVO");
 		return "client/talBoard/list";
 	}
 
@@ -61,7 +62,7 @@ public class TalBoardController {
 		
 		
 		
-		session.setAttribute("TalBoardVO", vo);
+		//session.setAttribute("TalBoardVO", vo);
 		model.addAttribute("listUseCate", service.categoryList());
 		model.addAttribute("divList", service.divList());
 		System.out.println(vo.getMemNO());
@@ -119,6 +120,7 @@ public class TalBoardController {
 		}
 
 		System.out.println("talHaveDiv:" + talHaveDiv);
+		System.out.println(vo);
 		session.setAttribute("TalBoardVO", vo);
 		session.setAttribute("talHaveDiv", talHaveDiv);
 
@@ -142,17 +144,23 @@ public class TalBoardController {
 		session.setAttribute("TalBoardVO", vo);
 		session.setAttribute("talHaveDiv", talHaveDiv);
 		session.setAttribute("talWantDiv", talWantDiv);
-
+		
 		return "success";
 	}
 
 	@RequestMapping(value = "/write2s", method = RequestMethod.GET)
-	public String uploadSecondGet(TalBoardVO vo, HttpSession session, Model model, String talHaveDiv) throws Exception {
+	public String uploadSecondGet(TalBoardVO vo, HttpSession session, Model model, String talHaveDiv,String memNO) throws Exception {
 
 		// session.setAttribute("TalBoardVO", vo);
 		// session.setAttribute("talHaveDiv", talHaveDiv);
 		model.addAttribute("listUseCate", service.categoryList());
 		model.addAttribute("divList", service.divList());
+	  
+		System.out.println(memNO);
+        List<TalBoardVO> list = service.selBeforeTal(memNO); 
+        model.addAttribute("beforeTal",list);
+
+		
 
 		return "client/talBoard/write2step";
 	}
@@ -211,7 +219,7 @@ public class TalBoardController {
 				service.createHave(talHaveDivVO);
 			}
 			/* 보유한 재능 등록 끝 */
-
+            
 			return "redirect:/tb/list";
 		} else {
 			return "fail";
