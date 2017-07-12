@@ -10,10 +10,9 @@
 </head>
 <div class="col-xs-6 col-sm-3 sidebar-offcanvas" role="navigation">
 	<ul class="list-group panel">
-		<li class="list-group-item"><i class="glyphicon glyphicon-align-justify"></i> <b>재능교환</b></li>
-		<li class="list-group-item"><a href="/lte"><i class="glyphicon glyphicon-home"></i>추천 재능</a></li>
+		<li class="list-group-item"><a href="/tb/list"><i class="glyphicon glyphicon-home"></i>추천 재능</a></li>
 		<li class="list-group-item"><a href="/te/list"><i class="glyphicon glyphicon-home"></i>연결된 재능교환</a></li>
-		<li class="list-group-item"><i class="glyphicon glyphicon-align-justify"></i> <b>재능교환 카테고리</b></li>
+		<li class="list-group-item"><a href="/tb/list"><i class="glyphicon glyphicon-align-justify"></i><b>재능 목록</b></a></li>
 		<li>
 			<a href="#list01" class="list-group-item " data-toggle="collapse">IT&프로그래밍<span class="glyphicon glyphicon-chevron-right"></span></a>
 		</li>
