@@ -54,13 +54,13 @@
 	<sql id="search">
 		<if test="searchType!=null">
 				<if test="searchType == 't'.toString()">
-					and title like '%'||#{keyword}||'%'
+					and memNO like '%'||#{keyword}||'%'
 				</if>
 				<if test="searchType == 'c'.toString()">
-					and content like '%'||#{keyword}||'%'
+					and email like '%'||#{keyword}||'%'
 				</if>
 				<if test="searchType == 'w'.toString()">
-					and writer like '%'||#{keyword}||'%'
+					and name like '%'||#{keyword}||'%'
 				</if>
 			</if>
 	</sql>
