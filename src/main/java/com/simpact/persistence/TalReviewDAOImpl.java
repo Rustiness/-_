@@ -1,15 +1,17 @@
 package com.simpact.persistence;
 
-import com.simpact.domain.Criteria;
-import com.simpact.domain.SearchCriteria;
-import com.simpact.domain.TalExchangelistVO;
-import com.simpact.domain.TalReviewVO;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-import java.util.List;
+import com.simpact.domain.Criteria;
+import com.simpact.domain.SearchCriteria;
+import com.simpact.domain.TalExchangelistVO;
+import com.simpact.domain.TalReviewVO;
 
 @Repository
 public class TalReviewDAOImpl implements TalReviewDAO {
@@ -24,8 +26,12 @@ public class TalReviewDAOImpl implements TalReviewDAO {
 
 	@Override
 	public TalReviewVO read(String talReviewNO) throws Exception {
-
-		return sqlSession.selectOne("rboard.read", talReviewNO);
+		/*TalReviewVO vo = (TalReviewVO)sqlSession.selectOne("rboard.read", talReviewNO);
+		String nickname = sqlSession.selectOne("rboard.readnickname", talReviewNO);
+		vo.setNickName(nickname);
+		return vo;*/
+		
+		return sqlSession.selectOne("rboard.read",talReviewNO );
 	}
 
 	@Override

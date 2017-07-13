@@ -1,4 +1,4 @@
-<%--
+<%-- 후기게시판 read.jsp
    Created
    User: simpact
    Date: 2017-06-30
@@ -18,7 +18,7 @@
 
 	<div class="box box-primary">
 		<div class="box-header">
-			<h3 class="box-title">교환후기 상세정보</h3>
+			<h3 class="box-title">교환후기 상세정보 </h3>
 		</div>
 		<!-- /.box-header -->
 
@@ -32,22 +32,21 @@
 			<table>
 				<form role="form" method="post">
 
-					<input type='hidden' name='talReviewNO' value="${TalReviewVO.talReviewNO}">
+					<input type='hidden' id="talReviewNO" name='talReviewNO' value="${talReviewVO.talReviewNO}">
 					<input type='hidden' name='page' value="${cri.page}"> 
 					<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 					<input type='hidden' name='searchType' value="${cri.searchType}">
 					<input type='hidden' name='keyword' value="${cri.keyword}">
 				</form>
 				<tr>
-					<th>받은 재능:</th>
-					<td>피아노</td>
-					<th>교환자 닉네임:</th>
-					<td></td>
+					<th>받은 재능:</th></tr>
+					
+					
 				</tr>
 			</table>
-				<br> ${TalReviewVO.nickname}님의 교환후기<br>
+				<br> ${talReviewVO.nickName }님의 교환후기<br>
 				<br>
-			<textarea rows="5" cols="50" readonly>${TalReviewVO.content }</textarea>
+			<textarea rows="5" cols="50" readonly>${talReviewVO.content }</textarea>
 			<br>
 		</div>
 		<!-- /.box-body -->
@@ -66,7 +65,9 @@
 
 			<div class="box-body">
 				<label for="exampleInputEmail1">작성자 명</label> 
-				<input class="form-control" type="text" placeholder="작성자" id="writer" name="writer"> 
+				<input class="form-control" type="text"  id="nickName" name="nickName" value="${clientMemberVO.nickName}" readonly>
+
+				<input type="hidden" value="${clientMemberVO.memNO }" name="memNO"> 
 				<label for="exampleInputEmail1">댓글내용</label> 
 				<input class="form-control" type="text" placeholder="댓글 내용" id="content" name="content">
 			</div>
@@ -95,19 +96,24 @@
 </section>
 <!-- /.content -->
 
+<div id="updateForm" style="display: none;"><input type="text" id="replyupdate"><button>수정</button></div>
 
-<script>
-	 var talReviewNO= "${TalReviewVO.talReviewNO}";
-
-	    function getAllList(){
+<script> // 댓글 리스트 목록 보기 
+	var talReviewNO= $('#talReviewNO').val();
+	 var memNO= "${clientMemberVO.memNO}";
+	   
+	 function getAllList(){
+	    	//alert('talReviewNO: '+talReviewNO)
 	    	$.ajax({	    		
 	  	      url:'/tr/replies/all/'+talReviewNO,
 	  	      success:function(data){
 	  	    	  console.log(data.length);
 	  	    	 var str='';
-	  	    	 
-	  	    	 $(data).each(function(){
-	  	    		str += '<li>'+this.commExNO+":"+this.content+"<button id='replymod'>수정</button>"+"<button id='replydel'>삭제</button>"+'</li>';
+	  	    	 $(data).each(function(index){//수정버튼 누르면 변경할 내용 나오는 것
+	  	    		str += '<li id="'+this.commExNO+'"><span>NO: '+this.commExNO+"</span><span>"
+	  	    		+" 내용: </span><span>"+this.content+"</span><span> 날짜: "+this.writeDate
+	  	    		+"</span><button id='replymod' class='replymod'>수정</button>" 
+	  	    		+"<button id='replydel' class='replydel'>삭제</button>"+'</li>';
 	  	    		
 	  	    	    });
 	  	    	 
@@ -118,28 +124,75 @@
 	  	     }
 	   });    
  }
-    
-	    $("#replymod").on("click",function(){
-	    	
-	    	alert("확인");
-	    	var reply = $(this).parent();
-	    	var commExNO = reply.attr("data-commExNO");
-	    	var content = reply.text();
-	    	
-	    	
-	    	
-	    	
-	    });
-	    
-	    
-	    
-	    
-	    $("#replyAddBtn").on("click",function(){
+   
+$(document).on("click", ".replydel", function(){
+	var temp = $(this).attr("id");
+    var no = $(this).parent().attr("id");
+	alert("댓글을 삭제하시겠습니까??");
+	
+	 $.ajax({
+			type:'delete',
+			url:'/tr/replies/'+no,
+			headers: { 
+			      "Content-Type": "application/json",
+			      "X-HTTP-Method-Override": "DELETE" },
+			dataType:'text', 
+			success:function(result){
+				console.log("result: " + result);
+				if(result == 'SUCCESS'){
+					alert("삭제 되었습니다.");
+					getAllList();
+				
+				}
+		     },
+		     error:function(){
+		    	 alert('삭제실패!!')
+		     }
+	   });//삭제요청
+	
+});
 
-			 var replyer = $("#writer").val();
+$(document).on("click", ".replymod", function(){//수정폼
+	
+	var initialtext = $(this).prev().prev().text();
+	//$(this).prev().html('<input type="text" value='+initialtext+'>');
+	$('#replyupdate').val(initialtext);
+	var uForm = $('#updateForm');//<div id=updateForm>
+	$(this).parent().append(uForm);
+	uForm.show();
+	
+	
+});//
+
+$("#updateForm button").on("click", function(){//수정처리
+	
+	$.ajax({
+		type: 'put',
+		url:'/tr/replies/'+$("#updateForm").parent().attr("id"),
+		headers: {
+			 "Content-Type": "application/json",
+			 "X-HTTP-Method-Override": "PUT"},
+		data: JSON.stringify({content: $("#updateForm input").val()}),
+		dataType:'text',
+		success: function(result){
+			console.log("result: "+result);
+			if(result =='SUCCESS'){
+				alert("수정되었습니다");
+				getAllList();
+			}
+		}
+		
+	});
+});
+	
+	
+	    
+	    $("#replyAddBtn").on("click",function(){//댓글 추가하기
+
+			
+			 var talReviewNO = $("#talReviewNO").val();
 			 var content = $("#content").val();
 			
-			  
 			  $.ajax({
 					type:'post',
 					url:'/tr/replies/',
@@ -149,18 +202,23 @@
 					dataType:'text',
 					data: JSON.stringify({
 					talReviewNO:talReviewNO,
+					memNO:memNO,
 					content:content
+				
+					
 					}),
 					
 					success:function(result){
 						if(result == 'SUCCESS'){
 							alert("댓글이 등록 되었습니다.");
-							
+							content.val("");//텍스트초기화가 안됨
 							getAllList();
 
 						}
 				}});
 		});
+	    
+	    
 	    
 	    $("#replyview").on("click",function(){
 	 

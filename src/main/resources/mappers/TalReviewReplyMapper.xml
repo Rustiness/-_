@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="talreview">
 
-
+  <!-- 후기게시판 댓글입력 -->
 	<!--
 	private String commExNO;  /* 댓글번호 */
  	private String  talReviewNO;  /* 재능교환번호 */
@@ -13,7 +13,7 @@
  -->
 
   <select id="list" resultType="talreview">
-  	select commExNO, talReviewNO, content, writeDate, repairDate, state
+  	select commExNO, talReviewNO, memNO, content, writeDate, repairDate
   	from TalExcComment
   	where talReviewNO=#{talReviewNO}
   	order by commExNO desc
@@ -23,8 +23,8 @@
   </select>
   
   <insert id="create">
-  	insert into TalExcComment(commExNO, talReviewNO, content)
-  	values (TalExcComment_seq.nextval, #{talReviewNO},#{content})
+  	insert into TalExcComment(commExNO, talReviewNO, content, memNO)
+  	values (TalExcComment_seq.nextval, #{talReviewNO},#{content}, #{memNO})
   </insert>
   
   <update id="update">

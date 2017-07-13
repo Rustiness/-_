@@ -1,25 +1,30 @@
 package com.simpact.controller;
 
-import com.simpact.domain.PageMaker;
-import com.simpact.domain.SearchCriteria;
-import com.simpact.domain.TalExchangelistVO;
-import com.simpact.domain.TalReviewVO;
-import com.simpact.service.TalReviewService;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.inject.Inject;
-import java.util.List;
+import com.simpact.domain.PageMaker;
+import com.simpact.domain.SearchCriteria;
+import com.simpact.domain.TalExchangelistVO;
+import com.simpact.domain.TalReviewVO;
+import com.simpact.service.TalReviewService;
 
 /**
  * Created
- * User: simpact
- * Date: 2017-06-30
+ * User: 선유란
+ * Date: 2017-07-08
  * Time: 오후 4:55
  */
  
@@ -32,8 +37,9 @@ public class TalReviewController {
 
 	// 전체페이지 보기(페이징포함)
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String listPage(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
-
+	public String listPage(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpSession session) throws Exception {
+		session.getAttribute("clientMemberVO");
+		
 		List<TalReviewVO> list = service.listSearch(cri);
 		
 		model.addAttribute("list", list);
@@ -47,7 +53,8 @@ public class TalReviewController {
 
 	// 입력폼만 보기
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String registerGET(Model model) throws Exception {
+	public String registerGET(Model model, HttpServletRequest req) throws Exception {
+		req.getSession().getAttribute("clientMemberVO");
 		List<TalExchangelistVO> list = service.listcate();
 		model.addAttribute("list",list);
 		System.out.println(list.toString());
@@ -70,11 +77,19 @@ public class TalReviewController {
 
 	// list에서 후기내역 상세보기 
 	@RequestMapping("/read")
-	public String readPage(String talReviewNO, Model model, SearchCriteria cri) {
-
+	public String readPage(String talReviewNO, Model model, SearchCriteria cri, HttpServletRequest req) throws Exception {
+		/*req.getSession().getAttribute("clientMemberVO");
+		req.getSession().getAttribute("talDivItem");
+		*/
+		List<TalReviewVO> list = service.listSearch(cri);
+		
+		model.addAttribute("list", list);
 		try {
-			model.addAttribute("TalExchangeVO", service.read(talReviewNO));
+			TalReviewVO vo = service.read(talReviewNO);
+			model.addAttribute("talReviewVO", vo);
+			System.out.println("talReviewVO(talReviewCon)"+vo);
 			model.addAttribute("cri", cri);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -85,7 +100,7 @@ public class TalReviewController {
 	@RequestMapping(value = "/mod", method = RequestMethod.GET)
 	public String modifyPageGET(String talReviewNO, @ModelAttribute("cri") SearchCriteria cri, Model model)
 			throws Exception {
-		model.addAttribute("talExchange", service.read(talReviewNO));
+		model.addAttribute("talReviewVO", service.read(talReviewNO));
 		return "client/talReview/modify";
 	}
 
@@ -114,5 +129,6 @@ public class TalReviewController {
 		attr.addAttribute("keyword", cri.getKeyword());
 		return "redirect:list";
 	}
+	
 
 }// class

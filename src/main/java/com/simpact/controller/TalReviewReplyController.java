@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,9 @@ public class TalReviewReplyController {
 	private TalReviewReplyService service;
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ResponseEntity<String> register(@RequestBody TalReviewReplyVO vo) {// 리턴:  문자열+서버의  상태
+	public ResponseEntity<String> register(@RequestBody TalReviewReplyVO vo, HttpServletRequest req) {// 리턴:
+																				// 문자열+서버의
+		req.getSession().getAttribute("clientMemberVO");//댓글 작성자 닉네임받기											// 상태
 		System.out.println("입력 댓글: " + vo);
 		ResponseEntity<String> entity = null;
 		try {
@@ -81,8 +84,15 @@ public class TalReviewReplyController {
 	public ResponseEntity<String> remove(@PathVariable("commExNO") String commExNO) {
 		ResponseEntity<String> entity = null; // 리턴 : 데이터+서버상태
 		try {
-			service.removeReply(commExNO);
-			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+			int t = service.removeReply(commExNO);
+			if(t==1){
+			  System.out.println("삭제성공: "+ commExNO);
+			  entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+			}else{
+			  System.out.println("삭제실패: "+ commExNO);
+			  entity = new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -125,5 +135,10 @@ public class TalReviewReplyController {
 
 		return entity;
 	}// listPage
+	
+	@RequestMapping("/replymod")
+	public String replymod(){
+		return "/client/talReview/replymod";
+	}
 
 }

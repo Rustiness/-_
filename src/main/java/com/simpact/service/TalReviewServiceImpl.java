@@ -1,14 +1,16 @@
 package com.simpact.service;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
 import com.simpact.domain.Criteria;
 import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.TalExchangelistVO;
 import com.simpact.domain.TalReviewVO;
 import com.simpact.persistence.TalReviewDAO;
-import org.springframework.stereotype.Service;
-
-import javax.inject.Inject;
-import java.util.List;
 
 @Service
 public class TalReviewServiceImpl implements TalReviewService {

@@ -12,87 +12,78 @@ public class TalReviewVO {
 	private String state; /* 표시상태 */
 
 	private String name;//내가 받은 재능명
-	private String nickname;//상대방의 닉네임
-
-
+	private String memNO;//내 아이디번호
+	private String nickName;//상대방의 닉네임
 	@Override
 	public String toString() {
-		return "TalReviewVO [talReviewNO=" + talReviewNO + ", talConnNO=" + talConnNO + ", title=" + title + ", content="
-				+ content + ", writeDate=" + writeDate + ", repairDate=" + repairDate + ", state=" + state + ", name="
-				+ name + ", nickName=" + nickname + "]";
+		return "TalReviewVO [talReviewNO=" + talReviewNO + ", talConnNO=" + talConnNO + ", title=" + title
+				+ ", content=" + content + ", writeDate=" + writeDate + ", repairDate=" + repairDate + ", state="
+				+ state + ", name=" + name + ", memNO=" + memNO + ", nickName=" + nickName + "]";
 	}
-
 	public String getTalReviewNO() {
 		return talReviewNO;
 	}
-
 	public void setTalReviewNO(String talReviewNO) {
 		this.talReviewNO = talReviewNO;
 	}
-
 	public String getTalConnNO() {
 		return talConnNO;
 	}
-
 	public void setTalConnNO(String talConnNO) {
 		this.talConnNO = talConnNO;
 	}
-
 	public String getTitle() {
 		return title;
 	}
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
 	public String getContent() {
 		return content;
 	}
-
 	public void setContent(String content) {
 		this.content = content;
 	}
-
 	public Date getWriteDate() {
 		return writeDate;
 	}
-
 	public void setWriteDate(Date writeDate) {
 		this.writeDate = writeDate;
 	}
-
 	public Date getRepairDate() {
 		return repairDate;
 	}
-
 	public void setRepairDate(Date repairDate) {
 		this.repairDate = repairDate;
 	}
-
 	public String getState() {
 		return state;
 	}
-
 	public void setState(String state) {
 		this.state = state;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getNickname() {
-		return nickname;
+	public String getMemNO() {
+		return memNO;
 	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setMemNO(String memNO) {
+		this.memNO = memNO;
 	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	
+	
+
+	
 
 
 }

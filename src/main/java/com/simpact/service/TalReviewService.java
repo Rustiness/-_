@@ -1,11 +1,11 @@
 package com.simpact.service;
 
+import java.util.List;
+
 import com.simpact.domain.Criteria;
 import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.TalExchangelistVO;
 import com.simpact.domain.TalReviewVO;
-
-import java.util.List;
 
 public interface TalReviewService {
 

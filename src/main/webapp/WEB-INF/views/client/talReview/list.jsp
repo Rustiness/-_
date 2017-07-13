@@ -5,6 +5,7 @@
    Time: 오후 6:04
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%-- .jsp --%>
 <%@include file="../include/header.jsp"%>
@@ -52,23 +53,24 @@
 
 					</tr>
 
-					<c:forEach items="${list }" var="TalReviewVO">
+					<c:forEach items="${list }" var="talReviewVO">
 
 						<tr>
-							<td>${TalReviewVO. talReviewNO}</td>
+							<td>${talReviewVO. talReviewNO}</td>
 							
 							
-									<td>${TalReviewVO.name}</td>
+									<td>${talReviewVO.name}</td>
 								
 								
 									
 							
 							
 							<td><a
-								href='/tr/read${pageMaker.makeSearch(pageMaker.cri.page) }&talReviewNO=${TalReviewVO.talReviewNO}'>
-									${TalReviewVO.title} </a></td>
-							<td>${TalReviewVO.nickname }</td>
-							<td>${TalReviewVO.writeDate }</td>
+								href='/tr/read${pageMaker.makeSearch(pageMaker.cri.page) }&talReviewNO=${talReviewVO.talReviewNO}'>
+									${talReviewVO.title} </a></td>
+							<td>${talReviewVO.nickName }</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${talReviewVO.writeDate }"/></td>
+						
 						</tr>
 					</c:forEach>
 				</table>

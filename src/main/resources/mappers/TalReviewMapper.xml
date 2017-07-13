@@ -4,8 +4,8 @@
 
 	<!-- 후기 입력하기 -->
 	<insert id="create">
-		INSERT INTO TalReview (talReviewNO, talConnNO, title, content, writeDate)
-		VALUES ('TE_A' || LPAD(TalReview_seq.nextval, 5, 0), 'TEC_A00005', #{title}, #{content}, sysdate)
+		INSERT INTO TalReview (talReviewNO, talConnNO, memNO, title, content, writeDate)
+		VALUES ('TE_A' || LPAD(TalReview_seq.nextval, 5, 0), #{talConnNO}, #{memNO}, #{title}, #{content}, sysdate)
 	</insert>
 
 	<!-- 후기 게시판 전체목록보기 -->
@@ -17,14 +17,17 @@
 
 	<!-- 게시물 상세읽기 -->
 	<select id="read" resultType="rboard">
-		SELECT talReviewNO, title, content, writeDate
-		FROM TalReview
-		WHERE talReviewNO = #{talReviewNO}
+		select r.nickname, w.content, w.title , w.talReviewNO
+		from talReview w, member r
+ 		where r.memNO = w.memNO and talreviewno=#{talreviewno}
 	</select>
-
-	<!-- <select id="nickname"> select nickname from member where memno= (select 
-		memNO from TalExcConn where talConnNo = (select talConnNO from TalExchange 
-		where talReviewNO=#{talReviewNO})) </select> -->
+	
+	<!-- 게시글 작성자 가져오기
+	<select id="readnickname" resultType="String">
+		select nickname
+		from member
+		where memno=(select memno from talreview where talreviewno=#{talReviewNO});
+	</select>-->
 
 	<!-- 게시물 수정 -->
 	<update id="update">
@@ -67,17 +70,14 @@
 		</if>
 	</sql>
 
-	<!-- 전체리스트 검색하기(카테고리, 닉네임 조회때문에 복잡해짐 -_- -->
+	<!-- 전체리스트 검색하기 -->
 	<select id="listSearch" resultType="rboard">
-		select e.talReviewNO, e.title, e.content, m.nickName, e.writeDate,f.name
-		from TalReview e,TalExcConn c,member m,TalentBoard t,NP_TalHave n,DF_TalDiv f
-		where n.talDivDF = f.talDivDF <!--DF_재능항목+보유한재능(작성자)  -->
-		and e.talConnNO = c.talConnNO <!--재능교환(후기)+재능연결  -->
-		and n.talDocNO = t.talDocNO <!--재능연결+재능글  -->
-		and t.talDocNO = c.talDocNO <!--재능글+보유한재능 -->
-		and c.memNO = m.memNO <!--재능연걸+회원  -->
-		<include refid="search"></include>
-		order by e.talReviewNO desc
+		select talReviewNO, r.nickname, w.content, w.title , writeDate
+		from talReview w, member r
+ 		where r.memNO = w.memNO
+		
+		<!-- <include refid="search"></include> -->
+		order by talReviewNO desc
 	</select>
 
 	<!-- 전체글갯수 확인하기 -->
@@ -91,15 +91,7 @@
 		<include refid="search2"></include>
 	</select>
 
-	<!-- <select id="nickname" resultType="int">
-	select nickname
-	from member
-	where memno= (select  memNO
-					from TalExcConn
-					where talConnNo = (select talConnNO
-										from TalReview
-										where talReviewNO='TE_A00001'))
-	</select> -->
+	
 </mapper>
 
 

@@ -1,6 +1,6 @@
 package com.simpact.domain;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class TalReviewReplyVO {
 	private String commExNO;  /* 댓글번호 */
@@ -9,11 +9,13 @@ public class TalReviewReplyVO {
 	private Date  writeDate; /* 등록일시 */
 	private Date  repairDate; /* 수정일시 */
 	private String  state;  /* 표시상태 */
+	private String memNO; //회원번호
 	
 	@Override
 	public String toString() {
 		return "TalReviewReplyVO [commExNO=" + commExNO + ", talReviewNO=" + talReviewNO + ", content=" + content
-				+ ", writeDate=" + writeDate + ", repairDate=" + repairDate + ", state=" + state + "]";
+				+ ", writeDate=" + writeDate + ", repairDate=" + repairDate + ", state=" + state + ", memNO=" + memNO
+				+ "]";
 	}
 	public String getCommExNO() {
 		return commExNO;
@@ -50,6 +52,12 @@ public class TalReviewReplyVO {
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	public String getMemNO() {
+		return memNO;
+	}
+	public void setMemNO(String memNO) {
+		this.memNO = memNO;
 	}
 	
 	

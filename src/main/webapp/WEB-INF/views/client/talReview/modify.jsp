@@ -16,7 +16,7 @@
 
 	<form role="form" method="post" action="mod">
 		
-	    <input type='hidden' name='talReviewNO' value="${talExchange.talReviewNO}">
+	    <input type='hidden' name='talReviewNO' value="${talReviewVO.talReviewNO}">
 		<input type='hidden' name='page' value="${cri.page}"> 
 		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 		<input type='hidden' name='searchType' value="${cri.searchType}">
@@ -43,10 +43,10 @@
 			style="font-weight: bold; font-size: 18px; background-color: rgb(224, 224, 224);"
 			class spellcheck="false">후기입력</div>
 		<div data-text-content="true" style="font-size: 16px;">후기 제목</div>
-		<input type="text" id="title" name="title" value="${talExchange.title}">
+		<input type="text" id="title" name="title" value="${talReviewVO.title}">
 		<div data-text-content="true" style="font-size: 16px;" rows="5"
 			cols="50">후기 내용</div>
-		<textarea rows="5" cols="50" id="content" name="content"> ${talExchange.content }</textarea>
+		<textarea rows="5" cols="50" id="content" name="content"> ${talReviewVO.content }</textarea>
 		<!-- /.box-body -->
 
 		<div class="box-footer">

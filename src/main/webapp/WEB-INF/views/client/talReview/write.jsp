@@ -25,22 +25,28 @@
 	<div data-text-content="true" style="font-weight:bold;font-size:18px" class>교환후기 등록</div>
 	<div data-text-content="true" style="font-weight: bold; font-size: 18px; background-color: rgb(224, 224, 224);" class spellcheck="false">  교환 정보</div>
      <table>
-     <tr><th>받은재능</th>
+     <tr>
+     <th>받은재능: </th>
      <td>
-     
-    <select>
-		<c:forEach items="${list }" var="list">
-    		 <option>${list.name}</option>
-
-		</c:forEach>     
-     </select>
-						
-
+    
+    
+		<c:forEach items="${talDivHave}" var="talDivItem">
+			<c:if test="${talExchangeVO.talConnNO eq talDivItem.talConnNO}">
+			</c:if>
+		</c:forEach> 
+	 </td>
+  					
+	
+	
      
      </td>
      
      </tr>
-     <tr><th>교환자닉네임</th><td><select><option>x7360</option><option>gildon</option><option>lime</option></select></td></tr>
+     <tr>
+     <th>작성자닉네임: </th>
+     <td>${clientMemberVO.nickName }</td>
+    <input type=hidden name="memNO" value ='${clientMemberVO.memNO }' >
+     </tr>
      
      
      </table>
@@ -70,6 +76,19 @@
 
 
 		});
+			
+			$(document).ready(function() {
+			
+				$(".btn-primary").on("click",function() {
+					
+					alert("등록이 되었습니다");
+						
+					});
+
+
+			});
+			
+			
 				</script>
 </section>
 

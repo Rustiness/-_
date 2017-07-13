@@ -12,15 +12,15 @@ import com.simpact.domain.Criteria;
 import com.simpact.domain.TalReviewReplyVO;
 
 @Repository
-public class TalReviewReplyDAOImpl implements TalReviewReplyDAO {
+public class TalExchangeReplyDAOImpl implements TalExchangeReplyDAO{
 	
 	@Inject
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<TalReviewReplyVO> list(String talReviewNO) throws Exception {
+	public List<TalReviewReplyVO> list(String talExcNO) throws Exception {
 	
-		return sqlSession.selectList("talreview.list",talReviewNO );
+		return sqlSession.selectList("talreview.list",talExcNO );
 	}
 
 	@Override
@@ -36,17 +36,17 @@ public class TalReviewReplyDAOImpl implements TalReviewReplyDAO {
 	@Override
 	public int delete(String commExNO) throws Exception {
 		return sqlSession.delete("talreview.delete",commExNO );
-	}
+	} 
 
 	@Override
-	public List<TalReviewReplyVO> listPage(String talReviewNO, Criteria cri) throws Exception {
+	public List<TalReviewReplyVO> listPage(String talExcNO, Criteria cri) throws Exception {
 		RowBounds bounds = new RowBounds(cri.getPageStart(),cri.getPerPageNum());
-		return sqlSession.selectList("talreview.list",talReviewNO);
+		return sqlSession.selectList("talreview.list",talExcNO);
 	}
 
 	@Override
-	public int count(String talReviewNO) throws Exception {
-		return sqlSession.selectOne("talreview.count",talReviewNO);
+	public int count(String talExcNO) throws Exception {
+		return sqlSession.selectOne("talreview.count",talExcNO);
 	}
 
 }
