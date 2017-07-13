@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
@@ -24,9 +25,13 @@ public class TalExcConnController {
 	@Inject
 	private TalExcConnService service;// DB서비스
 
-	/* 재능교환신청 목록 */
+	/* 재능교환신청 수신함 목록 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+	public String list(@ModelAttribute("cri") SearchCriteria cri, HttpServletRequest request, Model model) throws Exception {
+		MemberVO memberVO = (MemberVO) request.getSession().getAttribute("clientMemberVO");
+		System.out.println("memberVO.getMemNO() : " + memberVO.getMemNO());
+
+		cri.setConnMemNO(memberVO.getMemNO());
 
 		model.addAttribute("divList", service.listTalDivCn(cri));
 

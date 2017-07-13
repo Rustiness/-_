@@ -1,6 +1,6 @@
 package com.simpact.domain;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class TalReviewReplyVO {
 	private String commExNO;  /* 댓글번호 */

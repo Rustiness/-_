@@ -38,6 +38,7 @@
 					console.log("result: " + result);
 					if(result.match("successAccept")) {
 						alert("교환신청을 수락하였습니다.");
+						self.location = "list?page=${cri.page}&perPageNum=${cri.perPageNum}" + "&searchType=${cri.searchType}&keyword=${cri.keyword}";
 					} else if (result.match("failAccept")) {
 						alert("교환신청 수락이 실패되었습니다.");
 					} else if (result.match("successRefuse")) {
@@ -47,7 +48,7 @@
 					} else if (result.match("failError")) {
 						alert("신청에 문제가 발생하였습니다.");
 					}
-					self.location = "list?page=${cri.page}&perPageNum=${cri.perPageNum}" + "&searchType=${cri.searchType}&keyword=${cri.keyword}";
+					$(".btnAcceptClose").click();
 				}
 			});
 		});
@@ -66,6 +67,9 @@
 					if (result == 'SUCCESS') {
 						alert("신청을 거절하였습니다.");
 						self.location = "list?page=${cri.page}&perPageNum=${cri.perPageNum}" + "&searchType=${cri.searchType}&keyword=${cri.keyword}";
+					} else {
+						alert("거절에 문제가 발생하였습니다.");
+						$(".btnRefuseClose").click();
 					}
 				}
 			});
@@ -191,7 +195,7 @@
 									<h7>수락시 상대와 자신의 연락처가 공유됩니다.</h7>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+									<button type="button" class="btn btn-default btnAcceptClose" data-dismiss="modal">취소</button>
 									<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info"
 									       type="button" id="btnAccept" value="수락"/>
 								</div>
@@ -215,7 +219,7 @@
 									<!--<h7>교환 거절시 상대는 연결된 게시글을 통해 교환신청을 할 수 없게 됩니다.</h7>-->
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+									<button type="button" class="btn btn-default btnRefuseClose" data-dismiss="modal">취소</button>
 									<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info"
 									       type="button" id="btnRefuse" value="거절"/>
 								</div>

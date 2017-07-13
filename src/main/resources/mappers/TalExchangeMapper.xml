@@ -27,12 +27,23 @@
 
 	<!--리스트 -->
 	<select id="listSearch" resultType="talExChangeVO">
-		SELECT TEC.talConnNO, TEC.memNO, M.nickName, M.EMAIL, M.TEL, TEC.state
-		from NP_TalHaveCn NTH, TalExcConn TEC, Member M
-		WHERE TEC.memNO = M.memNO AND NTH.talConnNO = TEC.talConnNO
+		SELECT TEC.TALCONNNO, TB.memNO memNO, M.nickName, M.EMAIL, M.TEL, TEC.state
+		FROM TalentBoard TB, TalExcConn TEC, MEMBER M
+		WHERE
+		TB.MEMNO = M.MEMNO
+		AND TB.TALDOCNO = TEC.TALDOCNO
+		AND TEC.memNO = #{connMemNO} --내가 신청자
+		AND TEC.STATE = 3
+		UNION
+		SELECT TEC.TALCONNNO, TEC.memNO memNO, M.nickName, M.EMAIL, M.TEL, TEC.state
+		FROM TalentBoard TB, TalExcConn TEC, MEMBER M
+		WHERE
+		TEC.MEMNO = M.MEMNO
+		AND TB.TALDOCNO = TEC.TALDOCNO
+		AND TB.memNO = #{connMemNO} --내가 작성자
+		AND TEC.STATE = 3
 		<include refid="search"></include>
-		GROUP BY TEC.talConnNO, TEC.memNO, M.nickName, M.EMAIL, M.TEL, TEC.state
-		order by talConnNO desc
+		ORDER BY TALCONNNO DESC
 	</select>
 
 	<!-- 게시물 갯수 출력 -->
@@ -45,14 +56,25 @@
 
 	<!-- 상대가 보유한 재능 항목 리스트 -->
 	<select id="listTalDivHave" resultType="talDivVO">
-		SELECT TEC.TALCONNNO, DT.name
-		FROM NP_TalHaveCn TH, TalExcConn TEC, Member M, DF_TALDIV DT
-		WHERE TEC.memNO = M.memNO
-		AND TH.TALCONNNO = TEC.TALCONNNO
+		SELECT TEC.TALCONNNO, TB.TALDOCNO, DT.TALDIVDF, DT.name
+		FROM NP_TalHave TH, TalentBoard TB, TalExcConn TEC, MEMBER M, DF_TALDIV DT
+		WHERE M.MEMNO = TB.MEMNO
+		AND TH.TALDOCNO = TB.TALDOCNO
+		AND TEC.TALDOCNO = TB.TALDOCNO --연결된것중 작성
+		AND TEC.memNO = #{connMemNO} --내가 신청자
 		AND DT.talDivDF = TH.talDivDF
+		AND TEC.STATE = 3
+		UNION
+		SELECT TEC.TALCONNNO, TB.TALDOCNO, DT.TALDIVDF, DT.name
+		FROM NP_TalHaveCn THC, TalentBoard TB, TalExcConn TEC, MEMBER M, DF_TALDIV DT
+		WHERE M.MEMNO = TEC.MEMNO
+		AND THC.TALCONNNO = TEC.TALCONNNO
+		AND TB.TALDOCNO = TEC.TALDOCNO
+		AND TB.memNO = #{connMemNO} --내가 작성자
+		AND DT.talDivDF = THC.talDivDF
+		AND TEC.STATE = 3
 		<include refid="search"></include>
-		GROUP BY TEC.TALCONNNO, M.nickName, TEC.memNO, DT.name, TEC.state
-		order by TALCONNNO desc
+		ORDER BY TALCONNNO DESC
 	</select>
 
 </mapper>

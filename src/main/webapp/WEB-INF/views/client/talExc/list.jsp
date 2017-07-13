@@ -10,6 +10,8 @@
 <%-- .jsp --%>
 <%@include file="../include/header.jsp" %>
 <script>
+	var loginmemNO = '${clientMemberVO.memNO }';
+
 	$(document).ready(
 		function () {
 			$('#searchBtn').on("click",
@@ -36,7 +38,7 @@
 							<span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a>재능 패널</h3>
 					</div>
 					<%-- 패널 시작 --%>
-					<div class="panel-body">
+					<div style="min-height: 450px" class="panel-body">
 						<div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
 							<h5>연결된 재능교환 목록</h5>
 						</div>
@@ -63,33 +65,37 @@
 						</div>
 						<br>
 						<table style="font-size:inherit;" class="table table-condensed table-bordered table-hover" cellpadding="10">
-							<thead style="color:#FFF; background-color:#89729E; text-align: center;">
+							<thead style="color:#FFF; background-color:#89729E; width: 100%;">
 							<tr>
-								<th class="col-md-1">NO.</th>
-								<th class="col-md-1">교환대상</th>
-								<th class="col-md-1">상대 보유재능</th>
-								<th class="col-md-1">연락처</th>
-								<th class="col-md-1">연결일시</th>
-								<th class="col-md-1">만족도/후기</th>
+								<th style="width: 8vw;">NO.</th>
+								<th style="width: 6vw;">연결일시</th>
+								<th style="width: 6vw;">교환대상</th>
+								<th style="width: 10vw;">보유재능</th>
+								<th style="width: 6vw;">연락처</th>
+								<th style="width: 6vw;">교환정보</th>
+								<th style="width: 8vw;">만족도/후기</th>
 							</tr>
 							</thead>
-							<tbody class="text-info">
+							<tbody class="text-info ">
 							<c:forEach items="${listSearch }" var="talExchangeVO">
-								<tr class="text-center">
+								<tr>
 									<td>${talExchangeVO.talConnNO}</td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${talExchangeVO.connDate}"/></td>
 									<td>${talExchangeVO.nickName}</td>
 									<td>
-										<c:forEach items="${talDivHave}" var="talDivItem">
+										<c:forEach items="${talDivHave }" var="talDivItem">
 											<c:if test="${talExchangeVO.talConnNO eq talDivItem.talConnNO}">
-												<span style="background-color: #2d9bff" class="label label-info">#${talDivItem.name}</span>
+												<span style="background-color: #2d9bff; line-height: 30px;" class="label label-info">#${talDivItem.name}</span>
 											</c:if>
 										</c:forEach>
 									</td>
 									<td>
-											<span style="background-color: #2d9bff" class="label label-info">이메일 : ${talExchangeVO.email}</span>
-										<span style="background-color: #2d9bff" class="label label-info">연락처 : ${talExchangeVO.tel}</span>
+											<span style="background-color: #aac0ff; line-height: 30px;" class="label label-info">이메일 : ${talExchangeVO.email}</span>
+										<span style="background-color: #aac0ff; line-height: 30px;" class="label label-info">연락처 : ${talExchangeVO.tel}</span>
 									</td>
-									<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${talExchangeVO.reqDate }"/></td>
+									<td>
+										<a href='/te/read${pageMaker.makeSearch(pageMaker.cri.page) }&talConnNO=${talExchangeVO.talConnNO}'>타임라인</a></td>
+									</td>
 									<td>
 										<a href='/tr/write${pageMaker.makeSearch(pageMaker.cri.page) }&talConnNO=${talExchangeVO.talConnNO}'>후기등록</a></td>
 								</tr>

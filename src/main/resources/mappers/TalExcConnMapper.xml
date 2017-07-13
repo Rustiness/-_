@@ -62,7 +62,8 @@
 	<!-- 재능교환 연결 수락 -->
 	<update id="updTecAccept" parameterType="talExcConnVO">
 		UPDATE TalExcConn
-		SET state = '3' --연결성공
+		SET state    = '3', --연결성공
+			connDate = sysdate
 		WHERE talConnNO = #{talConnNO}
 	</update>
 
@@ -90,12 +91,14 @@
 
 	<!-- 검색하기 -->
 	<select id="listSearch" resultType="talExcConnVO">
-		SELECT TEC.talConnNO, M.nickname, title, content, reqDate, TEC.state, TEC.isYnView
-		FROM NP_TalHaveCn THC, TalExcConn TEC, Member M
+		SELECT TEC.talConnNO, M.nickname, TEC.title, content, reqDate, TEC.state, TEC.isYnView
+		FROM NP_TalHaveCn THC, TalentBoard TB, TalExcConn TEC, Member M
 		WHERE TEC.memNO = M.memNO
 		      AND THC.talConnNO = TEC.talConnNO
+			AND TB.talDocNO = TEC.talDocNO
+			AND TB.memNO = #{connMemNO} --자신의 NO가 재능글의 NO와 같을때
 			AND TEC.STATE = 2
-		GROUP BY TEC.talConnNO, M.NICKNAME, TITLE, CONTENT, REQDATE, TEC.STATE, TEC.isYnView
+		GROUP BY TEC.talConnNO, M.NICKNAME, TEC.TITLE, CONTENT, REQDATE, TEC.STATE, TEC.isYnView
 		ORDER BY talConnNO DESC
 	</select>
 

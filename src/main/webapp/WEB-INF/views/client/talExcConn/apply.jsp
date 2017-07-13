@@ -108,52 +108,60 @@
 		//====================================//
 
 		//재능 등록
-		$(document).on('click', '#btnSend', function() {
-			console.log("등록");
+		$(document).on("click", ".btn", function () {
+			//취소
+			if ($(this).attr("id") == "btnCancel"){
+				self.location = "/tb/list?page=${cri.page}&perPageNum=${cri.perPageNum}" + "&searchType=${cri.searchType}&keyword=${cri.keyword}";
+			}
 
-			var talWantDivSel = $('#talWantField div div select[name="talWantDiv"] option:selected:not([value="none"])'); //선택된 것 중 none이 아닌것만!
-			var talWantDivData = talWantDivSel.map(function () {
-				return $(this).val();
-			}).get().join(); //맵으로 된 오브젝트 값을 가져온 후 배열화
-			console.log('talWantDivData:' + talWantDivData);
+			if ($(this).attr("id") == "btnSend") {
+				console.log("등록진행");
+				var talWantDivSel = $('#talWantField div div select[name="talWantDiv"] option:selected:not([value="none"])'); //선택된 것 중 none이 아닌것만!
+				var talWantDivData = talWantDivSel.map(function () {
+					return $(this).val();
+				}).get().join(); //맵으로 된 오브젝트 값을 가져온 후 배열화
+				console.log('talWantDivData:' + talWantDivData);
 
-			var talHaveDivSel = $('#talHaveField div div select[name="talHaveDiv"] option:selected:not([value="none"])'); //선택된 것 중 none이 아닌것만!
-			var talHaveDivData = talHaveDivSel.map(function () {
-				return $(this).val();
-			}).get().join(); //맵으로 된 오브젝트 값을 가져온 후 배열화
-			console.log('talHaveDivData:' + talHaveDivData);
+				var talHaveDivSel = $('#talHaveField div div select[name="talHaveDiv"] option:selected:not([value="none"])'); //선택된 것 중 none이 아닌것만!
+				var talHaveDivData = talHaveDivSel.map(function () {
+					return $(this).val();
+				}).get().join(); //맵으로 된 오브젝트 값을 가져온 후 배열화
+				console.log('talHaveDivData:' + talHaveDivData);
 
-			$.ajax({
-				type : 'post',
-				url : '/tec/app/',
-				data : {
-					memNO:'${talExcConnVO.memNO}', //신청자
-					talDocNO:'${talExcConnVO.talDocNO}', //재능글
-					title:$('#title').val(),
-					content:oEditors.getById["description"].getIR(),
-					talWantDiv: talWantDivData,
-					talHaveDiv: talHaveDivData
-				},
-				dataType:"text",
-				success : function(result) {
-					if(result.match("success")) {
-						alert('등록성공');
-					} else if (result.match("fail_title")) {
-						alert('신청 메세지의 제목을 입력하세요.');
-					} else if (result.match("fail_content")) {
-						alert('신청 메세지의 내용을 입력하세요.');
-					} else if (result.match("fail_talWantDiv")) {
-						alert('원하는 재능항목을 설정하세요.');
-					} else if (result.match("fail_talHaveDiv")) {
-						alert('보유한 재능항목을 설정하세요.');
-					} else if (result.match("fail")) {
-						alert('등록실패');
-					} else if (result.match("fail2")) {
-						alert('널포인트');
+				$.ajax({
+					type: 'post',
+					url: '/tec/app/',
+					data: {
+						memNO: '${talExcConnVO.memNO}', //신청자
+						talDocNO: '${talExcConnVO.talDocNO}', //재능글
+						title: $('#title').val(),
+						content: oEditors.getById["description"].getIR(),
+						talWantDiv: talWantDivData,
+						talHaveDiv: talHaveDivData
+					},
+					dataType: "text",
+					success: function (result) {
+						if (result.match("success")) {
+							alert('신청이 진행되었습니다.');
+							self.location = "/tb/list?page=${cri.page}&perPageNum=${cri.perPageNum}" + "&searchType=${cri.searchType}&keyword=${cri.keyword}";
+						} else if (result.match("fail_title")) {
+							alert('신청 메세지의 제목을 입력하세요.');
+						} else if (result.match("fail_content")) {
+							alert('신청 메세지의 내용을 입력하세요.');
+						} else if (result.match("fail_talWantDiv")) {
+							alert('원하는 재능항목을 설정하세요.');
+						} else if (result.match("fail_talHaveDiv")) {
+							alert('보유한 재능항목을 설정하세요.');
+						} else if (result.match("fail")) {
+							alert('등록실패');
+						} else if (result.match("fail2")) {
+							alert('널포인트');
+						}
+						$(".btnSendClose").click();
 					}
-				}
 
-			});
+				});
+			}
 
 		});
 
@@ -230,7 +238,7 @@
 									<label class="col-md-2 form-label">보유한 재능</label>
 									<div class="col-md-4">
 										<c:forEach items="${readDivHave }" var="writerHaveItem">
-											<span style="background-color: #2d9bff" class="label label-info">#${writerHaveItem.talDivName}</span>
+											<span style="background-color: #2d9bff; line-height: 30px;" class="label label-info">#${writerHaveItem.talDivName}</span>
 										</c:forEach>
 									</div>
 								</div>
@@ -255,6 +263,51 @@
 										<a data-rel="collapse" href="#"><i class="entypo-down-open"></i></a>
 										<a data-rel="close" href="#!/tasks" ui-sref="Tasks"><i class="entypo-cancel"></i></a>
 									</div>
+
+									<%-- 신청 진행 Modal 시작--%>
+									<div class="modal fade" id="sendModal" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
+										<div class="modal-dialog modal-sm">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+													</button>
+													<h4 class="modal-title" id="acceptModalLabel">교환 신청 알림창</h4>
+												</div>
+												<div class="modal-body">
+													<h6>재능 교환을 신청하시겠습니까?</h6>
+													<h7>연결성공시 상대와 자신의 연락처가 공유됩니다.</h7>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default btnSendClose" data-dismiss="modal">취소</button>
+													<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info"
+													       type="button" id="btnSend" value="전송"/>
+												</div>
+											</div>
+										</div>
+									</div>
+									<%-- 신청 진행 Modal 끝--%>
+									<%-- 신청 중단 Modal 시작--%>
+									<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="smallModal"
+									     aria-hidden="true">
+										<div class="modal-dialog modal-sm">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+													</button>
+													<h4 class="modal-title" id="cancelModalLabel">교환 신청 알림창</h4>
+												</div>
+												<div class="modal-body">
+													<h6>재능 교환을 중단하시겠습니까?</h6>
+													<h7>입력하던 내용은 저장되지 않습니다.</h7>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+													<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info" type="button" id="btnCancel" value="중단"/>
+												</div>
+											</div>
+										</div>
+									</div>
+									<%-- 신청 중단 Modal 끝--%>
 								</div>
 
 								<div class="panel-body">
@@ -317,8 +370,8 @@
 									</div>
 									<div class="form-group">
 										<div class="col-md-offset-2 col-md-10">
-											<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info" type="button" id="btnSend" value="전송"/>
-											<input style="background-color:#900725; border-color:#ae2631;" class="btn btn-info" type="button" value="취소"/>
+											<a style="background-color:#5B3256; border-color:#89729E;" href="#" class="btn btn-info" data-toggle="modal" data-target="#sendModal">전송</a>
+											<a style="background-color:#5B3256; border-color:#89729E;" href="#" class="btn btn-info" data-toggle="modal" data-target="#cancelModal">취소</a>
 										</div>
 									</div>
 									</form>

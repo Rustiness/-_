@@ -5,6 +5,11 @@ public class SearchCriteria extends Criteria {
 	private String searchType;
 	private String keyword;
 
+	private String connMemNO; /* Á¢¼ÓÀÚNO */
+
+	public SearchCriteria() {
+	}
+
 	public String getSearchType() {
 		return searchType;
 	}
@@ -21,11 +26,20 @@ public class SearchCriteria extends Criteria {
 		this.keyword = keyword;
 	}
 
-	@Override
-	public String toString() {
-		return super.toString() + ":: SearchCriteria [searchType=" + searchType +
-				", keyword=" + keyword + "]";
+	public String getConnMemNO() {
+		return connMemNO;
 	}
 
+	public void setConnMemNO(String connMemNO) {
+		this.connMemNO = connMemNO;
+	}
 
+	@Override
+	public String toString() {
+		return "SearchCriteria{" +
+				"searchType='" + searchType + '\'' +
+				", keyword='" + keyword + '\'' +
+				", connMemNO='" + connMemNO + '\'' +
+				'}';
+	}
 }

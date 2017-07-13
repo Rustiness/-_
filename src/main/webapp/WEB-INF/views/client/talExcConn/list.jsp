@@ -43,7 +43,7 @@
 							</a>재능 패널</h3>
 					</div>
 					<%-- 패널 시작 --%>
-					<div class="panel-body">
+					<div style="min-height: 450px" class="panel-body">
 						<div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
 							<h5>교환신청 수신함</h5>
 						</div>
