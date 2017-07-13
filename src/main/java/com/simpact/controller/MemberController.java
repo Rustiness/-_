@@ -72,6 +72,11 @@ public class MemberController {
 	@RequestMapping("/mod")
 	public String modifyfrom(HttpServletRequest req,Model model) throws Exception {
 		req.getSession().getAttribute("clientMessengerVO");
+		MemberVO vo = (MemberVO) req.getSession().getAttribute("clientMemberVO");
+		String tel[] = vo.getTel().split("-");
+			
+		model.addAttribute("tel", tel);
+		
 		
 		List<MessengerVO> list = service.listmsg();//리스트 목록출력
 		model.addAttribute("messengerVOlist", list);

@@ -37,12 +37,13 @@ public class AdEmployeeController {
 	
 	/* 직원목록 */
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public String list(@ModelAttribute("cri") SearchCriteria cri, Model model)throws Exception{
+	public String list(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpServletRequest req)throws Exception{
 		
+		model.addAttribute("list",service.listSearchCriteria(cri));  //회원정보(직원인사람만)리스트
 		
-		model.addAttribute("list",service.listSearchCriteria(cri));  //목록
 		PageMaker maker = new PageMaker();
 		maker.setCri(cri);
+
 		
 		maker.setTotalCount(service.listSearchCount(cri));
 		
@@ -54,7 +55,8 @@ public class AdEmployeeController {
 	@RequestMapping("/read")
 	public String read(@RequestParam("memNO") String memNO, SearchCriteria cri, Model model,HttpServletRequest req) throws Exception {
 		List<MemberVO> list = (List<MemberVO>) req.getSession().getAttribute("memberList"); // 로그인한 사람의 정보 LIST
-		String loginMemNO = list.get(0).getMemNO();											// 그중 memNO을 얻음
+		String loginMemNO = list.get(0).getMemNO();	// 그중 memNO을 얻음
+		
 		model.addAttribute("loginMemNO",service.reademp(loginMemNO));// "로그인한 직원"의 직원정보
 		
 		

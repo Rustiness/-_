@@ -90,7 +90,7 @@
 				<li>
 					<input type="button" class="btn btn-info navbar-btn" id="tecclistaa" value="알림함"/>
 					<input type="button" class="btn btn-info navbar-btn" id="userallinfo" value="계정정보"/>
-					<p class="navbar-text"><a class="navbar-link" href="">${clientMemberVO.name } 님</a>
+					<p class="navbar-text"><a class="navbar-link" href="">${clientMemberVO.nickName }(${clientMemberVO.name }) 님</a>
 					</p>
 					<input type="button" class="btn btn-danger navbar-btn" id="logout" value="로그아웃"/>
 				</li>

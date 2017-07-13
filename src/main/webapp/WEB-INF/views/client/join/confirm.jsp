@@ -272,11 +272,11 @@ $(document).ready(function () {
 				type : "get",
 				dataType : "JSON",
 				success : function(data) {
-					var selectlist = "<div><select id='select_box" + inputID + "'>";
+					var selectlist = "<div><select class='btn btn-default dropdown-toggle' id='select_box" + inputID + "'>";
 					$.each(data, function(index, m) { // db에 있는 메신저목록을 가져와서 하단의 div에 넣는다
 						selectlist += "<option value=" + m.mesDF + " id=" + m.mesDF + ">" + m.name + "</option>";
 					});
-					selectlist += "<select> <input type=text id='msg" + inputID + "'> <input type=button value='삭제' id='deletemsg'></div>";
+					selectlist += "<select > <input type=text id='msg" + inputID + "'> <input type=button value='삭제' id='deletemsg' class='btn btn-danger' ></div>";
 					inputID++;
 					msgmaxcount++;
 					$('#megform').append(selectlist);
@@ -299,6 +299,12 @@ $(document).ready(function () {
 
 		//데이터 전달하기 기본정보
 		document.getElementById('insert').onclick = function() {
+			for(var i=0; i<msgmaxcount; i++){
+				if($('#msg'+i).val()==''){
+					alert("메신저에 값을 입력하세요");
+					return false;
+				}
+			}
 			var tel = $('#tel1').val() + "-" + $('#tel2').val() + "-" + $('#tel3').val();
 			var sex = $('input:radio[name="sex"]:checked').val();
 			$.ajax({
@@ -320,9 +326,11 @@ $(document).ready(function () {
 					if (result[0].match("success")) { //가입성공 (메세지제외한상태)
 						var mesCount= 1;
 						var mesNO = ''; //메신저테이블에 들어갈 NO
+
 						var mesDF = '';
 						var mesid = '';
-						for (var i = 0; i < inputID; i++) {	//행을 삭제하지 않았을때 기준
+						var memNO = result[1];
+						for (var i = 0; i < inputID; i++) {
 							if($('#select_box'+i+' option:selected').val() !== undefined){
 								mesNO += mesCount+',';
 								mesDF += $('#select_box'+i+' option:selected').val() + ",";
@@ -336,14 +344,13 @@ $(document).ready(function () {
 							type : "post",
 							data : {
 								No : mesNO,
-								memNO : result[1],
+								memNO : memNO,
 								mesDF : mesDF,
 								id : mesid
 							},
 						    success : function(result){
 						    	if(result.match("success")){
-						    		alert("회원가입이 성공하였습니다.\n로그인해주세요~");
-						    		location.href="/j/res"
+						    		location.href="/j/res?memNO="+memNO;
 						    	}
 						    }
 						});
@@ -353,55 +360,156 @@ $(document).ready(function () {
 					}
 				}
 			});
-		};
-		
-		
+	};//클릭시
 });//document.ready
 	
 </script>
 
 <!-- Main content -->
 <section class="content">
-
-	<br>회원가입<br> <br>
-	<form method="post" id="confirmForm">
-		<br>계정정보<br> 아이디(이메일주소)<input type="text" id="email"
-			name="email" size="28" maxlength="30">
-		<div id="email_1" style="color: red; font-size: 11px;"></div>
-		비밀번호<input type="password" name="pass1" id="pass1" maxlength="12"><br>
-		비밀번호 확인<input type="password" name="pass2" maxlength="12">
-		<div id="pass_1" style="color: red; font-size: 11px;"></div>
-		<div id="pass_2" style="color: red; font-size: 11px;"></div>
-		<font color=green size="1"> 최소 6자, 최대 12자 (영문과 숫자를 이용, 영문은
-			대소문자를 구분)</font><br> <br>개인정보<br> 이름<input type="text"
-			name="name" id="name" maxlength="12">
-		<div id="name_1" style="color: red; font-size: 11px;"></div>
-
-		닉네임<input type="text" id="nickName" name="nickName">
-		<div id="nickname_1" style="color: red; font-size: 11px;"></div>
-		<br>성별<br> 남성<input type="radio" name="sex" value="1"
-			checked="checked"> 여성<input type="radio" name="sex" value="2"><br>
-		생년월일<input type="date" name="birth" id="birth"><br> 핸드폰번호<input
-			type="text" name="tel1" id="tel1" size="4" maxlength="3"> - <input
-			type="text" name="tel2" id="tel2" size="4" maxlength="4"> - <input
-			type="text" name="tel3" id="tel3" size="4" maxlength="4">
-		<div id="tel_1" style="color: red; font-size: 11px;"></div>
-	</form>
-	<!-- 메신저 추가용  -->
-	메신저
-	<form id="megform" action="/j/confrim/messenger">
-		<div>
-		<select id="select_box0">
-			<c:forEach items="${list }" var="list">
-				<option value="${list.mesDF }" id="${list.mesDF }">${list.name }</option>
-			</c:forEach>
-		</select> 
-		<input type="text" id="msg0"> <input name="addButton" type="button" value="추가" id="addmax">
-		</div>
-	</form>
-	<input type="button" value="등록" id="insert">
-	<button onclick="window.close()">취소</button>
-	<!-- 메신저 추가용  -->
+<div class="panel panel-default">
+					<div>
+						<input type="hidden" name="page" value="1"> <input type="hidden" name="perPageNum" value="10">
+						<input type="hidden" name="searchType" value="">
+						<input type="hidden" name="keyword" value="">
+					</div>
+					<div class="panel-body">
+						
+						<div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
+							<h5>회원가입</h5>
+						</div>
+						
+						<form method="post" id="confirmForm">
+						<div class="panel panel-default">
+							<div style="background-color:#89729E;" class="panel-heading">
+								<h3 style="color:#FFF;" class="panel-title"><b>계정정보</b></h3>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-globe"></span>
+             							<span class="glyphicon-class">아이디(이메일)</span>
+             						</label>
+									<div class="col-md-4">
+										<input type="text" id="email" name="email" maxlength="30">
+										<div id="email_1" style="color: red; font-size: 11px;"></div>
+       								</div>
+								</div>
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-lock"></span>
+             							<span class="glyphicon-class">비밀번호</span>
+             						</label>
+									<div class="col-md-4">
+										<input type="password" name="pass1" id="pass1" maxlength="12">
+       								</div>
+								</div>
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-lock"></span>
+             							<span class="glyphicon-class">비밀번호확인</span>
+             						</label>
+									<div class="col-md-4">
+										<input type="password" name="pass2" maxlength="12">
+										<div id="pass_1" style="color: red; font-size: 11px;"></div>
+										<div id="pass_2" style="color: red; font-size: 11px;"></div>
+       								</div>
+								</div>
+								<div class="row" style="margin-left: 191px">
+									<font color=green size="1"> 최소 6자, 최대 12자 (영문과 숫자를 이용, 영문은 대소문자를 구분)</font>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div style="background-color:#89729E;" class="panel-heading">
+								<h3 style="color:#FFF;" class="panel-title"><b>개인정보</b></h3>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<label class="col-md-2 form-label">
+										 <span class="glyphicon glyphicon-user"></span>
+            							 <span class="glyphicon-class">이름</span>
+             						</label>
+									<div class="col-md-4">
+										<input type="text" name="name" id="name" maxlength="12">
+										<div id="name_1" style="color: red; font-size: 11px;"></div>
+									</div>
+								</div>
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-pencil"></span>
+             							<span class="glyphicon-class">닉네임</span>
+            				 		</label>
+									<div class="col-md-4">
+										<input type="text" id="nickName" name="nickName">
+										<div id="nickname_1" style="color: red; font-size: 11px;"></div>
+									</div>
+								</div>
+								<div class="row">
+									<label class="col-md-2 form-label">
+										 <span class="glyphicon glyphicon-calendar"></span>
+           							     <span class="glyphicon-class">생년월일</span>
+             						</label>
+									<div class="col-md-4">
+										<input type="date" name="birth" id="birth">
+									</div>
+								</div>
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-heart"></span>
+             							<span class="glyphicon-class">성별</span>
+            				 		</label>
+									<div class="col-md-4">
+           								남성<input type="radio" name="sex" value="1" checked="checked">
+           								여성<input type="radio" name="sex" value="2">
+           							</div>
+           						</div>
+								
+								<div class="row">
+									<label class="col-md-2 form-label">
+										 <span class="glyphicon glyphicon-phone-alt"></span>
+            							 <span class="glyphicon-class">전화번호</span>
+             						</label>
+									<div class="col-md-4">
+									<input type="text" name="tel1" id="tel1" size="4" maxlength="3"> - 
+									<input type="text" name="tel2" id="tel2" size="4" maxlength="4"> - 
+									<input type="text" name="tel3" id="tel3" size="4" maxlength="4">
+									<div id="tel_1" style="color: red; font-size: 11px;"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						</form>
+						<div class="panel panel-default">
+							<div style="background-color:#89729E;" class="panel-heading">
+								<h3 style="color:#FFF;" class="panel-title"><b>메신저</b></h3>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-envelope"></span>
+            						    <span class="glyphicon-class">메신저</span><br>
+             						</label>
+								</div>
+            						    <div>
+            						    	<form id="megform" action="/j/confrim/messenger">
+											<select id="select_box0" class="btn btn-default dropdown-toggle">
+												<c:forEach items="${list }" var="list">
+													<option value="${list.mesDF }" id="${list.mesDF }">${list.name }</option>
+												</c:forEach>
+											</select> 
+											<input type="text" id="msg0"> 
+											<input name="addButton" type="button" value="추가" id="addmax" class="btn btn-info navbar-btn">
+											</form>
+										</div>
+							</div>
+						</div>
+						<div align="center">
+							<button id="insert" type="button" class="btn btn-primary">등록</button>
+							<button onclick="window.close()" class="btn btn-danger" type="button">취소</button>
+						</div>
+				</div>
+	</div>
 </section>
 <script type="text/javascript">
     var str='012535678';

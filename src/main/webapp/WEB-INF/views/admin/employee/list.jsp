@@ -14,7 +14,8 @@
 $(document).ready(function(){
 	$(document).on('click', '.tr',function(){
 		var trid = $(this).attr('id'); 			// 각 행의 id값
-		var no = document.getElementById("no"+trid).childNodes.item(0).nodeValue;// 선택한 행에 따른 memNO값
+		var no = document.getElementById("no"+trid).childNodes.item(0).value;// 선택한 행에 따른 memNO값
+		alert(no);
 		location.href="/ad/e/read?memNO="+no;
 	});	
 });
@@ -24,45 +25,32 @@ $(document).ready(function(){
 <div class="row">
 		<!-- left column -->
 
-
-		<div class="col-md-12">
+	<div style="margin-left: 300px">
+		<div class="col-md-9">
 			<!-- general form elements -->
 			<div class='box'>
 				<div class="box-header with-border">
 					<h3 class="box-title">직원 목록</h3>
 				</div>
-
-
-				<div class='box-body'>
-
-					<select name="searchType">
+<div class='box-body'>
+                  <select name="searchType" class="form-control" style="width: 140px; display: inline-block;">
 						<option value="n"
 							<c:out value="${cri.searchType == null?'selected':''}"/>>
 							---</option>
 						<option value="t"
 							<c:out value="${cri.searchType eq 't'?'selected':''}"/>>
-							Title</option>
+							직원회원 번호</option>
 						<option value="c"
 							<c:out value="${cri.searchType eq 'c'?'selected':''}"/>>
-							Content</option>
+							직원 아이디</option>
 						<option value="w"
 							<c:out value="${cri.searchType eq 'w'?'selected':''}"/>>
-							Writer</option>
-						<%-- <option value="tc"
-							<c:out value="${cri.searchType eq 'tc'?'selected':''}"/>>
-							Title OR Content</option>
-						<option value="cw"
-							<c:out value="${cri.searchType eq 'cw'?'selected':''}"/>>
-							Content OR Writer</option>
-						<option value="tcw"
-							<c:out value="${cri.searchType eq 'tcw'?'selected':''}"/>>
-							Title OR Content OR Writer</option> --%>
-					</select> <input type="text" name='keyword' id="keywordInput"
-						value='${cri.keyword }'>
-					<button id='searchBtn'>검색</button>
-
+							직원 이름</option>
+                  </select> 
+                  <input type="text" class="form-control" name='keyword' id="keywordInput" value='${cri.keyword }' style="width: 200px; display: inline-block;">
+                  <button type="button" class="btn btn-default" id='searchBtn' ><i class="fa fa-search"></i></button>
+               </div>
 				</div>
-			</div>
 
 
 			<div class="box">
@@ -72,33 +60,30 @@ $(document).ready(function(){
 				<div class="box-body">
 					<table class="table table-hover">
 						<tr>
-							<th style="width: 100px">회원번호</th>
+							<th style="width: 100px">직원회원 번호</th>
 							<th>직원 아이디</th>
 							<th>직원 등급</th>
-							<th>계정상태</th>
+							<th>직원 이름</th>
 						</tr>
 
 <!-- 페이징 이동할때 
 <a href='/sboard/readPage${pageMaker.makeSearch(pageMaker.cri.page) }&email=${memberVO.email}'>	${boardVO.title} </a> -->
 						<c:forEach items="${list}" var="memberVO" varStatus="status">
 							<tr id="${status.count}" class="tr" >	
-								<td id="no${status.count}">${memberVO.memNO}</td>
+								<td id="no${status.count}"><input type="hidden" id="memNO" value="${memberVO.memNO}">${memberVO.memNO}</td>
 								<td>${memberVO.email}</td>
-								<td id="person${status.count}">
+								<td >
 									<c:choose>
         								<c:when test="${memberVO.personDF eq 'D_PE01'}">일반회원</c:when>
 										<c:otherwise>관리자회원</c:otherwise>        
         							</c:choose>
         						</td>
-        							<c:choose>
-        								<c:when test="${memberVO.state eq '1'}"><td>비활성</td></c:when>
-        								<c:when test="${memberVO.state eq '2'}"><td>정상</td></c:when>
-        								<c:when test="${memberVO.state eq '3'}"><td>장기미접속</td></c:when>
-        								<c:when test="${memberVO.state eq '4'}"><td>탈퇴</td></c:when>
-										<c:otherwise><td>이용정지</td></c:otherwise>        
-        							</c:choose>
+        						<td>
+        							${memberVO.name}
+        						</td>
 							</tr>
 
+								
 						</c:forEach>
 
 					</table>

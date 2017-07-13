@@ -14,7 +14,7 @@
 	<!-- 수정하기 -->
 	<update id="memberUpdate" parameterType="member">
 		UPDATE member
-		SET pass = #{pass}, name = #{name}, nickName = #{nickName}, tel = #{tel}
+		SET pass = #{pass}, nickName = #{nickName}, tel = #{tel}
 		WHERE memNO = #{memNO}
 	</update>
 	

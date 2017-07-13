@@ -15,7 +15,6 @@ $(document).ready(function(){
 	$(document).on('click', '.tr',function(){
 		var trid = $(this).attr('id'); 			// 각 행의 id값
 		var no = document.getElementById("no"+trid).childNodes.item(0).nodeValue;// 선택한 행에 따른 memNO값
-		//var person = doucument.getElementById("person"+trid).childNodes.item(0).nodeValue; // 선택한 행에 따른 personDF값
 		location.href="/ad/m/read?memNO="+no; 
 	});	
 });
@@ -25,18 +24,15 @@ $(document).ready(function(){
 <div class="row">
 		<!-- left column -->
 
-
-		<div class="col-md-12">
+	<div style="margin-left: 300px">
+		<div class="col-md-9">
 			<!-- general form elements -->
 			<div class='box'>
 				<div class="box-header with-border">
 					<h3 class="box-title">회원 목록</h3>
 				</div>
-
-
-				<div class='box-body'>
-
-					<select name="searchType">
+<div class='box-body'>
+                  <select name="searchType" class="form-control" style="width: 140px; display: inline-block;">
 						<option value="n"
 							<c:out value="${cri.searchType == null?'selected':''}"/>>
 							---</option>
@@ -49,21 +45,11 @@ $(document).ready(function(){
 						<option value="w"
 							<c:out value="${cri.searchType eq 'w'?'selected':''}"/>>
 							계정상태</option>
-						<%-- <option value="tc"
-							<c:out value="${cri.searchType eq 'tc'?'selected':''}"/>>
-							Title OR Content</option>
-						<option value="cw"
-							<c:out value="${cri.searchType eq 'cw'?'selected':''}"/>>
-							Content OR Writer</option>
-						<option value="tcw"
-							<c:out value="${cri.searchType eq 'tcw'?'selected':''}"/>>
-							Title OR Content OR Writer</option> --%>
-					</select> <input type="text" name='keyword' id="keywordInput"
-						value='${cri.keyword }'>
-					<button id='searchBtn'>검색</button>
-
+                  </select> 
+                  <input type="text" class="form-control" name='keyword' id="keywordInput" value='${cri.keyword }' style="width: 200px; display: inline-block;">
+                  <button type="button" class="btn btn-default" id='searchBtn' ><i class="fa fa-search"></i></button>
+               </div>
 				</div>
-			</div>
 
 
 			<div class="box">
@@ -105,7 +91,7 @@ $(document).ready(function(){
 					</table>
 				</div>
 				<!-- /.box-body -->
-
+			</div>
 
 				<div class="box-footer">
 
@@ -139,21 +125,37 @@ $(document).ready(function(){
 		</div>
 		<!--/.col (left) -->
 
-	</div>
+</div>
 	<!-- /.row -->
-
 </section>
 <script>
 	$(document).ready(
 			function() {
 
 				$('#searchBtn').on("click",function(event) {
-
+						var state= $('#keywordInput').val();
+						var inputkeyword = encodeURIComponent($('#keywordInput').val());
+						if($("select option:selected").val()=='w'){
+							if(state=='비활성'){
+								inputkeyword = '1';
+							}else if(state=='정상'){
+								inputkeyword = '2';
+							}else if(state=='장기미접속'){
+								inputkeyword = '3';
+							}else if(state=='탈퇴'){
+								inputkeyword = '4';
+							}else if(state=='이용정지'){
+								inputkeyword = '5';
+							}
+						}
+							alert(inputkeyword);
 							self.location = "list"
 									+ '${pageMaker.makeQuery(1)}'
 									+ "&searchType="
 									+ $("select option:selected").val()
-									+ "&keyword=" + encodeURIComponent($('#keywordInput').val());
+									+ "&keyword=" +inputkeyword;
+						
+							inputkeyword='';
 
 						});
 

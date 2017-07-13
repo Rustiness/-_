@@ -50,10 +50,16 @@ $(document).ready(function () {
 		<c:forEach items="${personDFVO }" var="grade">
 			<c:choose>
 				<c:when test="${grade.personDF eq memberVO.personDF}">
-					<option value="${grade.personDF }" selected="selected">${grade.name }</option>
+					<option value="${grade.personDF }" selected="selected"><c:choose>
+																		    	<c:when test="${grade.personDF eq 'D_PE01'}">일반회원</c:when>
+																		  		<c:otherwise>관리자</c:otherwise>
+																		   </c:choose></option>
 				</c:when>
 				<c:otherwise>
-					<option value="${grade.personDF }">${grade.name }</option>
+					<option value="${grade.personDF }"><c:choose>
+														   <c:when test="${grade.personDF eq 'D_PE01'}">일반회원</c:when>
+														   <c:otherwise>관리자</c:otherwise>
+														</c:choose></option>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>

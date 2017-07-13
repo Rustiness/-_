@@ -2,16 +2,19 @@ package com.simpact.controller;
 
 import com.simpact.domain.MemberVO;
 import com.simpact.domain.MessengerVO;
+import com.simpact.service.LoginService;
 import com.simpact.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -27,6 +30,9 @@ public class JoinController {
 
 	@Inject
 	MemberService service;
+	
+	@Inject
+	LoginService loginservice;
 
 	/* 가입약관 */
 	@RequestMapping("/terms")
@@ -101,8 +107,13 @@ public class JoinController {
 	
 	/* 회원가입 완료 */
 	@RequestMapping("/res")
-	public String result() {
-
+	public String result(@RequestParam("memNO") String memNO,HttpServletRequest req) throws Exception {
+		loginservice.latestDateUpdate(memNO);                    //최근 접속일 최신화
+		MemberVO vo = loginservice.selectMemberinfo(memNO);//회원번호로 회원정보 얻어오기
+		List<MessengerVO> list = loginservice.selectMembermsg(memNO);  // 메신저정보얻기
+		req.getSession().setAttribute("clientMemberVO", vo);        // 로그인에 성공시 회원정보 세션저장
+		req.getSession().setAttribute("clientMessengerVO", list);        // 로그인에 성공시 메신저정보 세션저장
+		
 		return "/client/join/result";
 	}
 

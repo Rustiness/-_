@@ -15,13 +15,18 @@
 	});
 	
 	$(document).on('click', '#findpass', function() {
+		var tel1 =  $('#tel1').val();
+		var tel2 =  $('#tel2').val();
+		var tel3 =  $('#tel3').val();
+		
+		var tel = tel1+"-"+tel2+"-"+tel3
 		$.ajax({
 			url : "/l/findpass/check",
 			type : "post",
 			data : {
 				email : $('#email').val(),
 				name : $('#name').val(),
-				tel : $('#tel').val()
+				tel : tel
 			},			
 			dataType : "text",
 			success : function(result) {
@@ -31,13 +36,17 @@
 				if(seul.match("fail")){  //잘못된 값 입력시
 					document.frm.email.value='';	
 					document.frm.name.value='';		
-					document.frm.tel.value='';		
+					document.frm.tel1.value='';		
+					document.frm.tel2.value='';		
+					document.frm.tel3.value='';		
 					$('#d1').html("<font color=red>아이디가 존재하지 않거나,<br>입력하신 값이 올바르지 않습니다.</font>");
 				}else{						//올바른 값 입력시
 					document.frm.email.value='';	
 					document.frm.name.value='';		
-					document.frm.tel.value='';	
-					$('#d1').html("<font color=blue>비밀번호는 :[ "+seul2+ "]입니다</font>");
+					document.frm.tel1.value='';		
+					document.frm.tel2.value='';		
+					document.frm.tel3.value='';		
+					$('#d1').html("<font color=blue>비밀번호는 :[ "+seul2+" ]입니다</font>");
 				}
 			}
 			
@@ -47,28 +56,82 @@
 </script>
 <!-- Main content -->
 <section class="content">
+<div class="panel panel-default">
+					<div>
+						<input type="hidden" name="page" value="1"> <input type="hidden" name="perPageNum" value="10">
+						<input type="hidden" name="searchType" value="">
+						<input type="hidden" name="keyword" value="">
+					</div>
+					<div class="panel-body">
+						<div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
+							<h5>비밀번호 찾기</h5>
+						</div>
+						<br>
+						<div class="panel panel-default">
+							<div style="background-color:#89729E;" class="panel-heading">
+								<h3 style="color:#FFF;" class="panel-title"><b>정보입력</b></h3>
+							</div>
+						<form name="frm">
+							<div class="panel-body">
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-globe"></span>
+             							<span class="glyphicon-class">아이디</span>
+             						</label>
+									<div class="col-md-4">
+										<input type="text" id="email">
+       								</div>
+								</div>
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-user"></span>
+             							<span class="glyphicon-class">이름</span>
+             						</label>
+									<div class="col-md-4">
+										<input type="text" id="name">
+       								</div>
+								</div>
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-phone-alt"></span>
+             							<span class="glyphicon-class">전화번호</span>
+             						</label>
+									<div class="col-md-4">
+										<input type="text" id="tel1" style="width: 43px;"> 
+										-<input type="text" id="tel2" style="width: 45px;">
+										-<input type="text" id="tel3" style="width: 45px;">
+									</div>
+								</div>
+							</div>
+								<div id="d1" ></div>
+							</form>
+						</div>
+						<div align="center">	
+							<button id="findpass" type="button" class="btn btn-primary">확인</button>
+        					<button id="back" type="button" class="btn btn-warning ">뒤로</button>
+						</div>
+					</div>
+				</div>
 
-		<form name="frm">
-		<table>
-				<tr>
-					<td>아이디(email)</td><td><input type="text" id="email"></td>
-				</tr>
-				<tr>
-					<td>이름</td><td><input type="text" id="name"></td>
-				</tr>
-				<tr>
-					<td>전화번호</td><td><input type="text" id="tel"></td>
-				</tr>
-				<tr>
-					<td colspan="2" align="center">
-						<input type="button" value="확인" id="findpass">
-						<input type="reset" value="취소">
-						<input type="button" value="뒤로" id="back">
-					</td>
-				</tr>
-			</table>
-			<div id="d1"></div>
-		</form>
+
+
+
+
+
+
+
+		
+		
+
+
+
+
+
+
+
+
+
+
 
 </section>
 

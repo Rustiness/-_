@@ -65,22 +65,79 @@ $.ajax({
 </script>
 <!-- Main content -->
 <section class="content">
-<div id="up">
-			<b>회원 정보를 확인하기 위해서는 비밀번호를 입력해 주세요.</b><br>
-		<form name="upfrm">
-			비밀번호 : <input type="password" id="uppass"> <input type="button" value="확인" id="upcheck">
-			<div id="upd1"></div>
-		</form>
-		</div>
-		
-		<div id="del">
-			<b>회원 탈퇴를 하시려면 비밀번호를 입력해 주세요.</b><br>
-				<form name="delfrm">
-			비밀번호 : <input type="password" id="delpass"> <input type="button" value="확인" id="delcheck">
-			<div id="deld1"></div>
-		</form>
-		
-		</div>
+<div class="panel panel-default">
+					<div>
+						<input type="hidden" name="page" value="1"> <input type="hidden" name="perPageNum" value="10">
+						<input type="hidden" name="searchType" value="">
+						<input type="hidden" name="keyword" value="">
+					</div>
+				<div id="up">
+					<div class="panel-body">
+						
+						<div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
+							<h5>회원 정보수정</h5>
+						</div>
+						<br>
+						
+						<div class="panel panel-default">
+							<div style="background-color:#89729E;" class="panel-heading">
+								<h3 style="color:#FFF;" class="panel-title"><b>회원 정보를 확인하기 위해서는 비밀번호를 입력해 주세요.</b></h3>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<label class="col-md-2 form-label" style="margin-top: 5px">
+										<span style="margin-left: 50px;">
+											<span class="glyphicon glyphicon-lock"></span>
+	            				 			<span class="glyphicon-class">비밀번호</span>
+										</span>
+            				 		</label>
+            				 		<form name="upfrm">
+									<div class="col-md-4">
+										<input type="password" id="uppass"> 
+										<button type="button" id="upcheck" class="btn btn-info">확인</button><br>
+										<div id="upd1"></div>
+									</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+				<div id="del">
+					<div class="panel-body">
+						
+						<div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
+							<h5>회원 정보수정</h5>
+						</div>
+						<br>
+						
+						<div class="panel panel-default">
+							<div style="background-color:#89729E;" class="panel-heading">
+								<h3 style="color:#FFF;" class="panel-title"><b>회원 탈퇴를 하시려면 비밀번호를 입력해 주세요.</b></h3>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<label class="col-md-2 form-label" style="margin-top: 5px">
+										<span style="margin-left: 50px;">
+											<span class="glyphicon glyphicon-lock"></span>
+	            				 			<span class="glyphicon-class">비밀번호</span>
+										</span>
+            				 		</label>
+            				 		<form name="delfrm">
+									<div class="col-md-4">
+										<input type="password" id="delpass"> 
+										<button type="button" id="delcheck" class="btn btn-info">확인</button><br>
+										<div id="deld1"></div>
+									</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+</div>
 </section>
 
 <%@include file="../include/footer.jsp" %>

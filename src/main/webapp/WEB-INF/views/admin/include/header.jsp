@@ -76,21 +76,31 @@
 </script> 
 </head>
 <%-- header.jsp --%>
+<style>
+.margin{
+margin-left: auto;
+margin-right: auto;
+}
+
+</style>
+
 <body>
+
+
 <div>
-	<ul id="onAdlogin">
-		<li><input type="button" value="로그인" id="Adlogin"></li>
-	</ul>					
-	<ul id="unAdlogin">
-		<li>${memberList[0].name } 님<input type="button" value="로그아웃" id="Adlogout"></li>
-	</ul>					
+	<div id="onAdlogin">
+		<div><input type="button" value="로그인" id="Adlogin"></div>
+	</div>					
+	<div id="unAdlogin">
+		<div style="margin-left: 1200px">${memberList[0].name } 님<input type="button" value="로그아웃" id="Adlogout" class="btn btn-xs btn-danger" ></div>
+	</div>					
 	
-	<input type="button" value="메인" id="gomain"> <input type="button" value="회원 목록" id="gomemberlist"> 
-	<input type="button" value="직원 목록" id="goadminlist"> <input type="button" value="재능글 목록" id="gotalentlist"> 
-	<input type="button" value="교환신청 목록" id="gorequestlist"> <input type="button" value="교환 목록" id="goexchangelist"> 
-	<input type="button" value="교환후기 목록" id="goreviewlist"> <input type="button" value="고객문의 목록" id="gocounsellist"> 
-	<input type="button" value="신고 목록" id="goreportlist"> 
-	
+	<div align="center">
+	<input type="button" value="회원 목록" id="gomemberlist" class="btn btn-successzz"> &nbsp;&nbsp;
+	<input type="button" value="직원 목록" id="goadminlist" class="btn btn-successzz"> &nbsp;&nbsp;<input type="button" value="재능글 목록" id="gotalentlist" class="btn btn-successzz"> &nbsp;&nbsp;
+	<input type="button" value="교환신청 목록" id="gorequestlist" class="btn btn-successzz">&nbsp;&nbsp; <input type="button" value="교환 목록" id="goexchangelist" class="btn btn-successzz">&nbsp;&nbsp; 
+	<input type="button" value="교환후기 목록" id="goreviewlist" class="btn btn-successzz"> &nbsp;&nbsp;<input type="button" value="고객문의 목록" id="gocounsellist" class="btn btn-successzz"> &nbsp;&nbsp;
+	</div>
 
 
 </div>
