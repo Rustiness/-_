@@ -21,6 +21,8 @@
 				<div data-text-content="true"
 					style="font-weight: bold; font-size: 18px; background-color: rgb(224, 224, 224);"
 					class spellcheck="false">문의 정보</div>
+					
+			
 				<table>
 					<tr>
 						<th>카테고리</th>
@@ -37,10 +39,15 @@
 					<tr>
 						<th>공개여부</th>
 						   <td>
-						     <select>
-								<option>공개</option>
-								<option>비공개</option>
-						     </select>
+
+						     <select name="state">
+						        
+								
+								<option value ='2'>공개</option>
+								<option value ='1'>비공개</option>
+								
+								
+						    </select>
 						   </td>
 						<br>
 					</tr>
@@ -49,16 +56,18 @@
 				</table>
 				
 				
-<div class="form-group">
-						<label for="writer">작성자닉네임</label> 
-						<select name="memNO">
+			<div class="form-group">
+						<label for="writer">작성자 닉네임</label> 
+						<%-- <select name="memNO">
 						        <c:forEach items="${list2}" var="boardVO">
 								
 								<option value="${boardVO.memNO }">${boardVO.nickName }</option>
 								
 								</c:forEach>
-						   </select>
-							
+						   </select> --%>
+						   
+				<input type="text" value="${clientMemberVO.nickName }" disabled="disabled">
+				<input type="hidden" name='memNO' value="${clientMemberVO.memNO }" >
 
 				<div class="box-body">
 					<div class="form-group">

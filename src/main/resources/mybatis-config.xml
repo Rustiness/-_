@@ -3,7 +3,11 @@
 <configuration>
 	<!-- MyBatis환경설정 -->
 	<typeAliases>
+
+<typeAlias type="com.simpact.domain.CounselAnswerVO" alias="csreply"/>
+
 		<typeAlias type="com.simpact.domain.TalReviewVO" alias="rboard"/>
+		
 		<typeAlias type="com.simpact.domain.CounselVO" alias="csboard2"/>
 		<typeAlias type="com.simpact.domain.TalReviewReplyVO" alias="talreview"/>  
 		<typeAlias type="com.simpact.domain.TalBoardVO" alias="talentlist"/>
@@ -19,6 +23,7 @@
 		<typeAlias type="com.simpact.domain.GradeDFVO" alias="gradeDF"/>
 		<typeAlias type="com.simpact.domain.PositionDFVO" alias="positionDF"/>
 		<typeAlias type="com.simpact.domain.TalExchangeVO" alias="talExChangeVO"/>
+		
 </typeAliases>
 	<!-- 따로따로 맴퍼를 등록해야한다면, 여기에 아래와 같이 등록!! -->
 	<!--

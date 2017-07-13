@@ -5,7 +5,7 @@ public class SearchCriteria extends Criteria {
 	private String searchType;
 	private String keyword;
 
-	private String connMemNO; /* Á¢¼ÓÀÚNO */
+	private String connMemNO; /* ì ‘ì†ìNO */
 
 	public SearchCriteria() {
 	}

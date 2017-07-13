@@ -74,10 +74,6 @@ public class CounselServiceImpl implements CounselService {
 		return dao.listcate();
 	}
 
-	@Override
-	public List<CounselVO> listnick() throws Exception {
-		return dao.listnick();
-	}
-	
+
 
 }

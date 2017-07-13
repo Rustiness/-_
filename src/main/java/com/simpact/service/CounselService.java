@@ -21,14 +21,12 @@ public interface CounselService {
 	public List<CounselVO> listAll() throws Exception; //전체조회
 	
 	public List<QuestionVO> listcate() throws Exception; //카테고리조회
-	
-	public List<CounselVO> listnick() throws Exception; //닉네임조회
-	
+		
 	public List<CounselVO> listCriteria(Criteria cri) throws Exception; //전체조회
 
 	public int listCountCriteria() throws Exception;
 
-	public List<CounselVO> listSearchCriteria(SearchCriteria cri) throws Exception;
+	public List<CounselVO> listSearchCriteria(SearchCriteria cri) throws Exception;//닉네임 조회 여기에 합쳤음
 
 	public int listSearchCount(SearchCriteria cri) throws Exception;
 }

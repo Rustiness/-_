@@ -30,12 +30,33 @@
 						class spellcheck="false">문의 정보</div>
 					<table>
 						<tr>
-							<th>카테고리</th>
-							<td><input type="text" value="재능교환" readonly></td>
-						</tr>
-						<tr>
-							<th>공개여부</th>
-							<td><input type="text" value="공개" readonly></td>
+							<th><div data-text-content="true"
+									style="font-size: 16px; font-weight: bold;" class
+									spellcheck="false">문의 항목</div></th>									
+							<td><div data-text-content="true" style="font-size: 16px;"
+									class>
+									<input type="text"
+							name='name' class="form-control" value="${boardVO.name}"
+							readonly="readonly"></div></td>
+									
+							<th><div data-text-content="true"
+									style="font-size: 16px; font-weight: bold;" class
+									spellcheck="false">상태</div></th>
+							<td><div data-text-content="true" style="font-size: 16px;"
+									class>
+							<c:if test="${boardVO.state =='2' }">
+							<input type="text"
+							name='state' class="form-control" value="공개"
+							readonly="readonly">
+							</c:if>	
+								
+								
+								
+
+							
+									
+								</div></td>
+
 						</tr>
 
 
@@ -50,7 +71,7 @@
 					<div class="box-body">
 
 						<div class="form-group">
-							<label for="exampleInputEmail1">csNO</label> <input type="text"
+							<label for="exampleInputEmail1">게시물번호</label> <input type="text"
 								name='csNO' class="form-control" value="${boardVO.csNO}"
 								readonly="readonly">
 						</div>
@@ -61,7 +82,7 @@
 						</div>
 						<div class="form-group">
 							<label for="exampleInputEmail1">작성자</label> <input type="text"
-								name="writer" class="form-control" value="${boardVO.memNO}">
+								name="writer" class="form-control" value="${boardVO.memNO}" readonly="readonly">
 						</div>
 						<div class="form-group">
 							<label for="exampleInputPassword1">문의내용</label>

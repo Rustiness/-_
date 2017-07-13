@@ -4,6 +4,7 @@ package com.simpact.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,12 +34,10 @@ public class CounselController {
 
 	/* 고객문의 목록 */
 	@RequestMapping("/list")
-	public String listPage(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception { //게시물 목록 출력
+	public String listPage(@ModelAttribute("cri") SearchCriteria cri, Model model,HttpServletRequest req) throws Exception { //게시물 목록 출력
+		req.getSession().getAttribute("clientMemberVO");
 		List<CounselVO> list = service.listSearchCriteria(cri);
-	    	List<CounselVO> list2 = service.listnick();//닉네임
-
-	    	model.addAttribute("list", list);
-	    	model.addAttribute("list2", list2);//닉네임
+		model.addAttribute("list", list);
 		PageMaker maker = new PageMaker();
 		maker.setCri(cri);
 		maker.setTotalCount(service.listSearchCount(cri));
@@ -50,13 +49,14 @@ public class CounselController {
 	///////////////////////////////////////////////////////////////////
 	//입력폼으로가라~
 	@RequestMapping(value="/write", method=RequestMethod.GET)
-	public String information_uploadget(@ModelAttribute("cri") SearchCriteria cri, Model model)throws Exception{
-
+	public String information_uploadget(@ModelAttribute("cri") SearchCriteria cri, Model model ,HttpServletRequest req)throws Exception{
+		req.getSession().getAttribute("clientMemberVO");  
 		List<QuestionVO> list = service.listcate();
-		List<CounselVO> list2 = service.listnick();
+		List<CounselVO> list2 = service.listSearchCriteria(cri);
     	model.addAttribute("list", list);//문의항목
-    	model.addAttribute("list2", list2);//닉네임
-    	System.out.println(list.toString());
+    	model.addAttribute("list2", list2);//전체리스트 + 닉네임
+    //	System.out.println(list.toString());
+    	System.out.println(list2.toString());
 		return "client/counsel/write";
 	}
 
@@ -74,6 +74,9 @@ public class CounselController {
 	//게시물 읽기
 	@RequestMapping("/read")
 	public String readPage(String csNO, Model model, SearchCriteria cri) throws Exception {
+		
+		List<QuestionVO> list = service.listcate();
+		model.addAttribute("list", list);
 		model.addAttribute("boardVO", service.read(csNO));
 		model.addAttribute("cri", cri);
 		return "client/counsel/read";//이동 JSP

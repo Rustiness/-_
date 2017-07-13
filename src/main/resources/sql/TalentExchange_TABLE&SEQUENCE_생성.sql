@@ -73,8 +73,8 @@ CREATE SEQUENCE TalExcConn_seq
 INCREMENT BY 1
 START WITH 1;
 
-/* 재능교환완료(후기)_시퀀스 */
-CREATE SEQUENCE TalExchange_seq
+/* 재능교환후기_시퀀스 */
+CREATE SEQUENCE TalReview_seq
 INCREMENT BY 1
 START WITH 1;
 
@@ -457,8 +457,8 @@ ALTER TABLE TalExcConn
 	);
 
 /* 재능교환완료(후기) */
-CREATE TABLE TalExchange (
-	talExcNO VARCHAR2(10) NOT NULL, /* 재능교환번호 */
+CREATE TABLE TalReview (
+	talReviewNO VARCHAR2(10) NOT NULL, /* 재능리뷰번호 */
 	talConnNO VARCHAR2(10) NOT NULL, /* 재능연결번호 */
 	memNO VARCHAR2(10) NOT NULL, /* 회원번호(작성자) */
 	title VARCHAR2(100) NOT NULL, /* 후기제목 */
@@ -468,21 +468,21 @@ CREATE TABLE TalExchange (
 	state VARCHAR2(3) DEFAULT '1' NOT NULL /* 표시상태 */
 );
 
-CREATE UNIQUE INDEX PK_TalExchange
-	ON TalExchange (
-		talExcNO ASC
+CREATE UNIQUE INDEX PK_TalReview
+	ON TalReview (
+		talReviewNO ASC
 	);
 
-ALTER TABLE TalExchange
+ALTER TABLE TalReview
 	ADD
-	CONSTRAINT PK_TalExchange
+	CONSTRAINT PK_TalReview
 	PRIMARY KEY (
-		talExcNO
+		talReviewNO
 	);
 
 /* 만족도 */
 CREATE TABLE NP_TalPoint (
-	talExcNO VARCHAR2(10) NOT NULL, /* 재능교환번호 */
+	talReviewNO VARCHAR2(10) NOT NULL, /* 재능리뷰번호 */
 	memNO VARCHAR2(10) NOT NULL, /* 회원번호(상대) */
 	point NUMBER NOT NULL /* 만족도 */
 );
@@ -561,7 +561,7 @@ ALTER TABLE TalentBDFile
 /* 댓글 */
 CREATE TABLE TalExcComment (
 	commExNO VARCHAR2(10) NOT NULL, /* 댓글번호 */
-	talExcNO VARCHAR2(10) NOT NULL, /* 재능교환번호 */
+	talReviewNO VARCHAR2(10) NOT NULL, /* 재능리뷰번호 */
 	memNO VARCHAR2(10) NOT NULL, /* 회원번호(작성자) */
 	content VARCHAR2(2000) NOT NULL, /* 댓글내용 */
 	writeDate DATE DEFAULT sysdate NOT NULL, /* 등록일시 */
@@ -777,9 +777,9 @@ ALTER TABLE TalExcConn
 		memNO
 	);
 
-ALTER TABLE TalExchange
+ALTER TABLE TalReview
 	ADD
-	CONSTRAINT FK_TalExcConn_TO_TalExchange
+	CONSTRAINT FK_TalExcConn_TO_TalReview
 	FOREIGN KEY (
 		talConnNO
 	)
@@ -787,9 +787,9 @@ ALTER TABLE TalExchange
 		talConnNO
 	);
 
-ALTER TABLE TalExchange
+ALTER TABLE TalReview
 	ADD
-	CONSTRAINT FK_Member_TO_TalExchange
+	CONSTRAINT FK_Member_TO_TalReview
 	FOREIGN KEY (
 		memNO
 	)
@@ -799,12 +799,12 @@ ALTER TABLE TalExchange
 
 ALTER TABLE NP_TalPoint
 	ADD
-	CONSTRAINT FK_TalExchange_TO_NP_TalPoint
+	CONSTRAINT FK_TalReview_TO_NP_TalPoint
 	FOREIGN KEY (
-		talExcNO
+		talReviewNO
 	)
-	REFERENCES TalExchange (
-		talExcNO
+	REFERENCES TalReview (
+		talReviewNO
 	);
 
 ALTER TABLE NP_TalPoint
@@ -849,12 +849,12 @@ ALTER TABLE TalentBDFile
 
 ALTER TABLE TalExcComment
 	ADD
-	CONSTRAINT FK_TalExchange_TO_TlxcCmnt
+	CONSTRAINT FK_TalReview_TO_TalExcComment
 	FOREIGN KEY (
-		talExcNO
+		talReviewNO
 	)
-	REFERENCES TalExchange (
-		talExcNO
+	REFERENCES TalReview (
+		talReviewNO
 	);
 
 ALTER TABLE TalExcComment
