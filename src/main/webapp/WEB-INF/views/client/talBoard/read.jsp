@@ -22,7 +22,7 @@
 		if (loginMem == memNO) {
 			$("#updateBtnHave").html("<input type='button' value='보유한 재능 수정' class='btn btn-primary conetentHave'>");
 			$("#updateBtnWant").html("<input type='button' value='원하는 재능 수정' class='btn btn-primary contentWant'>");
-			$("#btnDelete").html("<input type='button' value='교환글 삭제' class='btn btn-danger'>");
+			$("#btnDelete").html("<input type='button' value='교환글 삭제' class='btn btn-danger remove'>");
 		} else {
 			$("#updateBtnHave").html("");
 			$("#updateBtnWant").html("");
@@ -54,6 +54,13 @@
 			self.location = "list?page=${cri.page}&perPageNum=${cri.perPageNum}"
 				+ "&searchType=${cri.searchType}&keyword=${cri.keyword}";
 		});
+		$('.remove').click(function(){
+			
+			self.location ="remove?" + "talDocNO=" + $('.talDocNO').val();
+			
+		});
+		
+		
 	});
 </script>
 
@@ -79,6 +86,7 @@
 							type='hidden' name='perPageNum' value="${cri.perPageNum}">
 						<input type='hidden' name='searchType' value="${cri.searchType}">
 						<input type='hidden' name='keyword' value="${cri.keyword}">
+						<input type='hidden' name='talDocNO' value="${TalBoardVO.talDocNO}" id='talDocNO' class="talDocNO">
 					</div>
 					<div class="panel-body">
 						<%-- CONTENT 시작--%>

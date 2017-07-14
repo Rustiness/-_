@@ -133,6 +133,21 @@ public class TalBoardServiceImpl implements TalBoardService {
 
 		return dao.selBeforeTal(memNO);
 	}
+	@Override
+	public void removeTal(String talDocNO) throws Exception {
+		 dao.deleteTal(talDocNO);
+		
+	}
+	@Override
+	public void removeDivHave(String talDocNO) throws Exception {
+		dao.deleteDivHave(talDocNO);
+		
+	}
+	@Override
+	public void removeDivWant(String talDocNO) throws Exception {
+		dao.deleteDivWant(talDocNO);
+		
+	}
 
 	
 }

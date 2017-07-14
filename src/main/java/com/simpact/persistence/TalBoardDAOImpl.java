@@ -146,5 +146,20 @@ public class TalBoardDAOImpl implements TalBoardDAO {
 
 		return sqlSession.selectList("talentBoard.beforeTal", memNO);
 	}
+	@Override
+	public void deleteTal(String talDocNO) throws Exception {
+	       sqlSession.update("talentBoard.deleteTal", talDocNO);
+		
+	}
+	@Override
+	public void deleteDivHave(String talDocNO) throws Exception {
+		    sqlSession.delete("talentBoard.removeDivHave", talDocNO);
+		
+	}
+	@Override
+	public void deleteDivWant(String talDocNO) throws Exception {
+		  sqlSession.delete("talentBoard.removeDivWant", talDocNO);
+		
+	}
 
 }

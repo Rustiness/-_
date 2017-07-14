@@ -11,6 +11,36 @@
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<%-- SmartEditor를 사용하기 위해서 다음 js파일을 추가 (경로 확인) --%>
+<script type="text/javascript" src="/resources/SE2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" id="SE2">
+	var oEditors = [];
+	$(function(){
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef: oEditors,
+			elPlaceHolder: "contentHave", //textarea에서 지정한 id와 일치해야 합니다.
+			//SmartEditor2Skin.html 파일이 존재하는 경로
+			sSkinURI: "/resources/SE2/SmartEditor2Skin.html",
+			htParams : {
+				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseToolbar : true,
+				// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseVerticalResizer : true,
+				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseModeChanger : true,
+				fOnBeforeUnload : function(){
+
+				}
+			},
+			fOnAppLoad : function(){
+				//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
+				//oEditors.getById["description"].exec("PASTE_HTML", ['${talExcConnVO.content}']);
+			},
+			fCreator: "createSEditor2"
+		});
+	});
+</script>
 <script>
 	$(document).ready(function() {
 		
@@ -94,7 +124,7 @@
 					talDocNO : $('#talDocNO').val(),
 					title : $('#title').val(),
 					memNO : $("#memNO").val(),
-					contentHave : $('#contentHave').val(),
+					contentHave :oEditors.getById["contentHave"].getIR(),
 					contentWant : $('#contentWant').val(),
 					talHaveDiv : talHaveDivData
 				},
@@ -304,16 +334,18 @@
 									<label>제목</label><label>보유한 재능</label><label>원하는 재능</label><label>작성일</label>
 
 									<c:forEach items="${beforeTal}" var="list">
-                                       <div class="choice" data-dismiss="modal">
-                                          <input type="hidden" value="${list.title }" class="titleChoi">
-                                          <input type="hidden" value="${list.contentHave }" class="contentHaveChoi">
-                                          <input type="hidden" value="${list.contentWant }" class="contentWantChoi">
-                                    
-										<span class="titleChoi">${list.title}</span>
-										<span class="contentHaveChoi">${list.contentHave}</span>
-										<span class="contentWantChoi">${list.contentWant}</span>
-										
-                                      </div><br>
+										<div class="choice" data-dismiss="modal">
+											<input type="hidden" value="${list.title }" class="titleChoi">
+											<input type="hidden" value="${list.contentHave }"
+												class="contentHaveChoi"> <input type="hidden"
+												value="${list.contentWant }" class="contentWantChoi">
+
+											<span class="titleChoi">${list.title}</span> <span
+												class="contentHaveChoi">${list.contentHave}</span> <span
+												class="contentWantChoi">${list.contentWant}</span>
+
+										</div>
+										<br>
 									</c:forEach>
 
 
@@ -321,7 +353,7 @@
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default"
 										data-dismiss="modal">취소</button>
-								
+
 								</div>
 							</div>
 						</div>

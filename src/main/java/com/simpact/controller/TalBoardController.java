@@ -51,27 +51,21 @@ public class TalBoardController {
 		maker.setTotalCount(service.listSearchCount(cri));
 		model.addAttribute("categoryList", service.categoryList());
 		model.addAttribute("pageMaker", maker);
-        session.removeAttribute("TalBoardVO");
+		session.removeAttribute("TalBoardVO");
 		return "client/talBoard/list";
 	}
 
 	// 재능글 등록 (1단계)
 	@RequestMapping(value = "/write1s", method = RequestMethod.GET)
-	public String uploadFirstGET(TalBoardVO vo, HttpSession session, Model model,String memNO) throws Exception {
-		
-		
-		
-		
-		//session.setAttribute("TalBoardVO", vo);
+	public String uploadFirstGET(TalBoardVO vo, HttpSession session, Model model, String memNO) throws Exception {
+
+		// session.setAttribute("TalBoardVO", vo);
 		model.addAttribute("listUseCate", service.categoryList());
 		model.addAttribute("divList", service.divList());
 		System.out.println(vo.getMemNO());
-        List<TalBoardVO> list = service.selBeforeTal(vo.getMemNO()); 
-		
-		
-		model.addAttribute("beforeTal",list);
-		
-		
+		List<TalBoardVO> list = service.selBeforeTal(vo.getMemNO());
+
+		model.addAttribute("beforeTal", list);
 
 		return "client/talBoard/write1step";
 	}
@@ -91,15 +85,12 @@ public class TalBoardController {
 
 	/* 이전 재능글 가져오기 */
 	@RequestMapping(value = "/write1s/tal/{memNO}", method = RequestMethod.POST)
-	public @ResponseBody TalBoardVO selBeforeTal(@PathVariable("memNO") String memNO,Model model) throws Exception {
+	public @ResponseBody TalBoardVO selBeforeTal(@PathVariable("memNO") String memNO, Model model) throws Exception {
 		System.out.println(memNO);
 		TalBoardVO vo = new TalBoardVO();
 		List<TalBoardVO> list = service.selBeforeTal(memNO); // 선택한 카테고리와
-		
-		
-		model.addAttribute("beforeTal",list);
-	 
-	
+
+		model.addAttribute("beforeTal", list);
 
 		return vo;
 	}
@@ -157,10 +148,8 @@ public class TalBoardController {
 		model.addAttribute("divList", service.divList());
 	  
 		System.out.println(memNO);
-        List<TalBoardVO> list = service.selBeforeTal(memNO); 
-        model.addAttribute("beforeTal",list);
-
-		
+		List<TalBoardVO> list = service.selBeforeTal(memNO);
+		model.addAttribute("beforeTal", list);
 
 		return "client/talBoard/write2step";
 	}
@@ -318,4 +307,15 @@ public class TalBoardController {
 		return "client/talBoard/read";
 
 	}
+
+	@RequestMapping("/remove")
+	public String remove(String talDocNO) throws Exception {
+		service.removeTal(talDocNO);
+		service.removeDivHave(talDocNO);
+		service.readTalDivWant(talDocNO);
+
+		return "redirect:/tb/list";
+
+	}
+
 }

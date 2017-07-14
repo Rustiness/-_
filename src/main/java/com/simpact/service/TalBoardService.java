@@ -51,7 +51,11 @@ public interface TalBoardService {
 	
 	public List<TalBoardVO> selBeforeTal(String memNO) throws Exception; // 재능글 이전 게시글 가져오기
 	
+    public void removeTal(String talDocNO) throws Exception; // 재능글 삭제
 	
+	public void removeDivHave(String talDocNO) throws Exception; // 재능글 보유한 항목 삭제
+	
+	public void removeDivWant(String talDocNO) throws Exception; // 재능글 원하는 항목 삭제
 	
 
 
