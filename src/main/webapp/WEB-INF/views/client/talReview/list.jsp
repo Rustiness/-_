@@ -57,7 +57,7 @@
 					<c:forEach items="${list }" var="talReviewVO">
 
 						<tr>
-							<td>${talReviewVO. talReviewNO}</td>
+							<td>${talReviewVO.talReviewNO}</td>
 							
 							
 									<td>${talReviewVO.name}</td>

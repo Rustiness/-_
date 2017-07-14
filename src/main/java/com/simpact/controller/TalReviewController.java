@@ -1,6 +1,8 @@
 package com.simpact.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -8,16 +10,16 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.simpact.domain.MemberVO;
 import com.simpact.domain.PageMaker;
 import com.simpact.domain.SearchCriteria;
-import com.simpact.domain.TalExchangelistVO;
+import com.simpact.domain.TalDivVO;
 import com.simpact.domain.TalReviewVO;
 import com.simpact.service.TalReviewService;
 
@@ -38,10 +40,26 @@ public class TalReviewController {
 	// 전체페이지 보기(페이징포함)
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String listPage(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpSession session) throws Exception {
-		session.getAttribute("clientMemberVO");
+		//session.getAttribute("clientMemberVO");
 		
 		List<TalReviewVO> list = service.listSearch(cri);
 		
+		for(int i=0; i<list.size(); i++){
+			TalReviewVO talReview =list.get(i);
+			Map<String,String> map = new HashMap<>();
+			  map.put("talConnNO", talReview.getTalConnNO());
+			  map.put("connMemNO", talReview.getMemNO());
+			
+			List<TalDivVO> nameList = service.talhave(map);
+			String nameStr="";
+			for(int j=0; j<nameList.size(); j++){
+				nameStr+=nameList.get(j).getName() +" ";
+			}
+			talReview.setName(nameStr);
+			
+		}
+		
+		//System.out.println("체크>>>>"+ list);
 		model.addAttribute("list", list);
 		PageMaker maker = new PageMaker();
 		maker.setCri(cri);
@@ -50,14 +68,28 @@ public class TalReviewController {
 		model.addAttribute("pageMaker", maker);
 		return "/client/talReview/list";
 	}// listPage
+	
+	//DB입력 후 계속 입력 안되게하기 위해 direct로 받고 list로 페이지 이동
+		/*@RequestMapping("/list")
+		public String ListAll() throws Exception {
+			return "/client/talReview/list";
+		}*/
 
 	// 입력폼만 보기
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String registerGET(Model model, HttpServletRequest req) throws Exception {
-		req.getSession().getAttribute("clientMemberVO");
+	public String registerGET(String talConnNO,Model model, HttpSession session) throws Exception {
+		MemberVO member = (MemberVO) session.getAttribute("clientMemberVO");
+		/*String memNo = ((MemberVO)session.getAttribute("clientMemberVO")).getMemNO();
 		List<TalExchangelistVO> list = service.listcate();
 		model.addAttribute("list",list);
-		System.out.println(list.toString());
+		System.out.println(list.toString());*/
+		Map<String,String> map = new HashMap<>();
+		  map.put("talConnNO", talConnNO);
+		  map.put("connMemNO", member.getMemNO());
+		
+		List<TalDivVO> list = service.talhave(map);
+		model.addAttribute("list",list);
+		
 		return "/client/talReview/write";
 	}
 
@@ -69,25 +101,32 @@ public class TalReviewController {
 		return "redirect:/tr/list";
 	}
 	
-	//DB입력 후 계속 입력 안되게하기 위해 direct로 받고 list로 페이지 이동
-	@RequestMapping("/list")
-	public String ListAll() throws Exception {
-		return "/client/talReview/list";
-	}
+	
 
 	// list에서 후기내역 상세보기 
 	@RequestMapping("/read")
 	public String readPage(String talReviewNO, Model model, SearchCriteria cri, HttpServletRequest req) throws Exception {
-		/*req.getSession().getAttribute("clientMemberVO");
-		req.getSession().getAttribute("talDivItem");
-		*/
-		List<TalReviewVO> list = service.listSearch(cri);
 		
-		model.addAttribute("list", list);
+		/*List<TalReviewVO> list = (List<TalReviewVO>) service.read(talReviewNO);
+		
+		for(int i=0; i<list.size(); i++){
+			TalReviewVO talReview =list.get(i);
+			Map<String,String> map = new HashMap<>();
+			  map.put("talConnNO", talReview.getTalConnNO());
+			  map.put("connMemNO", talReview.getMemNO());
+			
+			List<TalDivVO> nameList = service.talhave(map);
+			String nameStr="";
+			for(int j=0; j<nameList.size(); j++){
+				nameStr+=nameList.get(j).getName() +" ";
+			}
+			talReview.setName(nameStr);
+			
+		}*/
+		
 		try {
 			TalReviewVO vo = service.read(talReviewNO);
 			model.addAttribute("talReviewVO", vo);
-			System.out.println("talReviewVO(talReviewCon)"+vo);
 			model.addAttribute("cri", cri);
 			
 		} catch (Exception e) {

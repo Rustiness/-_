@@ -39,16 +39,7 @@
 					<input type='hidden' name='searchType' value="${cri.searchType}">
 					<input type='hidden' name='keyword' value="${cri.keyword}">
 				</form>
-				<tr>
-				
-					
-					<th><div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
-							<h5>받은 재능: </h5>
-							<c:forEach items="${taketalent }" var="tal">
-								${tal.name }
-							</c:forEach>
-						</div></th>
-				</tr>
+			
 			</table>
 			<br>
 			<div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">

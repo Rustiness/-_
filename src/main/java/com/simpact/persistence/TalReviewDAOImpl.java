@@ -1,6 +1,7 @@
 package com.simpact.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.simpact.domain.Criteria;
 import com.simpact.domain.SearchCriteria;
-import com.simpact.domain.TalExchangelistVO;
+import com.simpact.domain.TalDivVO;
 import com.simpact.domain.TalReviewVO;
 
 @Repository
@@ -77,7 +78,7 @@ public class TalReviewDAOImpl implements TalReviewDAO {
 	@Override
 	public List<TalReviewVO> listSearch(SearchCriteria cri) throws Exception {
 		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
-		List<TalReviewVO> list = sqlSession.selectList("rboard.listSearch", cri, bounds);
+		//List<TalReviewVO> list = sqlSession.selectList("rboard.listSearch", cri, bounds);
 		return sqlSession.selectList("rboard.listSearch", cri, bounds);
 	}
 
@@ -92,8 +93,8 @@ public class TalReviewDAOImpl implements TalReviewDAO {
 	}
 
 	@Override
-	public List<TalExchangelistVO> catelist() throws Exception {
-		return sqlSession.selectList("rboardlist.catelist");
+	public List<TalDivVO> talDivVO(Map<String,String> map) throws Exception {
+		return sqlSession.selectList("rboard.talDivVO2",map);
 	}
 
 }

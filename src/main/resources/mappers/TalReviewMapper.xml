@@ -70,9 +70,9 @@
 		</if>
 	</sql>
 
-	<!-- 전체리스트 검색하기 -->
+	<!-- 전체리스트 검색하기(카테고리, 닉네임 조회때문에 복잡해짐 -_- -->
 	<select id="listSearch" resultType="rboard">
-		select talReviewNO, r.nickname, w.content, w.title , writeDate
+		select talReviewNO, r.nickname, w.content, w.title , writeDate, w.talConnNO, w.memNO
 		from talReview w, member r
  		where r.memNO = w.memNO
 		
@@ -90,8 +90,31 @@
 		select count(*) from TalReview
 		<include refid="search2"></include>
 	</select>
-
 	
+	<select id="talDivVO2" resultType="talDivVO"  >
+		SELECT TEC.TALCONNNO, TB.TALDOCNO, DT.TALDIVDF, DT.name
+		FROM NP_TalHave TH, TalentBoard TB, TalExcConn TEC, MEMBER M, DF_TALDIV DT
+		WHERE M.MEMNO = TB.MEMNO
+    		  AND TH.TALDOCNO = TB.TALDOCNO
+    		  AND TEC.TALDOCNO = TB.TALDOCNO --연결된것중 작성
+    		  AND TEC.TALCONNNO = #{talConnNO}
+     		 AND TEC.memNO = #{connMemNO} --내가 신청자
+     		 AND DT.talDivDF = TH.talDivDF
+     		 AND TEC.STATE = 3
+		UNION
+		SELECT TEC.TALCONNNO, TB.TALDOCNO, DT.TALDIVDF, DT.name
+		FROM NP_TalHaveCn THC, TalentBoard TB, TalExcConn TEC, MEMBER M, DF_TALDIV DT
+		WHERE M.MEMNO = TEC.MEMNO
+ 		     AND THC.TALCONNNO = TEC.TALCONNNO
+ 		     AND TB.TALDOCNO = TEC.TALDOCNO
+ 		     AND TEC.TALCONNNO = #{talConnNO}
+  		    AND TB.memNO = #{connMemNO} --내가 작성자
+  		    AND DT.talDivDF = THC.talDivDF
+   		   AND TEC.STATE = 3
+		ORDER BY TALCONNNO DESC
+</select>
+
+
 </mapper>
 
 

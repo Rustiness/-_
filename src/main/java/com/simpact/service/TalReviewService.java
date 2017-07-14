@@ -1,10 +1,11 @@
 package com.simpact.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.simpact.domain.Criteria;
 import com.simpact.domain.SearchCriteria;
-import com.simpact.domain.TalExchangelistVO;
+import com.simpact.domain.TalDivVO;
 import com.simpact.domain.TalReviewVO;
 
 public interface TalReviewService {
@@ -28,6 +29,6 @@ public interface TalReviewService {
 
 	public int listSearchCount(SearchCriteria cri) throws Exception; //검색관련
 		
-		public List<TalExchangelistVO> listcate() throws Exception;
+	public List<TalDivVO> talhave(Map<String,String> map) throws Exception;
 
 }

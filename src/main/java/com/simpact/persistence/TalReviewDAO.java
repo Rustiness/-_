@@ -1,11 +1,11 @@
 package com.simpact.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import com.simpact.domain.Criteria;
 import com.simpact.domain.SearchCriteria;
-
-import com.simpact.domain.TalExchangelistVO;
+import com.simpact.domain.TalDivVO;
 import com.simpact.domain.TalReviewVO;
 
 
@@ -21,7 +21,7 @@ public interface TalReviewDAO {
 
 	public List<TalReviewVO> listPage(int page) throws Exception;//조회(여러행-리스트)
 
-	public List<TalExchangelistVO> catelist() throws Exception;//재능카테고리 읽어오기
+	public List<TalDivVO> talDivVO(Map<String,String> map) throws Exception;//재능카테고리 불러오기
 
 	public List<TalReviewVO> listCriteria(Criteria cri) throws Exception;//전체레코드 수
 

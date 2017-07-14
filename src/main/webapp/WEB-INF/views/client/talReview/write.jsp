@@ -20,33 +20,22 @@
 				<!-- /.box-header -->
 
 <form role="form" method="post" name="frm">
- 
-
- 
+    <input type="hidden" name="memNO" value ='${clientMemberVO.memNO }' >
+    <input type="hidden" name="EXCDIV" value='${talDiv.TALCATEDF}'>
 	<div data-text-content="true" style="font-weight:bold;font-size:18px" class>교환후기 등록</div>
 	<div data-text-content="true" style="font-weight: bold; font-size: 18px; background-color: rgb(224, 224, 224);" class spellcheck="false">  교환 정보</div>
      <table>
      <tr>
-     <th>받은재능: </th>
-     <td>
-    
-    
-		<c:forEach items="${talDivHave}" var="talDivItem">
-			<c:if test="${talExchangeVO.talConnNO eq talDivItem.talConnNO}">
-			</c:if>
-		</c:forEach> 
-	 </td>
-  					
-	
-	
-     
-     </td>
-     
+	     <th>받은재능:</th>
+	     <td><c:forEach items="${list}" var="talDiv">			
+				${talDiv.name }
+			</c:forEach> 
+		 </td>
      </tr>
      <tr>
      <th>작성자닉네임: </th>
-     <td>${clientMemberVO.nickName }</td>
-    <input type=hidden name="memNO" value ='${clientMemberVO.memNO }' >
+     <td> ${clientMemberVO.nickName }</td>
+    
      </tr>
      
      

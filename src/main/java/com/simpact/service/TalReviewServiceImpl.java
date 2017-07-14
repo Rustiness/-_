@@ -1,6 +1,7 @@
 package com.simpact.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.simpact.domain.Criteria;
 import com.simpact.domain.SearchCriteria;
-import com.simpact.domain.TalExchangelistVO;
+import com.simpact.domain.TalDivVO;
 import com.simpact.domain.TalReviewVO;
 import com.simpact.persistence.TalReviewDAO;
 
@@ -65,8 +66,8 @@ public class TalReviewServiceImpl implements TalReviewService {
 	}
 
 	@Override
-	public List<TalExchangelistVO> listcate() throws Exception {
-	return dao.catelist();
+	public List<TalDivVO> talhave(Map<String,String> map) throws Exception {
+		return dao.talDivVO(map);
 	}
 	
 	
