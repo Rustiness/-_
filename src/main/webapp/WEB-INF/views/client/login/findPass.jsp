@@ -79,7 +79,7 @@
              							<span class="glyphicon-class">아이디</span>
              						</label>
 									<div class="col-md-4">
-										<input type="text" id="email">
+										<input type="text" id="email" class="form-control" style="width: 200px; display: inline-block;">
        								</div>
 								</div>
 								<div class="row">
@@ -88,7 +88,7 @@
              							<span class="glyphicon-class">이름</span>
              						</label>
 									<div class="col-md-4">
-										<input type="text" id="name">
+										<input type="text" id="name" class="form-control" style="width: 200px; display: inline-block;">
        								</div>
 								</div>
 								<div class="row">
@@ -97,9 +97,9 @@
              							<span class="glyphicon-class">전화번호</span>
              						</label>
 									<div class="col-md-4">
-										<input type="text" id="tel1" style="width: 43px;"> 
-										-<input type="text" id="tel2" style="width: 45px;">
-										-<input type="text" id="tel3" style="width: 45px;">
+										<input type="text" id="tel1" class="form-control" style="width: 60px; display: inline-block;"> 
+										-<input type="text" id="tel2" class="form-control" style="width: 65px; display: inline-block;">
+										-<input type="text" id="tel3" class="form-control" style="width: 65px; display: inline-block;">
 									</div>
 								</div>
 							</div>

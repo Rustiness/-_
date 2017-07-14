@@ -15,14 +15,13 @@
 <!-- Main content -->
 <section class="content">
 
-	<center>
-			
+			<br>
 			<div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
 							<h5>교환후기</h5>
 						</div>
 			<div class='box-body'>
 
-				<select name="searchType">
+				<select name="searchType" class="form-control" style="width: 140px; display: inline-block;">
 					<option value="n"
 						<c:out value="${cri.searchType == null?'selected':''}"/>>
 						---선택---</option>
@@ -36,10 +35,10 @@
 						<c:out value="${cri.searchType eq 'w'?'selected':''}"/>>
 						작성자</option>
 				</select>
-				 <input type="text" name='keyword' id="keywordInput" value='${cri.keyword }'>
-				<button id='searchBtn' style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info">찾기</button>
-				<button id='newBtn' style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info" >글쓰기</button>
-	
+				 <input type="text" name='keyword' id="keywordInput" value='${cri.keyword }' placeholder="검색어" class="form-control" style="width: 200px; display: inline-block;">
+					<button id='searchBtn' class="btn btn-default"><i class="fa fa-search"></i></button>
+						
+	<center>
 			</div>
 			<br>
 			<div class="box-body">

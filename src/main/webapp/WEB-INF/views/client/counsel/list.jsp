@@ -19,7 +19,7 @@
 						<h3 style="color:#FFF;" class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar">
 							<span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a>재능 패널</h3>
 					</div>
-	<div class="row">
+	<div class="row" style="margin-left: 15px">
 		<!-- left column -->
 		<div class="col-md-12">
 			<!-- general form elements -->
@@ -34,12 +34,10 @@
 				</left>
 				</div>
 				<left>
-				<div class="box-body">
-
-				<select name="searchType"  >
+				<select name="searchType" class="form-control" style="width: 140px; display: inline-block;">
 						<option value="n"
 							<c:out value="${cri.searchType == null?'selected':''}"/>>
-							---</option>
+							---선택---</option>
 						<option value="t"
 							<c:out value="${cri.searchType eq 't'?'selected':''}"/>>
 							제목</option>
@@ -51,22 +49,25 @@
 							작성자</option>
 
 					</select>
-					
 					<input type="text" name='keyword' id="keywordInput"
-						value='${cri.keyword }' placeholder="검색어">
-					<button id='searchBtn'>찾기</button>
-					<button id='newBtn'>문의글 쓰기</button>
+						value='${cri.keyword }' placeholder="검색어" class="form-control" style="width: 200px; display: inline-block;">
+					<button id='searchBtn' class="btn btn-default"><i class="fa fa-search"></i></button>
+					<button id='newBtn' class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
 					<br>
+				<div class="box-body">
 
+				<br><br>
 				
-				
-					<table class="table table-bordered" cellpadding="10">
+				<center>
+					<table style="font-size:inherit;" class="table table-condensed table-bordered table-hover" cellpadding="10">
+							<thead style="color:#FFF; background-color:#89729E; width: 100%;">
 						<tr>
 							<th style="width: 10px">NO.</th>
 							<th>문의항목</th>
 							<th>제목</th>
 							<th>닉네임</th>
 							<th>작성일</th>
+							</thead>
 						<!-- 	<th>상태</th> -->
 							
 
@@ -96,7 +97,7 @@
 				</left>
 				<!-- /.box-body -->
 
-			
+			<center>
 				<div class="box-footer">
 
 			<div class="text-center">

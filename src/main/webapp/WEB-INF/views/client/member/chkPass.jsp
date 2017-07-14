@@ -93,7 +93,7 @@ $.ajax({
             				 		</label>
             				 		<form name="upfrm">
 									<div class="col-md-4">
-										<input type="password" id="uppass"> 
+										<input type="password" id="uppass" class="form-control" style="width: 200px; display: inline-block;"> 
 										<button type="button" id="upcheck" class="btn btn-info">확인</button><br>
 										<div id="upd1"></div>
 									</div>
@@ -127,7 +127,7 @@ $.ajax({
             				 		</label>
             				 		<form name="delfrm">
 									<div class="col-md-4">
-										<input type="password" id="delpass"> 
+										<input type="password" id="delpass" class="form-control" style="width: 200px; display: inline-block;"> 
 										<button type="button" id="delcheck" class="btn btn-info">확인</button><br>
 										<div id="deld1"></div>
 									</div>

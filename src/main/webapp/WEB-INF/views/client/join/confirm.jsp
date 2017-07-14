@@ -276,7 +276,7 @@ $(document).ready(function () {
 					$.each(data, function(index, m) { // db에 있는 메신저목록을 가져와서 하단의 div에 넣는다
 						selectlist += "<option value=" + m.mesDF + " id=" + m.mesDF + ">" + m.name + "</option>";
 					});
-					selectlist += "<select > <input type=text id='msg" + inputID + "'> <input type=button value='삭제' id='deletemsg' class='btn btn-danger' ></div>";
+					selectlist += "<select > <input type=text class='form-control' style='width: 200px; display: inline-block;' id='msg" + inputID + "'> <input type=button value='삭제' id='deletemsg' class='btn btn-danger' ></div>";
 					inputID++;
 					msgmaxcount++;
 					$('#megform').append(selectlist);
@@ -369,9 +369,9 @@ $(document).ready(function () {
 <section class="content">
 <div class="panel panel-default">
 					<div>
-						<input type="hidden" name="page" value="1"> <input type="hidden" name="perPageNum" value="10">
-						<input type="hidden" name="searchType" value="">
-						<input type="hidden" name="keyword" value="">
+						<input type="hidden" name="page" value="1"> <input type="hidden" name="perPageNum" value="10" class="form-control" style="width: 200px; display: inline-block;">
+						<input type="hidden" name="searchType" value="" class="form-control" style="width: 200px; display: inline-block;">
+						<input type="hidden" name="keyword" value="" class="form-control" style="width: 200px; display: inline-block;">
 					</div>
 					<div class="panel-body">
 						
@@ -391,7 +391,7 @@ $(document).ready(function () {
              							<span class="glyphicon-class">아이디(이메일)</span>
              						</label>
 									<div class="col-md-4">
-										<input type="text" id="email" name="email" maxlength="30">
+										<input type="text" id="email" name="email" maxlength="30" class="form-control" style="width: 200px; display: inline-block;">
 										<div id="email_1" style="color: red; font-size: 11px;"></div>
        								</div>
 								</div>
@@ -401,7 +401,7 @@ $(document).ready(function () {
              							<span class="glyphicon-class">비밀번호</span>
              						</label>
 									<div class="col-md-4">
-										<input type="password" name="pass1" id="pass1" maxlength="12">
+										<input type="password" name="pass1" id="pass1" maxlength="12" class="form-control" style="width: 200px; display: inline-block;">
        								</div>
 								</div>
 								<div class="row">
@@ -410,7 +410,7 @@ $(document).ready(function () {
              							<span class="glyphicon-class">비밀번호확인</span>
              						</label>
 									<div class="col-md-4">
-										<input type="password" name="pass2" maxlength="12">
+										<input type="password" name="pass2" maxlength="12" class="form-control" style="width: 200px; display: inline-block;">
 										<div id="pass_1" style="color: red; font-size: 11px;"></div>
 										<div id="pass_2" style="color: red; font-size: 11px;"></div>
        								</div>
@@ -431,7 +431,7 @@ $(document).ready(function () {
             							 <span class="glyphicon-class">이름</span>
              						</label>
 									<div class="col-md-4">
-										<input type="text" name="name" id="name" maxlength="12">
+										<input type="text" name="name" id="name" maxlength="12" class="form-control" style="width: 200px; display: inline-block;">
 										<div id="name_1" style="color: red; font-size: 11px;"></div>
 									</div>
 								</div>
@@ -441,7 +441,7 @@ $(document).ready(function () {
              							<span class="glyphicon-class">닉네임</span>
             				 		</label>
 									<div class="col-md-4">
-										<input type="text" id="nickName" name="nickName">
+										<input type="text" id="nickName" name="nickName" class="form-control" style="width: 200px; display: inline-block;">
 										<div id="nickname_1" style="color: red; font-size: 11px;"></div>
 									</div>
 								</div>
@@ -451,7 +451,7 @@ $(document).ready(function () {
            							     <span class="glyphicon-class">생년월일</span>
              						</label>
 									<div class="col-md-4">
-										<input type="date" name="birth" id="birth">
+										<input type="date" name="birth" id="birth" class="form-control" style="width: 200px; display: inline-block;">
 									</div>
 								</div>
 								<div class="row">
@@ -460,7 +460,7 @@ $(document).ready(function () {
              							<span class="glyphicon-class">성별</span>
             				 		</label>
 									<div class="col-md-4">
-           								남성<input type="radio" name="sex" value="1" checked="checked">
+           								남성<input type="radio" name="sex" value="1" checked="checked" >
            								여성<input type="radio" name="sex" value="2">
            							</div>
            						</div>
@@ -471,9 +471,9 @@ $(document).ready(function () {
             							 <span class="glyphicon-class">전화번호</span>
              						</label>
 									<div class="col-md-4">
-									<input type="text" name="tel1" id="tel1" size="4" maxlength="3"> - 
-									<input type="text" name="tel2" id="tel2" size="4" maxlength="4"> - 
-									<input type="text" name="tel3" id="tel3" size="4" maxlength="4">
+									<input type="text" name="tel1" id="tel1" size="4" maxlength="3" class="form-control" style="width: 60px; display: inline-block;"> - 
+									<input type="text" name="tel2" id="tel2" size="4" maxlength="4" class="form-control" style="width: 65px; display: inline-block;"> - 
+									<input type="text" name="tel3" id="tel3" size="4" maxlength="4" class="form-control" style="width: 65px; display: inline-block;">
 									<div id="tel_1" style="color: red; font-size: 11px;"></div>
 									</div>
 								</div>
@@ -498,7 +498,7 @@ $(document).ready(function () {
 													<option value="${list.mesDF }" id="${list.mesDF }">${list.name }</option>
 												</c:forEach>
 											</select> 
-											<input type="text" id="msg0"> 
+											<input type="text" id="msg0" class="form-control" style="width: 200px; display: inline-block;"> 
 											<input name="addButton" type="button" value="추가" id="addmax" class="btn btn-info navbar-btn">
 											</form>
 										</div>

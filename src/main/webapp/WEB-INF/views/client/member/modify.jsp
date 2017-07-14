@@ -277,7 +277,7 @@
 						</label>
 						<div class="col-md-3">
 							<input type="password" value="${clientMemberVO.pass }" id="pass1"
-								style="width: 80px;">
+								class="form-control" style="width: 80px; display: inline-block;">
 						</div>
 					</div>
 
@@ -288,7 +288,7 @@
 						</label>
 						<div class="col-md-4">
 							<input type="password" value="${clientMemberVO.pass }" id="pass2"
-								style="width: 80px;">
+								class="form-control" style="width: 80px; display: inline-block;">
 							<div id="pass_1"></div>
 						</div>
 					</div>
@@ -314,7 +314,7 @@
 						</label>
 						<div class="col-md-4">
 							<input type="text" value="${clientMemberVO.nickName }"
-								id="nickName" style="width: 80px;">
+								id="nickName" class="form-control" style="width: 80px; display: inline-block;">
 							<div id="nickname_1"></div>
 						</div>
 					</div>
@@ -340,10 +340,10 @@
 							class="glyphicon glyphicon-phone-alt"></span> <span
 							class="glyphicon-class">전화번호</span>
 						</label> <span class="col-md-4"> <input type="text"
-							value="${tel[0] }" id="tel1" style="width: 30px;"> -<input
-							type="text" value="${tel[1] }" id="tel2" style="width: 40px;">
+							value="${tel[0] }" id="tel1" class="form-control" style="width: 60px; display: inline-block;"> -<input
+							type="text" value="${tel[1] }" id="tel2" class="form-control" style="width: 65px; display: inline-block;">
 							-<input type="text" value="${tel[2] }" id="tel3"
-							style="width: 40px;">
+							class="form-control" style="width: 65px; display: inline-block;">
 							<div id="tel_1"></div>
 						</span> <label class="col-md-2 form-label"> <span
 							class="glyphicon glyphicon-calendar"></span> <span
@@ -384,7 +384,7 @@
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
-							</select> <input type="text" value="${my.id}" id="upmesID${status.count }">
+							</select> <input type="text" value="${my.id}" id="upmesID${status.count }" class="form-control" style="width: 200px; display: inline-block;">
 								<input type="hidden" value="${my.no }" id="no${my.no }">
 								<input type=button value='삭제' id='removemsg'
 								class="btn btn-danger"> <c:if test="${status.last}">
@@ -409,7 +409,7 @@
 										<c:forEach items="${messengerVOlist}" var="messenger">
 											<option value="${messenger.mesDF }">${messenger.name }</option>
 										</c:forEach>
-									</select> <input type="text" id="msg"> <input name="addButton"
+									</select> <input type="text" id="msg" class="form-control" style="width: 200px; display: inline-block;"> <input name="addButton"
 										type="button" value="추가" class="btn btn-primary"><br>
 
 								</form>

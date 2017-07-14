@@ -15,17 +15,7 @@
 
 <!-- Main content -->
 <section class="content">
-	<div class="row">
-		<!-- left column -->
-		<div class="col-md-12">
-
-			<!-- general form elements -->
-			<div class="box box-primary">
-				<div class="box-header">
-					<h3 class="box-title">READ BOARD </h3>
-				</div>
-				<!-- /.box-header -->
-				<form role="form" action="modifyPage" method="post">
+<form role="form" action="modifyPage" method="post">
 
 					<input type='hidden' name='csNO' value="${boardVO.csNO}"> 
 					<input type='hidden' name='page' value="${cri.page}"> 
@@ -34,87 +24,104 @@
 					<input type='hidden' name='keyword' value="${cri.keyword}">
 
 				</form>
-
-				<div class="box-body">
-					<div data-text-content="true"
-						style="font-weight: bold; font-size: 24px; border-width: 0px; border-style: none; text-shadow: rgba(0, 0, 0, 0.5) 3px 3px 14px;"
-						class="">문의사항등록</div>
-						<br>
-					<div data-text-content="true"
-						style="font-weight: bold; font-size: 18px; background-color: rgb(224, 224, 224);"
-						class>문의 정보</div>
-					<table>
-						<tr>
-							<th><div data-text-content="true"
-									style="font-size: 16px; font-weight: bold;" class
-									spellcheck="false">문의 항목</div></th>									
-							<td><div data-text-content="true" style="font-size: 12px;"
-									class>
-									<input type="text"
-							name='name' class="form-control" value="${boardVO.name}"
-							readonly="readonly"></div></td>
-									
-							<th><div data-text-content="true"
-									style="font-size: 16px; font-weight: bold;" class
-									spellcheck="false">상태</div></th>
-							<td><div data-text-content="true" style="font-size: 12px;"
-									class>
-									
-							<c:if test="${boardVO.state =='2' }">
-							<input type="text" name='state' class="form-control" 
-							value="공개"  readonly="readonly">
-							</c:if>
-							</div></td>
-
-						</tr>
-					</table>
-
-					<br>
-					<div class="form-group">
-						<label for="exampleInputEmail1">제목</label> 
-						<input type="text"
-							name='title' class="form-control" value="${boardVO.title}"
-							readonly="readonly">
-					</div>
-					<div class="form-group">
-						<label for="exampleInputEmail1">작성자</label> 
-						<input type="text" name="memNO" class="form-control" value="${boardVO.memNO}"
-							readonly="readonly">
-					</div>
-					
-					
-					
-					<div class="form-group">
-						<label for="exampleInputPassword1">문의내용</label>
-						<textarea class="form-control" name="content" rows="5" cols="50"
-							readonly="readonly">${boardVO.content}</textarea>
-					</div>
+<div class="panel-body">
+						<div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
+							<h5>문의사항 내용</h5>
+						</div>
+						
+						<form role="form" method="post" name="frm">
+						<div class="panel panel-default">
+							<div style="background-color:#89729E;" class="panel-heading">
+								<h3 style="color:#FFF;" class="panel-title"><b>문의 정보</b></h3>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-list-alt"></span>
+             							<span class="glyphicon-class">문의 항목</span>
+             						</label>
+									<div class="col-md-4">
+										<input type="text" name='name' class="form-control" value="${boardVO.name}" readonly="readonly">
+       								</div>
+								</div>
+								
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-cloud"></span>
+             							<span class="glyphicon-class">공개여부</span>
+             						</label>
+									<div class="col-md-4">
+										<c:if test="${boardVO.state =='2' }">
+											<input type="text" name='state' class="form-control" value="공개"  readonly="readonly">
+										</c:if>
+       								</div>
+								</div>
+								
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-user"></span>
+             							<span class="glyphicon-class">작성자</span>
+             						</label>
+									<div class="col-md-4">
+       									<input type="text" name="memNO" class="form-control" value="${boardVO.memNO}" readonly="readonly">
+       								</div>
+								</div>
+								<br><br>
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-tag"></span>
+             							<span class="glyphicon-class">문의 제목</span>
+             						</label>
+									<div class="col-md-4">
+       									<input type="text" name='title' class="form-control" value="${boardVO.title}" readonly="readonly">
+       								</div>
+								</div>
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-pencil"></span>
+             							<span class="glyphicon-class">문의 내용</span>
+             						</label>
+									<div class="col-md-4">
+       									<textarea class="form-control" name="content" rows="5" cols="50" readonly="readonly">${boardVO.content}</textarea>
+       								</div>
+								</div>
+								
+							</div>
+						</div>
+						<div align="center">
+							<button type="submit" class="btn btn-warning" id="modifyBtn">수정</button>
+			 			    <button type="submit" class="btn btn-danger" id="removeBtn">삭제</button>
+			    		    <button type="submit" class="btn btn-primary" id="goListBtn">목록 </button>
+						</div>
+					</form>
 				</div>
-				<!-- /.box-body -->
-
-				<div class="box-footer">
-			    <button type="submit" class="btn btn-warning" id="modifyBtn">수정</button>
-			    <button type="submit" class="btn btn-danger" id="removeBtn">삭제</button>
-			    <button type="submit" class="btn btn-primary" id="goListBtn">목록 </button>
-				</div>
-
-			</div>
-			<!-- /.box -->
-		</div>
-		<!--/.col (left) -->
-
-	</div>
-	<!-- /.row -->
-
 
 <div class="row">
   <div class="col-md-12">
 
 <!-- 댓글 등록에 필요한 div -->
 	<div class="box box-success">
-		 <div class="box-header">
-			<h3 class="box-title">댓글게시판</h3>
-		 </div>
+		<div class="panel-body">
+						<div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
+							<h5>댓글</h5>
+						</div>
+						<div class="panel panel-default">
+							<div style="background-color:#89729E;" class="panel-heading">
+								<h3 style="color:#FFF;" class="panel-title"><b>댓글창</b></h3>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-list-alt"></span>
+             							<span class="glyphicon-class"><button id="replyview" class="btn btn-primary">댓글 보기</button> </span>
+             						</label>
+									<div class="col-md-4">
+       									<div id="repliesDiv"></div>
+       								</div>
+								</div>
+							</div>
+						</div>
+				</div>
 		 
 		 <div class="box-body">
 <!-- 				<label for="exampleInputEmail2">직원 번호</label> 
@@ -126,16 +133,13 @@
 			
 				<!-- /.box-body -->
 		 <div class="box-footer">
-					<!-- <button id="replyAddBtn">댓글 등록</button> --> <br><button id="replyview">댓글 보기</button> 
+					<!-- <button id="replyAddBtn">댓글 등록</button> --> <br>
 		 </div>
 	</div>
 
 
 <!-- 댓글 목록과 페이징 처리에 필요한 div -->
 
- 	<ul class="timeline">
-		<ul class="time-label" id="repliesDiv"><span class="bg-green"></span></ul>
-	</ul>
 
 	<div class='text-center'>
 		<ul id="pagination" class="pagination pagination-sm no-margin ">

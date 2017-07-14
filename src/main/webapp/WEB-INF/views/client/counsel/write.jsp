@@ -11,90 +11,88 @@
 
 <!-- Main content -->
 <section class="content">
-	<center>
-		<div class="box box-primary">
+<div class="panel panel-default">
+	<div class="panel-body">
+						<div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
+							<h5>고객문의 등록</h5>
+						</div>
+						
+						<form role="form" method="post" name="frm">
+						<div class="panel panel-default">
+							<div style="background-color:#89729E;" class="panel-heading">
+								<h3 style="color:#FFF;" class="panel-title"><b>문의 정보</b></h3>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-list-alt"></span>
+             							<span class="glyphicon-class">카테고리</span>
+             						</label>
+									<div class="col-md-4">
+										<select name="questDF" class="form-control" style="width: 140px; display: inline-block;">
+						       				 <c:forEach items="${list}" var="boardVO">
+												   <option value="${boardVO.questDF }">${boardVO.name }</option>
+											</c:forEach>
+						   				 </select>
+       								</div>
+								</div>
+								
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-cloud"></span>
+             							<span class="glyphicon-class">공개여부</span>
+             						</label>
+									<div class="col-md-4">
+       									 <select name="state" class="form-control" style="width: 140px; display: inline-block;">
+											<option value ='2'>공개</option>
+											<option value ='1'>비공개</option>
+						    				</select>
+       								</div>
+								</div>
+								
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-user"></span>
+             							<span class="glyphicon-class">작성자 닉네임</span>
+             						</label>
+									<div class="col-md-4">
+										<input type="text" value="${clientMemberVO.nickName }" disabled="disabled" class="form-control" style="width: 200px; display: inline-block;">
+										<input type="hidden" name='memNO' value="${clientMemberVO.memNO }" >
+       								</div>
+								</div>
+								<br><br>
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-tag"></span>
+             							<span class="glyphicon-class">문의글 제목</span>
+             						</label>
+									<div class="col-md-4">
+       									<input type="text" id="title" name='title' class="form-control" placeholder="제목">
+       								</div>
+								</div>
+								<div class="row">
+									<label class="col-md-2 form-label">
+										<span class="glyphicon glyphicon-pencil"></span>
+             							<span class="glyphicon-class">문의 내용</span>
+             						</label>
+									<div class="col-md-4">
+       									<textarea class="form-control" name="content" rows="5" cols="50" id="content" placeholder="내용 "></textarea>
+       								</div>
+								</div>
+								
+							</div>
+						</div>
+						<div align="center">
+							<button type="button" class="btn btn-primary">등록</button>
+							<button type="button" class="btn btn-danger" >취소</button>
+						</div>
+					</form>
+				</div>
+	</div>
 
-			<!-- /.box-header -->
-			<form role="form" method="post" name="frm">
-				<div data-text-content="true"
-					style="font-weight: bold; font-size: 18px" class>고객문의 등록</div>
-				<div data-text-content="true"
-					style="font-weight: bold; font-size: 18px; background-color: rgb(224, 224, 224);"
-					class spellcheck="false">문의 정보</div>
-					
+
 			
-				<table>
-					<tr>
-						<th>카테고리</th>
-						  <td>
-						    <select name="questDF">
-						        <c:forEach items="${list}" var="boardVO">
-								
-								   <option value="${boardVO.questDF }">${boardVO.name }</option>
-								
-								</c:forEach>
-						    </select>
-						  </td>
-					</tr>
-					<tr>
-						<th>공개여부</th>
-						   <td>
-
-						     <select name="state">
-						        
-								
-								<option value ='2'>공개</option>
-								<option value ='1'>비공개</option>
-								
-								
-						    </select>
-						   </td>
-						<br>
-					</tr>
-					<br>
-
-				</table>
-				
-				
-			<div class="form-group">
-						<label for="writer">작성자 닉네임</label> 
-						<%-- <select name="memNO">
-						        <c:forEach items="${list2}" var="boardVO">
-								
-								<option value="${boardVO.memNO }">${boardVO.nickName }</option>
-								
-								</c:forEach>
-						   </select> --%>
-						   
-				<input type="text" value="${clientMemberVO.nickName }" disabled="disabled">
-				<input type="hidden" name='memNO' value="${clientMemberVO.memNO }" >
-
-				<div class="box-body">
-					<div class="form-group">
-						<label for="title">문의글 제목</label> 
-						<input type="text" id="title"
-							name='title' class="form-control" placeholder="제목">
-					</div>
-					<div class="form-group">
-						<label for="content">문의 내용</label>
-						<br>
-						<textarea class="form-control" name="content" rows="5" cols="50"
-							id="content" placeholder="내용 "></textarea>
-					</div>
-					</div>
-				</div>
-
-
-				<div class="box-footer">
-					<button type="button" class="btn btn-primary">등록</button>
-					<button type="button" class="btn btn-warning">취소</button>
-				</div>
-			</form>
-
-
-		</div>
-
-	</center>
+		
 	
 	
 			<script>
