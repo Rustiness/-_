@@ -54,6 +54,7 @@
 			self.location = "list?page=${cri.page}&perPageNum=${cri.perPageNum}"
 				+ "&searchType=${cri.searchType}&keyword=${cri.keyword}";
 		});
+		/* 삭제 */
 		$('.remove').click(function(){
 			
 			self.location ="remove?" + "talDocNO=" + $('.talDocNO').val();

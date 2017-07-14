@@ -39,15 +39,15 @@
 			<div class="col-xs-12 col-sm-9 content">
 
 				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">
+					<div class="panel-heading" style="background-color:#875F9A;">
+						<h3 class="panel-title" style="color:#FFF;">
 							<a href="javascript:void(0);" class="toggle-sidebar"><span
 								class="fa fa-angle-double-left" data-toggle="offcanvas"
 								title="Maximize Panel"></span></a>재능 패널
 						</h3>
 					</div>
 					<div class="panel-body">
-						<div align="left">
+						<div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
 							<h4>재능등록</h4>
 
 						</div>
@@ -58,8 +58,8 @@
 						</h5>
 						<br>
 						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h1 class="panel-title">
+							<div class="panel-heading" style="background-color:#875F9A;">
+								<h1 class="panel-title" style="color:#FFF;">
 									<b><font size="5">3단계: 내용확인</font></b>
 								</h1>
 							</div>
@@ -74,11 +74,11 @@
 									value="${talWantDiv}" id="talWantDiv" name="talWantDiv">
 								<input type="hidden" value="${TalBoardVO.memNO}" id="memNO"
 									name="memNO">
-									<input type="text" value="${img }" id="img">
+									
 
 								<div class="form-group">
-									<div class="col-md-10">
-										재능글 제목<br> <input type="text"
+									<label class="col-md-10 control-label" for="description">
+										재능글 제목</label><br> <input type="text"
 											value="${TalBoardVO.title }" id="title" name="title"
 											class="form-control" readonly>
 
@@ -87,21 +87,21 @@
 								<div class="form-group">
 									<label class="col-md-10 control-label" for="description">보유한
 										재능 내용</label><br><br>
-									<div style="min-height: 80px;" novalidate=""
-										class="form-horizontal jumbotron-contents">
-										<h5 class="contentHave" id="contentHave" name="contentHave">${TalBoardVO.contentHave}</h5>
-									</div>
+									<div class="panel-body">
+								<div style="min-height: 80px;" novalidate="" class="form-horizontal jumbotron-contents">
+									${TalBoardVO.contentHave}
+								</div>
+							</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-10 control-label" for="description">원하는
 										재능 내용</label><br><br>
           
-									<div style="min-height: 80px;" novalidate=""
-										class="form-horizontal jumbotron-contents">
-										<h5 class="contentWant" id="contentWant" name="contentWant">${TalBoardVO.contentWant}</h5>
-									</div>
-
+									<div class="panel-body">
+								<div style="min-height: 80px;" novalidate="" class="form-horizontal jumbotron-contents">
+									${TalBoardVO.contentWant}
 								</div>
+							</div>
 
 
 

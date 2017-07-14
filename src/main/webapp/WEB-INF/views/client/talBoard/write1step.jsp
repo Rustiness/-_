@@ -39,7 +39,7 @@
 			},
 			fCreator: "createSEditor2"
 		});
-	});
+	});  
 </script>
 <script>
 	$(document).ready(function() {
@@ -220,15 +220,15 @@
 			<div class="col-xs-12 col-sm-9 content">
 
 				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">
+					<div class="panel-heading" style="background-color:#875F9A;">
+						<h3 class="panel-title" style="color:#FFF;">
 							<a href="javascript:void(0);" class="toggle-sidebar"><span
 								class="fa fa-angle-double-left" data-toggle="offcanvas"
 								title="Maximize Panel"></span></a>재능 패널
 						</h3>
 					</div>
 					<div class="panel-body">
-						<div align="left">
+						<div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
 							<h4>재능등록</h4>
 
 						</div>
@@ -238,10 +238,10 @@
 						</h5>
 						<br>
 						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h1 class="panel-title">
+							<div class="panel-heading" style="background-color:#875F9A;">
+								<h3 class="panel-title" style="color:#FFF;">
 									<b><font size="5">1단계: 보유한 재능 정보 입력</font></b>
-								</h1>
+								</h3>
 							</div>
 
 
@@ -268,7 +268,9 @@
 
 
 								<input type="button" value="보유한 재능 이전글 가져오기" data-toggle="modal"
-									data-target="#beforeTalModal"> <br> <br> <br>
+									data-target="#beforeTalModal"> <div class="form-group">
+								  <!--  <input type="file" value="추가" name="img" class="fileDrop"> -->
+								</div><br> <br> <br>
 
 
 								<%--보유한 재능 셀렉트 시작--%>

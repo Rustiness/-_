@@ -9,6 +9,40 @@
 <%@include file="../include/header.jsp"%>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<%-- SmartEditor를 사용하기 위해서 다음 js파일을 추가 (경로 확인) --%>
+<script type="text/javascript"
+	src="/resources/SE2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" id="SE2">
+	var oEditors = [];
+	$(function(){
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef: oEditors,
+			elPlaceHolder: "contentHave", //textarea에서 지정한 id와 일치해야 합니다.
+			//SmartEditor2Skin.html 파일이 존재하는 경로
+			sSkinURI: "/resources/SE2/SmartEditor2Skin.html",
+			htParams : {
+				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseToolbar : true,
+				// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseVerticalResizer : true,
+				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseModeChanger : true,
+				fOnBeforeUnload : function(){
+
+				}
+			},
+			fOnAppLoad : function(){
+				//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
+				//oEditors.getById["description"].exec("PASTE_HTML", ['${talExcConnVO.content}']);
+			},
+			fCreator: "createSEditor2"
+		});
+	});  
+</script>
+
+
+
+
 <script>
 	$(document).ready(function() {
 
@@ -113,27 +147,29 @@
 			<div class="col-xs-12 col-sm-9 content">
 
 				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">
+					<div class="panel-heading" style="background-color: #875F9A;">
+						<h3 class="panel-title" style="color: #FFF;">
 							<a href="javascript:void(0);" class="toggle-sidebar"><span
 								class="fa fa-angle-double-left" data-toggle="offcanvas"
 								title="Maximize Panel"></span></a>재능 패널
 						</h3>
 					</div>
 					<div class="panel-body">
-						<div align="left">
-							<h4>재능수정</h4>
+						<div class="panel-heading" align="left"
+							style="background-color: #875F9A;">
+							<h4 class="panel-title" style="color: #FFF;">재능수정</h4>
 						</div>
 						<form action="/tb/modHave" role="form" method="post">
-						<div class="panel panel-default">
-							<div class="form-group">
-								<label class="col-md-2 control-label">제목</label>
-								<div class="col-md-10">
-									<input type="text" required="" placeholder="Title" id="title"
-										class="form-control" name="title" value="${TalBoardVO.title }">
+							<div class="panel panel-default">
+								<div class="form-group">
+									<label class="col-md-2 control-label">제목</label>
+									<div class="col-md-10">
+										<input type="text" required="" placeholder="Title" id="title"
+											class="form-control" name="title"
+											value="${TalBoardVO.title }">
+									</div>
 								</div>
-							</div>
-							
+
 
 
 
@@ -197,7 +233,8 @@
 
 
 								<div class="form-group">
-									<label class="col-md-2 control-label" for="description">보유한 재능 내용</label>
+									<label class="col-md-2 control-label" for="description">보유한
+										재능 내용</label>
 									<div class="col-md-10">
 										<textarea rows="10" cols="50" id="contentHave"
 											name="contentHave" value="내용을 수정해 주세요">${TalBoardVO.contentHave }</textarea>
@@ -211,7 +248,47 @@
 											class="btn btn-info">
 									</div>
 								</div>
-							</form>
+							</div>
+						</form>
+					</div>
+					<%-- Modal 시작--%>
+					<div class="modal fade" id="beforeTalModal" tabindex="-1"
+						role="dialog" aria-labelledby="bigModal" aria-hidden="true">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="acceptModalLabel">이전 재능글 선택</h4>
+								</div>
+								<div class="modal-body">
+
+
+									<label>제목</label><label>보유한 재능</label><label>원하는 재능</label><label>작성일</label>
+
+									<c:forEach items="${beforeTal}" var="list">
+										<div class="choice" data-dismiss="modal">
+											<input type="hidden" value="${list.title }" class="titleChoi">
+											<input type="hidden" value="${list.contentHave }"
+												class="contentHaveChoi"> <input type="hidden"
+												value="${list.contentWant }" class="contentWantChoi">
+
+											<span class="titleChoi">${list.title}</span> <span
+												class="contentHaveChoi">${list.contentHave}</span> <span
+												class="contentWantChoi">${list.contentWant}</span>
+
+										</div>
+										<br>
+									</c:forEach>
+
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">취소</button>
+
+								</div>
+							</div>
 						</div>
 					</div>
 
