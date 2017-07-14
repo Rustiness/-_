@@ -66,32 +66,41 @@
 
 
 							<form action="write" method="POST">
-							
-							    <input type="hidden" value="${talHaveDiv}" id="talHaveDiv" name="talHaveDiv"> 
-							    <input type="hidden" value="${talWantDiv}" id="talWantDiv" name="talWantDiv"> 
-							    <input type="hidden" value="${TalBoardVO.memNO}" id="memNO" name="memNO"> 
+                              
+                                <input type="hidden" value="${TalBoardVO.contentHave}" id="contentHave" name="contentHave">
+                                <input type="hidden" value="${TalBoardVO.contentWant}" id="contentWant" name="contentWant">
+								<input type="hidden" value="${talHaveDiv}" id="talHaveDiv"
+									name="talHaveDiv"> <input type="hidden"
+									value="${talWantDiv}" id="talWantDiv" name="talWantDiv">
+								<input type="hidden" value="${TalBoardVO.memNO}" id="memNO"
+									name="memNO">
+									<input type="text" value="${img }" id="img">
 
 								<div class="form-group">
 									<div class="col-md-10">
 										재능글 제목<br> <input type="text"
-											value="${TalBoardVO.title }" id="title" name="title" class="form-control" readonly>
-										
+											value="${TalBoardVO.title }" id="title" name="title"
+											class="form-control" readonly>
+
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-10 control-label" for="description">보유한
-										재능 내용</label>
-									<div class="col-md-10">
-										<textarea rows="10" cols="50" name="contentHave" id="contentHave"
-											value="받아올 내용" class="form-control" readonly>${TalBoardVO.contentHave }</textarea>
+										재능 내용</label><br><br>
+									<div style="min-height: 80px;" novalidate=""
+										class="form-horizontal jumbotron-contents">
+										<h5 class="contentHave" id="contentHave" name="contentHave">${TalBoardVO.contentHave}</h5>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-10 control-label" for="description">원하는
-										재능 내용</label>
-									<div class="col-md-10">
-										<textarea rows="10" cols="50" name="contentWant" id="contentWant" value="받아올 내용" class="form-control" readonly>${TalBoardVO.contentWant }</textarea>
+										재능 내용</label><br><br>
+          
+									<div style="min-height: 80px;" novalidate=""
+										class="form-horizontal jumbotron-contents">
+										<h5 class="contentWant" id="contentWant" name="contentWant">${TalBoardVO.contentWant}</h5>
 									</div>
+
 								</div>
 
 
@@ -106,8 +115,9 @@
 								<div class="form-group">
 									<div class="col-md-offset-2 col-md-10">
 										<button onclick="history.back()" class="btn btn-info">이전단계</button>
-										<input type="submit" value="등록" class="btn btn-info"> <input type="button"
-											value="작성취소" id="goListBtn" class="btn btn-info">
+										<input type="submit" value="등록" class="btn btn-info">
+										<input type="button" value="작성취소" id="goListBtn"
+											class="btn btn-info">
 									</div>
 								</div>
 							</form>

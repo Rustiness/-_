@@ -155,11 +155,11 @@
 							
 						</div>
 					</div>
-				</div>
+				
 				<div class="text-center">
 					<input type="button" value="보유한 재능 등록" class="btn btn-primary uploadBtn">
 				</div>
-			</div>
+			
 
 			<div class="box-footer">
 				<div class="text-center">
@@ -180,8 +180,10 @@
 						</c:if>
 					</ul>
 				</div>
+				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </section>
 

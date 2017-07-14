@@ -56,4 +56,12 @@ public interface TalBoardDAO {
 	public List<TalDivVO> selCateCallDiv(String  talCateDF) throws Exception; // 선택한 카테고리의 항목 목록 가져오기
 	
 	public List<TalBoardVO> selBeforeTal(String memNO) throws Exception; // 재능글 이전 게시글 가져오기
+	
+	public void deleteTal(String talDocNO) throws Exception; // 재능글 삭제
+	
+	public void deleteDivHave(String talDocNO) throws Exception; // 재능글 보유한 항목 삭제
+	
+	public void deleteDivWant(String talDocNO) throws Exception; // 재능글 원하는 항목 삭제
+	
+	
 }

@@ -57,11 +57,16 @@
 		talDocNO = #{talDocNO}
 	</update>
 
-	<!-- -->
-	<delete id="delete">
-		DELETE FROM talentlist
-		WHERE writeNO = #{writeNO}
-	</delete>
+	 <update id="deleteTal"> 
+	    update TalentBoard set STATE = '1' where talDocNO = #{talDocNO}
+	</update>
+	
+	<delete id="removeDivWant">
+	    delete from NP_TalWant where talDocNO = #{talDocNO}
+	</delete> 
+	<delete id="removeDivHave">
+	    delete from NP_Talhave where talDocNO = #{talDocNO}
+	</delete> 
 
 	<!-- 특정게시물 읽기 -->
 	<select id="read" resultType="talentlist">
@@ -121,7 +126,7 @@
 		M.nickName, TB.memNO, TB.state
 		from NP_TalHave TH,TalentBoard TB,Member
 		M
-		WHERE TB.memNO = M.memNO AND TH.TALDocNO = TB.TALDocNO
+		WHERE TB.memNO = M.memNO AND TH.TALDocNO = TB.TALDocNO AND TB.STATE ='2'
 		<include refid="search"></include>
 		GROUP BY TB.TALDocNO, title, contentHave, contentWant,writeDate,
 		M.nickName, TB.memNO, TB.state
@@ -184,7 +189,7 @@
 	<select id="listSearchCount" resultType="int">
 		SELECT count(*) FROM TalentBoard, Member
 		WHERE TalentBoard.memNO =
-		Member.memNO
+		Member.memNO AND TalentBoard.STATE = '2'
 		<include refid="search"></include>
 	</select>
 
