@@ -17,8 +17,11 @@
 <section class="content">
 
 	<div class="box box-primary">
-		<div class="box-header">
-			<h3 class="box-title">교환후기 상세정보 </h3>
+		<div style="background-color:#875F9A;" class="panel-heading">
+						
+
+							<span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a>교환후기 상세정보</h3>
+					</div>
 		</div>
 		<!-- /.box-header -->
 
@@ -26,9 +29,7 @@
 		<div class="box-body">
 			<div data-text-content="true"
 				style="font-weight: bold; font-size: 24px; border-width: 0px; border-style: none; text-shadow: rgba(0, 0, 0, 0.5) 3px 3px 14px;">${TalReviewVO.title}</div>
-			<div data-text-content="true"
-				style="font-weight: bold; font-size: 18px; background-color: rgb(224, 224, 224);"
-				class>교환 정보</div>
+			
 			<table>
 				<form role="form" method="post">
 
@@ -39,13 +40,22 @@
 					<input type='hidden' name='keyword' value="${cri.keyword}">
 				</form>
 				<tr>
-					<th>받은 재능:</th></tr>
+				
 					
-					
+					<th><div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
+							<h5>받은 재능: </h5>
+							<c:forEach items="${taketalent }" var="tal">
+								${tal.name }
+							</c:forEach>
+						</div></th>
 				</tr>
 			</table>
-				<br> ${talReviewVO.nickName }님의 교환후기<br>
-				<br>
+			<br>
+			<div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
+							<h5> ${talReviewVO.nickName }님의 교환후기</h5>
+						</div>
+				
+				
 			<textarea rows="5" cols="50" readonly>${talReviewVO.content }</textarea>
 			<br>
 		</div>

@@ -16,10 +16,10 @@
 <section class="content">
 
 	<center>
-		<div class="box">
-			<div class="box-header with-border">
-				<h3 class="box-title">교환후기</h3>
-			</div>
+			
+			<div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
+							<h5>교환후기</h5>
+						</div>
 			<div class='box-body'>
 
 				<select name="searchType">
@@ -35,16 +35,17 @@
 					<option value="w"
 						<c:out value="${cri.searchType eq 'w'?'selected':''}"/>>
 						작성자</option>
-				</select> <input type="text" name='keyword' id="keywordInput"
-					value='${cri.keyword }'>
-				<button id='searchBtn'>찾기</button>
-				<button id='newBtn'>글쓰기</button>
-
+				</select>
+				 <input type="text" name='keyword' id="keywordInput" value='${cri.keyword }'>
+				<button id='searchBtn' style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info">찾기</button>
+				<button id='newBtn' style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info" >글쓰기</button>
+	
 			</div>
+			<br>
 			<div class="box-body">
 
-				<table class="table table-bordered" cellpadding="10">
-					<tr bgcolor="#cceeff">
+					<table style="font-size:inherit;" class="table table-condensed table-bordered table-hover" cellpadding="10">
+							<thead style="color:#FFF; background-color:#89729E; width: 100%;">
 						<th style="width: 10px">NO.</th>
 						<th>받은재능</th>
 						<th>제목</th>
@@ -52,7 +53,7 @@
 						<th>작성일</th>
 
 					</tr>
-
+					</thead>
 					<c:forEach items="${list }" var="talReviewVO">
 
 						<tr>
