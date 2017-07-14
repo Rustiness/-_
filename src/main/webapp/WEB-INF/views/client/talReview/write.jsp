@@ -13,6 +13,7 @@
 
 <!-- Main content -->
 <section class="content">
+
 <center>
 <div class="box box-primary">
 				
@@ -54,7 +55,7 @@
      <div data-text-content="true" style="font-size:16px;" >후기 제목</div>
      <input type="text" id="title"  name="title" placeholder="제목을 입력해주세요">
      <div data-text-content="true" style="font-size:16px;" >후기 내용</div>
-     <textarea rows="10" cols="50" style="color: rgb(94, 94, 94);" spellcheck="false" name="content" placeholder="내용을 입력해주세요."></textarea>
+     <textarea rows="10" cols="50" style="color: rgb(94, 94, 94);" spellcheck="false" id="content" name="content" placeholder="내용을 입력해주세요."></textarea>
 	<!-- /.box-body -->
 
 	<div class="box-footer">
