@@ -15,7 +15,7 @@
 		<div class="box box-primary">
 
 			<!-- /.box-header -->
-			<form role="form" method="post" name="frm">
+			<form role="form" method="post">
 				<div data-text-content="true"
 					style="font-weight: bold; font-size: 18px" class>고객문의 등록</div>
 				<div data-text-content="true"
@@ -86,8 +86,8 @@
 
 
 				<div class="box-footer">
-					<button type="button" class="btn btn-primary">등록</button>
-					<button type="button" class="btn btn-warning">취소</button>
+					<button type="submit" class="btn btn-primary">등록</button>
+					<button type="button" class="btn btn-primary">취소</button>
 				</div>
 			</form>
 
@@ -95,46 +95,6 @@
 		</div>
 
 	</center>
-	
-	
-			<script>
-			$(document).ready(function() {
-
-			$(".btn-warning").on("click",function() {
-				self.location = "list";
-				});
-
-
-		});
-			
-			$(document).ready(function() {
-			
-				$(".btn-primary").on("click",function() {
-					var title = $('#title').val();
-					var content = $('#content').val();
-					
-					if(title.length > 10 || content.length >200){
-						alert("제목은 10자 이내 내용은 200자 이내로 작성해 주세요");
-					}else{
-						if((title == undefined || title =='' ) || (content == undefined || content =='')){
-							alert("제목 또는 내용을 입력해주세요");
-						}else {
-							document.frm.submit();
-							alert("등록 되었습니다");
-						}
-					}
-					
-				});
-
-
-			});
-			
-			
-				</script>
-	
 </section>
-
-
-
 
 <%@include file="../include/footer.jsp" %>

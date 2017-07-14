@@ -3,7 +3,7 @@ package com.simpact.controller;
 import com.simpact.domain.MemberVO;
 import com.simpact.domain.PageMaker;
 import com.simpact.domain.SearchCriteria;
-import com.simpact.domain.TalExcTimelineVO;
+
 import com.simpact.service.TalExchangeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,9 +42,9 @@ public class TalExchangeController {
 		return "/client/talExc/list";
 	}
 
-	/* 재능교환 상세정보 */
+/*	 재능교환 상세정보 
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public String read(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpServletRequest request, TalExcTimelineVO talExcTimelineVO) throws Exception {
+	public String read(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpServletRequest request, ) throws Exception {
 		MemberVO memberVO = (MemberVO) request.getSession().getAttribute("clientMemberVO");
 		model.addAttribute("cri", cri);
 		model.addAttribute("connMemVO", memberVO);
@@ -55,6 +55,6 @@ public class TalExchangeController {
 
 
 		return "/client/talExc/read";
-	}
+	}*/
 
 }

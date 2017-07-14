@@ -13,6 +13,12 @@
 
 <!-- Main content -->
 <section class="content">
+		<div class="row row-offcanvas row-offcanvas-left">
+			<%@include file="../include/lefter.jsp" %>
+								<div style="background-color:#875F9A;" class="panel-heading">
+						<h3 style="color:#FFF;" class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar">
+							<span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a>재능 패널</h3>
+					</div>
 	<div class="row">
 		<!-- left column -->
 		<div class="col-md-12">
@@ -20,15 +26,17 @@
 
 			<div class='box'>
 				<div class="box-header with-border">
-				<center>
-					<h1 class="box-title">고객문의 게시판</h1>
-
-				</center>
+				<left>
+				
+						<div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
+							<h5>고객문의 게시판</h5>
+						</div>
+				</left>
 				</div>
-				<center>
+				<left>
 				<div class="box-body">
 
-				<select name="searchType">
+				<select name="searchType"  >
 						<option value="n"
 							<c:out value="${cri.searchType == null?'selected':''}"/>>
 							---</option>
@@ -43,14 +51,15 @@
 							작성자</option>
 
 					</select>
+					
 					<input type="text" name='keyword' id="keywordInput"
 						value='${cri.keyword }' placeholder="검색어">
-					<button id='searchBtn'>Search</button>
-					<button id='newBtn'>New Board</button>
+					<button id='searchBtn'>찾기</button>
+					<button id='newBtn'>문의글 쓰기</button>
 					<br>
 
 				
-				<center>
+				
 					<table class="table table-bordered" cellpadding="10">
 						<tr>
 							<th style="width: 10px">NO.</th>
@@ -76,7 +85,7 @@
 							<td>${boardVO.nickName}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 										value="${boardVO.writeDate}" /></td>
-							<%-- <td> <center> ${boardVO.state }</center></td> --%>
+						
 							
 						</tr>
 						</c:if>
@@ -84,10 +93,10 @@
 
 					</table>
 				</div>
-				</center>
+				</left>
 				<!-- /.box-body -->
 
-			<center>
+			
 				<div class="box-footer">
 
 			<div class="text-center">
@@ -116,12 +125,13 @@
 
 
 				</div>
-				</center>
+				
 				<!-- /.box-footer-->
 			</div>
 		</div>
 		<!--/.col (left) -->
 
+	</div>
 	</div>
 	<!-- /.row -->
 </section>
@@ -132,12 +142,12 @@
 <script>
 	var result = '${msg}';
 
-	if (result == 'SUCCESS') {
+/* 	if (result == 'SUCCESS') {
 		alert("글이 등록되었습니다.");
 	}
 	if (result == 'delete') {
 		alert("글이 삭제되었습니다.");
-	}
+	} */
 
 
 </script>

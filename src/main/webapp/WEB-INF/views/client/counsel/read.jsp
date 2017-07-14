@@ -113,20 +113,20 @@
 <!-- 댓글 등록에 필요한 div -->
 	<div class="box box-success">
 		 <div class="box-header">
-			<h3 class="box-title">ADD NEW REPLY</h3>
+			<h3 class="box-title">댓글게시판</h3>
 		 </div>
 		 
 		 <div class="box-body">
-				<label for="exampleInputEmail2">직원 번호</label> 
+<!-- 				<label for="exampleInputEmail2">직원 번호</label> 
 				<input class="form-control" type="text" placeholder="작성자" id="newReplyWriter"> 
 						
 				<label for="exampleInputEmail2">댓글 내용</label> 
-				<input class="form-control" type="text" placeholder="댓글 내용" id="newReplyText">
+				<input class="form-control" type="text" placeholder="댓글 내용" id="newReplyText"> -->
 		 </div>
 			
 				<!-- /.box-body -->
 		 <div class="box-footer">
-					<button id="replyAddBtn">댓글 등록</button> <br><button id="replyview">댓글 보기</button> 
+					<!-- <button id="replyAddBtn">댓글 등록</button> --> <br><button id="replyview">댓글 보기</button> 
 		 </div>
 	</div>
 
