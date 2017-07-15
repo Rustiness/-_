@@ -13,24 +13,24 @@
 <script type="text/javascript" src="/resources/SE2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript" id="SE2">
 	var oEditors = [];
-	$(function(){
+	$(function () {
 		nhn.husky.EZCreator.createInIFrame({
 			oAppRef: oEditors,
 			elPlaceHolder: "description", //textarea에서 지정한 id와 일치해야 합니다.
 			//SmartEditor2Skin.html 파일이 존재하는 경로
 			sSkinURI: "/resources/SE2/SmartEditor2Skin.html",
-			htParams : {
+			htParams: {
 				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-				bUseToolbar : true,
+				bUseToolbar: true,
 				// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-				bUseVerticalResizer : true,
+				bUseVerticalResizer: true,
 				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-				bUseModeChanger : true,
-				fOnBeforeUnload : function(){
+				bUseModeChanger: true,
+				fOnBeforeUnload: function () {
 
 				}
 			},
-			fOnAppLoad : function(){
+			fOnAppLoad: function () {
 				//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
 				//oEditors.getById["description"].exec("PASTE_HTML", ['${talExcConnVO.content}']);
 			},
@@ -38,6 +38,7 @@
 		});
 	});
 </script>
+<%-- SmartEditor --%>
 
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -110,7 +111,7 @@
 		//재능 등록
 		$(document).on("click", ".btn", function () {
 			//취소
-			if ($(this).attr("id") == "btnCancel"){
+			if ($(this).attr("id") == "btnCancel") {
 				self.location = "/tb/list?page=${cri.page}&perPageNum=${cri.perPageNum}" + "&searchType=${cri.searchType}&keyword=${cri.keyword}";
 			}
 
@@ -220,13 +221,70 @@
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
 					<div style="background-color:#875F9A;" class="panel-heading">
-						<h3 style="color:#FFF;" class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar"><span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a>재능 패널</h3>
+						<h3 style="color:#FFF;" class="panel-title"><a href="javascript:void(0);"
+						                                               class="toggle-sidebar"><span
+								class="fa fa-angle-double-left" data-toggle="offcanvas"
+								title="Maximize Panel"></span></a>재능 패널</h3>
 					</div>
 					<div class="panel-body">
 						<%-- CONTENT 시작--%>
 						<div style="color:#5B3256; font-weight: bold; border-width: 0px; border-style: none; text-shadow: rgba(225,143,225,0.5) 3px 3px 14px;">
 							<h5>교환신청</h5>
 						</div>
+
+						<%-- 신청 진행 Modal 시작--%>
+						<div class="modal fade" id="sendModal" tabindex="-1" role="dialog" aria-labelledby="smallModal"
+						     aria-hidden="true">
+							<div class="modal-dialog modal-sm">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+											&times;
+										</button>
+										<h4 class="modal-title" id="acceptModalLabel">교환 신청 알림창</h4>
+									</div>
+									<div class="modal-body">
+										<h6>재능 교환을 신청하시겠습니까?</h6>
+										<h7>연결성공시 상대와 자신의 연락처가 공유됩니다.</h7>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default btnSendClose" data-dismiss="modal">
+											취소
+										</button>
+										<input style="background-color:#5B3256; border-color:#89729E;"
+										       class="btn btn-info"
+										       type="button" id="btnSend" value="전송"/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<%-- 신청 진행 Modal 끝--%>
+						<%-- 신청 중단 Modal 시작--%>
+						<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog"
+						     aria-labelledby="smallModal"
+						     aria-hidden="true">
+							<div class="modal-dialog modal-sm">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+											&times;
+										</button>
+										<h4 class="modal-title" id="cancelModalLabel">교환 신청 알림창</h4>
+									</div>
+									<div class="modal-body">
+										<h6>재능 교환을 중단하시겠습니까?</h6>
+										<h7>입력하신 내용은 저장되지 않습니다.</h7>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+										<input style="background-color:#5B3256; border-color:#89729E;"
+										       class="btn btn-info" type="button" id="btnCancel" value="중단"/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<%-- 신청 중단 Modal 끝--%>
+
 						<div class="panel panel-default">
 							<div style="background-color:#89729E;" class="panel-heading">
 								<h3 style="color:#FFF;" class="panel-title"><b>신청 대상정보</b></h3>
@@ -238,7 +296,8 @@
 									<label class="col-md-2 form-label">보유한 재능</label>
 									<div class="col-md-4">
 										<c:forEach items="${readDivHave }" var="writerHaveItem">
-											<span style="background-color: #2d9bff; line-height: 30px;" class="label label-info">#${writerHaveItem.talDivName}</span>
+											<span style="background-color: #2d9bff; line-height: 30px;"
+											      class="label label-info">#${writerHaveItem.talDivName}</span>
 										</c:forEach>
 									</div>
 								</div>
@@ -246,139 +305,115 @@
 									<label class="col-md-2 form-label">신청 대상 재능글</label>
 									<div class="col-md-10">
 										<span class="">${talBoardVO.title}</span>
-										<input style="background-color:#5B3256; border-color:#89729E;" type="button" class="btn btn-info btn-xs" value="팝업창">
+										<input style="background-color:#5B3256; border-color:#89729E;" type="button"
+										       class="btn btn-info btn-xs" value="팝업창">
 									</div>
 								</div>
 							</div>
 						</div>
 
 
-							<div class="panel panel-default">
-								<div style="background-color:#89729E;" class="panel-heading">
-									<div style="color:#FFF;" class="panel-title"><b>신청 정보</b>
-									</div>
-
-									<div class="panel-options">
-										<a class="bg" data-target="#sample-modal-dialog-1" data-toggle="modal" href="#sample-modal"><i class="entypo-cog"></i></a>
-										<a data-rel="collapse" href="#"><i class="entypo-down-open"></i></a>
-										<a data-rel="close" href="#!/tasks" ui-sref="Tasks"><i class="entypo-cancel"></i></a>
-									</div>
-
-									<%-- 신청 진행 Modal 시작--%>
-									<div class="modal fade" id="sendModal" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
-										<div class="modal-dialog modal-sm">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
-													</button>
-													<h4 class="modal-title" id="acceptModalLabel">교환 신청 알림창</h4>
-												</div>
-												<div class="modal-body">
-													<h6>재능 교환을 신청하시겠습니까?</h6>
-													<h7>연결성공시 상대와 자신의 연락처가 공유됩니다.</h7>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default btnSendClose" data-dismiss="modal">취소</button>
-													<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info"
-													       type="button" id="btnSend" value="전송"/>
-												</div>
-											</div>
-										</div>
-									</div>
-									<%-- 신청 진행 Modal 끝--%>
-									<%-- 신청 중단 Modal 시작--%>
-									<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="smallModal"
-									     aria-hidden="true">
-										<div class="modal-dialog modal-sm">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
-													</button>
-													<h4 class="modal-title" id="cancelModalLabel">교환 신청 알림창</h4>
-												</div>
-												<div class="modal-body">
-													<h6>재능 교환을 중단하시겠습니까?</h6>
-													<h7>입력하던 내용은 저장되지 않습니다.</h7>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-													<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info" type="button" id="btnCancel" value="중단"/>
-												</div>
-											</div>
-										</div>
-									</div>
-									<%-- 신청 중단 Modal 끝--%>
+						<div class="panel panel-default">
+							<div style="background-color:#89729E;" class="panel-heading">
+								<div style="color:#FFF;" class="panel-title"><b>신청 정보</b>
 								</div>
 
-								<div class="panel-body">
+								<div class="panel-options">
+									<a class="bg" data-target="#sample-modal-dialog-1" data-toggle="modal"
+									   href="#sample-modal"><i class="entypo-cog"></i></a>
+									<a data-rel="collapse" href="#"><i class="entypo-down-open"></i></a>
+									<a data-rel="close" href="#!/tasks" ui-sref="Tasks"><i
+											class="entypo-cancel"></i></a>
+								</div>
+							</div>
+
+							<div class="panel-body">
 								<div novalidate="" role="form" class="form-horizontal">
 									<form>
-									<div>
+										<div>
+											<div class="form-group">
+												<label class="col-md-2 control-label">제목</label>
+												<div class="col-md-10">
+													<input type="text" required="" placeholder="Title" id="title"
+													       class="form-control" name="title">
+												</div>
+											</div>
+											<%--원하는 재능 셀렉트 시작--%>
+											<div id="talWantField" class="form-group">
+												<label class="col-md-2 control-label">원하는 재능</label>
+												<div id="talWantSelect_0" class="form-inline col-md-10">
+													<div class="form-inline">
+														<select class="form-control" id="talWantCate_0"
+														        onclick="selCate(this);">
+															<option class="selCateDefult" value="none">카테고리 선택</option>
+															<c:forEach items="${listUseCate}" var="itemC">
+																<option value="${itemC.talCateDF }">${itemC.talCateName }</option>
+															</c:forEach>
+														</select>
+														<select id="talWantDiv_0" name="talWantDiv" class="form-control"
+														        onclick="selDiv(this);">
+															<option class="divDefult" value="none"></option>
+														</select>
+														<input style="background-color:#5B3256; border-color:#89729E;"
+														       type="button" class="btn btn-info btn-sm" id="talWantAdd"
+														       value="추가">
+														<input type="button" class="btn btn-info btn-sm remove"
+														       id="talWantDel" value="삭제" onclick="delSelect(this);"
+														       style="background-color:#900725; border-color:#ae2631; display:none;">
+													</div>
+												</div>
+											</div>
+											<%--원하는 재능 셀렉트 끝--%>
+											<%--보유한 재능 셀렉트 시작--%>
+											<div id="ttest"></div>
+											<div id="talHaveField" class="form-group">
+												<label class="col-md-2 control-label">보유한 재능</label>
+												<div id="talHaveSelect_0" class="form-inline col-md-10">
+													<div class="form-inline">
+														<select class="form-control" id="talHaveCate_0"
+														        onclick="selCate(this);">
+															<option class="selCateDefult" value="none">카테고리 선택</option>
+															<c:forEach items="${listUseCate}" var="itemC">
+																<option value="${itemC.talCateDF }">${itemC.talCateName }</option>
+															</c:forEach>
+														</select>
+														<select id="talHaveDiv_0" name="talHaveDiv" class="form-control"
+														        onclick="selDiv(this);">
+															<option class="divDefult" value="none"></option>
+														</select>
+														<input style="background-color:#5B3256; border-color:#89729E;"
+														       type="button" class="btn btn-info btn-sm" id="talHaveAdd"
+														       value="추가">
+														<input type="button" class="btn btn-info btn-sm remove"
+														       id="talHaveDel" value="삭제" onclick="delSelect(this);"
+														       style="background-color:#900725; border-color:#ae2631; display:none;">
+													</div>
+												</div>
+											</div>
+											<%--보유한 재능 셀렉트 끝--%>
+										</div>
 										<div class="form-group">
-											<label class="col-md-2 control-label">제목</label>
+											<label class="col-md-2 control-label" for="description">신청내용</label>
 											<div class="col-md-10">
-												<input type="text" required="" placeholder="Title" id="title" class="form-control" name="title">
+												<textarea style="width: 100%" required="" class="form-control"
+												          placeholder="Description" rows="10" cols="30" id="description"
+												          name="description"></textarea>
 											</div>
 										</div>
-										<%--원하는 재능 셀렉트 시작--%>
-										<div id="talWantField" class="form-group">
-											<label class="col-md-2 control-label">원하는 재능</label>
-											<div id="talWantSelect_0" class="form-inline col-md-10">
-												<div class="form-inline">
-													<select class="form-control" id="talWantCate_0" onclick="selCate(this);">
-														<option class="selCateDefult" value="none">카테고리 선택</option>
-														<c:forEach items="${listUseCate}" var="itemC">
-															<option value="${itemC.talCateDF }">${itemC.talCateName }</option>
-														</c:forEach>
-													</select>
-													<select id="talWantDiv_0" name="talWantDiv" class="form-control" onclick="selDiv(this);">
-														<option class="divDefult" value="none"></option>
-													</select>
-													<input style="background-color:#5B3256; border-color:#89729E;" type="button" class="btn btn-info btn-sm" id="talWantAdd" value="추가">
-													<input type="button" class="btn btn-info btn-sm remove" id="talWantDel" value="삭제" onclick="delSelect(this);" style="background-color:#900725; border-color:#ae2631; display:none;">
-												</div>
+										<div class="form-group">
+											<div class="col-md-offset-2 col-md-10">
+												<a style="background-color:#5B3256; border-color:#89729E;" href="#"
+												   class="btn btn-info" data-toggle="modal"
+												   data-target="#sendModal">전송</a>
+												<a style="background-color:#5B3256; border-color:#89729E;" href="#"
+												   class="btn btn-info" data-toggle="modal" data-target="#cancelModal">취소</a>
 											</div>
 										</div>
-										<%--원하는 재능 셀렉트 끝--%>
-										<%--보유한 재능 셀렉트 시작--%>
-										<div id="ttest"></div>
-										<div id="talHaveField" class="form-group">
-											<label class="col-md-2 control-label">보유한 재능</label>
-											<div id="talHaveSelect_0" class="form-inline col-md-10">
-												<div class="form-inline">
-													<select class="form-control" id="talHaveCate_0" onclick="selCate(this);">
-														<option class="selCateDefult" value="none">카테고리 선택</option>
-														<c:forEach items="${listUseCate}" var="itemC">
-															<option value="${itemC.talCateDF }">${itemC.talCateName }</option>
-														</c:forEach>
-													</select>
-													<select id="talHaveDiv_0" name="talHaveDiv" class="form-control" onclick="selDiv(this);">
-														<option class="divDefult" value="none"></option>
-													</select>
-													<input style="background-color:#5B3256; border-color:#89729E;" type="button" class="btn btn-info btn-sm" id="talHaveAdd" value="추가">
-													<input type="button" class="btn btn-info btn-sm remove" id="talHaveDel" value="삭제" onclick="delSelect(this);" style="background-color:#900725; border-color:#ae2631; display:none;">
-												</div>
-											</div>
-										</div>
-										<%--보유한 재능 셀렉트 끝--%>
-									</div>
-									<div class="form-group">
-										<label class="col-md-2 control-label" for="description">신청내용</label>
-										<div class="col-md-10">
-											<textarea style="width: 100%" required="" class="form-control" placeholder="Description" rows="10" cols="30" id="description" name="description"></textarea>
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-md-offset-2 col-md-10">
-											<a style="background-color:#5B3256; border-color:#89729E;" href="#" class="btn btn-info" data-toggle="modal" data-target="#sendModal">전송</a>
-											<a style="background-color:#5B3256; border-color:#89729E;" href="#" class="btn btn-info" data-toggle="modal" data-target="#cancelModal">취소</a>
-										</div>
-									</div>
 									</form>
 								</div>
-									<%-- CONTENT 끝--%>
-								</div><!-- panel body -->
-							</div>
+								<%-- CONTENT 끝--%>
+							</div><!-- panel body -->
+						</div>
 					</div><!-- content -->
 				</div>
 			</div>

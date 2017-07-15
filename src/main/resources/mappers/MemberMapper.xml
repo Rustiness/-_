@@ -50,6 +50,6 @@
 	<select id="nickNameCheckSelect" resultType="int">
 		SELECT count(*)
 		FROM member
-		WHERE nickname = #{nickName}
+		WHERE nickName = #{nickName}
 	</select>
 </mapper>

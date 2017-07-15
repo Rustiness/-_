@@ -19,7 +19,7 @@ public interface TalReviewService {
 
 	public TalReviewVO read(String talReviewNO) throws Exception;//상세읽기
 
-	public TalReviewVO nickname(String talReviewNO) throws Exception;//상세읽기
+	public TalReviewVO nickName(String talReviewNO) throws Exception;//상세읽기
 
 	public List<TalReviewVO> listCriteria(Criteria cri) throws Exception;//페이지관련
 

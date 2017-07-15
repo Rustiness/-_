@@ -77,6 +77,45 @@
 		ORDER BY TALCONNNO DESC
 	</select>
 
+	<!-- 상대의 보유한 재능 항목 (단일) -->
+	<select id="readAudiTalDivHave" resultType="talDivVO">
+		SELECT TEC.TALCONNNO, TB.TALDOCNO, DT.TALDIVDF, DT.name
+		FROM NP_TalHave TH, TalentBoard TB, TalExcConn TEC, MEMBER M, DF_TALDIV DT
+		WHERE M.MEMNO = TB.MEMNO
+		      AND TH.TALDOCNO = TB.TALDOCNO
+		      AND TEC.TALDOCNO = TB.TALDOCNO --연결된것중 작성
+		      AND TEC.TALCONNNO = #{talConnNO}
+		      AND TEC.memNO = #{connMemNO} --내가 신청자
+		      AND DT.talDivDF = TH.talDivDF
+		      AND TEC.STATE = 3
+		UNION
+		SELECT TEC.TALCONNNO, TB.TALDOCNO, DT.TALDIVDF, DT.name
+		FROM NP_TalHaveCn THC, TalentBoard TB, TalExcConn TEC, MEMBER M, DF_TALDIV DT
+		WHERE M.MEMNO = TEC.MEMNO
+		      AND THC.TALCONNNO = TEC.TALCONNNO
+		      AND TB.TALDOCNO = TEC.TALDOCNO
+		      AND TEC.TALCONNNO = #{talConnNO}
+		      AND TB.memNO = #{connMemNO} --내가 작성자
+		      AND DT.talDivDF = THC.talDivDF
+		      AND TEC.STATE = 3
+		ORDER BY TALCONNNO DESC
+	</select>
+
+	<!-- 교환 타임라인 생성 -->
+	<insert id="createTalExcTimeLine">
+		INSERT INTO TalExcTime (talTimeNO, talConnNO, memNO, content, writeDate, isYNview, state)
+		VALUES ('TET_A'||LPAD(TalExcTime_seq.nextval,5,0), #{talConnNO}, #{memNO}, #{content}, sysdate, 'N', 2)
+	</insert>
+
+	<!-- 교환 타임라인 표시 -->
+	<select id="infoTalExcTimeLine" resultType="talExcTimelineVO">
+		SELECT TET.talTimeNO, TET.TALCONNNO, TET.memNO, M.nickName, TET.content, TET.writeDate, TET.ISYNVIEW, TET.state
+		FROM TalExcTime TET, MEMBER M
+		WHERE TET.TALCONNNO = #{talConnNO}
+		      AND TET.MEMNO = M.MEMNO
+		ORDER BY TET.talTimeNO DESC
+	</select>
+
 </mapper>
 
 

@@ -88,7 +88,7 @@
 			</ul>
 			<ul id="onlogin" class="nav navbar-nav navbar-right" type="hidden">
 				<li>
-					<input type="button" class="btn btn-info navbar-btn" id="tecclistaa" value="알림함"/>
+					<%--<input type="button" class="btn btn-info navbar-btn" id="tecclistaa" value="알림함"/>--%>
 					<input type="button" class="btn btn-info navbar-btn" id="userallinfo" value="계정정보"/>
 					<p class="navbar-text"><a class="navbar-link" href="">${clientMemberVO.nickName }(${clientMemberVO.name }) 님</a>
 					</p>

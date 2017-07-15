@@ -41,7 +41,7 @@ public class TalReviewServiceImpl implements TalReviewService {
 	}
 
 	@Override
-	public TalReviewVO nickname(String talReviewNO) throws Exception {
+	public TalReviewVO nickName(String talReviewNO) throws Exception {
 		return dao.nickread(talReviewNO);
 	}
 

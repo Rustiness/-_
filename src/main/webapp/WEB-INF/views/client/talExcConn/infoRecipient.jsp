@@ -105,7 +105,7 @@
 							<div class="panel-body">
 								<div class="row">
 									<label class="col-md-2 form-label">닉네임</label>
-									<div class="col-md-4">${talExcConnVO.nickname}</div>
+									<div class="col-md-4">${talExcConnVO.nickName}</div>
 									<label class="col-md-2 form-label">교환 만족도</label>
 									<div class="col-md-4">80%</div>
 								</div>

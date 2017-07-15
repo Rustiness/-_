@@ -12,7 +12,7 @@ public class TalExcConnVO {
 	private String isYNview; /* 신청확인유무 */
 	private String state; /* 진행상태 */
 
-	private String nickname;//신청자 닉네임
+	private String nickName;//신청자 닉네임
 
 	public TalExcConnVO() {
 	}
@@ -28,7 +28,7 @@ public class TalExcConnVO {
 				", reqDate=" + reqDate +
 				", isYNview='" + isYNview + '\'' +
 				", state='" + state + '\'' +
-				", nickname='" + nickname + '\'' +
+				", nickName='" + nickName + '\'' +
 				'}';
 	}
 
@@ -96,11 +96,11 @@ public class TalExcConnVO {
 		this.state = state;
 	}
 
-	public String getNickname() {
-		return nickname;
+	public String getnickName() {
+		return nickName;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setnickName(String nickName) {
+		this.nickName = nickName;
 	}
 }

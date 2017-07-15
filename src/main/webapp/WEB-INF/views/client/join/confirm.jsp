@@ -101,18 +101,18 @@ $(document).ready(function () {
 					
 				  var val= $('#nickName').val();
 					if(data=='duplicate')
-						$('#nickname_1').html("중복된 별명입니다.").css("color","red");
+						$('#nickName_1').html("중복된 별명입니다.").css("color","red");
 					else if(data=='use' && val!='')
-						$('#nickname_1').html("사용 가능한 별명입니다.").css("color","green");
+						$('#nickName_1').html("사용 가능한 별명입니다.").css("color","green");
 					else if(val=='' || val==null)
-						$('#nickname_1').html("닉네임을 입력해주세요.").css("color","red");
+						$('#nickName_1').html("닉네임을 입력해주세요.").css("color","red");
 				}	
 		})
-  })//nickname_focusout
+  })//nickName_focusout
 
      $("#nickName").focusin(function(){ //잘못된 닉네임 입력후 다시 입력할 때 메시지 없애기
 	   //$('#email_1').innerHTML="";
-	  document.getElementById('nickname_1').innerHTML = "";
+	  document.getElementById('nickName_1').innerHTML = "";
 	
  })//focusin
 	        
@@ -442,7 +442,7 @@ $(document).ready(function () {
             				 		</label>
 									<div class="col-md-4">
 										<input type="text" id="nickName" name="nickName" class="form-control" style="width: 200px; display: inline-block;">
-										<div id="nickname_1" style="color: red; font-size: 11px;"></div>
+										<div id="nickName_1" style="color: red; font-size: 11px;"></div>
 									</div>
 								</div>
 								<div class="row">

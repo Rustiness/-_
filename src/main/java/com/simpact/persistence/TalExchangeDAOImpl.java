@@ -2,6 +2,7 @@ package com.simpact.persistence;
 
 import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.TalDivVO;
+import com.simpact.domain.TalExcTimelineVO;
 import com.simpact.domain.TalExchangeVO;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -36,5 +37,15 @@ public class TalExchangeDAOImpl implements TalExchangeDAO {
 	@Override
 	public List<TalDivVO> listTalDivHave(SearchCriteria cri) throws Exception {
 		return sqlSession.selectList("talExchange.listTalDivHave", cri);
+	}
+
+	@Override
+	public int createTalExcTimeLine(TalExcTimelineVO talExcTimelineVO) throws Exception {
+		return sqlSession.insert("talExchange.createTalExcTimeLine", talExcTimelineVO);
+	}
+
+	@Override
+	public List<TalExcTimelineVO> infoTalExcTimeLine(TalExcTimelineVO talExcTimelineVO) throws Exception {
+		return sqlSession.selectList("talExchange.infoTalExcTimeLine", talExcTimelineVO);
 	}
 }

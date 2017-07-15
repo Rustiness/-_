@@ -17,14 +17,14 @@
 
 	<!-- 게시물 상세읽기 -->
 	<select id="read" resultType="rboard">
-		select r.nickname, w.content, w.title , w.talReviewNO
+		select r.nickName, w.content, w.title , w.talReviewNO
 		from talReview w, member r
  		where r.memNO = w.memNO and talreviewno=#{talreviewno}
 	</select>
 	
 	<!-- 게시글 작성자 가져오기
-	<select id="readnickname" resultType="String">
-		select nickname
+	<select id="readnickName" resultType="String">
+		select nickName
 		from member
 		where memno=(select memno from talreview where talreviewno=#{talReviewNO});
 	</select>-->
@@ -50,7 +50,7 @@
 				AND e.content LIKE '%'||#{keyword}||'%'
 			</if>
 			<if test="searchType == 'w'.toString()">
-				AND nickname LIKE '%'||#{keyword}||'%'
+				AND nickName LIKE '%'||#{keyword}||'%'
 			</if>
 		</if>
 	</sql>
@@ -65,14 +65,14 @@
 				where e.content like '%'||#{keyword}||'%'
 			</if>
 			<if test="searchType == 'w'.toString()">
-				where nickname like '%'||#{keyword}||'%'
+				where nickName like '%'||#{keyword}||'%'
 			</if>
 		</if>
 	</sql>
 
 	<!-- 전체리스트 검색하기(카테고리, 닉네임 조회때문에 복잡해짐 -_- -->
 	<select id="listSearch" resultType="rboard">
-		select talReviewNO, r.nickname, w.content, w.title , writeDate, w.talConnNO, w.memNO
+		select talReviewNO, r.nickName, w.content, w.title , writeDate, w.talConnNO, w.memNO
 		from talReview w, member r
  		where r.memNO = w.memNO
 		

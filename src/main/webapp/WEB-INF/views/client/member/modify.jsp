@@ -59,18 +59,18 @@
 
 					var val = $('#nickName').val();
 					if (data == 'duplicate')
-						$('#nickname_1').html("<font color='red'>중복된 별명입니다.</font>").css("color", "red");
+						$('#nickName_1').html("<font color='red'>중복된 별명입니다.</font>").css("color", "red");
 					else if (data == 'use' && val != '')
-						$('#nickname_1').html("<font color='blue'>사용 가능한 별명입니다.</font>").css("color", "green");
+						$('#nickName_1').html("<font color='blue'>사용 가능한 별명입니다.</font>").css("color", "green");
 					else if (val == '' || val == null)
-						$('#nickname_1').html("<font color='red'>닉네임을 입력해주세요.</font>").css("color", "red");
+						$('#nickName_1').html("<font color='red'>닉네임을 입력해주세요.</font>").css("color", "red");
 				}
 			})
-		}) //nickname_focusout
+		}) //nickName_focusout
 
 		$("#nickName").focusin(function() { //잘못된 닉네임 입력후 다시 입력할 때 메시지 없애기
 			//$('#email_1').innerHTML="";
-			document.getElementById('nickname_1').innerHTML = "";
+			document.getElementById('nickName_1').innerHTML = "";
 
 		}) //focusin   
 
@@ -315,7 +315,7 @@
 						<div class="col-md-4">
 							<input type="text" value="${clientMemberVO.nickName }"
 								id="nickName" class="form-control" style="width: 80px; display: inline-block;">
-							<div id="nickname_1"></div>
+							<div id="nickName_1"></div>
 						</div>
 					</div>
 					<div class="row">

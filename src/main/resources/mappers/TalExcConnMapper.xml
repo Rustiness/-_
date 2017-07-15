@@ -3,10 +3,10 @@
 <mapper namespace="talExcConn">
 
 	<!-- 연결 생성 -->
-	<insert id="create">
-		INSERT INTO TalExcConn (talConnNO, talDocNO, title, content, reqDate, state)
-		VALUES ('TEC_A' || LPAD(TalExcConn_seq.nextval, 5, 0), 'TB_A00005', #{title}, #{content}, sysdate, 2)
-	</insert>
+	<!--<insert id="create">-->
+		<!--INSERT INTO TalExcConn (talConnNO, talDocNO, title, content, reqDate, state)-->
+		<!--VALUES ('TEC_A' || LPAD(TalExcConn_seq.nextval, 5, 0), 'TB_A00005', #{title}, #{content}, sysdate, 2)-->
+	<!--</insert>-->
 
 	<!-- 신청 등록 -->
 	<insert id="createConn">
@@ -84,14 +84,14 @@
 				AND e.content LIKE '%'||#{keyword}||'%'
 			</if>
 			<if test="searchType == 'w'.toString()">
-				AND nickname LIKE '%'||#{keyword}||'%'
+				AND nickName LIKE '%'||#{keyword}||'%'
 			</if>
 		</if>
 	</sql>
 
 	<!-- 검색하기 -->
 	<select id="listSearch" resultType="talExcConnVO">
-		SELECT TEC.talConnNO, M.nickname, TEC.title, content, reqDate, TEC.state, TEC.isYnView
+		SELECT TEC.talConnNO, M.nickName, TEC.title, content, reqDate, TEC.state, TEC.isYnView
 		FROM NP_TalHaveCn THC, TalentBoard TB, TalExcConn TEC, Member M
 		WHERE TEC.memNO = M.memNO
 		      AND THC.talConnNO = TEC.talConnNO

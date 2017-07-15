@@ -59,7 +59,7 @@ $( document ).ready(function() {
             <div class="input-group-addon">
               <i class="glyphicon glyphicon-user"></i>
             </div>
-            <input type="text" class="form-control" id="email" name="email" placeholder="UserEamil" autocomplete="off">
+            <input type="text" class="form-control" id="email" name="email" placeholder="User E-mail" autocomplete="off">
           </div>
         </div>
         <div class="form-group">

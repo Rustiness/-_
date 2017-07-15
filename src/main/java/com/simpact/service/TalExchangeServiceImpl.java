@@ -2,6 +2,7 @@ package com.simpact.service;
 
 import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.TalDivVO;
+import com.simpact.domain.TalExcTimelineVO;
 import com.simpact.domain.TalExchangeVO;
 import com.simpact.persistence.TalExchangeDAO;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,15 @@ public class TalExchangeServiceImpl implements TalExchangeService {
 	@Override
 	public List<TalDivVO> listTalDivHave(SearchCriteria cri) throws Exception {
 		return dao.listTalDivHave(cri);
+	}
+
+	@Override
+	public int createTalExcTimeLine(TalExcTimelineVO talExcTimelineVO) throws Exception {
+		return dao.createTalExcTimeLine(talExcTimelineVO);
+	}
+
+	@Override
+	public List<TalExcTimelineVO> infoTalExcTimeLine(TalExcTimelineVO talExcTimelineVO) throws Exception {
+		return dao.infoTalExcTimeLine(talExcTimelineVO);
 	}
 }

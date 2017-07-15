@@ -28,8 +28,8 @@ public class TalReviewDAOImpl implements TalReviewDAO {
 	@Override
 	public TalReviewVO read(String talReviewNO) throws Exception {
 		/*TalReviewVO vo = (TalReviewVO)sqlSession.selectOne("rboard.read", talReviewNO);
-		String nickname = sqlSession.selectOne("rboard.readnickname", talReviewNO);
-		vo.setNickName(nickname);
+		String nickName = sqlSession.selectOne("rboard.readnickName", talReviewNO);
+		vo.setNickName(nickName);
 		return vo;*/
 		
 		return sqlSession.selectOne("rboard.read",talReviewNO );
@@ -89,7 +89,7 @@ public class TalReviewDAOImpl implements TalReviewDAO {
 
 	@Override
 	public TalReviewVO nickread(String talReviewNO) throws Exception {
-		return sqlSession.selectOne("rboard.nickname", talReviewNO);
+		return sqlSession.selectOne("rboard.nickName", talReviewNO);
 	}
 
 	@Override

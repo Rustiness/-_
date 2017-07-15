@@ -88,7 +88,7 @@
 									<td>
 										<a href='/tec/infoRecipient${pageMaker.makeSearch(pageMaker.cri.page) }&talConnNO=${talExcConnList.talConnNO}&isYNview=${talExcConnList.isYNview}'>${talExcConnList.title} </a>
 									</td>
-									<td>${talExcConnList.nickname }</td>
+									<td>${talExcConnList.nickName }</td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${talExcConnList.reqDate }"/></td>
 									<td>
 										<c:choose>

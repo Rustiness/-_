@@ -22,6 +22,8 @@
 		<typeAlias type="com.simpact.domain.GradeDFVO" alias="gradeDF"/>
 		<typeAlias type="com.simpact.domain.PositionDFVO" alias="positionDF"/>
 		<typeAlias type="com.simpact.domain.TalExchangeVO" alias="talExChangeVO"/>
+		<typeAlias type="com.simpact.domain.TalExcTimelineVO" alias="talExcTimelineVO"/>
+
 </typeAliases>
 	<!-- 따로따로 맴퍼를 등록해야한다면, 여기에 아래와 같이 등록!! -->
 	<!--

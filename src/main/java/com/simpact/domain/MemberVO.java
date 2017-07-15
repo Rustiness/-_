@@ -190,5 +190,21 @@ public class MemberVO {
 		this.state = state;
 	}
 
-
+	@Override
+	public String toString() {
+		return "MemberVO{" +
+				"memNO='" + memNO + '\'' +
+				", personDF='" + personDF + '\'' +
+				", email='" + email + '\'' +
+				", pass='" + pass + '\'' +
+				", name='" + name + '\'' +
+				", nickName='" + nickName + '\'' +
+				", birth=" + birth +
+				", sex='" + sex + '\'' +
+				", tel='" + tel + '\'' +
+				", joinDate=" + joinDate +
+				", latestDate=" + latestDate +
+				", state='" + state + '\'' +
+				'}';
+	}
 }
