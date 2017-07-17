@@ -16,14 +16,12 @@ public class AdReportController {
 	/* 신고 목록 */
 	@RequestMapping("/list")
 	public String list() {
-
 		return "/admin/report/list";
 	}
 
 	/* 신고 상세정보 */
 	@RequestMapping("/read")
 	public String read() {
-
 		return "/admin/report/read";
 	}
 

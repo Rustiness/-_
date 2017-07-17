@@ -16,7 +16,6 @@ public class ReportController {
 	/* 신고글 등록 */
 	@RequestMapping("/write")
 	public String write() {
-
 		return "/client/report/write";
 	}
 

@@ -14,7 +14,7 @@ public class CounselVO {
 	private Date repairDate; //수정일시
 	private String state; // 표시상태
 	private String nickName;//닉네임
-	
+
 	@Override
 	public String toString() {
 		return "CounselVO [csNO=" + csNO + ", memNO=" + memNO + ", questDF=" + questDF + ", name=" + name + ", title="
@@ -45,12 +45,15 @@ public class CounselVO {
 	public void setQuestDF(String questDF) {
 		this.questDF = questDF;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -90,12 +93,14 @@ public class CounselVO {
 	public void setState(String state) {
 		this.state = state;
 	}
+
 	public String getNickName() {
 		return nickName;
 	}
+
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
-	
-	
+
+
 }

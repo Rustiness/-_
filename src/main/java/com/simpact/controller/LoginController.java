@@ -60,13 +60,13 @@ public class LoginController {
 				return "success";    //성공후 메인페이지로
 			} else {
 
-				return "fail";		//실패시 재 로그인
+				return "fail";        //실패시 재 로그인
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;    
+		return null;
 	}
 
 	/* 비밀번호 찾기 */
@@ -75,13 +75,13 @@ public class LoginController {
 		return "client/login/findPass";
 	}
 
-	@RequestMapping(value="/findpass/check",method=RequestMethod.POST)
+	@RequestMapping(value = "/findpass/check", method = RequestMethod.POST)
 	public @ResponseBody String findPasscheck(String email, String name, String tel) { //db에서 비밀번호 찾기
 		String findpass = null;
 		try {
 			findpass = service.findpass(email, name, tel);
 			if (findpass != null) {
-				return "success:"+findpass;	
+				return "success:" + findpass;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

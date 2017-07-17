@@ -7,7 +7,7 @@ import com.simpact.domain.TalReviewReplyVO;
 
 
 public interface TalExchageReplyService {
-	
+
 	public void addReply(TalReviewReplyVO vo) throws Exception;
 
 	public void modifyReply(TalReviewReplyVO vo) throws Exception;

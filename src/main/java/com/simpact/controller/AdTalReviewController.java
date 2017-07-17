@@ -16,21 +16,18 @@ public class AdTalReviewController {
 	/* 교환후기 목록 */
 	@RequestMapping("/list")
 	public String list() {
-
 		return "/admin/talReview/list";
 	}
 
 	/* 교환후기 상세정보 */
 	@RequestMapping("/read")
 	public String read() {
-
 		return "/admin/talReview/read";
 	}
 
 	/* 교환후기정보 수정 */
 	@RequestMapping("/mod")
 	public String mod() {
-
 		return "/admin/talReview/modify";
 	}
 

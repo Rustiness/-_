@@ -14,7 +14,7 @@ public interface TalExcConnDAO {
 
 	public TalBoardVO infoTalBoard(String talDocNO) throws Exception;// 작성글 및 작성자 정보
 
-	public  List<TalDivVO>readTalDivHave(String talDocNO) throws Exception; //작성글의 작성자가 보유한 재능
+	public List<TalDivVO> readTalDivHave(String talDocNO) throws Exception; //작성글의 작성자가 보유한 재능
 
 	public int createConn(TalExcConnVO talExcConnVO) throws Exception;// 신청 등록
 
@@ -44,7 +44,7 @@ public interface TalExcConnDAO {
 
 	public List<TalDivVO> listUseCate() throws Exception; // 사용하는 카테고리 목록 가져오기
 
-	public List<TalDivVO> selCateCallDiv(String  talCateDF) throws Exception; // 선택한 카테고리의 항목 목록 가져오기
+	public List<TalDivVO> selCateCallDiv(String talCateDF) throws Exception; // 선택한 카테고리의 항목 목록 가져오기
 
 	public List<TalDivVO> listAllCateDiv() throws Exception; // 전체 카테고리 및 항목 목록 가져오기
 }

@@ -14,41 +14,40 @@ import com.simpact.domain.Criteria;
 @Repository
 public class CounselAnswerDAOImpl implements CounselAnswerDAO {
 
-	
 	@Inject
 	private SqlSession sqlSession;
-	
+
 	@Override
 	public void create(CounselAnswerVO vo) throws Exception {
 
-		sqlSession.insert("csreply.create",vo);
+		sqlSession.insert("csreply.create", vo);
 	}
 
 	@Override
 	public void update(CounselAnswerVO vo) throws Exception {
-		sqlSession.update("csreply.update",vo);
+		sqlSession.update("csreply.update", vo);
 	}
 
 	@Override
 	public void delete(String answerNO) throws Exception {
-		sqlSession.delete("csreply.delete",answerNO);
+		sqlSession.delete("csreply.delete", answerNO);
 	}
 
 	@Override
 	public List<CounselAnswerVO> list(String csNO) throws Exception {
 
-		return sqlSession.selectList("csreply.list",csNO);
+		return sqlSession.selectList("csreply.list", csNO);
 	}
 
 	@Override
 	public List<CounselAnswerVO> listPage(String csNO, Criteria cri) throws Exception {
-		RowBounds bounds = new RowBounds(cri.getPageStart(),cri.getPerPageNum());
+		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
 		return sqlSession.selectList("csreply.list", csNO, bounds);
 	}
 
 	@Override
 	public int count(String csNO) throws Exception {
-		return sqlSession.selectOne("csreply.count",csNO);
+		return sqlSession.selectOne("csreply.count", csNO);
 	}
 
 }

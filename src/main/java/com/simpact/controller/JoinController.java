@@ -30,62 +30,60 @@ public class JoinController {
 
 	@Inject
 	MemberService service;
-	
+
 	@Inject
-	LoginService loginservice;
+	private LoginService loginservice;
 
 	/* 가입약관 */
 	@RequestMapping("/terms")
 	public String terms() {
-
 		return "/client/join/terms";
 	}
 
 	/* 회원정보 등록 (입력폼) */
 	@RequestMapping(value = "/confirm", method = RequestMethod.GET)
-	public String confirmGET(Model model,HttpSession session) throws Exception {
+	public String confirmGET(Model model, HttpSession session) throws Exception {
 		List<MessengerVO> list = service.listmsg();
 		model.addAttribute("list", list);
 		return "/client/join/confirm";
 	}
-	
+
 	//메신저 목록얻어오기
-	@RequestMapping(value="/msgJson",method=RequestMethod.GET)
-	public @ResponseBody List<MessengerVO> getmsgList() throws Exception{
+	@RequestMapping(value = "/msgJson", method = RequestMethod.GET)
+	public @ResponseBody List<MessengerVO> getmsgList() throws Exception {
 		return service.listmsg();
 	}
-	
+
 	/* 회원정보 등록 (진행) */
-	@RequestMapping(value="/confirm",method=RequestMethod.POST)
-	public @ResponseBody String confirmPOST(MemberVO vo, HttpSession session, String tel1, String tel2, String tel3, 
-								MessengerVO msgvo, String pass2)throws Exception {
-		
+	@RequestMapping(value = "/confirm", method = RequestMethod.POST)
+	public @ResponseBody String confirmPOST(MemberVO vo, HttpSession session, String tel1, String tel2, String tel3,
+	                   MessengerVO msgvo, String pass2) throws Exception {
 		int t;
 		t = service.regist(vo); //회원정보등록(메신저빼고) //
-		if(t==1){ //입력이 성공했다면
-			return "success:"+vo.getMemNO(); 
+		if (t == 1) { //입력이 성공했다면
+			return "success:" + vo.getMemNO();
 		}
 		return "fail:";
 	}
 
 	/* 회원정보 등록  (메신저)*/
 	@RequestMapping("/confirm/messenger")
-	public @ResponseBody String  msgPOST(MessengerVO vo) throws Exception{
-		String count[] = vo.getMesDF().split(",");	//사이즈 측정용
-		
+	public @ResponseBody String msgPOST(MessengerVO vo) throws Exception {
+		String count[] = vo.getMesDF().split(",");    //사이즈 측정용
+
 		String mesNO[] = vo.getNo().split(",");
 		String mesDF[] = vo.getMesDF().split(",");
 		String mesID[] = vo.getId().split(",");
-		
-		for(int i=0; i<count.length; i++){	// ,로 나눈 배열만큼 메세지테이블에 인설트
+
+		for (int i = 0; i < count.length; i++) {    // ,로 나눈 배열만큼 메세지테이블에 인설트
 			vo.setNo(mesNO[i]);
 			vo.setMesDF(mesDF[i]);
 			vo.setId(mesID[i]);
-			 service.registMES(vo);
+			service.registMES(vo);
 		}
-		return "success";					
+		return "success";
 	}
-	
+
 	//이메일 중복
 	@RequestMapping("/id")
 	public @ResponseBody String email(String email) throws Exception {
@@ -103,17 +101,16 @@ public class JoinController {
 		if (t > 0) return "duplicate";
 		return "use";
 	}
-	
-	
+
 	/* 회원가입 완료 */
 	@RequestMapping("/res")
-	public String result(@RequestParam("memNO") String memNO,HttpServletRequest req) throws Exception {
+	public String result(@RequestParam("memNO") String memNO, HttpServletRequest req) throws Exception {
 		loginservice.latestDateUpdate(memNO);                    //최근 접속일 최신화
 		MemberVO vo = loginservice.selectMemberinfo(memNO);//회원번호로 회원정보 얻어오기
 		List<MessengerVO> list = loginservice.selectMembermsg(memNO);  // 메신저정보얻기
 		req.getSession().setAttribute("clientMemberVO", vo);        // 로그인에 성공시 회원정보 세션저장
 		req.getSession().setAttribute("clientMessengerVO", list);        // 로그인에 성공시 메신저정보 세션저장
-		
+
 		return "/client/join/result";
 	}
 

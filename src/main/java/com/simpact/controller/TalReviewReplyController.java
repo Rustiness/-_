@@ -28,10 +28,9 @@ public class TalReviewReplyController {
 	private TalReviewReplyService service;
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public ResponseEntity<String> register(@RequestBody TalReviewReplyVO vo, HttpServletRequest req) {// 리턴:
-																				// 문자열+서버의
-		req.getSession().getAttribute("clientMemberVO");//댓글 작성자 닉네임받기											// 상태
-		System.out.println("입력 댓글: " + vo);
+	public ResponseEntity<String> register(@RequestBody TalReviewReplyVO vo, HttpServletRequest req) {// 리턴: 문자열+서버의 상태
+		req.getSession().getAttribute("clientMemberVO");//댓글 작성자 닉네임받기
+//		System.out.println("입력 댓글: " + vo);
 		ResponseEntity<String> entity = null;
 		try {
 			service.addReply(vo);
@@ -48,9 +47,8 @@ public class TalReviewReplyController {
 	// 클라이언트 URL요청 ----> http://localhost/replies/all/6
 	@RequestMapping(value = "/all/{talReviewNO}")
 	public ResponseEntity<List<TalReviewReplyVO>> list(@PathVariable("talReviewNO") String talReviewNO) {
-		System.out.println("조회할 기준 게시물번호: " + talReviewNO);
+//		System.out.println("조회할 기준 게시물번호: " + talReviewNO);
 		ResponseEntity<List<TalReviewReplyVO>> entity = null;
-
 		try {
 			entity = new ResponseEntity<>(service.listReply(talReviewNO), HttpStatus.OK);
 		} catch (Exception e) {
@@ -62,11 +60,10 @@ public class TalReviewReplyController {
 
 	// 댓글 수정 처리
 	// 클라이언트 URL요청 ----> http://localhost/replies/2
-	@RequestMapping(value = "/{commExNO}", method = { RequestMethod.PUT, RequestMethod.PATCH })
+	@RequestMapping(value = "/{commExNO}", method = {RequestMethod.PUT, RequestMethod.PATCH})
 	public ResponseEntity<String> update(@PathVariable("commExNO") String commExNO,
-			// ReplyVO vo)//http://localhost/replies/2?replycontent=수정내용
-			@RequestBody TalReviewReplyVO vo)// http://localhost/replies/2
-	// + {"replycontent":"수정내용"}
+	                                     // ReplyVO vo)//http://localhost/replies/2?replycontent=수정내용
+	                                     @RequestBody TalReviewReplyVO vo)// http://localhost/replies/2+ {"replycontent":"수정내용"}
 	{
 		ResponseEntity<String> entity = null; // 리턴 : 데이터+서버상태
 		try {
@@ -85,14 +82,14 @@ public class TalReviewReplyController {
 		ResponseEntity<String> entity = null; // 리턴 : 데이터+서버상태
 		try {
 			int t = service.removeReply(commExNO);
-			if(t==1){
-			  System.out.println("삭제성공: "+ commExNO);
-			  entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-			}else{
-			  System.out.println("삭제실패: "+ commExNO);
-			  entity = new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
+			if (t == 1) {
+//				System.out.println("삭제성공: " + commExNO);
+				entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+			} else {
+//				System.out.println("삭제실패: " + commExNO);
+				entity = new ResponseEntity<>("FAIL", HttpStatus.BAD_REQUEST);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -135,9 +132,9 @@ public class TalReviewReplyController {
 
 		return entity;
 	}// listPage
-	
+
 	@RequestMapping("/replymod")
-	public String replymod(){
+	public String replymod() {
 		return "/client/talReview/replymod";
 	}
 

@@ -4,9 +4,7 @@ public class PersonDFVO {
 
 	private String personDF; //회원분류번호
 	private String name; //분류명
-	
-	
-	
+
 	public String getPersonDF() {
 		return personDF;
 	}
@@ -25,12 +23,10 @@ public class PersonDFVO {
 
 	public PersonDFVO() {
 	}
-	
+
 	public PersonDFVO(String personDF, String name) {
 		super();
 		this.personDF = personDF;
 		this.name = name;
 	}
-	
-	
 }

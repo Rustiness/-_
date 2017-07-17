@@ -5,9 +5,14 @@ import java.util.List;
 import com.simpact.domain.Criteria;
 import com.simpact.domain.TalReviewReplyVO;
 
-
+/**
+ * Created
+ * User: kosta
+ * Date: 2017-07-11
+ * Time: 오후 2:34
+ */
 public interface TalReviewReplyService {
-	
+
 	public void addReply(TalReviewReplyVO vo) throws Exception;
 
 	public void modifyReply(TalReviewReplyVO vo) throws Exception;

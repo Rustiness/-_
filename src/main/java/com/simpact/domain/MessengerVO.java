@@ -1,5 +1,12 @@
 package com.simpact.domain;
 
+/**
+ * Created
+ * User: kosta
+ * Date: 2017-07-11
+ * Time: 오후 2:34
+ */
+
 public class MessengerVO {
 	private String no;
 	private String memNO;
@@ -22,7 +29,6 @@ public class MessengerVO {
 	public String getNo() {
 		return no;
 	}
-
 
 	public void setNo(String no) {
 		this.no = no;

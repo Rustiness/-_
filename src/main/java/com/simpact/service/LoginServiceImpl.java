@@ -30,7 +30,7 @@ public class LoginServiceImpl implements LoginService {
 	public MemberVO selectMemberinfo(String memNO) throws Exception {
 		return dao.selectMemberinfo(memNO);
 	}
-	
+
 	@Override
 	public List<MessengerVO> selectMembermsg(String memNO) throws Exception {
 		return dao.selectMembermsg(memNO);
@@ -42,8 +42,6 @@ public class LoginServiceImpl implements LoginService {
 
 		return dao.findpass(email, name, tel);
 	}
-
-
 
 	@Override
 	public void latestDateUpdate(String memNO) throws Exception {

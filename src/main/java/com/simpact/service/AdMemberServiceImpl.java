@@ -16,7 +16,7 @@ public class AdMemberServiceImpl implements AdMemberService {
 
 	@Inject
 	AdMemberDAO dao;
-	
+
 	@Override
 	public int modify(MemberVO vo) throws Exception {
 		return dao.update(vo);
@@ -26,16 +26,17 @@ public class AdMemberServiceImpl implements AdMemberService {
 	public void modifyTOEMP(String memNO) throws Exception {
 		dao.modifyTOEMP(memNO);
 	}
+
 	@Override
 	public MemberVO read(String memNO) throws Exception {
 		return dao.read(memNO);
 	}
-	
+
 	@Override
 	public List<PersonDFVO> getGrade() throws Exception {
 		return dao.getGrade();
 	}
-	
+
 	@Override
 	public List<MemberVO> readmsg(String memNO) throws Exception {
 		return dao.readmsg(memNO);

@@ -28,7 +28,7 @@ public interface TalReviewService {
 	public List<TalReviewVO> listSearch(SearchCriteria cri) throws Exception;//페이지관련
 
 	public int listSearchCount(SearchCriteria cri) throws Exception; //검색관련
-		
-	public List<TalDivVO> talhave(Map<String,String> map) throws Exception;
+
+	public List<TalDivVO> talhave(Map<String, String> map) throws Exception;
 
 }

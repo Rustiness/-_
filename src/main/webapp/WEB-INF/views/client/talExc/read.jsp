@@ -8,42 +8,31 @@
 
 <%-- .jsp --%>
 <%@include file="../include/header.jsp" %>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link type="text/css" rel="stylesheet" href="/resources/tempBootflatAdmin/dist/css/site.min.css">
+<script type="text/javascript" src="/resources/tempBootflatAdmin/dist/js/site.min.js"></script>
 
-
-<%-- SmartEditor를 사용하기 위해서 다음 js파일을 추가 (경로 확인) --%>
-<script type="text/javascript" src="/resources/SE2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-<script type="text/javascript" id="SE2">
-	var oEditors = [];
-	$(function () {
-		nhn.husky.EZCreator.createInIFrame({
-			oAppRef: oEditors,
-			elPlaceHolder: "description", //textarea에서 지정한 id와 일치해야 합니다.
-			//SmartEditor2Skin.html 파일이 존재하는 경로
-			sSkinURI: "/resources/SE2/SmartEditor2Skin.html",
-			htParams: {
-				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-				bUseToolbar: true,
-				// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-				bUseVerticalResizer: false,
-				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-				bUseModeChanger: true,
-				fOnBeforeUnload: function () {
-
-				},
-				fOnAppLoad: function () {
-					//$("iframe").on().css("width", "100%").css("height", "350px");
-					$("writeTimeL").on("iframe").css("width", "100%").css("height", "350px");
-
-				}
-			},
-			fCreator: "createSEditor2"
-		});
-	});
-</script>
-<%-- SmartEditor --%>
+<%-------------------------------- 섬머노트 작업 시작 -------------------------%>
+<%-- include summernote css/js--%>
+<link href="/resources/summernote-0.8.4-dist/dist/summernote.css" rel="stylesheet">
+<script src="/resources/summernote-0.8.4-dist/dist/summernote.js"></script>
+<script src="/resources/summernote-0.8.4-dist/dist/summernote.js"></script>
+<script src="/resources/summernote-0.8.4-dist/dist/lang/summernote-ko-KR.js"></script>
+<%-------------------------------- 섬머노트 작업 끝 -------------------------%>
 
 <script type="text/javascript">
 	$(document).ready(function () {
+
+		<%-- 섬머노트 적용 시작 --%>
+		$('#description').summernote({
+			lang: 'ko-KR', // default: 'en-US'
+			minHeight: 250,             // set minimum height of editor
+			height: 250,                 // set editor height
+			maxHeight: null,             // set maximum height of editor
+			focus: true                  // set focus to editable area after initializing summernote
+		});
+		<%-- 섬머노트 적용 끝 --%>
+
 		//$("iframe").on().css("width", "100%").css("height", "350px");
 		$("writeTimeL").on(setTimeout("('iframe').css('width', '100%').css('height', '350px')", 1000));
 		$(document).on("click", "#btnList", function () {

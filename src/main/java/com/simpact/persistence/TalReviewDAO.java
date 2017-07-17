@@ -21,7 +21,7 @@ public interface TalReviewDAO {
 
 	public List<TalReviewVO> listPage(int page) throws Exception;//조회(여러행-리스트)
 
-	public List<TalDivVO> talDivVO(Map<String,String> map) throws Exception;//재능카테고리 불러오기
+	public List<TalDivVO> talDivVO(Map<String, String> map) throws Exception;//재능카테고리 불러오기
 
 	public List<TalReviewVO> listCriteria(Criteria cri) throws Exception;//전체레코드 수
 

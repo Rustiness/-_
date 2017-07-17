@@ -41,7 +41,6 @@ public class HomeController {
 	/* 클라이언트 메인 */
 	@RequestMapping("/lte")
 	public String client() {
-
 		return "/client/index";
 	}
 
@@ -51,11 +50,10 @@ public class HomeController {
 		req.getSession().invalidate();
 		return "/admin/login/confirm";
 	}
-	
+
 	/*재능소개*/
 	@RequestMapping("/intro")
 	public String intro() {
-
 		return "/client/intro/intro";
 	}
 

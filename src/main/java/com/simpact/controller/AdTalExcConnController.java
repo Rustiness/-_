@@ -16,21 +16,18 @@ public class AdTalExcConnController {
 	/* 교환신청 목록 */
 	@RequestMapping("/list")
 	public String list() {
-
 		return "/admin/talExcConn/list";
 	}
 
 	/* 교환신청 상세정보 */
 	@RequestMapping("/read")
 	public String read() {
-
 		return "/admin/talExcConn/read";
 	}
 
 	/* 교환신청정보 수정 */
 	@RequestMapping("/mod")
 	public String mod() {
-
 		return "/admin/talExcConn/modify";
 	}
 

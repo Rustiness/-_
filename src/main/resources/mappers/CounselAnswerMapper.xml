@@ -3,40 +3,41 @@
 <mapper namespace="csreply">
 
 
-<!-- private String answerNO; /* 문의답변번호 */
-		private String csNO;  /* 문의번호 */
-		private String empNO; /* 직원번호 */
-		private String content; /* 답변내용 */
-		private DATE writeDate; /* 등록일시 */ -->
+	<!-- private String answerNO; /* 문의답변번호 */
+			private String csNO;  /* 문의번호 */
+			private String empNO; /* 직원번호 */
+			private String content; /* 답변내용 */
+			private DATE writeDate; /* 등록일시 */ -->
 
 
-<select id="list" resultType="csreply">
-	select answerNO,csNO,empNO,content,writeDate
-	from CounBDAnswer
-	where csNO=#{csNO}
-	order by answerNO desc 
+	<select id="list" resultType="csreply">
+		SELECT answerNO, csNO, empNO, content, writeDate
+		FROM CounBDAnswer
+		WHERE csNO = #{csNO}
+		ORDER BY answerNO DESC
 
-</select>
+	</select>
 
-<!-- count -->
-<select id="count" resultType="int">
- select count(*) 
- from CounBDAnswer 
- where csNO=#{csNO}
-</select>
+	<!-- count -->
+	<select id="count" resultType="int">
+		SELECT count(*)
+		FROM CounBDAnswer
+		WHERE csNO = #{csNO}
+	</select>
 
-<insert id="create">
-  	insert into CounBDAnswer(answerNO,csNO,empNO,content)
-  	values ('CBA_A'||LPAD(CounBDAnswer_seq.nextval,5,0),#{csNO},#{empNO},#{content})
-</insert>
+	<insert id="create">
+		INSERT INTO CounBDAnswer (answerNO, csNO, empNO, content)
+		VALUES ('CBA_A' || LPAD(CounBDAnswer_seq.nextval, 5, 0), #{csNO}, #{empNO}, #{content})
+	</insert>
 
-<update id="update">
-	update CounBDAnswer 
-	set content=#{content}
-	where answerNO=#{answerNO}
-</update> 
+	<update id="update">
+		UPDATE CounBDAnswer
+		SET content = #{content}
+		WHERE answerNO = #{answerNO}
+	</update>
 
-<delete id="delete">
-	delete from CounBDAnswer where answerNO=#{answerNO}
-</delete>
+	<delete id="delete">
+		DELETE FROM CounBDAnswer
+		WHERE answerNO = #{answerNO}
+	</delete>
 </mapper>

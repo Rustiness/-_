@@ -12,7 +12,7 @@ public interface TalBoardService {
 
 	//브라우저 사용자(고객)입장에서 메소드를 정의
 	public int regist(TalBoardVO vo) throws Exception;
-	
+
 	public void createWant(TalDivVO talDivVO) throws Exception; /* 신청의 원하는 항목 연결 등록 */
 
 	public void createHave(TalDivVO talDivVO) throws Exception; /* 신청의 보유한 항목 연결 등록 */
@@ -46,17 +46,15 @@ public interface TalBoardService {
 	public List<TalDivVO> listTalDivWant(SearchCriteria cri) throws Exception;
 
 	public List<TalDivVO> readTalDivWant(String talDocNO) throws Exception; // 특정 게시물 항목조회
-	
-	public List<TalDivVO> selCateCallDiv(String talCateDF) throws Exception; // 사용하는 카테고리 목록 가져오기
-	
-	public List<TalBoardVO> selBeforeTal(String memNO) throws Exception; // 재능글 이전 게시글 가져오기
-	
-    public void removeTal(String talDocNO) throws Exception; // 재능글 삭제
-	
-	public void removeDivHave(String talDocNO) throws Exception; // 재능글 보유한 항목 삭제
-	
-	public void removeDivWant(String talDocNO) throws Exception; // 재능글 원하는 항목 삭제
-	
 
+	public List<TalDivVO> selCateCallDiv(String talCateDF) throws Exception; // 사용하는 카테고리 목록 가져오기
+
+	public List<TalBoardVO> selBeforeTal(String memNO) throws Exception; // 재능글 이전 게시글 가져오기
+
+	public void removeTal(String talDocNO) throws Exception; // 재능글 삭제
+
+	public void removeDivHave(String talDocNO) throws Exception; // 재능글 보유한 항목 삭제
+
+	public void removeDivWant(String talDocNO) throws Exception; // 재능글 원하는 항목 삭제
 
 }

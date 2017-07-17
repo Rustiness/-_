@@ -7,41 +7,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%-- .jsp --%>
 <%@include file="../include/header.jsp" %>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link type="text/css" rel="stylesheet" href="/resources/tempBootflatAdmin/dist/css/site.min.css">
+<script type="text/javascript" src="/resources/tempBootflatAdmin/dist/js/site.min.js"></script>
 
-<%-- SmartEditor를 사용하기 위해서 다음 js파일을 추가 (경로 확인) --%>
-<script type="text/javascript" src="/resources/SE2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-<script type="text/javascript" id="SE2">
-	var oEditors = [];
-	$(function () {
-		nhn.husky.EZCreator.createInIFrame({
-			oAppRef: oEditors,
-			elPlaceHolder: "description", //textarea에서 지정한 id와 일치해야 합니다.
-			//SmartEditor2Skin.html 파일이 존재하는 경로
-			sSkinURI: "/resources/SE2/SmartEditor2Skin.html",
-			htParams: {
-				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-				bUseToolbar: true,
-				// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-				bUseVerticalResizer: true,
-				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-				bUseModeChanger: true,
-				fOnBeforeUnload: function () {
-
-				}
-			},
-			fOnAppLoad: function () {
-				//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
-				//oEditors.getById["description"].exec("PASTE_HTML", ['${talExcConnVO.content}']);
-			},
-			fCreator: "createSEditor2"
-		});
-	});
-</script>
-<%-- SmartEditor --%>
+<%-------------------------------- 섬머노트 작업 시작 -------------------------%>
+<%-- include summernote css/js--%>
+<link href="/resources/summernote-0.8.4-dist/dist/summernote.css" rel="stylesheet">
+<script src="/resources/summernote-0.8.4-dist/dist/summernote.js"></script>
+<script src="/resources/summernote-0.8.4-dist/dist/lang/summernote-ko-KR.js"></script>
+<%-------------------------------- 섬머노트 작업 끝 -------------------------%>
 
 <script type="text/javascript">
 	$(document).ready(function () {
+
+		<%-- 섬머노트 적용 시작 --%>
+		$('#description').summernote({
+			lang: 'ko-KR', // default: 'en-US'
+			minHeight: 250,             // set minimum height of editor
+			height: 250,                 // set editor height
+			maxHeight: null,             // set maximum height of editor
+			focus: true                  // set focus to editable area after initializing summernote
+		});
+		<%-- 섬머노트 적용 끝 --%>
 
 		//================== 셀렉트 추가 ==================//
 		var talWantCount = 1; //id, name 인덱스 생성 카운트
@@ -136,7 +124,7 @@
 						memNO: '${talExcConnVO.memNO}', //신청자
 						talDocNO: '${talExcConnVO.talDocNO}', //재능글
 						title: $('#title').val(),
-						content: oEditors.getById["description"].getIR(),
+						content: $('#description').summernote('code'),
 						talWantDiv: talWantDivData,
 						talHaveDiv: talHaveDivData
 					},
@@ -158,7 +146,6 @@
 						} else if (result.match("fail2")) {
 							alert('널포인트');
 						}
-						$(".btnSendClose").click();
 					}
 
 				});
@@ -214,6 +201,7 @@
 
 <!-- Main content -->
 <section class="content">
+
 	<div class="container-fluid">
 		<!--documents-->
 		<div class="row row-offcanvas row-offcanvas-left">
@@ -251,9 +239,7 @@
 										<button type="button" class="btn btn-default btnSendClose" data-dismiss="modal">
 											취소
 										</button>
-										<input style="background-color:#5B3256; border-color:#89729E;"
-										       class="btn btn-info"
-										       type="button" id="btnSend" value="전송"/>
+										<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info" type="button" id="btnSend" value="전송" data-dismiss="modal"/>
 									</div>
 								</div>
 							</div>
@@ -277,8 +263,7 @@
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-										<input style="background-color:#5B3256; border-color:#89729E;"
-										       class="btn btn-info" type="button" id="btnCancel" value="중단"/>
+										<input style="background-color:#5B3256; border-color:#89729E;" class="btn btn-info" type="button" id="btnCancel" value="중단" data-dismiss="modal"/>
 									</div>
 								</div>
 							</div>
@@ -395,9 +380,8 @@
 										<div class="form-group">
 											<label class="col-md-2 control-label" for="description">신청내용</label>
 											<div class="col-md-10">
-												<textarea style="width: 100%" required="" class="form-control"
-												          placeholder="Description" rows="10" cols="30" id="description"
-												          name="description"></textarea>
+												<%--<textarea style="width: 100%" required="" class="form-control" placeholder="Description" rows="10" cols="30" id="description" name="description"></textarea>--%>
+												<div id="description"/>
 											</div>
 										</div>
 										<div class="form-group">
@@ -418,7 +402,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 </section>
 

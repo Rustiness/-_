@@ -23,7 +23,6 @@ public class MemberDAOImpl implements MemberDAO {
 	@Inject
 	SqlSession sqlSession;
 
-
 	@Override
 	public int create(MemberVO vo) throws Exception { //회원정보 등록
 		return sqlSession.insert("member.create", vo);
@@ -31,20 +30,18 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public int selectEmail(String email) throws Exception { //이메일 중복체크
-
-		System.out.println("email:" + email);
+//		System.out.println("email:" + email);
 		return sqlSession.selectOne("member.idCheckSelect", email);
 	}
 
 	@Override
 	public int selectNickName(String nickName) throws Exception {//닉네임중복체크
-		System.out.println("nickName중복체크:" + nickName);
+//		System.out.println("nickName중복체크:" + nickName);
 		return sqlSession.selectOne("member.nickNameCheckSelect", nickName);
 	}
 
 	@Override
 	public String selectMsgMno(String email) throws Exception {//이메일로 회원번호 찾기
-
 		return sqlSession.selectOne("member.selectMsgMno", email);
 	}
 
@@ -63,42 +60,40 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public List<MessengerVO> listmsg() throws Exception { //메신저 목록 브라우저에 출력하기 위함
-
 		return sqlSession.selectList("messenger.memMesInfo");
 	}
 
 	@Override
 	public void createMES(MessengerVO vo) throws Exception {
-		sqlSession.insert("messenger.insert",vo);
+		sqlSession.insert("messenger.insert", vo);
 	}
 
 	@Override
 	public int memberUpdate(MemberVO vo) {
-		return sqlSession.update("member.memberUpdate",vo);
+		return sqlSession.update("member.memberUpdate", vo);
 	}
 
-	
 	@Override
 	public int messengerUpdate(MessengerVO vo) {
-		return sqlSession.update("messenger.update",vo);
+		return sqlSession.update("messenger.update", vo);
 	}
-	
+
 	@Override
 	public int messengerDelete(MessengerVO vo) {
-		return sqlSession.delete("messenger.delete",vo);
+		return sqlSession.delete("messenger.delete", vo);
 	}
-	
+
 	@Override
 	public int messengerAdd(MessengerVO vo) {
-		return sqlSession.insert("messenger.add",vo);
+		return sqlSession.insert("messenger.add", vo);
 	}
-	
+
 	@Override
 	public int uppasscheck(String memNO, String uppass) {
 		Map<String, String> map = new HashMap<>();
 		map.put("memNO", memNO);
 		map.put("pass", uppass);
-		return sqlSession.selectOne("member.passcheck",map);
+		return sqlSession.selectOne("member.passcheck", map);
 	}
 
 	@Override
@@ -106,7 +101,7 @@ public class MemberDAOImpl implements MemberDAO {
 		Map<String, String> map = new HashMap<>();
 		map.put("memNO", memNO);
 		map.put("pass", delpass);
-		return sqlSession.update("member.delete",map);
+		return sqlSession.update("member.delete", map);
 	}
 
 }

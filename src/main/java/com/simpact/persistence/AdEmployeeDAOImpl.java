@@ -19,52 +19,50 @@ public class AdEmployeeDAOImpl implements AdEmployeeDAO {
 
 	@Inject
 	SqlSession sqlsession;
-	
+
 	@Override
 	public MemberVO read(String memNO) throws Exception {
-		return sqlsession.selectOne("Ademployee.read",memNO);
-	}
-	
-	@Override
-	public EmployeeVO reademp(String memNO) throws Exception {
-		return sqlsession.selectOne("Ademployee.reademp",memNO);
+		return sqlsession.selectOne("Ademployee.read", memNO);
 	}
 
+	@Override
+	public EmployeeVO reademp(String memNO) throws Exception {
+		return sqlsession.selectOne("Ademployee.reademp", memNO);
+	}
 
 	@Override
 	public List<MemberVO> readmsg(String memNO) throws Exception {
-		return sqlsession.selectList("Ademployee.readmsg",memNO);
+		return sqlsession.selectList("Ademployee.readmsg", memNO);
 	}
-	
+
 	@Override
 	public List<GradeDFVO> readgrade(String memNO) throws Exception {
-		return sqlsession.selectList("Ademployee.readgrade",memNO);
+		return sqlsession.selectList("Ademployee.readgrade", memNO);
 	}
-	
+
 	@Override
 	public List<PositionDFVO> readposition(String memNO) throws Exception {
-		return sqlsession.selectList("Ademployee.readposition",memNO);
+		return sqlsession.selectList("Ademployee.readposition", memNO);
 	}
 
 	@Override
 	public int update(EmployeeVO vo) throws Exception {
-		return sqlsession.update("Ademployee.update",vo);
+		return sqlsession.update("Ademployee.update", vo);
 	}
 
 	@Override
 	public void delete(int bno) throws Exception {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public List<MemberVO> listSearch(SearchCriteria cri) throws Exception {
-		return sqlsession.selectList("Ademployee.listSearch",cri);
+		return sqlsession.selectList("Ademployee.listSearch", cri);
 	}
 
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
-		return sqlsession.selectOne("Ademployee.listSearchCount",cri);
+		return sqlsession.selectOne("Ademployee.listSearchCount", cri);
 	}
 
 	@Override

@@ -4,44 +4,45 @@
 
 	<!-- 한 건의 게시물 읽기(직원기본정보) -->
 	<select id="read" resultType="member">
-		select memNo,personDF,email,pass,name,nickName,birth,sex,tel,joinDate,latestDate,state
-		from member
-		where memNO=#{memNO}
+		SELECT memNo, personDF, email, pass, name, nickName, birth, sex, tel, joinDate, latestDate, state
+		FROM member
+		WHERE memNO = #{memNO}
 	</select>
 
 	<!-- 한 건의 게시물 읽기(직원추가정보) pname 직책명  gname  관리명 -->
 	<select id="reademp" resultType="employee">
-		select e.empNO,e.memNO,e.gradeDF,e.posDF,e.latestDate,e.retireDate,e.state,p.name pname,g.name gname
-		from employee e, DF_Position p, DF_Grade g
-		where  e.memNO= #{memNO}
-		and e.gradeDF = g.gradeDF
-		and e.posDF = p.posDF
+		SELECT e.empNO, e.memNO, e.gradeDF, e.posDF, e.latestDate, e.retireDate, e.state, p.name pname, g.name gname
+		FROM employee e, DF_Position p, DF_Grade g
+		WHERE e.memNO = #{memNO}
+		      AND e.gradeDF = g.gradeDF
+		      AND e.posDF = p.posDF
 	</select>
-	
+
 	<!-- 한 건의 게시물 읽기(메신저) -->
 	<select id="readmsg" resultType="messengerVO">
-		select memNO, mesDF, id, name
-		from NP_MemMes natural join DF_Messenger
-		where memNO= #{memNO}
+		SELECT memNO, mesDF, id, name
+		FROM NP_MemMes
+			NATURAL JOIN DF_Messenger
+		WHERE memNO = #{memNO}
 	</select>
-	
+
 	<!-- 관리등급 리스트 -->
 	<select id="readgrade" resultType="gradeDF">
-		select gradeDF, name, memo, isYn
-		from DF_grade 
+		SELECT gradeDF, name, memo, isYn
+		FROM DF_grade
 	</select>
-	
+
 	<!-- 직책 리스트 -->
 	<select id="readposition" resultType="positionDF">
-		select posDF, name, memo, isYn
-		from DF_position 
+		SELECT posDF, name, memo, isYn
+		FROM DF_position
 	</select>
-	
+
 	<!-- 정보 수정하기 -->
 	<update id="update">
-		update employee
-		set gradeDF=#{gradeDF}, posDF= #{posDF}, state=#{state}
-		where empNO=#{empNO}
+		UPDATE employee
+		SET gradeDF = #{gradeDF}, posDF = #{posDF}, state = #{state}
+		WHERE empNO = #{empNO}
 	</update>
 
 	<!-- 삭제하기 
@@ -49,22 +50,22 @@
 		delete from tbl_board
 		where bno=#{bno}
 	</delete> -->
-	
+
 	<!-- 검색어 조회 -->
 	<sql id="search">
 		<if test="searchType!=null">
-				<if test="searchType == 't'.toString()">
-					and memNO like '%'||#{keyword}||'%'
-				</if>
-				<if test="searchType == 'c'.toString()">
-					and email like '%'||#{keyword}||'%'
-				</if>
-				<if test="searchType == 'w'.toString()">
-					and name like '%'||#{keyword}||'%'
-				</if>
+			<if test="searchType == 't'.toString()">
+				and memNO like '%'||#{keyword}||'%'
 			</if>
+			<if test="searchType == 'c'.toString()">
+				and email like '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'w'.toString()">
+				and name like '%'||#{keyword}||'%'
+			</if>
+		</if>
 	</sql>
-	
+
 	<!-- 목록출력 & 검색 ()-->
 	<select id="listSearch" resultType="member">
 		select *
@@ -73,12 +74,12 @@
 		<include refid="search"></include>
 		order by memNO desc
 	</select>
-	
+
 
 	<!-- 페이징 -->
 	<select id="listSearchCount" resultType="int">
-		select count(*) 
-		from member 
-		where personDF = 'D_PE02'
+		SELECT count(*)
+		FROM member
+		WHERE personDF = 'D_PE02'
 	</select>
 </mapper>

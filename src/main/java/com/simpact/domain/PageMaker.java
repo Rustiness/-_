@@ -53,7 +53,7 @@ public class PageMaker {//페이징에 관련된 속성 저장
 
 		String keyword = ((SearchCriteria) cri).getKeyword();
 		try {
-			System.out.println("keyword: " + keyword);
+//			System.out.println("keyword: " + keyword);
 			if (keyword == null) keyword = "";
 			keyword = URLEncoder.encode(keyword, "UTF-8");//URL에 전달되는 한글 처리
 		} catch (UnsupportedEncodingException e) {

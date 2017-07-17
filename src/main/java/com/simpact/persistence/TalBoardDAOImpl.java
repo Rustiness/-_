@@ -14,8 +14,16 @@ import com.simpact.domain.TalCategoryVO;
 import com.simpact.domain.TalDivVO;
 import com.simpact.domain.TalBoardVO;
 
+/**
+ * Created
+ * User: kosta
+ * Date: 2017-07-17
+ * Time: 오후 5:03
+ */
+
 @Repository
 public class TalBoardDAOImpl implements TalBoardDAO {
+
 	@Inject
 	private SqlSession sqlSession;
 
@@ -23,6 +31,7 @@ public class TalBoardDAOImpl implements TalBoardDAO {
 	public int create(TalBoardVO vo) throws Exception {
 		return sqlSession.insert("talentBoard.create", vo);
 	}
+
 	@Override
 	public void createWant(TalDivVO talDivVO) throws Exception {
 		sqlSession.insert("talentBoard.createWant", talDivVO);
@@ -88,78 +97,70 @@ public class TalBoardDAOImpl implements TalBoardDAO {
 
 	@Override
 	public List<TalDivVO> divList() throws Exception {
-		
+
 		return sqlSession.selectList("talentBoard.divList");
 	}
 
 	@Override
 	public void talHaveUpdate(TalBoardVO vo) throws Exception {
 		sqlSession.selectList("talentBoard.talHaveUpdate", vo);
-		
+
 	}
 
 	@Override
 	public void talWantUpdate(TalBoardVO vo) throws Exception {
 		sqlSession.selectList("talentBoard.talWantUpdate", vo);
-		
+
 	}
 
 	@Override
 	public List<TalDivVO> listTalDivHave(SearchCriteria cri) throws Exception {
-	
-			//RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
-			//List<TalDivVO> list = sqlsession.selectList("talentBoard.listTalDivHave", null, bounds);
-
-			return sqlSession.selectList("talentBoard.listTalDivHave", cri);
-		
+		//RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
+		//List<TalDivVO> list = sqlsession.selectList("talentBoard.listTalDivHave", null, bounds);
+		return sqlSession.selectList("talentBoard.listTalDivHave", cri);
 	}
 
 	@Override
 	public List<TalDivVO> readTalDivHave(String talDocNO) throws Exception {
-	
 		return sqlSession.selectList("talentBoard.readTalDivHave", talDocNO);
 	}
-
-	
 
 	@Override
 	public List<TalDivVO> listTalDivWant(SearchCriteria cri) throws Exception {
 		//RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
 		//List<TalDivVO> list = sqlsession.selectList("talentBoard.listTalDivWant", null, bounds);
-
 		return sqlSession.selectList("talentBoard.listTalDivWant", cri);
-	
 	}
-
 
 	@Override
 	public List<TalDivVO> readTalDivWant(String talDocNO) throws Exception {
 		return sqlSession.selectList("talentBoard.readTalDivWant", talDocNO);
 	}
-	
+
 	@Override
 	public List<TalDivVO> selCateCallDiv(String talCateDF) throws Exception {
 		return sqlSession.selectList("talDivision.selCateCallDiv", talCateDF);
 	}
+
 	@Override
 	public List<TalBoardVO> selBeforeTal(String memNO) throws Exception {
-
 		return sqlSession.selectList("talentBoard.beforeTal", memNO);
 	}
+
 	@Override
 	public void deleteTal(String talDocNO) throws Exception {
-	       sqlSession.update("talentBoard.deleteTal", talDocNO);
-		
+		sqlSession.update("talentBoard.deleteTal", talDocNO);
+
 	}
+
 	@Override
 	public void deleteDivHave(String talDocNO) throws Exception {
-		    sqlSession.delete("talentBoard.removeDivHave", talDocNO);
-		
+		sqlSession.delete("talentBoard.removeDivHave", talDocNO);
 	}
+
 	@Override
 	public void deleteDivWant(String talDocNO) throws Exception {
-		  sqlSession.delete("talentBoard.removeDivWant", talDocNO);
-		
+		sqlSession.delete("talentBoard.removeDivWant", talDocNO);
 	}
 
 }

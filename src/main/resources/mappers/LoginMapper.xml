@@ -22,7 +22,7 @@
 	<update id="latestDateUpdate">
 		UPDATE member
 		SET latestDate = sysdate
-		where memNO=#{memNO}
+		WHERE memNO = #{memNO}
 	</update>
 
 	<!-- memNO를 통한 전체 정보(member테이블) 얻기-->
@@ -34,9 +34,10 @@
 
 	<!-- memNO를 통한 전체 정보(messenger테이블) 얻기-->
 	<select id="getMembermsg" resultType="messengerVO">
-		select no, memNO, mesDF, id, name
-		from NP_MemMes natural join DF_Messenger
-		where memNO= #{memNO}
+		SELECT no, memNO, mesDF, id, name
+		FROM NP_MemMes
+			NATURAL JOIN DF_Messenger
+		WHERE memNO = #{memNO}
 	</select>
 
 	<!-- 비밀번호찾기 -->
@@ -44,8 +45,8 @@
 		SELECT pass
 		FROM member
 		WHERE email = #{email} AND name = #{name} AND tel = #{tel}
-		AND (state ='2' OR state ='3')
+		      AND (state = '2' OR state = '3')
 	</select>
 
-	
+
 </mapper>

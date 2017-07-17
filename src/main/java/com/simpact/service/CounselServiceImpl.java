@@ -28,18 +28,15 @@ public class CounselServiceImpl implements CounselService {
 	@Override
 	public void modify(CounselVO vo) throws Exception {
 		dao.update(vo);
-
 	}
 
 	@Override
 	public void remove(String csNO) throws Exception {
 		dao.delete(csNO);
-
 	}
 
 	@Override
 	public CounselVO read(String csNO) throws Exception {
-
 		return dao.read(csNO);
 	}
 
@@ -70,10 +67,8 @@ public class CounselServiceImpl implements CounselService {
 
 	@Override
 	public List<QuestionVO> listcate() throws Exception {
-
 		return dao.listcate();
 	}
-
 
 
 }

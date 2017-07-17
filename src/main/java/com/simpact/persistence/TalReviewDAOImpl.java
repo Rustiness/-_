@@ -14,6 +14,13 @@ import com.simpact.domain.SearchCriteria;
 import com.simpact.domain.TalDivVO;
 import com.simpact.domain.TalReviewVO;
 
+/**
+ * Created
+ * User: kosta
+ * Date: 2017-07-17
+ * Time: 오후 5:03
+ */
+
 @Repository
 public class TalReviewDAOImpl implements TalReviewDAO {
 
@@ -31,8 +38,8 @@ public class TalReviewDAOImpl implements TalReviewDAO {
 		String nickName = sqlSession.selectOne("rboard.readnickName", talReviewNO);
 		vo.setNickName(nickName);
 		return vo;*/
-		
-		return sqlSession.selectOne("rboard.read",talReviewNO );
+
+		return sqlSession.selectOne("rboard.read", talReviewNO);
 	}
 
 	@Override
@@ -93,8 +100,8 @@ public class TalReviewDAOImpl implements TalReviewDAO {
 	}
 
 	@Override
-	public List<TalDivVO> talDivVO(Map<String,String> map) throws Exception {
-		return sqlSession.selectList("rboard.talDivVO2",map);
+	public List<TalDivVO> talDivVO(Map<String, String> map) throws Exception {
+		return sqlSession.selectList("rboard.talDivVO2", map);
 	}
 
 }

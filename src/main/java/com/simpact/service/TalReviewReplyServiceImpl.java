@@ -10,10 +10,17 @@ import com.simpact.domain.Criteria;
 import com.simpact.domain.TalReviewReplyVO;
 import com.simpact.persistence.TalReviewReplyDAO;
 
+/**
+ * Created
+ * User: kosta
+ * Date: 2017-07-11
+ * Time: 오후 2:34
+ */
+
 @Service
 public class TalReviewReplyServiceImpl implements TalReviewReplyService {
 	//Controller ---> Service ---> DAO ---> xml
-	
+
 	@Inject
 	private TalReviewReplyDAO dao;
 
@@ -29,7 +36,7 @@ public class TalReviewReplyServiceImpl implements TalReviewReplyService {
 
 	@Override
 	public int removeReply(String commExNO) throws Exception {
-		
+
 		return dao.delete(commExNO);
 	}
 
@@ -47,10 +54,5 @@ public class TalReviewReplyServiceImpl implements TalReviewReplyService {
 	public int count(String commExNO) throws Exception {
 		return dao.count(commExNO);
 	}
-	
-	
-	
 
-	
-	
 }

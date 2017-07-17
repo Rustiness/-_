@@ -9,15 +9,15 @@
 <html>
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
 <head>
-	<link rel="shortcut icon" href="favicon_16.ico"/>
-	<link rel="bookmark" href="favicon_16.ico"/>
+	<link rel="shortcut icon" href="/resources/favicon_16.ico"/>
+	<link rel="bookmark" href="/resources/favicon_16.ico"/>
 	<!-- site css -->
-	<link rel="stylesheet" href="/resources/tempBootflatAdmin/dist/css/site.min.css">
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="/resources/tempBootflatAdmin/dist/css/site.min.css">
 	<script type="text/javascript" src="/resources/tempBootflatAdmin/dist/js/site.min.js"></script>
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
 
 	<!-- 내꺼 -->
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript">
 	var log = '${clientMemberVO.memNO }';
 		$(document).ready(function () { //DOM이 준비되고

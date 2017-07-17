@@ -17,11 +17,9 @@ public class Criteria {
 		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + "]";
 	}
 
-
 	public int getPage() {
 		return page;
 	}
-
 
 	public void setPage(int page) {
 		this.page = page;

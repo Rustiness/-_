@@ -34,7 +34,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int nickNameCheck(String nickName) throws Exception {//닉네임 중복체크
-		System.out.println("nickName중복체크:" + nickName);
+//		System.out.println("nickName중복체크:" + nickName);
 		return dao.selectNickName(nickName);
 	}
 
@@ -56,29 +56,28 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void registMES(MessengerVO vo) throws Exception {
 		dao.createMES(vo);
-		
 	}
-	
+
 	@Override
 	public int memberUpdate(MemberVO vo) throws Exception {
 		return dao.memberUpdate(vo);
 	}
-	
+
 	@Override
 	public int messengerUpdate(MessengerVO vo) throws Exception {
 		return dao.messengerUpdate(vo);
 	}
-	
+
 	@Override
 	public int messengerDelete(MessengerVO vo) throws Exception {
 		return dao.messengerDelete(vo);
 	}
-	
+
 	@Override
 	public int messengerAdd(MessengerVO vo) throws Exception {
 		return dao.messengerAdd(vo);
 	}
-	
+
 	@Override
 	public int uppasscheck(String memNO, String uppass) throws Exception {
 		return dao.uppasscheck(memNO, uppass);

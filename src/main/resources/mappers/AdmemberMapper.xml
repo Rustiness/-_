@@ -4,45 +4,46 @@
 
 	<!-- 한 건의 게시물 읽기 member용-->
 	<select id="read" resultType="member">
-		select memNO,personDF,email,pass,name,nickName,birth,sex,tel,joinDate,latestDate,state
-		from member
-		where memNO= #{memNO}
+		SELECT memNO, personDF, email, pass, name, nickName, birth, sex, tel, joinDate, latestDate, state
+		FROM member
+		WHERE memNO = #{memNO}
 	</select>
 
 	<!-- 한 건의 게시물 읽기 msg용-->
 	<select id="readmsg" resultType="messengerVO">
-		select memNO, mesDF, id, name
-		from NP_MemMes natural join DF_Messenger
-		where memNO= #{memNO}
+		SELECT memNO, mesDF, id, name
+		FROM NP_MemMes
+			NATURAL JOIN DF_Messenger
+		WHERE memNO = #{memNO}
 	</select>
-	
+
 	<!-- 정보 수정하기 -->
 	<update id="update">
-		update member
-		set personDF=#{personDF}, state=#{state}
-		where memNO=#{memNO}
+		UPDATE member
+		SET personDF = #{personDF}, state = #{state}
+		WHERE memNO = #{memNO}
 	</update>
-	
+
 	<!-- 직원으로 변경시 emp테이블에 기본값 부여하기 -->
 	<insert id="newAdmin">
-		insert into employee(empNo,memNO,gradeDF,posDF,latestDate,state)
-					  values('EMP_A'||LPAD(Emeployee_seq.nextval,5,0),#{memNO},'D_GR01','D_PO01',sysdate,'2')
+		INSERT INTO employee (empNo, memNO, gradeDF, posDF, latestDate, state)
+		VALUES ('EMP_A' || LPAD(Emeployee_seq.nextval, 5, 0), #{memNO}, 'D_GR01', 'D_PO01', sysdate, '2')
 	</insert>
 	<!-- 검색어 조회 -->
 	<sql id="search">
 		<if test="searchType!=null">
-				<if test="searchType == 't'.toString()">
-					and memNO like '%'||#{keyword}||'%'
-				</if>
-				<if test="searchType == 'c'.toString()">
-					and email like '%'||#{keyword}||'%'
-				</if>
-				<if test="searchType == 'w'.toString()">
-					and state like '%'||#{keyword}||'%'
-				</if>
+			<if test="searchType == 't'.toString()">
+				and memNO like '%'||#{keyword}||'%'
 			</if>
+			<if test="searchType == 'c'.toString()">
+				and email like '%'||#{keyword}||'%'
+			</if>
+			<if test="searchType == 'w'.toString()">
+				and state like '%'||#{keyword}||'%'
+			</if>
+		</if>
 	</sql>
-	
+
 	<!-- 목록출력 & 검색 ()-->
 	<select id="listSearch" resultType="member">
 		select *
@@ -54,7 +55,7 @@
 
 	<!-- 페이징 -->
 	<select id="listSearchCount" resultType="int">
-		select count(*) 
+		select count(*)
 		from member
 		where personDF = 'D_PE01'
 		<include refid="search"></include>

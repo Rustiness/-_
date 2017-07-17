@@ -29,11 +29,11 @@ import com.simpact.service.CounselService;
 public class AdCounselController {
 
 	@Inject
-	private CounselService service;	
-	
+	private CounselService service;
+
 	/* 고객문의 목록 */
 	@RequestMapping("/list")
-	public String listPage(@ModelAttribute("cri") SearchCriteria cri, Model model,HttpServletRequest req) throws Exception { //게시물 목록 출력
+	public String listPage(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpServletRequest req) throws Exception { //게시물 목록 출력
 		req.getSession().getAttribute("clientMemberVO");
 		List<CounselVO> list = service.listSearchCriteria(cri);
 		model.addAttribute("list", list);
@@ -41,19 +41,18 @@ public class AdCounselController {
 		maker.setCri(cri);
 		maker.setTotalCount(service.listSearchCount(cri));
 		model.addAttribute("pageMaker", maker);
-		
 		return "/admin/counsel/list";
 	}
-	
-	@RequestMapping(value="/write", method=RequestMethod.GET)
-	public String information_uploadget(@ModelAttribute("cri") SearchCriteria cri, Model model ,HttpServletRequest req)throws Exception{
-		req.getSession().getAttribute("clientMemberVO");  
+
+	@RequestMapping(value = "/write", method = RequestMethod.GET)
+	public String information_uploadget(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpServletRequest req) throws Exception {
+		req.getSession().getAttribute("clientMemberVO");
 		List<QuestionVO> list = service.listcate();
 		List<CounselVO> list2 = service.listSearchCriteria(cri);
-    	model.addAttribute("list", list);//문의항목
-    	model.addAttribute("list2", list2);//전체리스트 + 닉네임
-    //	System.out.println(list.toString());
-    	System.out.println(list2.toString());
+		model.addAttribute("list", list);//문의항목
+		model.addAttribute("list2", list2);//전체리스트 + 닉네임
+//		System.out.println(list.toString());
+//		System.out.println(list2.toString());
 		return "admin/counsel/write";
 	}
 
@@ -65,12 +64,10 @@ public class AdCounselController {
 		attr.addFlashAttribute("msg", "SUCCESS");
 		return "redirect:/c/list";
 	}
-	
 
 	/* 고객문의 상세정보 */
 	@RequestMapping("/read")
 	public String readPage(String csNO, Model model, SearchCriteria cri) throws Exception {
-		
 		List<QuestionVO> list = service.listcate();
 		model.addAttribute("list", list);
 		model.addAttribute("boardVO", service.read(csNO));

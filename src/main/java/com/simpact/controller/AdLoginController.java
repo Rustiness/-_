@@ -29,12 +29,12 @@ public class AdLoginController {
 
 	/* 로그인후 메인화면 */
 	@RequestMapping("")
-	public String adminLogin( HttpServletRequest req) {
+	public String adminLogin(HttpServletRequest req) {
 		return "/admin/index";
 	}
 
-	@RequestMapping("/check")
-	public @ResponseBody String logincheck(String email, String pass, HttpServletRequest req, Model model) {    //로그인에 시도하여 성공 or 실패 판별
+	@RequestMapping("/check")    //로그인에 시도하여 성공 or 실패 판별
+	public @ResponseBody String logincheck(String email, String pass, HttpServletRequest req, Model model) {
 		int t = 0;
 		try {
 			t = service.loginCheck(email, pass);

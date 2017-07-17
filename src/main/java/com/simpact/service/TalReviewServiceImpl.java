@@ -66,9 +66,8 @@ public class TalReviewServiceImpl implements TalReviewService {
 	}
 
 	@Override
-	public List<TalDivVO> talhave(Map<String,String> map) throws Exception {
+	public List<TalDivVO> talhave(Map<String, String> map) throws Exception {
 		return dao.talDivVO(map);
 	}
-	
-	
+
 }

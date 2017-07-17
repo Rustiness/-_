@@ -6,17 +6,17 @@ import java.util.Date;
  * Created
  * User: kosta
  * Date: 2017-07-13
- * Time: ¿ÀÈÄ 3:30
+ * Time: ì˜¤í›„ 3:30
  */
 public class TalExcTimelineVO {
-	private String talTimeNO;   /* Å¸ÀÓ¶óÀÎ¹øÈ£ */
-	private String talConnNO;   /* Àç´É¿¬°á¹øÈ£ */
-	private String memNO;       /* È¸¿ø¹øÈ£ */
-	private String nickName;    /* ´Ğ³×ÀÓ */
-	private String content;     /* ½ÅÃ»³»¿ë */
-	private Date   writeDate;   /* µî·ÏÀÏ½Ã */
-	private String isYNview;    /* ½ÅÃ»È®ÀÎÀ¯¹« */
-	private String state;       /* ÁøÇà»óÅÂ */
+	private String talTimeNO;   /* íƒ€ì„ë¼ì¸ë²ˆí˜¸ */
+	private String talConnNO;   /* ì¬ëŠ¥ì—°ê²°ë²ˆí˜¸ */
+	private String memNO;       /* íšŒì›ë²ˆí˜¸ */
+	private String nickName;    /* ë‹‰ë„¤ì„ */
+	private String content;     /* ì‹ ì²­ë‚´ìš© */
+	private Date writeDate;     /* ë“±ë¡ì¼ì‹œ */
+	private String isYNview;    /* ì‹ ì²­í™•ì¸ìœ ë¬´ */
+	private String state;       /* ì§„í–‰ìƒíƒœ */
 
 	public TalExcTimelineVO() {
 	}

@@ -19,28 +19,27 @@ public class LoginDAOIpml implements LoginDAO {
 	SqlSession sqlSession;
 
 	@Override
-	public int loginCheck(String email,String pass) {	//로그인 가능한지 확인 -- id 와 pass를 비교하여 있으면 1 없으면 0 return;
+	public int loginCheck(String email, String pass) {    //로그인 가능한지 확인 -- id 와 pass를 비교하여 있으면 1 없으면 0 return;
 		Map<String, String> map = new HashMap<>();
 		map.put("email", email);
 		map.put("pass", pass);
-		return sqlSession.selectOne("login.login",map);
+		return sqlSession.selectOne("login.login", map);
 	}
 
 	@Override
-	public String selectMemberNO(String email) {		//이메일로 회원정보
+	public String selectMemberNO(String email) {        //이메일로 회원정보
 		return sqlSession.selectOne("login.getMemNO", email);
 	}
 
 	@Override
-	public MemberVO selectMemberinfo(String memNO) {		//회원번호로 회원정보 전체
-		return sqlSession.selectOne("login.getMeminfo",memNO);
-	}
-	
-	@Override
-	public List<MessengerVO> selectMembermsg(String memNO) {		//회원번호로 메신저리스트
-		return sqlSession.selectList("login.getMembermsg",memNO);
+	public MemberVO selectMemberinfo(String memNO) {        //회원번호로 회원정보 전체
+		return sqlSession.selectOne("login.getMeminfo", memNO);
 	}
 
+	@Override
+	public List<MessengerVO> selectMembermsg(String memNO) {        //회원번호로 메신저리스트
+		return sqlSession.selectList("login.getMembermsg", memNO);
+	}
 
 	@Override
 	public String findpass(String email, String name, String tel) {
@@ -53,7 +52,7 @@ public class LoginDAOIpml implements LoginDAO {
 
 	@Override
 	public void latestDateUpdate(String memNO) {
-		sqlSession.update("login.latestDateUpdate",memNO);
+		sqlSession.update("login.latestDateUpdate", memNO);
 	}
 
 }

@@ -34,7 +34,7 @@ public class CounselController {
 
 	/* 고객문의 목록 */
 	@RequestMapping("/list")
-	public String listPage(@ModelAttribute("cri") SearchCriteria cri, Model model,HttpServletRequest req) throws Exception { //게시물 목록 출력
+	public String listPage(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpServletRequest req) throws Exception { //게시물 목록 출력
 		req.getSession().getAttribute("clientMemberVO");
 		List<CounselVO> list = service.listSearchCriteria(cri);
 		model.addAttribute("list", list);
@@ -48,15 +48,15 @@ public class CounselController {
 
 	///////////////////////////////////////////////////////////////////
 	//입력폼으로가라~
-	@RequestMapping(value="/write", method=RequestMethod.GET)
-	public String information_uploadget(@ModelAttribute("cri") SearchCriteria cri, Model model ,HttpServletRequest req)throws Exception{
-		req.getSession().getAttribute("clientMemberVO");  
+	@RequestMapping(value = "/write", method = RequestMethod.GET)
+	public String information_uploadget(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpServletRequest req) throws Exception {
+		req.getSession().getAttribute("clientMemberVO");
 		List<QuestionVO> list = service.listcate();
 		List<CounselVO> list2 = service.listSearchCriteria(cri);
-    	model.addAttribute("list", list);//문의항목
-    	model.addAttribute("list2", list2);//전체리스트 + 닉네임
-    //	System.out.println(list.toString());
-    	System.out.println(list2.toString());
+		model.addAttribute("list", list);//문의항목
+		model.addAttribute("list2", list2);//전체리스트 + 닉네임
+		//	System.out.println(list.toString());
+//		System.out.println(list2.toString());
 		return "client/counsel/write";
 	}
 
@@ -74,7 +74,6 @@ public class CounselController {
 	//게시물 읽기
 	@RequestMapping("/read")
 	public String readPage(String csNO, Model model, SearchCriteria cri) throws Exception {
-		
 		List<QuestionVO> list = service.listcate();
 		model.addAttribute("list", list);
 		model.addAttribute("boardVO", service.read(csNO));
@@ -95,7 +94,6 @@ public class CounselController {
 	@RequestMapping(value = "/mod", method = RequestMethod.POST) //요청 URL
 	public String update2(CounselVO vo, SearchCriteria cri, RedirectAttributes attr) throws Exception {
 		service.modify(vo);
-
 		attr.addAttribute("page", cri.getPage());
 		attr.addAttribute("perPageNum", cri.getPerPageNum());
 		attr.addAttribute("searchType", cri.getSearchType());

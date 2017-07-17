@@ -2,6 +2,13 @@ package com.simpact.domain;
 
 import java.sql.Date;
 
+/**
+ * Created
+ * User: kosta
+ * Date: 2017-07-17
+ * Time: 오후 5:03
+ */
+
 public class TalBoardVO {
 	private String talDocNO;
 	private String title;
@@ -14,7 +21,6 @@ public class TalBoardVO {
 	private String memNO;
 	private int isYnFile;
 	private String nickName;
-
 
 	public String getTalDocNO() {
 		return talDocNO;
@@ -111,6 +117,4 @@ public class TalBoardVO {
 				+ ", repairDate=" + repairDate + ", memNO=" + memNO + ", isYnFile=" + isYnFile + ", nickName="
 				+ nickName + "]";
 	}
-
-
 }

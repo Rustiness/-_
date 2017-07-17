@@ -11,9 +11,9 @@ import com.simpact.domain.TalReviewReplyVO;
 import com.simpact.persistence.TalExchangeReplyDAO;
 
 @Service
-public class TalExchageReplyServiceImpl implements TalExchageReplyService{
+public class TalExchageReplyServiceImpl implements TalExchageReplyService {
 	//Controller ---> Service ---> DAO ---> xml
-	
+
 	@Inject
 	private TalExchangeReplyDAO dao;
 
@@ -46,10 +46,5 @@ public class TalExchageReplyServiceImpl implements TalExchageReplyService{
 	public int count(String commExNO) throws Exception {
 		return dao.count(commExNO);
 	}
-	
-	
-	
 
-	
-	
 }

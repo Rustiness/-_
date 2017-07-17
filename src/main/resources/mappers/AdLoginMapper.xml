@@ -19,10 +19,10 @@
 	</select>
 
 	<!-- 로그인 성공시 최근접속일 최신화 -->
-	<update id="latestDateUpdate" >
+	<update id="latestDateUpdate">
 		UPDATE member
 		SET latestDate = sysdate
-		where memNO = #{memNO}
+		WHERE memNO = #{memNO}
 	</update>
 
 	<!-- momNO를 통한 전체 정보 얻기-->

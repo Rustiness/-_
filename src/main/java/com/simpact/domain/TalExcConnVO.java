@@ -3,16 +3,16 @@ package com.simpact.domain;
 import java.util.Date;
 
 public class TalExcConnVO {
-	private String talConnNO; /* 재능연결번호 */
-	private String talDocNO; /* 재능글번호 */
-	private String memNO; /* 회원번호(신청자) */
-	private String title; /* 신청제목 */
-	private String content; /* 신청내용 */
-	private Date reqDate; /* 신청일시 */
-	private String isYNview; /* 신청확인유무 */
-	private String state; /* 진행상태 */
+	private String talConnNO;   /* 재능연결번호 */
+	private String talDocNO;    /* 재능글번호 */
+	private String memNO;       /* 회원번호(신청자) */
+	private String title;       /* 신청제목 */
+	private String content;     /* 신청내용 */
+	private Date reqDate;       /* 신청일시 */
+	private String isYNview;    /* 신청확인유무 */
+	private String state;       /* 진행상태 */
 
-	private String nickName;//신청자 닉네임
+	private String nickName;    /* 신청자 닉네임 */
 
 	public TalExcConnVO() {
 	}

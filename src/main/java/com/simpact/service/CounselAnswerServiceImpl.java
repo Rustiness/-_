@@ -11,7 +11,7 @@ import com.simpact.domain.Criteria;
 import com.simpact.persistence.CounselAnswerDAO;
 
 @Service
-public class CounselAnswerServiceImpl implements CounselAnswerService{
+public class CounselAnswerServiceImpl implements CounselAnswerService {
 
 	@Inject
 	private CounselAnswerDAO dao;
@@ -19,19 +19,16 @@ public class CounselAnswerServiceImpl implements CounselAnswerService{
 	@Override
 	public void addReply(CounselAnswerVO vo) throws Exception {
 		dao.create(vo);
-		
 	}
 
 	@Override
 	public void modifyReply(CounselAnswerVO vo) throws Exception {
 		dao.update(vo);
-		
 	}
 
 	@Override
 	public void removeReply(String answerNO) throws Exception {
 		dao.delete(answerNO);
-		
 	}
 
 	@Override
@@ -48,6 +45,6 @@ public class CounselAnswerServiceImpl implements CounselAnswerService{
 	public int count(String csNO) throws Exception {
 		return dao.count(csNO);
 	}
-	
+
 
 }

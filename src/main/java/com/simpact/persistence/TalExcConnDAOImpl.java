@@ -92,7 +92,6 @@ public class TalExcConnDAOImpl implements TalExcConnDAO {
 	public List<TalDivVO> listTalDivCn(SearchCriteria cri) throws Exception {
 		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
 		List<TalDivVO> list = sqlSession.selectList("talExcConn.listTalDivCn", null, bounds);
-
 		return sqlSession.selectList("talExcConn.listTalDivCn", null, bounds);
 	}
 
