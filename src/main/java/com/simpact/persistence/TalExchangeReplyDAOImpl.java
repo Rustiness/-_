@@ -13,7 +13,7 @@ import com.simpact.domain.TalReviewReplyVO;
 
 /**
  * Created
- * User: kosta
+ * User: simpact
  * Date: 2017-07-17
  * Time: 오후 5:03
  */

@@ -11,7 +11,7 @@ import java.sql.Connection;
 
 /**
  * Created
- * User: kosta
+ * User: simpact
  * Date: 2017-06-21
  * Time: 오전 11:04
  */

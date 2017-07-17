@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * Created
- * User: kosta
+ * User: simpact
  * Date: 2017-07-13
  * Time: 오후 3:30
  */
